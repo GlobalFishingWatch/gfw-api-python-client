@@ -60,12 +60,12 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "httpx>=0.28.1",              # Making HTTP requests
-  "pydantic>=2.10.6",           # Data validation and serialization
-  "pydantic-settings>=2.7.1",   # Type-hinted configurations or settings
-  "mapbox-vector-tile>=2.1.0",  # Encoding and decoding Mapbox Vector Tiles (MVT)
-  "pandas>=2.2.3",              # Data analysis and manipulation
-  "geopandas>=1.0.1",           # Geospatial data analysis and manipulation
+  "httpx~=0.28",                # Making HTTP requests
+  "pydantic~=2.10",             # Data validation and serialization
+  "pydantic-settings~=2.7",     # Type-hinted configurations or settings
+  "mapbox-vector-tile~=2.1",    # Encoding and decoding Mapbox Vector Tiles (MVT)
+  "pandas~=2.2",                # Data analysis and manipulation
+  "geopandas~=1.0",             # Geospatial data analysis and manipulation
 ]
 
 [project.optional-dependencies]
