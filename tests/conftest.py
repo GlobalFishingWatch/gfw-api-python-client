@@ -1,1 +1,1 @@
-"""Test for gfwapiclient."""
+"""Test configurations for `gfwapiclient`."""
