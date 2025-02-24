@@ -152,6 +152,7 @@ select = [
 ignore = [
   "E501",    # line too long, handled by black
   "C901",    # too complex
+  "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
 ]
 
 [tool.ruff.lint.per-file-ignores]
