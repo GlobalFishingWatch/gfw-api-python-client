@@ -1,0 +1,49 @@
+repos:
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+  - id: check-ast
+  - id: check-added-large-files
+  - id: check-yaml
+    args: [--unsafe]
+  - id: check-toml
+  - id: debug-statements
+  - id: end-of-file-fixer
+  - id: fix-byte-order-marker
+  - id: fix-encoding-pragma
+    args: [--remove]
+  - id: name-tests-test
+    args: [--pytest-test-first]
+  - id: mixed-line-ending
+  - id: trailing-whitespace
+
+- repo: local
+  hooks:
+  - id: lint
+    name: check code standards (lint)
+    entry: make lint
+    types: [python]
+    language: system
+    pass_filenames: false
+
+  - id: codespell
+    name: check code for misspellings (codespell)
+    entry: codespell
+    types: [text]
+    language: python
+    pass_filenames: false
+    additional_dependencies:
+      - tomli
+
+  - id: typecheck
+    name: check static types (mypy)
+    entry: make typecheck
+    types: [python]
+    language: system
+    pass_filenames: false
+
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v4.2.2
+  hooks:
+    - id: commitizen
