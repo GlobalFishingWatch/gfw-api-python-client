@@ -1,6 +1,12 @@
 # GFW API Python Client
-Python package for accessing data from Global Fishing Watch (GFW) APIs.
 
+<!-- start: badges -->
+[![license](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE)
+
+[![pre-commit action](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml)
+<!-- end: badges -->
+
+Python package for accessing data from Global Fishing Watch (GFW) APIs.
 
 > **Important:**
 This version of `gfw-api-python-client` gives access to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation#version-3-api). Starting April 30th, 2024, this is the official API version. For latest API releases, please check our [API release notes](https://globalfishingwatch.org/our-apis/documentation#api-release-notes)
