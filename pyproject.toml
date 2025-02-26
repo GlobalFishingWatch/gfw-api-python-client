@@ -147,7 +147,7 @@ select = [
     "C",    # flake8-comprehensions
     "B",    # flake8-bugbear
     "I",    # isort
-    # "D",    # pydocstyle
+    "D",    # pydocstyle
 ]
 ignore = [
   "E501",    # line too long, handled by black
