@@ -15,3 +15,8 @@ Features:
 For more details, visit the official
 `Global Fishing Watch API Documentation <https://globalfishingwatch.org/our-apis/documentation#version-3-api>`_.
 """
+
+from gfwapiclient.exceptions import GFWError
+
+
+__all__ = ["GFWError"]
