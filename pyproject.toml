@@ -82,6 +82,7 @@ lint = [
 # Testing tools
 test = [
   "pytest>=8.3.4",            # Core testing framework
+  "pytest-asyncio>=0.25.3",   # Asyncio plugin for pytest
   "pytest-cov>=6.0.0",        # Coverage plugin for pytest
   "pytest-mock>=3.14.0",      # Mocking plugin for pytest
   "pytest-xdist>=3.6.1",      # Parallel test execution for pytest
