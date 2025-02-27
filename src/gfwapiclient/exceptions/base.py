@@ -30,7 +30,7 @@ class GFWError(Exception):
     """
 
     def __init__(self, message: Optional[str] = None) -> None:
-        """Initialize a new GFWError exception.
+        """Initialize a new `GFWError` exception.
 
         Args:
             message (Optional[str], default=None):

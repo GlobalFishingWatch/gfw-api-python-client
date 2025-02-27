@@ -1,12 +1,14 @@
-"""Tests for `gfwapiclient.http.client.HttpClient`."""
+"""Tests for `gfwapiclient.http.client.HTTPClient`."""
 
 import os
 
 import httpx
 import pytest
 
+from pytest_mock import MockerFixture
+
 from gfwapiclient.exceptions.base import GFWError
-from gfwapiclient.http.client import HttpClient
+from gfwapiclient.http.client import HTTPClient
 
 
 MOCK_BASE_URL = "https://gateway.api.mocking.globalfishingwatch.org/v3/"
@@ -14,62 +16,203 @@ MOCK_BASE_URL = "https://gateway.api.mocking.globalfishingwatch.org/v3/"
 
 @pytest.fixture
 def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Set a mock base URL for testing by modifying the environment variable."""
+    """Fixture to set a mock base URL using an environment variable."""
     monkeypatch.setenv("GFW_API_BASE_URL", MOCK_BASE_URL)
 
 
-def test_http_client_initialization_with_base_url() -> None:
-    """Test successful initialization with an explicitly provided base URL."""
-    client = HttpClient(base_url=MOCK_BASE_URL)
-    assert isinstance(client, HttpClient)
+@pytest.fixture
+def mock_transport() -> httpx.MockTransport:
+    """Fixture providing a mock HTTP transport for `HTTPClient`.
+
+    This fixture simulates various HTTP responses, including:
+    - `200 OK`
+    - `301 Redirect`
+    - `404 Not Found`
+    - `500 Internal Server Error`
+    - `400 Bad Request`
+    """
+
+    async def request_handler(request: httpx.Request) -> httpx.Response:
+        """Handle mock HTTP requests based on the request path."""
+        match request.url.path:
+            case "/v3/ok":
+                return httpx.Response(200, json={"message": "success"})
+            case "/v3/redirect":
+                return httpx.Response(301, headers={"Location": "/v3/ok"})
+            case "/v3/notfound":
+                return httpx.Response(404, json={"error": "Not Found"})
+            case "/v3/server-error":
+                return httpx.Response(500, json={"error": "Server Error"})
+            case _:
+                return httpx.Response(400, json={"error": "Bad Request"})
+
+    return httpx.MockTransport(request_handler)
+
+
+def test_http_client_initialization_with_explicit_base_url() -> None:
+    """Test that `HTTPClient` initializes successfully when a `base_url` is explicitly provided."""
+    client = HTTPClient(base_url=MOCK_BASE_URL)
+    assert isinstance(client, HTTPClient)
     assert str(client.base_url) == MOCK_BASE_URL
 
 
-def test_http_client_initialization_with_env_var(mock_base_url: object) -> None:
-    """Test successful initialization using the environment variable."""
-    client = HttpClient()
-    assert isinstance(client, HttpClient)
+def test_http_client_initialization_with_env_var(mock_base_url: str) -> None:
+    """Test that `HTTPClient` initializes successfully using the `GFW_API_BASE_URL` environment variable."""
+    client = HTTPClient()
+    assert isinstance(client, HTTPClient)
     assert str(client.base_url) == MOCK_BASE_URL
 
 
 def test_http_client_initialization_without_base_url() -> None:
-    """Test that initializing without a base_url or environment variable raises GFWError."""
+    """Test that initializing `HTTPClient` without a base_url or environment variable raises `GFWError`."""
     os.environ.pop("GFW_API_BASE_URL", None)
     with pytest.raises(GFWError, match="The `base_url` must be provided"):
-        HttpClient()
+        HTTPClient()
 
 
-def test_http_client_timeout_config(mock_base_url: object) -> None:
-    """Test that timeout settings are correctly applied."""
-    client = HttpClient(timeout=30, connect_timeout=10)
+def test_http_client_initialization_without_base_url_or_env_var() -> None:
+    """Test that initializing `HTTPClient` without a `base_url` or `GFW_API_BASE_URL` environment variable raises a `GFWError`."""
+    os.environ.pop("GFW_API_BASE_URL", None)
+    # TODO: BaseUrlError
+    with pytest.raises(GFWError, match="The `base_url` must be provided"):
+        HTTPClient()
+
+
+def test_http_client_apply_timeouts(mock_base_url: object) -> None:
+    """Test that `HTTPClient` operations `timeout` are correctly applied."""
+    client = HTTPClient(timeout=30, connect_timeout=10)
     assert isinstance(client.timeout, httpx.Timeout)
     assert client.timeout.read == 30
     assert client.timeout.write == 30
     assert client.timeout.pool == 30
     assert client.timeout.connect == 10
 
+    # Defaults
+    client = HTTPClient()
+    assert isinstance(client.timeout, httpx.Timeout)
+    assert client.timeout.read == 60
+    assert client.timeout.write == 60
+    assert client.timeout.pool == 60
+    assert client.timeout.connect == 5
 
-def test_http_client_connection_limits(mock_base_url: object) -> None:
-    """Test that connection limits are correctly applied."""
-    client = HttpClient(max_connections=50, max_keepalive_connections=25)
+
+def test_http_client_apply_connection_limits(mock_base_url: object) -> None:
+    """Test that `HTTPClient` connection `limits` are correctly applied."""
+    client = HTTPClient(max_connections=50, max_keepalive_connections=25)
     assert isinstance(client._transport, httpx.AsyncHTTPTransport)
     assert client._transport._pool._max_connections == 50
     assert client._transport._pool._max_keepalive_connections == 25
 
+    # Defaults
+    client = HTTPClient()
+    assert isinstance(client._transport, httpx.AsyncHTTPTransport)
+    assert client._transport._pool._max_connections == 100
+    assert client._transport._pool._max_keepalive_connections == 20
 
-def test_http_client_follow_redirects(mock_base_url: object) -> None:
-    """Test that HttpClient respects the `follow_redirects` parameter."""
-    client = HttpClient(follow_redirects=False)
+
+def test_http_client_apply_follow_redirects(mock_base_url: object) -> None:
+    """Test that `HTTPClient` `follow_redirects` is correctly applied."""
+    client = HTTPClient(follow_redirects=False)
     assert client.follow_redirects is False
 
-    client_with_redirects = HttpClient(follow_redirects=True)
+    client_with_redirects = HTTPClient(follow_redirects=True)
+    assert client_with_redirects.follow_redirects is True
+
+    # Defaults
+    client_with_redirects = HTTPClient()
     assert client_with_redirects.follow_redirects is True
 
 
-def test_http_client_max_redirects(mock_base_url: object) -> None:
-    """Test that HttpClient correctly applies `max_redirects`."""
-    client = HttpClient(max_redirects=5)
+def test_http_client_apply_max_redirects(mock_base_url: object) -> None:
+    """Test that `HTTPClient` `max_redirects` is correctly applied."""
+    client = HTTPClient(max_redirects=5)
     assert client.max_redirects == 5
 
-    client_with_default_redirects = HttpClient()
-    assert client_with_default_redirects.max_redirects == 2  # Default value
+    # Defaults
+    client_with_default_redirects = HTTPClient()
+    assert client_with_default_redirects.max_redirects == 2
+
+
+@pytest.mark.asyncio
+async def test_http_client_aenter(mock_base_url: object) -> None:
+    """Test that `__aenter__` returns the `HTTPClient` instance."""
+    async with HTTPClient() as client:
+        assert isinstance(client, HTTPClient)
+
+
+@pytest.mark.asyncio
+async def test_http_client_aexit_calls_aclose(
+    mock_base_url: object,
+    mocker: MockerFixture,
+) -> None:
+    """Test that `__aexit__` calls `aclose()` to clean up resources."""
+    client = HTTPClient()
+    mock_aclose = mocker.patch.object(client, "aclose", autospec=True)
+
+    async with client:
+        pass  # No operation, just testing context management
+
+    mock_aclose.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_http_client_aexit_on_exception(
+    mock_base_url: object,
+    mocker: MockerFixture,
+) -> None:
+    """Test that `__aexit__` calls `aclose()` even when an exception occurs."""
+    client = HTTPClient()
+    mock_aclose = mocker.patch.object(client, "aclose", autospec=True)
+
+    with pytest.raises(GFWError):
+        async with client:
+            raise GFWError("Connection error")  # Force exception
+
+    mock_aclose.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_http_client_follow_redirects(
+    mock_base_url: object,
+    mock_transport: httpx.MockTransport,
+) -> None:
+    """Test that `HTTPClient` follows redirects."""
+    async with HTTPClient(transport=mock_transport) as client:
+        response = await client.get("/redirect")
+        assert response.status_code == 200
+        assert response.json() == {"message": "success"}
+
+
+@pytest.mark.asyncio
+async def test_http_client_max_redirects_exceeded(
+    mock_base_url: object,
+    mock_transport: httpx.MockTransport,
+) -> None:
+    """Test that `HTTPClient` enforces `max_redirects` limit."""
+    async with HTTPClient(transport=mock_transport, max_redirects=0) as client:
+        with pytest.raises(httpx.TooManyRedirects):
+            await client.get("/redirect")
+
+
+@pytest.mark.asyncio
+async def test_http_client_issue_get_request(
+    mock_base_url: object,
+    mock_transport: httpx.MockTransport,
+) -> None:
+    """Test that `HTTPClient` can issue GET request."""
+    async with HTTPClient(transport=mock_transport) as client:
+        response = await client.get("/ok")
+        assert response.status_code == 200
+        assert response.json() == {"message": "success"}
+
+
+@pytest.mark.asyncio
+async def test_http_client_issue_post_request(
+    mock_base_url: object,
+    mock_transport: httpx.MockTransport,
+) -> None:
+    """Test that `HTTPClient` can issue POST request."""
+    async with HTTPClient(transport=mock_transport) as client:
+        response = await client.post("/ok")
+        assert response.status_code == 200
+        assert response.json() == {"message": "success"}
