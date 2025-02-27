@@ -8,6 +8,7 @@ import pytest
 from pytest_mock import MockerFixture
 
 from gfwapiclient.exceptions.base import GFWError
+from gfwapiclient.exceptions.client import BaseUrlError
 from gfwapiclient.http.client import HTTPClient
 
 
@@ -63,18 +64,10 @@ def test_http_client_initialization_with_env_var(mock_base_url: str) -> None:
     assert str(client.base_url) == MOCK_BASE_URL
 
 
-def test_http_client_initialization_without_base_url() -> None:
-    """Test that initializing `HTTPClient` without a base_url or environment variable raises `GFWError`."""
-    os.environ.pop("GFW_API_BASE_URL", None)
-    with pytest.raises(GFWError, match="The `base_url` must be provided"):
-        HTTPClient()
-
-
 def test_http_client_initialization_without_base_url_or_env_var() -> None:
-    """Test that initializing `HTTPClient` without a `base_url` or `GFW_API_BASE_URL` environment variable raises a `GFWError`."""
+    """Test that initializing `HTTPClient` without a `base_url` or `GFW_API_BASE_URL` environment variable raises a `BaseUrlError`."""
     os.environ.pop("GFW_API_BASE_URL", None)
-    # TODO: BaseUrlError
-    with pytest.raises(GFWError, match="The `base_url` must be provided"):
+    with pytest.raises(BaseUrlError, match="The `base_url` must be provided"):
         HTTPClient()
 
 
