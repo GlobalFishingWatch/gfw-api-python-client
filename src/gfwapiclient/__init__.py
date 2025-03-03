@@ -16,7 +16,42 @@ For more details, visit the official
 `Global Fishing Watch API Documentation <https://globalfishingwatch.org/our-apis/documentation#version-3-api>`_.
 """
 
-from gfwapiclient.exceptions import BaseUrlError, GFWError
+from gfwapiclient.client import Client
+from gfwapiclient.exceptions import (
+    AccessTokenError,
+    APIConnectionError,
+    APIResponseValidationError,
+    APIStatusError,
+    APITimeoutError,
+    AuthenticationError,
+    BadRequestError,
+    BaseUrlError,
+    ConflictError,
+    GFWError,
+    InternalServerError,
+    NotFoundError,
+    PermissionDeniedError,
+    RateLimitError,
+    UnprocessableEntityError,
+)
 
 
-__all__ = ["BaseUrlError", "GFWError"]
+__all__ = [
+    "APIConnectionError",
+    "APIResponseValidationError",
+    "APIStatusError",
+    "APITimeoutError",
+    "AccessTokenError",
+    "AuthenticationError",
+    "BadRequestError",
+    "BaseUrlError",
+    "BaseUrlError",
+    "Client",
+    "ConflictError",
+    "GFWError",
+    "InternalServerError",
+    "NotFoundError",
+    "PermissionDeniedError",
+    "RateLimitError",
+    "UnprocessableEntityError",
+]

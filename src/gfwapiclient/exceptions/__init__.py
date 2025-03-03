@@ -18,8 +18,41 @@ Example:
     ```
 """
 
-from gfwapiclient.exceptions.base import GFWError
-from gfwapiclient.exceptions.client import BaseUrlError
+from gfwapiclient.exceptions.base import (
+    APIConnectionError,
+    APIResponseValidationError,
+    APIStatusError,
+    GFWError,
+)
+from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
+from gfwapiclient.exceptions.http import (
+    APITimeoutError,
+    AuthenticationError,
+    BadRequestError,
+    ConflictError,
+    InternalServerError,
+    NotFoundError,
+    PermissionDeniedError,
+    RateLimitError,
+    UnprocessableEntityError,
+)
 
 
-__all__ = ["BaseUrlError", "GFWError"]
+__all__ = [
+    "APIConnectionError",
+    "APIResponseValidationError",
+    "APIStatusError",
+    "APITimeoutError",
+    "AccessTokenError",
+    "AuthenticationError",
+    "BadRequestError",
+    "BaseUrlError",
+    "ConflictError",
+    "GFWError",
+    "GFWError",
+    "InternalServerError",
+    "NotFoundError",
+    "PermissionDeniedError",
+    "RateLimitError",
+    "UnprocessableEntityError",
+]
