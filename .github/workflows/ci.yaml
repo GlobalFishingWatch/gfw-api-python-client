@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  ci:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ["3.12", "3.13"]
+
+    steps:
+    - name: Checkout codes
+      id: checkout-codes
+      uses: actions/checkout@v4.2.2
+
+    - name: Setup python
+      id: setup-python
+      uses: actions/setup-python@v5.4.0
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: x64
+
+    - name: Install dependencies
+      id: install-dependencies
+      run: make install
+
+    - name: Run pre-commit checks
+      id: run-pre-commit-checks
+      run: make pre-commit
+
+    - name: Run tests
+      id: run-tests
+      run: make test
+
+    - name: Upload coverage reports to Codecov
+      id: upload-coverage-reports-to-codecov
+      uses: codecov/codecov-action@v5.3.1
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
