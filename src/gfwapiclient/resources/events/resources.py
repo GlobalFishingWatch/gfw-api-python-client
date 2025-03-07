@@ -5,13 +5,29 @@ import datetime
 from typing import Any, Dict, List, Optional
 
 from gfwapiclient.http.resources import BaseResource
-from gfwapiclient.resources.events.models.request import EventDataset
+from gfwapiclient.resources.events.base.enums import (
+    EventConfidence,
+    EventDataset,
+    EventEncounterType,
+    EventType,
+    EventVesselType,
+)
+from gfwapiclient.resources.events.base.request import EventGeometry, EventRegion
+from gfwapiclient.resources.events.list.endpoints import EventListEndPoint
+from gfwapiclient.resources.events.list.models.request import (
+    EventListBody,
+    EventListParams,
+)
+from gfwapiclient.resources.events.list.models.response import EventListResult
 from gfwapiclient.resources.events.stats.endpoints import EventStatsEndPoint
 from gfwapiclient.resources.events.stats.models.request import (
     EventStatsBody,
     EventStatsTimeSeriesInterval,
 )
 from gfwapiclient.resources.events.stats.models.response import EventStatsResult
+
+
+__all__ = ["EventResource"]
 
 
 class EventResource(BaseResource):
@@ -68,3 +84,150 @@ class EventResource(BaseResource):
         )
         result = endpoint.request()
         return result
+
+    async def aget_events(
+        self,
+        # body
+        datasets: List[EventDataset],
+        vessels: Optional[List[str]] = None,
+        types: Optional[List[EventType]] = None,
+        start_date: Optional[datetime.date] = None,
+        end_date: Optional[datetime.date] = None,
+        confidences: Optional[List[EventConfidence]] = None,
+        encounter_types: Optional[List[EventEncounterType]] = None,
+        duration: Optional[int] = 90,
+        vessel_groups: Optional[List[str]] = None,
+        flags: Optional[List[str]] = None,
+        geometry: Optional[EventGeometry] = None,
+        region: Optional[EventRegion] = None,
+        vessel_types: Optional[List[EventVesselType]] = None,
+        # params
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        sort: Optional[str] = None,
+        **kwargs: Dict[str, Any],
+    ) -> EventListResult:
+        """Asynchronously get list events."""
+        endpoint = self._make_event_list_endpoint(
+            # body
+            datasets=datasets,
+            vessels=vessels,
+            types=types,
+            start_date=start_date,
+            end_date=end_date,
+            confidences=confidences,
+            encounter_types=encounter_types,
+            duration=duration,
+            vessel_groups=vessel_groups,
+            flags=flags,
+            geometry=geometry,
+            region=region,
+            vessel_types=vessel_types,
+            # params
+            limit=limit,
+            offset=offset,
+            sort=sort,
+            **kwargs,
+        )
+        result = await endpoint.arequest()
+        return result
+
+    def get_events(
+        self,
+        # body
+        datasets: List[EventDataset],
+        vessels: Optional[List[str]] = None,
+        types: Optional[List[EventType]] = None,
+        start_date: Optional[datetime.date] = None,
+        end_date: Optional[datetime.date] = None,
+        confidences: Optional[List[EventConfidence]] = None,
+        encounter_types: Optional[List[EventEncounterType]] = None,
+        duration: Optional[int] = 90,
+        vessel_groups: Optional[List[str]] = None,
+        flags: Optional[List[str]] = None,
+        geometry: Optional[EventGeometry] = None,
+        region: Optional[EventRegion] = None,
+        vessel_types: Optional[List[EventVesselType]] = None,
+        # params
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        sort: Optional[str] = None,
+        **kwargs: Dict[str, Any],
+    ) -> EventListResult:
+        """Synchronously get list events."""
+        endpoint = self._make_event_list_endpoint(
+            # body
+            datasets=datasets,
+            vessels=vessels,
+            types=types,
+            start_date=start_date,
+            end_date=end_date,
+            confidences=confidences,
+            encounter_types=encounter_types,
+            duration=duration,
+            vessel_groups=vessel_groups,
+            flags=flags,
+            geometry=geometry,
+            region=region,
+            vessel_types=vessel_types,
+            # params
+            limit=limit,
+            offset=offset,
+            sort=sort,
+            **kwargs,
+        )
+        result = endpoint.request()
+        return result
+
+    def _make_event_list_endpoint(
+        self,
+        # body
+        datasets: List[EventDataset],
+        vessels: Optional[List[str]] = None,
+        types: Optional[List[EventType]] = None,
+        start_date: Optional[datetime.date] = None,
+        end_date: Optional[datetime.date] = None,
+        confidences: Optional[List[EventConfidence]] = None,
+        encounter_types: Optional[List[EventEncounterType]] = None,
+        duration: Optional[int] = 90,
+        vessel_groups: Optional[List[str]] = None,
+        flags: Optional[List[str]] = None,
+        geometry: Optional[EventGeometry] = None,
+        region: Optional[EventRegion] = None,
+        vessel_types: Optional[List[EventVesselType]] = None,
+        # params
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        sort: Optional[str] = None,
+        **kwargs: Dict[str, Any],
+    ) -> EventListEndPoint:
+        """Initializes a new `EventListEndPoint` API endpoint."""
+        request_params = EventListParams(
+            limit=limit,
+            offset=offset,
+            sort=sort,
+        )
+
+        request_body = EventListBody(
+            datasets=datasets,
+            vessels=vessels,
+            types=types,
+            start_date=start_date,
+            end_date=end_date,
+            confidences=confidences,
+            encounter_types=encounter_types,
+            duration=duration,
+            vessel_groups=vessel_groups,
+            flags=flags,
+            geometry=geometry,
+            region=region,
+            vessel_types=vessel_types,
+        )
+
+        endpoint = EventListEndPoint(
+            request_params=request_params,
+            request_body=request_body,
+            http_client=self._http_client,
+        )
+
+        return endpoint

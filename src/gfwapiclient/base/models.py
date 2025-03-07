@@ -36,6 +36,7 @@ class BaseModel(PydanticBaseModel):
             validation_alias=to_camel,
         ),
         populate_by_name=True,
+        use_enum_values=True,
         str_strip_whitespace=True,
         extra="allow",
     )

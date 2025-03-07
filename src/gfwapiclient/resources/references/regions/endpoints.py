@@ -1,7 +1,7 @@
 """Global Fishing Watch (GFW) API Python Client - Region API EndPoints."""
 
 from gfwapiclient.http.client import HTTPClient
-from gfwapiclient.http.endpoint import GetEndPoint
+from gfwapiclient.http.endpoints import GetEndPoint
 from gfwapiclient.http.models import RequestBody, RequestParams
 from gfwapiclient.resources.references.regions.models import (
     EEZRegionItem,

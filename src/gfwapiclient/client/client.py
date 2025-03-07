@@ -4,8 +4,10 @@ from typing import Any, Optional
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.resources.events.resources import EventResource
+from gfwapiclient.resources.fourwings.resources import FourWingsResource
 from gfwapiclient.resources.insights.resources import InsightResource
 from gfwapiclient.resources.references.resources import ReferenceResource
+from gfwapiclient.resources.vessels.resources import VesselResource
 
 
 __all__ = ["Client"]
@@ -14,6 +16,8 @@ __all__ = ["Client"]
 class Client:
     """Global Fishing Watch (GFW) API client."""
 
+    _fourwings: FourWingsResource
+    _vessels: VesselResource
     _events: EventResource
     _insights: InsightResource
     _references: ReferenceResource
@@ -45,6 +49,20 @@ class Client:
         )
 
     @property
+    def fourwings(self) -> FourWingsResource:
+        """4Wings data API resource."""
+        if not hasattr(self, "_fourwings"):
+            self._fourwings = FourWingsResource(http_client=self._http_client)
+        return self._fourwings
+
+    @property
+    def vessels(self) -> VesselResource:
+        """Vessels data API resource."""
+        if not hasattr(self, "_vessels"):
+            self._vessels = VesselResource(http_client=self._http_client)
+        return self._vessels
+
+    @property
     def events(self) -> EventResource:
         """Events data API resource."""
         if not hasattr(self, "_events"):
@@ -65,5 +83,5 @@ class Client:
             self._references = ReferenceResource(http_client=self._http_client)
         return self._references
 
-    # TODO: shortcuts
-    # TODO: flows
+    # TODO: shortcuts [DataFrameClient]
+    # TODO: flows [FlowClient]

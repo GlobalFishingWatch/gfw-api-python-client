@@ -1,6 +1,15 @@
-"""Global Fishing Watch (GFW) API Python Client -  Events Request Models."""
+"""Global Fishing Watch (GFW) API Python Client - Events API Base Enums."""
 
 from enum import Enum
+
+
+__all__ = [
+    "EventConfidence",
+    "EventDataset",
+    "EventEncounterType",
+    "EventType",
+    "EventVesselType",
+]
 
 
 class EventType(str, Enum):
@@ -24,10 +33,21 @@ class EventConfidence(int, Enum):
 class EventEncounterType(str, Enum):
     """Event encounter type."""
 
+    # stats
     CARRIER_FISHING = "CARRIER-FISHING"
     FISHING_CARRIER = "FISHING-CARRIER"
     FISHING_SUPPORT = "FISHING-SUPPORT"
     SUPPORT_FISHING = "SUPPORT-FISHING"
+    # list
+    FISHING_BUNKER = "FISHING-BUNKER"
+    BUNKER_FISHING = "BUNKER-FISHING"
+    FISHING_FISHING = "FISHING-FISHING"
+    FISHING_TANKER = "FISHING-TANKER"
+    TANKER_FISHING = "TANKER-FISHING"
+    CARRIER_BUNKER = "CARRIER-BUNKER"
+    BUNKER_CARRIER = "BUNKER-CARRIER"
+    SUPPORT_BUNKER = "SUPPORT-BUNKER"
+    BUNKER_SUPPORT = "BUNKER-SUPPORT"
     # TODO: add missing
 
 
@@ -44,6 +64,10 @@ class EventVesselType(str, Enum):
     PASSENGER = "PASSENGER"
     SEISMIC_VESSEL = "SEISMIC_VESSEL"
     SUPPORT = "SUPPORT"
+
+    # list
+    OTHER_NON_FISHING = "OTHER_NON_FISHING"
+    BUNKER_OR_TANKER = "BUNKER_OR_TANKER"
     # TODO: add missing
 
 

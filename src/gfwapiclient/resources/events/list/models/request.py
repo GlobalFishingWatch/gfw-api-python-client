@@ -1,13 +1,12 @@
-"""Global Fishing Watch (GFW) API Python Client - Events Statistics Request Models."""
+"""Global Fishing Watch (GFW) API Python Client - Events List API Request Models."""
 
 import datetime
 
-from enum import Enum
 from typing import List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.http.models import RequestBody
+from gfwapiclient.http.models import RequestBody, RequestParams
 from gfwapiclient.resources.events.base.enums import (
     EventConfidence,
     EventDataset,
@@ -18,34 +17,41 @@ from gfwapiclient.resources.events.base.enums import (
 from gfwapiclient.resources.events.base.request import EventGeometry, EventRegion
 
 
-__all__ = ["EventStatsBody"]
+__all__ = ["EventListParams", "RequestBody"]
 
 
-class EventStatsTimeSeriesInterval(str, Enum):
-    """Event statistics time series granularity."""
+class EventListParams(RequestParams):
+    """Request query parameters for get all events API endpoint."""
 
-    HOUR = "HOUR"
-    DAY = "DAY"
-    MONTH = "MONTH"
-    YEAR = "YEAR"
-
-
-class EventStatsInclude(str, Enum):
-    """Event statistics include."""
-
-    TOTAL_COUNT = "TOTAL_COUNT"
-    TIME_SERIES = "TIME_SERIES"
+    # TODO: default, max limit
+    limit: Optional[int] = Field(
+        99999,
+        description="Amount of search results to return.",
+    )
+    offset: Optional[int] = Field(
+        0,
+        description="Offset into the search results, used for pagination.",
+    )
+    sort: Optional[str] = Field(
+        None,
+        description="Property used to sort, depends on the dataset.",
+    )
 
 
 # TODO: extend EventBody
-class EventStatsBody(RequestBody):
-    """Event statistics request body."""
+class EventListBody(RequestBody):
+    """Request body for get all events API endpoint."""
 
+    # TODO: default???
     datasets: List[EventDataset] = Field(
-        ..., description="List of datasets to be used."
+        ...,
+        serialization_alias="datasets",
+        description="Datasets that will be used to search the vessel.",
     )
     vessels: Optional[List[str]] = Field(
-        None, description="List of vessel ids to be used."
+        None,
+        serialization_alias="vessels",
+        description="List of vessel ids to be used.",
     )
     types: Optional[List[EventType]] = Field(None, description="Event types.")
     start_date: Optional[datetime.date] = Field(
@@ -77,16 +83,6 @@ class EventStatsBody(RequestBody):
     region: Optional[EventRegion] = Field(
         None, description="Region where the events happen."
     )
-    timeseries_interval: Optional[EventStatsTimeSeriesInterval] = Field(
-        EventStatsTimeSeriesInterval.YEAR, description="Time series granularity."
-    )
-    includes: Optional[List[EventStatsInclude]] = Field(
-        None, description="Allows to include additional information."
-    )
     vessel_types: Optional[List[EventVesselType]] = Field(
         None, description="Vessel types."
-    )
-    gap_intentional_disabling: Optional[bool] = Field(
-        None,
-        description="Whether to get AIS off events (aka gaps) that were potentially intentional or not.",
     )

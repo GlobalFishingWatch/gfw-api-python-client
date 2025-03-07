@@ -5,7 +5,7 @@ import json
 import logging
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Generic, Optional, Type, override
+from typing import Any, Dict, Generic, List, Optional, Type, Union, override
 
 import httpx
 import pydantic
@@ -105,13 +105,19 @@ class AbstractBaseEndPoint(
         _method = self._method.value
         return _method
 
+    def _prepare_request_path(self) -> str:
+        """Prepare endpoint `path` to be used for the request."""
+        _path = self._path
+        return _path
+
     def _prepare_request_url(self) -> httpx.URL:
         """Prepare HTTP url to be used for the request.
 
         This merge a endpoint `path` together with `HTTPClient` 'base_url',
         to create the URL used for the outgoing request.
         """
-        _url = self._http_client._merge_url(self._path)
+        _path = self._prepare_request_path()
+        _url = self._http_client._merge_url(_path)
         return _url
 
     def _prepare_request_headers(self) -> httpx.Headers:
@@ -136,6 +142,61 @@ class AbstractBaseEndPoint(
     @abstractmethod
     def _build_request(self) -> httpx.Request:
         """Build and return an `httpx.Request` instance for this endpoint."""
+        raise NotImplementedError()
+
+    def _parse_response_body(
+        self,
+        response: httpx.Response,
+    ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+        """Parse response and yield data."""
+        # TODO: _parse_response_data
+        # TODO: _parse_response_json_data
+        content_type, *_ = response.headers.get("content-type", "*").split(";")
+        if content_type != "application/json":
+            raise APIResponseValidationError(
+                response=response,
+                message=f"Expected Content-Type response header to be `application/json` but received `{content_type}` instead.",
+                body=response.text,
+            )
+        # TODO: set _update_pagination_params [attr, value]
+        _parsed_data: Union[List[Dict[str, Any]], Dict[str, Any]] = response.json()
+        return _parsed_data
+
+    def _transform_response_body(
+        self,
+        body: Union[List[Dict[str, Any]], Dict[str, Any]],
+    ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+        """Transform and reshape response body and yield data."""
+        # TODO: _transform_response_data
+        # TODO: handle single item and list data
+        # TODO: handle single item with list data [i.e entries]
+        return body
+
+    def _cast_response_body(
+        self,
+        body: Union[List[Dict[str, Any]], Dict[str, Any]],
+    ) -> Union[List[_ResultItemT], _ResultItemT]:
+        """Cast response body and yield result item."""
+        # _cast_response_data
+        _casted_data = (
+            [self._result_item_class(**data) for data in body]
+            if isinstance(body, list)
+            else self._result_item_class(**body)
+        )
+        return _casted_data
+
+    def _build_result(self, data: Union[List[_ResultItemT], _ResultItemT]) -> _ResultT:
+        """Build and return a `_ResultT` instance for this endpoint."""
+        # _build_response_result
+        return self._result_class(data=data)
+
+    @abstractmethod
+    def _process_response(self, response: httpx.Response) -> _ResultT:
+        """Process `httpx.Response` instance and return `_ResultT` for this endpoint."""
+        # TODO: _process_response_data
+        # TODO: _process_response_error [_parse_response_error, _transform_response_error, _cast_response_error, _cast_api_status_error|_cast_status_error]
+        # TODO: _process_response_error [_parse_response_error_data, _transform_response_error_data, _cast_response_error_data]
+        # TODO: _parse_response_body -> _transform_response_body -> _cast_response_body -> _build_result
         raise NotImplementedError()
 
 
@@ -186,6 +247,8 @@ class BaseEndPoint(
         **kwargs: Any,
     ) -> _ResultT:
         """Perform request - response flow for this endpoint."""
+        # TODO: _process_request
+        # TODO: handle pagination properly
         request = self._build_request()
         try:
             response = await self._http_client.send(
@@ -199,6 +262,7 @@ class BaseEndPoint(
             log.debug("Encountered Exception", exc_info=True)
             raise APIConnectionError(request=request) from exc
 
+        # TODO: improve request, response [request_id]
         log.debug(
             'HTTP Request: %s %s "%i %s"',
             request.method,
@@ -213,8 +277,7 @@ class BaseEndPoint(
             log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
             raise self._process_response_error(exc.response) from None
 
-        # TODO: log response
-        return self._process_response_data(response=response)
+        return self._process_response(response=response)
 
     @override
     def _build_request(self) -> httpx.Request:
@@ -237,38 +300,30 @@ class BaseEndPoint(
         log.debug("Request: %s", _request)
         return _request
 
-    def _process_response_data(
+    @override
+    def _process_response(
         self,
         response: httpx.Response,
     ) -> _ResultT:
         """Parse and cast response data."""
-        content_type, *_ = response.headers.get("content-type", "*").split(";")
-        if content_type != "application/json":
-            raise APIResponseValidationError(
-                response=response,
-                message=f"Expected Content-Type response header to be `application/json` but received `{content_type}` instead.",
-                body=response.text,
-            )
-
+        _parsed_data = self._parse_response_body(response=response)
         try:
-            raw_data = response.json()
-            # TODO: handle single item and list data
-            # TODO: handle single item with list data [i.e entries]
-            parsed_data = (
-                [self._result_item_class(**rd) for rd in raw_data]
-                if isinstance(raw_data, list)
-                else self._result_item_class(**raw_data)
-            )
-            result = self._result_class(data=parsed_data)
+            _transformed_data = self._transform_response_body(body=_parsed_data)
+            _casted_data = self._cast_response_body(body=_transformed_data)
+            result = self._build_result(data=_casted_data)
             return result
         except pydantic.ValidationError as exc:
-            raise APIResponseValidationError(response=response, body=raw_data) from exc
+            # TODO: handle custom APIResultValidationError | APIResultItemValidationError | APIResponseDataError
+            raise APIResponseValidationError(
+                response=response, body=_parsed_data
+            ) from exc
 
     def _process_response_error(
         self,
         response: httpx.Response,
     ) -> APIStatusError:
         """Parse error response status errors."""
+        # TODO: _process_response_error [_cast_response_status_error]
         if response.is_closed and not response.is_stream_consumed:
             # We can't read the response body as it has been closed
             body = None

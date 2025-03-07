@@ -1,7 +1,7 @@
 """Global Fishing Watch (GFW) API Python Client - Event Stats API EndPoints."""
 
 from gfwapiclient.http.client import HTTPClient
-from gfwapiclient.http.endpoint import PostEndPoint
+from gfwapiclient.http.endpoints import PostEndPoint
 from gfwapiclient.http.models import RequestParams
 from gfwapiclient.resources.events.stats.models.request import EventStatsBody
 from gfwapiclient.resources.events.stats.models.response import (
