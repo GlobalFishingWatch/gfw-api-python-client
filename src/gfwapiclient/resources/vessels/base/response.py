@@ -21,8 +21,8 @@ class ExtraField(BaseModel):
     has_compliance_info: Optional[str] = Field(None, alias="hasComplianceInfo")
     images: Optional[List[str]] = Field(None, alias="images")  # TODO: verify or use Any
     operator: Optional[str] = Field(None, alias="operator")
-    built_year: Optional[int] = Field(None, alias="builtYear")
-    depth_m: Optional[float] = Field(None, alias="depthM")
+    # built_year: Optional[int] = Field(None, alias="builtYear")
+    # depth_m: Optional[float] = Field(None, alias="depthM")
 
 
 class RegistryInfo(BaseModel):
