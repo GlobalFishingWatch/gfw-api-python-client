@@ -256,6 +256,12 @@ class BaseEndPoint(
                 **kwargs,
             )
         except httpx.TimeoutException as exc:
+            # TODO: InvalidURL (URL is improperly formed or cannot be parsed.)
+            # TODO: RequestError (all exceptions that may occur when issuing a `.request()`.)
+            # TODO: TransportError (all exceptions that occur at the level of the Transport API.)
+            # TODO: TimeoutException* (timeout errors. An operation has timed out.)
+            # TODO: NetworkError (network-related errors. An error occurred while interacting with the network.)
+            # TODO: ConnectError (Failed to establish a connection.)
             log.debug("Encountered httpx.TimeoutException", exc_info=True)
             raise APITimeoutError(request=request) from exc
         except Exception as exc:
@@ -274,6 +280,7 @@ class BaseEndPoint(
         try:
             response.raise_for_status()
         except httpx.HTTPStatusError as exc:  # thrown on 4xx and 5xx status code
+            # TODO: HTTPStatusError (response had an error HTTP status of 4xx or 5xx.)
             log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
             raise self._process_response_error(exc.response) from None
 
@@ -331,11 +338,13 @@ class BaseEndPoint(
         else:
             err_text = response.text.strip()
             body = err_text
+            # TODO: handle HTML responses
 
             try:
                 body = json.loads(err_text)
                 err_msg = f"Error code: {response.status_code} - {body}"
             except Exception:
+                # TODO: log
                 err_msg = err_text or f"Error code: {response.status_code}"
 
         return self._make_api_status_error(err_msg, body=body, response=response)

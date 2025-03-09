@@ -93,7 +93,7 @@ class HTTPClient(httpx.AsyncClient):
                 variable is also not set.
         """
         # Ensure a base URL is set, either via argument or environment variable
-        _base_url: Optional[Union[str, httpx.URL]] = base_url or os.getenv(
+        _base_url: Optional[Union[str, httpx.URL]] = base_url or os.environ.get(
             "GFW_API_BASE_URL",
             default=None,
         )

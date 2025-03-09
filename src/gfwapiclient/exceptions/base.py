@@ -87,6 +87,7 @@ class APIError(GFWError):
         self.body = body
 
 
+# TODO: APIConnectError
 class APIConnectionError(APIError):
     """Raised when a connection error occurs."""
 
@@ -96,10 +97,11 @@ class APIConnectionError(APIError):
         message: str = "Connection error.",
         request: httpx.Request,
     ) -> None:
-        """Initialize a new `APIError` exception."""
+        """Initialize a new `APIConnectionError` exception."""
         super().__init__(message, request, body=None)
 
 
+# TODO: APIValidationError <- APIResponseValidationError|APIResultValidationError
 class APIResponseValidationError(APIError):
     """Raised when an API response data is invalid for expected schema."""
 
@@ -128,6 +130,8 @@ class APIStatusError(APIError):
 
     response: httpx.Response
     status_code: int
+    # TODO: error: Optional[str]
+    # TODO: messages: Optional[List[ErrorMessage(title, detail, metadata)]] = None
 
     def __init__(
         self,

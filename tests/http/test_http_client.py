@@ -4,6 +4,7 @@ import os
 
 import httpx
 import pytest
+import respx
 
 from pytest_mock import MockerFixture
 
@@ -11,21 +12,7 @@ from gfwapiclient.exceptions.base import GFWError
 from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
 from gfwapiclient.http.client import HTTPClient
 
-
-MOCK_BASE_URL = "https://gateway.api.mocking.globalfishingwatch.org/v3/"
-MOCK_ACCESS_TOKEN = "mocking_GoXcgX1YFRRph48Rv6w9aGIDQzQd7zaB"
-
-
-@pytest.fixture
-def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Fixture to set a mock base URL using an environment variable."""
-    monkeypatch.setenv("GFW_API_BASE_URL", MOCK_BASE_URL)
-
-
-@pytest.fixture
-def mock_access_token(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Fixture to set a mock access token using an environment variable."""
-    monkeypatch.setenv("GFW_API_ACCESS_TOKEN", MOCK_ACCESS_TOKEN)
+from .conftest import MOCK_GFW_API_ACCESS_TOKEN, MOCK_GFW_API_BASE_URL
 
 
 @pytest.fixture
@@ -59,14 +46,16 @@ def mock_transport() -> httpx.MockTransport:
 
 def test_http_client_initialization_with_explicit_base_url_and_access_token() -> None:
     """Test that `HTTPClient` initializes successfully when a `base_url` and `access_token` are explicitly provided."""
-    client = HTTPClient(base_url=MOCK_BASE_URL, access_token=MOCK_ACCESS_TOKEN)
+    client = HTTPClient(
+        base_url=MOCK_GFW_API_BASE_URL, access_token=MOCK_GFW_API_ACCESS_TOKEN
+    )
     assert isinstance(client, HTTPClient)
-    assert str(client._base_url) == MOCK_BASE_URL
-    assert str(client._access_token) == MOCK_ACCESS_TOKEN
+    assert str(client._base_url) == MOCK_GFW_API_BASE_URL
+    assert str(client._access_token) == MOCK_GFW_API_ACCESS_TOKEN
     assert client.headers["Accept"] == "application/json"
     assert client.headers["Content-Type"] == "application/json"
     assert client.headers["User-Agent"].startswith("gfw-api-python-client/")
-    assert client.headers["Authorization"] == f"Bearer {MOCK_ACCESS_TOKEN}"
+    assert client.headers["Authorization"] == f"Bearer {MOCK_GFW_API_ACCESS_TOKEN}"
 
 
 def test_http_client_initialization_with_env_vars(
@@ -76,8 +65,8 @@ def test_http_client_initialization_with_env_vars(
     """Test that `HTTPClient` initializes successfully using the `GFW_API_BASE_URL` and `GFW_API_ACCESS_TOKEN` environment variables."""
     client = HTTPClient()
     assert isinstance(client, HTTPClient)
-    assert str(client._base_url) == MOCK_BASE_URL
-    assert str(client._access_token) == MOCK_ACCESS_TOKEN
+    assert str(client._base_url) == MOCK_GFW_API_BASE_URL
+    assert str(client._access_token) == MOCK_GFW_API_ACCESS_TOKEN
 
 
 def test_http_client_initialization_without_base_url(
@@ -234,6 +223,22 @@ async def test_http_client_max_redirects_exceeded(
 
 
 @pytest.mark.asyncio
+@pytest.mark.respx
+@pytest.mark.skip
+async def test_http_client_max_redirects_exceededx(
+    mock_base_url: object,
+    mock_access_token: object,
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test that `HTTPClient` enforces `max_redirects` limit."""
+    mock_responsex.get("/redirectx").respond(301, headers={"Location": "/okx"})
+    mock_responsex.get("/okx").respond(200, json={"message": "success"})
+    async with HTTPClient(max_redirects=0) as client:
+        with pytest.raises(httpx.TooManyRedirects):
+            await client.get("/redirectx")
+
+
+@pytest.mark.asyncio
 async def test_http_client_issue_get_request(
     mock_base_url: object,
     mock_access_token: object,
@@ -242,6 +247,21 @@ async def test_http_client_issue_get_request(
     """Test that `HTTPClient` can issue GET request."""
     async with HTTPClient(transport=mock_transport) as client:
         response = await client.get("/ok")
+        assert response.status_code == 200
+        assert response.json() == {"message": "success"}
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+async def test_http_client_issue_get_requestx(
+    mock_base_url: object,
+    mock_access_token: object,
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test that `HTTPClient` can issue GET request."""
+    mock_responsex.get("/okx").respond(200, json={"message": "success"})
+    async with HTTPClient() as client:
+        response = await client.get("/okx")
         assert response.status_code == 200
         assert response.json() == {"message": "success"}
 
@@ -256,4 +276,19 @@ async def test_http_client_issue_post_request(
     async with HTTPClient(transport=mock_transport) as client:
         response = await client.post("/ok")
         assert response.status_code == 200
+        assert response.json() == {"message": "success"}
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+async def test_http_client_issue_post_requestx(
+    mock_base_url: object,
+    mock_access_token: object,
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test that `HTTPClient` can issue POST request."""
+    mock_responsex.post("/okx").respond(201, json={"message": "success"})
+    async with HTTPClient() as client:
+        response = await client.post("/okx")
+        assert response.status_code == 201
         assert response.json() == {"message": "success"}
