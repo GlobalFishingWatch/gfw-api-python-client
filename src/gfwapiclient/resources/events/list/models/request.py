@@ -46,7 +46,7 @@ class EventListBody(RequestBody):
     datasets: List[EventDataset] = Field(
         ...,
         serialization_alias="datasets",
-        description="Datasets that will be used to search the vessel.",
+        description="Datasets that will be used to search the vessel events.",
     )
     vessels: Optional[List[str]] = Field(
         None,

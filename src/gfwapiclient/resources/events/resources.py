@@ -13,6 +13,9 @@ from gfwapiclient.resources.events.base.enums import (
     EventVesselType,
 )
 from gfwapiclient.resources.events.base.request import EventGeometry, EventRegion
+from gfwapiclient.resources.events.detail.endpoints import EventDetailEndPoint
+from gfwapiclient.resources.events.detail.models.request import EventDetailParams
+from gfwapiclient.resources.events.detail.models.response import EventDetailResult
 from gfwapiclient.resources.events.list.endpoints import EventListEndPoint
 from gfwapiclient.resources.events.list.models.request import (
     EventListBody,
@@ -179,6 +182,36 @@ class EventResource(BaseResource):
         result = endpoint.request()
         return result
 
+    async def aget_event(
+        self,
+        id: str,
+        dataset: EventDataset,
+        **kwargs: Dict[str, Any],
+    ) -> EventDetailResult:
+        """Asynchronously get event by id."""
+        endpoint = self._make_event_detail_endpoint(
+            id=id,
+            dataset=dataset,
+            **kwargs,
+        )
+        result = await endpoint.arequest()
+        return result
+
+    def get_event(
+        self,
+        id: str,
+        dataset: EventDataset,
+        **kwargs: Dict[str, Any],
+    ) -> EventDetailResult:
+        """Synchronously get event by id."""
+        endpoint = self._make_event_detail_endpoint(
+            id=id,
+            dataset=dataset,
+            **kwargs,
+        )
+        result = endpoint.request()
+        return result
+
     def _make_event_list_endpoint(
         self,
         # body
@@ -227,6 +260,26 @@ class EventResource(BaseResource):
         endpoint = EventListEndPoint(
             request_params=request_params,
             request_body=request_body,
+            http_client=self._http_client,
+        )
+
+        return endpoint
+
+    def _make_event_detail_endpoint(
+        self,
+        id: str,
+        dataset: EventDataset,
+        **kwargs: Dict[str, Any],
+    ) -> EventDetailEndPoint:
+        """Initializes a new `EventDetailEndPoint` API endpoint."""
+        request_params = EventDetailParams(
+            dataset=dataset,
+            # raw=False,
+        )
+
+        endpoint = EventDetailEndPoint(
+            event_id=id,
+            request_params=request_params,
             http_client=self._http_client,
         )
 
