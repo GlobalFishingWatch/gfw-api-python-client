@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Insights API Resource."""
+"""Global Fishing Watch (GFW) API Python Client - Vessels API Resource."""
 
 from typing import Any, Dict, List, Optional
 
@@ -17,6 +17,12 @@ from gfwapiclient.resources.vessels.list.models.request import VesselListParams
 from gfwapiclient.resources.vessels.list.models.response import (
     VesselListResult,
 )
+from gfwapiclient.resources.vessels.search.endpoints import VesselSearchEndPoint
+from gfwapiclient.resources.vessels.search.models.request import (
+    VesselSearchInclude,
+    VesselSearchParams,
+)
+from gfwapiclient.resources.vessels.search.models.response import VesselSearchResult
 
 
 __all__ = ["VesselResource"]
@@ -24,6 +30,56 @@ __all__ = ["VesselResource"]
 
 class VesselResource(BaseResource):
     """Vessels data API resource."""
+
+    async def asearch_vessels(
+        self,
+        since: Optional[str] = None,
+        limit: Optional[int] = 20,
+        datasets: Optional[List[VesselDataset]] = None,
+        query: Optional[str] = None,
+        where: Optional[str] = None,
+        match_fields: Optional[List[VesselMatchField]] = None,
+        includes: Optional[List[VesselSearchInclude]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> VesselSearchResult:
+        """Asynchronously search for vessels."""
+        endpoint = self._make_vessel_search_endpoint(
+            since=since,
+            limit=limit,
+            datasets=datasets,
+            query=query,
+            where=where,
+            match_fields=match_fields,
+            includes=includes,
+            **kwargs,
+        )
+        result = await endpoint.arequest()
+        return result
+
+    def search_vessels(
+        self,
+        since: Optional[str] = None,
+        limit: Optional[int] = 20,
+        datasets: Optional[List[VesselDataset]] = None,
+        query: Optional[str] = None,
+        where: Optional[str] = None,
+        match_fields: Optional[List[VesselMatchField]] = None,
+        includes: Optional[List[VesselSearchInclude]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> VesselSearchResult:
+        """Synchronously search for vessels."""
+        endpoint = self._make_vessel_search_endpoint(
+            since=since,
+            limit=limit,
+            datasets=datasets,
+            query=query,
+            where=where,
+            match_fields=match_fields,
+            includes=includes,
+            **kwargs,
+        )
+        result = endpoint.request()
+        return result
 
     async def aget_vessels(
         self,
@@ -41,7 +97,7 @@ class VesselResource(BaseResource):
             ids=ids,
             registries_info_data=registries_info_data,
             includes=includes,
-            match_fields=match_fields or [VesselMatchField.ALL],
+            match_fields=match_fields,
             vessel_groups=vessel_groups,
             **kwargs,
         )
@@ -64,7 +120,7 @@ class VesselResource(BaseResource):
             datasets=datasets,
             registries_info_data=registries_info_data,
             includes=includes,
-            match_fields=match_fields or [VesselMatchField.ALL],
+            match_fields=match_fields,
             vessel_groups=vessel_groups,
             **kwargs,
         )
@@ -86,7 +142,7 @@ class VesselResource(BaseResource):
             dataset=dataset,
             registries_info_data=registries_info_data,
             includes=includes,
-            match_fields=match_fields or [VesselMatchField.ALL],
+            match_fields=match_fields,
             **kwargs,
         )
         result = await endpoint.arequest()
@@ -107,11 +163,43 @@ class VesselResource(BaseResource):
             dataset=dataset,
             registries_info_data=registries_info_data,
             includes=includes,
-            match_fields=match_fields or [VesselMatchField.ALL],
+            match_fields=match_fields,
             **kwargs,
         )
         result = endpoint.request()
         return result
+
+    def _make_vessel_search_endpoint(
+        self,
+        since: Optional[str] = None,
+        limit: Optional[int] = 20,
+        datasets: Optional[List[VesselDataset]] = None,
+        query: Optional[str] = None,
+        where: Optional[str] = None,
+        match_fields: Optional[List[VesselMatchField]] = None,
+        includes: Optional[List[VesselSearchInclude]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> VesselSearchEndPoint:
+        """Initializes a new `VesselSearchEndPoint` API endpoint."""
+        # try...except [raise RequestParamsValidationError]
+        request_params = VesselSearchParams(
+            since=since,
+            limit=limit,
+            datasets=datasets or [VesselDataset.VESSEL_IDENTITY_LATEST],
+            query=query,
+            where=where,
+            match_fields=match_fields or [VesselMatchField.ALL],
+            includes=includes or list(VesselSearchInclude),
+            binary=False,
+            **kwargs,
+        )
+
+        endpoint = VesselSearchEndPoint(
+            request_params=request_params,
+            http_client=self._http_client,
+        )
+
+        return endpoint
 
     def _make_vessel_list_endpoint(
         self,
