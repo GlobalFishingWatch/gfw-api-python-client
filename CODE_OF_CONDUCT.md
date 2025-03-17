@@ -61,7 +61,7 @@ or offline event.
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the `gfw-api-python-client` package maintainers either publicly by
 [opening an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) in the `gfw-api-python-client`
-repository or privately by e-mail to any maintainer (emails in the DESCRIPTION file
+repository or privately by e-mail to any maintainer (emails in the [pyproject.toml](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/pyproject.toml) file
 of the package), e.g., reporting unacceptable behavior of another maintainer).
 All complaints will be reviewed and investigated promptly and fairly.
 

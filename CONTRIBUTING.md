@@ -11,7 +11,7 @@ These are mostly guidelines, not rules. Use your best judgment, and feel free to
 
 ## Code of Conduct
 
-This project has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
+This project has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
 
 
 ## Open Development
@@ -120,7 +120,7 @@ The footer should contain any information about **Breaking Changes** and is also
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under [our license](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under [our license](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/LICENSE).
 
 
 ## Developer's Certificate of Origin 1.1

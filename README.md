@@ -1,4 +1,4 @@
-# GFW API Python Client
+# Global Fishing Watch API Client
 
 <!-- start: badges -->
 [![ci](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml)
@@ -88,4 +88,4 @@ GFW_API_ACCESS_TOKEN=<PASTE_YOUR_TOKEN_HERE>
 
 ## Contributing
 
-We welcome all contributions to improve the package!. Please read our [Contribution Guide](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/Contributing.md) and reach out!.
+We welcome all contributions to improve the package!. Please read our [Contribution Guide](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/CONTRIBUTING.md) and reach out!.
