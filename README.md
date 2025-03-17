@@ -30,6 +30,7 @@ The package currently works with the following APIs:
 
 > **Note**: See the [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#reference-data) page for GFW APIs for information on our API licenses and rate limits.
 
+
 ## Installation
 
 You can install the most recent version of `gfw-api-python-client` using:
@@ -41,18 +42,49 @@ pip install gfw-api-python-client
 Once everything is installed you can load and use `gfw-api-python-client` in your `codes`, `scripts`, `notebooks` etc., using:
 
 ```python
-from gfwapiclient import Client
+import gfwapiclient as gfw
 
-gfw = Client(api_token="<PASTE_YOUR_TOKEN_HERE>")
+client = gfw.Client(
+    api_access_token="<PASTE_YOUR_TOKEN_HERE>",
+)
 ```
+
 
 ## Authorization
 
-The use of `gfw-api-python-client` requires a GFW API token, which users can request from the [GFW API Portal](https://globalfishingwatch.org/our-apis/tokens). Save this token to your `.env` by adding a variable named `GFW_API_TOKEN` i.e., (`GFW_API_TOKEN="PASTE_YOUR_TOKEN_HERE"`) and save the `.env` file.
+The use of `gfw-api-python-client` requires a GFW API token, which users can request from the [GFW API Portal](https://globalfishingwatch.org/our-apis/tokens). Save this token to your `.env` by adding a variable named `GFW_API_ACCESS_TOKEN` i.e., (`GFW_API_ACCESS_TOKEN="PASTE_YOUR_TOKEN_HERE"`) and save the `.env` file.
 
 ```.env
-GFW_API_TOKEN=<PASTE_YOUR_TOKEN_HERE>
+GFW_API_ACCESS_TOKEN=<PASTE_YOUR_TOKEN_HERE>
 ```
+
+
+## Map Visualization - 4Wings API
+
+> TODO
+
+
+## Vessels API
+
+> TODO
+
+
+## Events API
+
+> TODO
+
+
+## Insights API
+
+> TODO
+
+
+## Reference Data API
+
+### Regions Data API
+
+> TODO
+
 
 ## Contributing
 
