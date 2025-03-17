@@ -33,13 +33,28 @@ The package currently works with the following APIs:
 
 ## Installation
 
-You can install the most recent version of `gfw-api-python-client` using:
+To start using `gfw-api-python-client`, ensure you have [Python 3.12+](https://realpython.com/installing-python/) installed on your system. It's recommended to install the package in a [virtual environment](https://docs.python.org/3/library/venv.html) using [pip](https://pip.pypa.io/en/stable/).
 
-```sh
+### Mac/Linux
+
+```bash
+python3.12 -m venv venv
+source venv/bin/activate
 pip install gfw-api-python-client
 ```
 
-Once everything is installed you can load and use `gfw-api-python-client` in your `codes`, `scripts`, `notebooks` etc., using:
+### Windows
+
+```batch
+python3.12 -m venv venv
+venv\Scripts\activate
+pip install gfw-api-python-client
+```
+
+
+## Usage
+
+Once installed, you can import and use `gfw-api-python-client` in your code:
 
 ```python
 import gfwapiclient as gfw
