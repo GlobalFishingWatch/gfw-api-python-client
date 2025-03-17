@@ -3,14 +3,13 @@
 
 ## Our pledge
 
-We as members, contributors, and leaders pledge to make participation in the `gfw-api-python-client` contributing
-and users community a harassment-free experience for everyone, regardless of age, body
+To promote an open and inclusive environment, we, as contributors and maintainers
+pledge to ensure participation in the `gfw-api-python-client` and
+community is free from harassment for everyone, regardless of age, body
 size, visible or invisible disability, ethnicity, sex characteristics, gender
 identity and expression, level of experience, education, socio-economic status,
 nationality, personal appearance, race, caste, color, religion, or sexual
-identity and orientation.
-
-We pledge to act and interact in ways that contribute to an open, welcoming,
+identity and orientation. We pledge to act and interact in ways that contribute to a welcoming,
 diverse, inclusive, and healthy community.
 
 
@@ -22,16 +21,16 @@ community include:
 * Demonstrating empathy and kindness toward other people.
 * Being respectful of differing opinions, viewpoints, and experiences.
 * Giving and gracefully accepting constructive feedback.
-* Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience.
+* Accepting responsibility and apologizing to those affected by our mistakes and learning from the experience.
 * Focusing on what is best not just for us as individuals, but for the overall community.
 
 Examples of unacceptable behavior include:
 
-* The use of sexualized language or imagery, and sexual attention or advances of any kind.
+* The use of sexualized language or imagery and sexual attention or advances of any kind.
 * Trolling, insulting or derogatory comments, and personal or political attacks.
 * Public or private harassment.
 * Publishing others' private information, such as a physical or email address, without their explicit permission.
-* Other conduct which could reasonably be considered inappropriate in a professional setting.
+* Other conduct that could reasonably be considered inappropriate in a professional setting.
 
 
 ## Enforcement responsibilities
@@ -49,7 +48,7 @@ decisions when appropriate.
 
 ## Scope
 
-This Code of Conduct applies within all `gfw-api-python-client` community spaces, and also applies when
+This Code of Conduct applies within all `gfw-api-python-client` community spaces and also applies when
 an individual is officially representing the community in public spaces.
 Examples of representing the `gfw-api-python-client` community include using an official `gfw-api-python-client`
 communication channel, such as the GitHub community discussions, posting via an
@@ -63,7 +62,7 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the `gfw-api-python-client` package maintainers either publicly by
 [opening an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) in the `gfw-api-python-client`
 repository or privately by e-mail to any maintainer (emails in the DESCRIPTION file
-of the package), e.g., if needed for reporting unacceptable behavior of another maintainer).
+of the package), e.g., reporting unacceptable behavior of another maintainer).
 All complaints will be reviewed and investigated promptly and fairly.
 
 All maintainers are obligated to respect the privacy and security of the
