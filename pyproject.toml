@@ -88,6 +88,7 @@ test = [
   "pytest-xdist>=3.6.1",      # Parallel test execution for pytest
   "pytest-timeout>=2.3.1",    # Timeout support for pytest
   "coverage[toml]>=7.6.9",    # Code coverage reporting
+  "respx>=0.22.0",            # Utility for mocking httpx
 ]
 
 # Development workflow and tools
@@ -234,7 +235,7 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump $current_version to $new_version"
 
 [tool.codespell]
-skip = '.git,env*'
+skip = '.git,env*,tmp*'
 
 
 # Build system metadata.
