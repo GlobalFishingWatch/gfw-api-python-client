@@ -3,8 +3,8 @@
 
 ## Our pledge
 
-To promote an open and inclusive environment, we, as contributors and maintainers 
-pledge to ensure participation in the `gfw-api-python-client` and 
+To promote an open and inclusive environment, we, as contributors and maintainers
+pledge to ensure participation in the `gfw-api-python-client` and
 community is free from harassment for everyone, regardless of age, body
 size, visible or invisible disability, ethnicity, sex characteristics, gender
 identity and expression, level of experience, education, socio-economic status,
