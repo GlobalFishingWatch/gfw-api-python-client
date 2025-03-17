@@ -11,19 +11,24 @@ import respx
 from pytest_mock import MockerFixture
 
 from gfwapiclient.exceptions.base import GFWError
-from gfwapiclient.exceptions.client import BaseUrlError
+from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
 from gfwapiclient.http.client import HTTPClient
 
-from ..conftest import MOCK_GFW_API_BASE_URL
+from ..conftest import MOCK_GFW_API_ACCESS_TOKEN, MOCK_GFW_API_BASE_URL
 
 
-def test_http_client_initialization_with_explicit_base_url() -> None:
-    """Test that `HTTPClient` initializes with a provided `base_url`."""
+def test_http_client_initialization_with_explicit_base_url_and_access_token() -> None:
+    """Test that `HTTPClient` initializes with a provided `base_url` and `access_token`."""
     client = HTTPClient(
-        base_url=MOCK_GFW_API_BASE_URL,
+        base_url=MOCK_GFW_API_BASE_URL, access_token=MOCK_GFW_API_ACCESS_TOKEN
     )
     assert isinstance(client, HTTPClient)
     assert str(client._base_url) == MOCK_GFW_API_BASE_URL
+    assert str(client._access_token) == MOCK_GFW_API_ACCESS_TOKEN
+    assert client.headers["Accept"] == "application/json"
+    assert client.headers["Content-Type"] == "application/json"
+    assert client.headers["User-Agent"].startswith("gfw-api-python-client/")
+    assert client.headers["Authorization"] == f"Bearer {MOCK_GFW_API_ACCESS_TOKEN}"
 
 
 def test_http_client_initialization_with_env_vars(
@@ -34,6 +39,7 @@ def test_http_client_initialization_with_env_vars(
     client = HTTPClient()
     assert isinstance(client, HTTPClient)
     assert str(client._base_url) == MOCK_GFW_API_BASE_URL
+    assert str(client._access_token) == MOCK_GFW_API_ACCESS_TOKEN
 
 
 def test_http_client_initialization_without_base_url(
@@ -42,6 +48,15 @@ def test_http_client_initialization_without_base_url(
     """Test that initializing `HTTPClient` with missing `base_url` raises `BaseUrlError`."""
     os.environ.pop("GFW_API_BASE_URL", None)
     with pytest.raises(BaseUrlError, match="The `base_url` must be provided"):
+        HTTPClient()
+
+
+def test_http_client_initialization_without_access_token(
+    mock_base_url: object,
+) -> None:
+    """Test that initializing `HTTPClient` with missing `access_token` raises `AccessTokenError`."""
+    os.environ.pop("GFW_API_ACCESS_TOKEN", None)
+    with pytest.raises(AccessTokenError, match="The `access_token` must be provided"):
         HTTPClient()
 
 
