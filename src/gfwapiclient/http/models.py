@@ -9,10 +9,14 @@ from typing import (
     Generic,
     List,
     Optional,
+    Set,
     Type,
     TypeVar,
     Union,
 )
+
+import geopandas as gpd
+import pandas as pd
 
 from gfwapiclient.base.models import BaseModel
 
@@ -134,6 +138,35 @@ class Result(Generic[_ResultItemT]):
     ) -> Union[List[_ResultItemT], _ResultItemT]:
         """Returns result data."""
         return self._data
+
+    def df(
+        self,
+        include: Optional[Set[str]] = None,
+        exclude: Optional[Set[str]] = None,
+        **kwargs: Optional[Dict[str, Any]],
+    ) -> Union[pd.DataFrame, gpd.GeoDataFrame]:
+        """Return result dataframe.
+
+        Args:
+            include (Optional[Set[str]]):
+                A set of fields to include in the dataframe.
+
+            exclude (Optional[Set[str]]):
+                A set of fields to exclude from the dataframe.
+
+            **kwargs (Any):
+                Additional parameters passed to `PD.DataFrame`.
+        """
+        if isinstance(self._data, list):
+            df = pd.DataFrame(
+                [
+                    item.model_dump(include=include, exclude=exclude)
+                    for item in self._data
+                ]
+            )
+        else:
+            df = pd.DataFrame([self._data.model_dump(include=include, exclude=exclude)])
+        return df
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])  # TODO: fix typing
