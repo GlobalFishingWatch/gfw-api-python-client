@@ -11,7 +11,7 @@ license: "Apache-2.0"
 license-url: "https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/LICENSE"
 repository-code: "https://github.com/GlobalFishingWatch/gfw-api-python-client"
 url: "https://github.com/GlobalFishingWatch/gfw-api-python-client"
-date-released: "2025-03-24"
+date-released: "2025-03-27"
 keywords:
   - "global fishing watch"
   - "gfw"
