@@ -236,7 +236,7 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump $current_version to $new_version"
 
 [tool.codespell]
-skip = '.git,env*,tmp*'
+skip = '.git,env*,./venv*,tmp*'
 
 
 # Build system metadata.

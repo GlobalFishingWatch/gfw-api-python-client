@@ -28,6 +28,8 @@ The package currently works with the following APIs:
 
 - [Gridded fishing effort (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api): apparent fishing effort based on AIS data
 
+- [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api): The Insights API is a set of indicators or 'vessel insights' that bring together important information on a vessel's known activity (based on AIS), vessel identity information and public authorizations. The objective of the insights is to support risk-based decision-making, operational planning, and other due diligence activities by making it easier for a user to identify vessel characteristics that can indicate an increased potential or opportunity for a vessel to engage in IUU (Illegal, Unreported, or Unregulated) fishing.
+
 > **Note**: See the [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#reference-data) page for GFW APIs for information on our API licenses and rate limits.
 
 
@@ -99,6 +101,11 @@ GFW_API_ACCESS_TOKEN=<PASTE_YOUR_TOKEN_HERE>
 ### Regions Data API
 
 > TODO
+
+
+## APIs out of scope of the python package
+
+> No mvt TODO
 
 
 ## Contributing
