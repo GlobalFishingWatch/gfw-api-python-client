@@ -16,18 +16,24 @@ class BaseModel(PydanticBaseModel):
     This class extends `pydantic.BaseModel` to:
 
     - Use `snake_case` for Python attributes.
-    - Uses `camelCase` for API requests and responses.
+    - Use `camelCase` for API requests and responses.
     - Strip whitespace from string fields automatically.
+    - Use `value` property of enums
+    - Validate default values.
     - Allow additional (unexpected) fields.
 
     Attributes:
-        model_config (ClassVar[ConfigDict]): Configuration settings for Pydantic models.
+        model_config (ClassVar[ConfigDict]):
+            Configuration settings for Pydantic models.
 
-            - `serialization_alias`: Converts field names to `camelCase` for serialization.
-            - `validation_alias`: Allows deserialization from `camelCase` to Python's `snake_case` fields.
-            - `populate_by_name=True`: Enables field access using either `snake_case` or `camelCase`.
+            - `alias_generator`: Generates aliases for serialization/deserialization.
+              - `serialization_alias`: Serializes Python's `snake_case` fields to `camelCase`.
+              - `validation_alias`: Deserializes `camelCase` to Python's `snake_case` fields.
+            - `extra="allow"`: Allows additional fields not explicitly defined in the model.
+            - `populate_by_name=True`: Enables populate aliased field by `model attribute` or `alias`.
             - `str_strip_whitespace=True`: Trims whitespace from string fields.
-            - `extra="allow"`: Permits additional fields.
+            - `use_enum_values=True`: Enables populate models with the `value` property of enums.
+            - `validate_default=True`: Ensures default values are validated.
     """
 
     model_config: ClassVar[ConfigDict] = ConfigDict(
@@ -35,7 +41,9 @@ class BaseModel(PydanticBaseModel):
             serialization_alias=to_camel,
             validation_alias=to_camel,
         ),
+        extra="allow",
         populate_by_name=True,
         str_strip_whitespace=True,
-        extra="allow",
+        use_enum_values=True,
+        validate_default=True,
     )

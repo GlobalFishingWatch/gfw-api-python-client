@@ -13,10 +13,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "Apache License 2.0" }
 authors = [
-  { name = "Global Fishing Watch", email = "info@globalfishingwatch.org" },
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
 ]
 maintainers = [
-  { name = "Global Fishing Watch", email = "info@globalfishingwatch.org" },
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
 ]
 keywords = [
   "global fishing watch",
@@ -188,6 +188,7 @@ convention = "google"
 
 [tool.mypy]
 strict = true
+ignore_missing_imports = true
 files = "src,tests"
 
 [tool.pytest.ini_options]
@@ -235,7 +236,7 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump $current_version to $new_version"
 
 [tool.codespell]
-skip = '.git,env*,tmp*'
+skip = '.git,env*,venv*,tmp*'
 
 
 # Build system metadata.
