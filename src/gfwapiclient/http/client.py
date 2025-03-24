@@ -83,6 +83,7 @@ class HTTPClient(httpx.AsyncClient):
 
         Raises:
             BaseUrlError:
+            BaseUrlError:
                 If `base_url` is not provided and the `GFW_API_BASE_URL` environment
                 variable is also not set.
 

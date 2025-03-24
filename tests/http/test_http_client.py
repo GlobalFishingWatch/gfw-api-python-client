@@ -10,7 +10,7 @@ import respx
 
 from pytest_mock import MockerFixture
 
-from gfwapiclient.exceptions.base import GFWError
+from gfwapiclient.exceptions.base import GFWAPIClientError
 from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
 from gfwapiclient.http.client import HTTPClient
 
@@ -32,18 +32,18 @@ def test_http_client_initialization_with_explicit_base_url_and_access_token() ->
 
 
 def test_http_client_initialization_with_env_vars(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `HTTPClient` initializes using environment variables."""
     client = HTTPClient()
     assert isinstance(client, HTTPClient)
-    assert str(client._base_url) == MOCK_GFW_API_BASE_URL
-    assert str(client._access_token) == MOCK_GFW_API_ACCESS_TOKEN
+    assert str(client._base_url) == mock_base_url
+    assert str(client._access_token) == mock_access_token
 
 
 def test_http_client_initialization_without_base_url(
-    mock_access_token: object,
+    mock_access_token: str,
 ) -> None:
     """Test that initializing `HTTPClient` with missing `base_url` raises `BaseUrlError`."""
     os.environ.pop("GFW_API_BASE_URL", None)
@@ -61,8 +61,8 @@ def test_http_client_initialization_without_access_token(
 
 
 def test_http_client_apply_timeouts(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `HTTPClient` operations `timeout` are correctly applied."""
     client = HTTPClient(timeout=30, connect_timeout=10)
@@ -82,8 +82,8 @@ def test_http_client_apply_timeouts(
 
 
 def test_http_client_apply_connection_limits(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `HTTPClient` connection `limits` are correctly applied."""
     client = HTTPClient(max_connections=50, max_keepalive_connections=25)
@@ -99,8 +99,8 @@ def test_http_client_apply_connection_limits(
 
 
 def test_http_client_apply_follow_redirects(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `HTTPClient` `follow_redirects` is correctly applied."""
     client = HTTPClient(follow_redirects=False)
@@ -115,8 +115,8 @@ def test_http_client_apply_follow_redirects(
 
 
 def test_http_client_apply_max_redirects(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `HTTPClient` `max_redirects` is correctly applied."""
     client = HTTPClient(max_redirects=5)
@@ -129,8 +129,8 @@ def test_http_client_apply_max_redirects(
 
 @pytest.mark.asyncio
 async def test_http_client_aenter(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
 ) -> None:
     """Test that `__aenter__` returns the `HTTPClient` instance."""
     async with HTTPClient() as client:
@@ -139,8 +139,8 @@ async def test_http_client_aenter(
 
 @pytest.mark.asyncio
 async def test_http_client_aexit_calls_aclose(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
     mocker: MockerFixture,
 ) -> None:
     """Test that `__aexit__` calls `aclose()` to clean up resources."""
@@ -155,17 +155,17 @@ async def test_http_client_aexit_calls_aclose(
 
 @pytest.mark.asyncio
 async def test_http_client_aexit_on_exception(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
     mocker: MockerFixture,
 ) -> None:
     """Test that `__aexit__` calls `aclose()` even when an exception occurs."""
     client = HTTPClient()
     mock_aclose = mocker.patch.object(client, "aclose", autospec=True)
 
-    with pytest.raises(GFWError):
+    with pytest.raises(GFWAPIClientError):
         async with client:
-            raise GFWError("Connection error")  # Force exception
+            raise GFWAPIClientError("Connection error")  # Force exception
 
     mock_aclose.assert_awaited_once()
 
