@@ -47,7 +47,7 @@ class HTTPClient(httpx.AsyncClient):
         Args:
             base_url (Optional[Union[str, httpx.URL]], default=None):
                 The base URL for API requests. If not provided, the value is taken from
-                the `GFW_API_BASE_URL` environment variable. Raises `GFWError` if neither is set.
+                the `GFW_API_BASE_URL` environment variable. Raises `BaseUrlError` if neither is set.
 
             follow_redirects (Optional[bool], default=True):
                 Whether the client should automatically follow redirects.
@@ -77,7 +77,7 @@ class HTTPClient(httpx.AsyncClient):
                 Additional parameters passed to `httpx.AsyncClient`.
 
         Raises:
-            GFWError:
+            BaseUrlError:
                 If `base_url` is not provided and the `GFW_API_BASE_URL` environment
                 variable is also not set.
         """

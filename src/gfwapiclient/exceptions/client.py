@@ -2,7 +2,7 @@
 
 from typing import Final
 
-from gfwapiclient.exceptions.base import GFWError
+from gfwapiclient.exceptions.base import GFWAPIClientError
 
 
 __all__ = ["BaseUrlError"]
@@ -14,7 +14,7 @@ BASE_URL_ERROR_MESSAGE: Final[str] = (
 )
 
 
-class BaseUrlError(GFWError):
+class BaseUrlError(GFWAPIClientError):
     """Exception raised when no `base_url` is provided for the API client.
 
     This error occurs if the `base_url` is not explicitly provided

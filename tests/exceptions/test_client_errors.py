@@ -2,13 +2,13 @@
 
 import pytest
 
-from gfwapiclient.exceptions.base import GFWError
+from gfwapiclient.exceptions.base import GFWAPIClientError
 from gfwapiclient.exceptions.client import BASE_URL_ERROR_MESSAGE, BaseUrlError
 
 
 def test_base_url_error_inheritance() -> None:
-    """Test that `BaseUrlError` is a subclass of `GFWError`."""
-    assert issubclass(BaseUrlError, GFWError)
+    """Test that `BaseUrlError` is a subclass of `GFWAPIClientError`."""
+    assert issubclass(BaseUrlError, GFWAPIClientError)
     assert issubclass(BaseUrlError, Exception)
 
 
@@ -16,7 +16,7 @@ def test_base_url_error_instance() -> None:
     """Test that `BaseUrlError` can be instantiated."""
     error = BaseUrlError()
     assert isinstance(error, BaseUrlError)
-    assert isinstance(error, GFWError)
+    assert isinstance(error, GFWAPIClientError)
     assert isinstance(error, Exception)
     assert str(error) == BASE_URL_ERROR_MESSAGE
     assert repr(error) == f"BaseUrlError('{BASE_URL_ERROR_MESSAGE}')"

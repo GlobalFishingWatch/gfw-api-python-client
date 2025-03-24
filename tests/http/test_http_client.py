@@ -10,7 +10,7 @@ import respx
 
 from pytest_mock import MockerFixture
 
-from gfwapiclient.exceptions.base import GFWError
+from gfwapiclient.exceptions.base import GFWAPIClientError
 from gfwapiclient.exceptions.client import BaseUrlError
 from gfwapiclient.http.client import HTTPClient
 
@@ -148,9 +148,9 @@ async def test_http_client_aexit_on_exception(
     client = HTTPClient()
     mock_aclose = mocker.patch.object(client, "aclose", autospec=True)
 
-    with pytest.raises(GFWError):
+    with pytest.raises(GFWAPIClientError):
         async with client:
-            raise GFWError("Connection error")  # Force exception
+            raise GFWAPIClientError("Connection error")  # Force exception
 
     mock_aclose.assert_awaited_once()
 
