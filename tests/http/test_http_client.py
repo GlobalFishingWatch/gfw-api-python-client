@@ -20,7 +20,8 @@ from ..conftest import MOCK_GFW_API_ACCESS_TOKEN, MOCK_GFW_API_BASE_URL
 def test_http_client_initialization_with_explicit_base_url_and_access_token() -> None:
     """Test that `HTTPClient` initializes with a provided `base_url` and `access_token`."""
     client = HTTPClient(
-        base_url=MOCK_GFW_API_BASE_URL, access_token=MOCK_GFW_API_ACCESS_TOKEN
+        base_url=MOCK_GFW_API_BASE_URL,
+        access_token=MOCK_GFW_API_ACCESS_TOKEN,
     )
     assert isinstance(client, HTTPClient)
     assert str(client._base_url) == MOCK_GFW_API_BASE_URL
