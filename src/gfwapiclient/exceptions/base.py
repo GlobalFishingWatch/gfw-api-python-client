@@ -4,11 +4,11 @@ from typing import Optional
 
 
 __all__ = [
-    "GFWError",
+    "GFWAPIClientError",
 ]
 
 
-class GFWError(Exception):
+class GFWAPIClientError(Exception):
     """Base exception for errors related to the GFW API client.
 
     This exception serves as the parent class for all errors raised by the
@@ -20,17 +20,17 @@ class GFWError(Exception):
 
     Example:
         ```python
-        from gfwapiclient.exceptions import GFWError
+        from gfwapiclient.exceptions import GFWAPIClientError
 
         try:
-            raise GFWError("An unexpected error occurred.")
-        except GFWError as exc:
+            raise GFWAPIClientError("An unexpected error occurred.")
+        except GFWAPIClientError as exc:
             print(f"GFW Exception: {exc}")
         ```
     """
 
     def __init__(self, message: Optional[str] = None) -> None:
-        """Initialize a new `GFWError` exception.
+        """Initialize a new `GFWAPIClientError` exception.
 
         Args:
             message (Optional[str], default=None):

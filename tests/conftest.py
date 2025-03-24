@@ -17,7 +17,7 @@ MOCK_GFW_API_ACCESS_TOKEN: Final[str] = "mocking_GoXcgX1YFRRph48Rv6w9aGIDQzQd7za
 
 
 @pytest.fixture
-def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> None:
+def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> str:
     """Sets a mock base URL for the Global Fishing Watch API.
 
     This fixture overrides the `GFW_API_BASE_URL` environment variable,
@@ -26,6 +26,10 @@ def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> None:
     Args:
         monkeypatch (pytest.MonkeyPatch):
             Pytest's built-in fixture for modifying environment variables.
+
+    Returns:
+        str:
+            The mocked base URL.
 
     Example:
         ```python
@@ -37,10 +41,11 @@ def mock_base_url(monkeypatch: pytest.MonkeyPatch) -> None:
         ```
     """
     monkeypatch.setenv("GFW_API_BASE_URL", MOCK_GFW_API_BASE_URL)
+    return MOCK_GFW_API_BASE_URL
 
 
 @pytest.fixture
-def mock_access_token(monkeypatch: pytest.MonkeyPatch) -> None:
+def mock_access_token(monkeypatch: pytest.MonkeyPatch) -> str:
     """Sets a mock access token for the Global Fishing Watch API.
 
     This fixture overrides the `GFW_API_ACCESS_TOKEN` environment variable,
@@ -49,6 +54,10 @@ def mock_access_token(monkeypatch: pytest.MonkeyPatch) -> None:
     Args:
         monkeypatch (pytest.MonkeyPatch):
             Pytest's built-in fixture for modifying environment variables.
+
+    Returns:
+        str:
+            The mocked access token.
 
     Example:
         ```python
@@ -60,12 +69,13 @@ def mock_access_token(monkeypatch: pytest.MonkeyPatch) -> None:
         ```
     """
     monkeypatch.setenv("GFW_API_ACCESS_TOKEN", MOCK_GFW_API_ACCESS_TOKEN)
+    return MOCK_GFW_API_ACCESS_TOKEN
 
 
 @pytest.fixture
 def mock_responsex(
-    mock_base_url: object,
-    mock_access_token: object,
+    mock_base_url: str,
+    mock_access_token: str,
     respx_mock: respx.MockRouter,
 ) -> respx.MockRouter:
     """Configures `respx` to intercept and mock HTTP requests to the API.
@@ -75,10 +85,10 @@ def mock_responsex(
     to define expected responses.
 
     Args:
-        mock_base_url (object):
+        mock_base_url (str):
             Ensures the base URL environment variable is set before mocking.
 
-        mock_access_token (object):
+        mock_access_token (str):
             Ensures the access token environment variable is set before mocking.
 
         respx_mock (respx.MockRouter):
