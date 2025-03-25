@@ -13,10 +13,10 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "Apache License 2.0" }
 authors = [
-  { name = "Global Fishing Watch", email = "info@globalfishingwatch.org" },
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
 ]
 maintainers = [
-  { name = "Global Fishing Watch", email = "info@globalfishingwatch.org" },
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
 ]
 keywords = [
   "global fishing watch",
@@ -82,11 +82,13 @@ lint = [
 # Testing tools
 test = [
   "pytest>=8.3.4",            # Core testing framework
+  "pytest-asyncio>=0.25.3",   # Asyncio plugin for pytest
   "pytest-cov>=6.0.0",        # Coverage plugin for pytest
   "pytest-mock>=3.14.0",      # Mocking plugin for pytest
   "pytest-xdist>=3.6.1",      # Parallel test execution for pytest
   "pytest-timeout>=2.3.1",    # Timeout support for pytest
   "coverage[toml]>=7.6.9",    # Code coverage reporting
+  "respx>=0.22.0",            # Utility for mocking httpx
 ]
 
 # Development workflow and tools
@@ -152,6 +154,7 @@ select = [
 ignore = [
   "E501",    # line too long, handled by black
   "C901",    # too complex
+  "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -185,11 +188,14 @@ convention = "google"
 
 [tool.mypy]
 strict = true
+ignore_missing_imports = true
 files = "src,tests"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 testpaths = ["tests"]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 source = ["src", "tests"]
@@ -230,7 +236,7 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump $current_version to $new_version"
 
 [tool.codespell]
-skip = '.git,env*,tmp*'
+skip = '.git,env*,venv*,tmp*'
 
 
 # Build system metadata.
