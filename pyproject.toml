@@ -227,9 +227,13 @@ exclude_lines = [
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.1.0"
+version_files = [
+    "pyproject.toml:version",
+    "src/gfwapiclient/__version__.py",
+]
 version_provider = "commitizen"
 version_scheme = "semver"
-major_version_zero = true
+major_version_zero = false
 tag_format = "v$version"
 update_changelog_on_bump = true
 changelog_file = "CHANGELOG.md"
