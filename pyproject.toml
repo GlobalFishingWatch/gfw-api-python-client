@@ -62,7 +62,7 @@ classifiers = [
 dependencies = [
   "httpx~=0.28",                # Making HTTP requests
   "pydantic~=2.10",             # Data validation and serialization
-  "pydantic-settings~=2.7",     # Type-hinted configurations or settings
+  "pydantic-settings~=2.8",     # Type-hinted configurations or settings
   "mapbox-vector-tile~=2.1",    # Encoding and decoding Mapbox Vector Tiles (MVT)
   "pandas~=2.2",                # Data analysis and manipulation
   "geopandas~=1.0",             # Geospatial data analysis and manipulation
@@ -71,37 +71,37 @@ dependencies = [
 [project.optional-dependencies]
 # Linting and code quality tools
 lint = [
-  "black>=24.10.0",             # Code formatting tool
-  "isort>=5.13.2",              # Python imports sorting tool
-  "mypy>=1.14.1",               # Static type checker
-  "pydocstyle>=6.3.0",          # Python docstring style checker
-  "ruff>=0.9.4",                # Linter and code analysis tool
-  "codespell[toml]>=2.4.1",     # Spell checker for code
+  "black>=25.1.0",               # Code formatting tool
+  "isort>=6.0.1",                # Python imports sorting tool
+  "mypy>=1.15.0",                # Static type checker
+  "pydocstyle>=6.3.0",           # Python docstring style checker
+  "ruff>=0.11.2",                # Linter and code analysis tool
+  "codespell[toml]>=2.4.1",      # Spell checker for code
 ]
 
 # Testing tools
 test = [
-  "pytest>=8.3.4",            # Core testing framework
-  "pytest-asyncio>=0.25.3",   # Asyncio plugin for pytest
+  "pytest>=8.3.5",            # Core testing framework
+  "pytest-asyncio>=0.26.0",   # Asyncio plugin for pytest
   "pytest-cov>=6.0.0",        # Coverage plugin for pytest
   "pytest-mock>=3.14.0",      # Mocking plugin for pytest
   "pytest-xdist>=3.6.1",      # Parallel test execution for pytest
   "pytest-timeout>=2.3.1",    # Timeout support for pytest
-  "coverage[toml]>=7.6.9",    # Code coverage reporting
+  "coverage[toml]>=7.7.1",    # Code coverage reporting
   "respx>=0.22.0",            # Utility for mocking httpx
 ]
 
 # Development workflow and tools
 dev = [
-  "commitizen>=4.2.2",        # Standardized commit messages and versioning
-  "pre-commit>=4.1.0",        # Framework for managing pre-commit hooks
+  "commitizen>=4.4.1",        # Standardized commit messages and versioning
+  "pre-commit>=4.2.0",        # Framework for managing pre-commit hooks
   "pip-audit>=2.8.0",         # Audit for finding vulnerabilities in dependencies
 ]
 
 # Build tools
 build = [
   "build>=1.2.2",             # Python PEP 517 compliant build system
-  "setuptools>=75.8.0",       # Python packaging library
+  "setuptools>=78.1.0",       # Python packaging library
   "twine>=6.1.0",             # For uploading Python packages to PyPI
 ]
 
@@ -116,8 +116,8 @@ docs = [
 # Jupyter notebook and interactive tools
 notebooks = [
   "ipykernel>=6.29.5",        # Jupyter kernel for Python
-  "ipython>=8.32.0",          # Enhanced interactive Python shell
-  "jupyterlab>=4.3.5",        # Jupyter's next-generation web-based interface
+  "ipython>=9.0.2",           # Enhanced interactive Python shell
+  "jupyterlab>=4.3.6",        # Jupyter's next-generation web-based interface
   "watermark>=2.5.0",         # Add timestamps and version info to Jupyter notebook
 ]
 
