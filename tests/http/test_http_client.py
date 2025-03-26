@@ -10,6 +10,7 @@ import respx
 
 from pytest_mock import MockerFixture
 
+from gfwapiclient.__version__ import __version__
 from gfwapiclient.exceptions.base import GFWAPIClientError
 from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
 from gfwapiclient.http.client import HTTPClient
@@ -29,6 +30,7 @@ def test_http_client_initialization_with_explicit_base_url_and_access_token() ->
     assert client.headers["Accept"] == "application/json"
     assert client.headers["Content-Type"] == "application/json"
     assert client.headers["User-Agent"].startswith("gfw-api-python-client/")
+    assert __version__ in client.headers["User-Agent"]
     assert client.headers["Authorization"] == f"Bearer {MOCK_GFW_API_ACCESS_TOKEN}"
 
 
