@@ -7,6 +7,7 @@ from typing import Any, Dict, Optional, Self, Type, Union
 
 import httpx
 
+from gfwapiclient.__version__ import __version__
 from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
 
 
@@ -99,11 +100,13 @@ class HTTPClient(httpx.AsyncClient):
             raise BaseUrlError()
 
         # Ensure access token is set, either via argument or environment variable
-        if access_token is None:
-            access_token = os.environ.get("GFW_API_ACCESS_TOKEN")
-        if access_token is None:
+        _access_token: Optional[str] = access_token or os.environ.get(
+            "GFW_API_ACCESS_TOKEN",
+            None,
+        )
+        if _access_token is None:
             raise AccessTokenError()
-        self._access_token: str = access_token
+        self._access_token: str = _access_token
 
         # Configure operations timeout settings
         _timeout: httpx.Timeout = httpx.Timeout(
@@ -137,7 +140,7 @@ class HTTPClient(httpx.AsyncClient):
             str:
                 The User-Agent string.
         """
-        return "gfw-api-python-client/v0.1.0 (https://github.com/GlobalFishingWatch/gfw-api-python-client)"
+        return f"gfw-api-python-client/v{__version__} (https://github.com/GlobalFishingWatch/gfw-api-python-client)"
 
     @property
     def auth_headers(self) -> Dict[str, str]:
