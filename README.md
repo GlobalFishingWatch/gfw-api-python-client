@@ -50,7 +50,7 @@ gfw = Client(api_token="<PASTE_YOUR_TOKEN_HERE>")
 
 The use of `gfw-api-python-client` requires a GFW API token, which users can request from the [GFW API Portal](https://globalfishingwatch.org/our-apis/tokens). Save this token to your `.env` by adding a variable named `GFW_API_TOKEN` i.e., (`GFW_API_TOKEN="PASTE_YOUR_TOKEN_HERE"`) and save the `.env` file.
 
-```.env
+```bash
 GFW_API_TOKEN=<PASTE_YOUR_TOKEN_HERE>
 ```
 

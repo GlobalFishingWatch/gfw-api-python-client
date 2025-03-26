@@ -67,9 +67,14 @@ clean:
 	rm -rf .pytest_cache
 	rm -rf htmlcov
 
-.PHONY: docs  ## Generate the docs
+.PHONY: docs  ## Generate HTML documentation
 docs:
-	@echo "TODO:"
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+
+.PHONY: servedocs  ## Build, watch and serve documentation with live reload in the browser
+servedocs:
+	$(MAKE) -C docs livehtml
 
 .PHONY: notebooks  ## Run notebooks
 notebooks:
