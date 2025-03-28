@@ -19,6 +19,8 @@ For more details, visit the official
 from gfwapiclient.__version__ import __version__
 from gfwapiclient.exceptions import (
     AccessTokenError,
+    APIError,
+    APIStatusError,
     BaseUrlError,
     GFWAPIClientError,
     ModelValidationError,
@@ -26,6 +28,8 @@ from gfwapiclient.exceptions import (
 
 
 __all__ = [
+    "APIError",
+    "APIStatusError",
     "AccessTokenError",
     "BaseUrlError",
     "GFWAPIClientError",

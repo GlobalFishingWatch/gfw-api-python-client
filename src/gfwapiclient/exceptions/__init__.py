@@ -21,6 +21,24 @@ Example:
 
 from gfwapiclient.exceptions.base import GFWAPIClientError
 from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
+from gfwapiclient.exceptions.http import (
+    APIConnectionError,
+    APIError,
+    APIStatusError,
+    APITimeoutError,
+    AuthenticationError,
+    BadGatewayError,
+    BadRequestError,
+    ConflictError,
+    GatewayTimeoutError,
+    InternalServerError,
+    NotFoundError,
+    PermissionDeniedError,
+    RateLimitError,
+    RequestTimeoutError,
+    ServiceUnavailableError,
+    UnprocessableEntityError,
+)
 from gfwapiclient.exceptions.validation import (
     ModelValidationError,
     RequestBodyValidationError,
@@ -30,11 +48,27 @@ from gfwapiclient.exceptions.validation import (
 
 
 __all__ = [
+    "APIConnectionError",
+    "APIError",
+    "APIStatusError",
+    "APITimeoutError",
     "AccessTokenError",
+    "AuthenticationError",
+    "BadGatewayError",
+    "BadRequestError",
     "BaseUrlError",
+    "ConflictError",
     "GFWAPIClientError",
+    "GatewayTimeoutError",
+    "InternalServerError",
     "ModelValidationError",
+    "NotFoundError",
+    "PermissionDeniedError",
+    "RateLimitError",
     "RequestBodyValidationError",
     "RequestParamsValidationError",
+    "RequestTimeoutError",
     "ResultItemValidationError",
+    "ServiceUnavailableError",
+    "UnprocessableEntityError",
 ]
