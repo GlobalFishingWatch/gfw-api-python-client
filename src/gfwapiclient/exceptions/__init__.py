@@ -6,6 +6,7 @@ These exceptions provide structured error handling when interacting with the API
 Available Exceptions:
     - `GFWAPIClientError`: Base exception for all GFW API client errors.
     - `BaseUrlError`: Raised when no `base_url` is provided.
+    - `AccessTokenError`: Raised when no `access_token` is provided.
 
 Example:
     ```python
@@ -19,7 +20,21 @@ Example:
 """
 
 from gfwapiclient.exceptions.base import GFWAPIClientError
-from gfwapiclient.exceptions.client import BaseUrlError
+from gfwapiclient.exceptions.client import AccessTokenError, BaseUrlError
+from gfwapiclient.exceptions.validation import (
+    ModelValidationError,
+    RequestBodyValidationError,
+    RequestParamsValidationError,
+    ResultItemValidationError,
+)
 
 
-__all__ = ["BaseUrlError", "GFWAPIClientError"]
+__all__ = [
+    "AccessTokenError",
+    "BaseUrlError",
+    "GFWAPIClientError",
+    "ModelValidationError",
+    "RequestBodyValidationError",
+    "RequestParamsValidationError",
+    "ResultItemValidationError",
+]

@@ -11,6 +11,9 @@ from gfwapiclient.exceptions.client import (
 )
 
 
+# BaseUrlError
+
+
 def test_base_url_error_inheritance() -> None:
     """Test that `BaseUrlError` is a subclass of `GFWAPIClientError`."""
     assert issubclass(BaseUrlError, GFWAPIClientError)
@@ -31,6 +34,9 @@ def test_base_url_error_raises() -> None:
     """Test that `BaseUrlError` raises properly."""
     with pytest.raises(BaseUrlError, match="The `base_url` must be provided"):
         raise BaseUrlError()
+
+
+# AccessTokenError
 
 
 def test_access_token_error_inheritance() -> None:

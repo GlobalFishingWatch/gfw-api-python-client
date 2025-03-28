@@ -37,7 +37,7 @@ class GFWAPIClientError(Exception):
                 Error message describing the exception.
         """
         super().__init__(message or "An error occurred")
-        self.message: str = message or "An error occurred"
+        self.message: str = message or "An error occurred."
 
     def __str__(self) -> str:
         """Return a string representation of the error."""

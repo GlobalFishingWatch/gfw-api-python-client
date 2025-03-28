@@ -17,7 +17,18 @@ For more details, visit the official
 """
 
 from gfwapiclient.__version__ import __version__
-from gfwapiclient.exceptions import BaseUrlError, GFWAPIClientError
+from gfwapiclient.exceptions import (
+    AccessTokenError,
+    BaseUrlError,
+    GFWAPIClientError,
+    ModelValidationError,
+)
 
 
-__all__ = ["BaseUrlError", "GFWAPIClientError", "__version__"]
+__all__ = [
+    "AccessTokenError",
+    "BaseUrlError",
+    "GFWAPIClientError",
+    "ModelValidationError",
+    "__version__",
+]
