@@ -24,6 +24,8 @@ from gfwapiclient.exceptions import (
     BaseUrlError,
     GFWAPIClientError,
     ModelValidationError,
+    ResultItemValidationError,
+    ResultValidationError,
 )
 
 
@@ -34,5 +36,7 @@ __all__ = [
     "BaseUrlError",
     "GFWAPIClientError",
     "ModelValidationError",
+    "ResultItemValidationError",
+    "ResultValidationError",
     "__version__",
 ]

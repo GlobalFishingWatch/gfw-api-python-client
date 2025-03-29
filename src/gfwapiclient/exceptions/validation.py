@@ -14,6 +14,7 @@ __all__ = [
     "RequestBodyValidationError",
     "RequestParamsValidationError",
     "ResultItemValidationError",
+    "ResultValidationError",
 ]
 
 MODEL_VALIDATION_ERROR_MESSAGE: Final[str] = "Model validation failed."
@@ -148,6 +149,62 @@ class ResultItemValidationError(ModelValidationError):
                 The HTTP response body content.
         """
         super().__init__(message=RESULT_ITEM_VALIDATION_ERROR_MESSAGE, error=error)
+        self.response = response
+        self.body = body
+
+    def __str__(self) -> str:
+        """Return a string representation of the error."""
+        _message = super().__str__()
+        if self.response:
+            _message = f"{_message} \nResponse: {self.response.text}"
+        return _message
+
+    def __repr__(self) -> str:
+        """Return the canonical string representation of the error."""
+        return (
+            f"{self.__class__.__name__}(message={self.message!r}, "
+            f"errors={self.errors!r}, response={self.response!r}, "
+            f"body={self.body!r})"
+        )
+
+
+class ResultValidationError(ModelValidationError):
+    """Raised when a `Result` or received HTTP response is invalid.
+
+    Attributes:
+        response (Optional[httpx.Response]):
+            Associated HTTP response (if available).
+
+        body (Optional[Any]):
+            Associated HTTP response body content (if available).
+    """
+
+    def __init__(
+        self,
+        *,
+        message: Optional[str] = None,
+        error: Optional[ValidationError] = None,
+        response: Optional[httpx.Response] = None,
+        body: Optional[Any] = None,
+    ) -> None:
+        """Initialize a new `ResultValidationError` exception.
+
+        Args:
+            message (Optional[str], default=None):
+                Error message describing the exception.
+
+            error (Optional[pydantic.ValidationError], default=None):
+                The `pydantic.ValidationError` instance with list of
+                validation errors (if available).
+
+            response (Optional[httpx.Response], default=None):
+                The HTTP response received.
+
+            body (Optional[Any], default=None):
+                The HTTP response body content.
+        """
+        # TODO: default _message = message or "Result validation error."
+        super().__init__(message=message, error=error)
         self.response = response
         self.body = body
 
