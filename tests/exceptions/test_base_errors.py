@@ -2,7 +2,7 @@
 
 import pytest
 
-from gfwapiclient.exceptions.base import GFWAPIClientError
+from gfwapiclient.exceptions.base import GFW_API_CLIENT_ERROR_MESSAGE, GFWAPIClientError
 
 
 def test_gfw_api_client_error_inheritance() -> None:
@@ -24,8 +24,8 @@ def test_gfw_api_client_error_instance_with_no_message() -> None:
     error = GFWAPIClientError()
     assert isinstance(error, GFWAPIClientError)
     assert isinstance(error, Exception)
-    assert str(error) == "An error occurred."
-    assert repr(error) == "GFWAPIClientError('An error occurred.')"
+    assert str(error) == GFW_API_CLIENT_ERROR_MESSAGE
+    assert repr(error) == f"GFWAPIClientError('{GFW_API_CLIENT_ERROR_MESSAGE}')"
 
 
 def test_gfw_api_client_error_raises() -> None:
