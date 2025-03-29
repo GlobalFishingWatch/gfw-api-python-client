@@ -119,4 +119,4 @@ class Result(Generic[_ResultItemT]):
         return df
 
 
-_ResultT = TypeVar("_ResultT", bound=Result[Any])  # FIXME: improve typing
+_ResultT = TypeVar("_ResultT", bound=Result[Any])
