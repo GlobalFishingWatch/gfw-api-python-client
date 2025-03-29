@@ -1,11 +1,13 @@
 """Global Fishing Watch (GFW) API Python Client - Base Exceptions."""
 
-from typing import Optional
+from typing import Final, Optional
 
 
 __all__ = [
     "GFWAPIClientError",
 ]
+
+GFW_API_CLIENT_ERROR_MESSAGE: Final[str] = "An error occurred."
 
 
 class GFWAPIClientError(Exception):
@@ -36,8 +38,9 @@ class GFWAPIClientError(Exception):
             message (Optional[str], default=None):
                 Error message describing the exception.
         """
-        super().__init__(message or "An error occurred")
-        self.message: str = message or "An error occurred."
+        _message: str = message or GFW_API_CLIENT_ERROR_MESSAGE
+        super().__init__(_message)
+        self.message: str = _message
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
