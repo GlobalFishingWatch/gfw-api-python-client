@@ -10,3 +10,8 @@ Global Fishing Watch API documentation:
 
 See: https://globalfishingwatch.org/our-apis/documentation#reference-data
 """
+
+from gfwapiclient.resources.references.resources import ReferenceResource
+
+
+__all__ = ["ReferenceResource"]

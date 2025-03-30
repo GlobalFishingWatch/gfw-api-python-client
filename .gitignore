@@ -161,6 +161,16 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+### IDE settings
+.vscode/
+
+### Temporary, backup & MacOS dir
+*~
+*.lock
+*.DS_Store
+*.swp
+*.swo
 
 # Other files and folders
 tmp/
+.ipython/
