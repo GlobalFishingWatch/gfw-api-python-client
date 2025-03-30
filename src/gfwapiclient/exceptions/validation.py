@@ -102,16 +102,21 @@ class RequestBodyValidationError(ModelValidationError):
     def __init__(
         self,
         *,
+        message: Optional[str] = None,
         error: Optional[ValidationError] = None,
     ) -> None:
         """Initialize a new `RequestBodyValidationError` exception.
 
         Args:
+            message (Optional[str], default=None):
+                Error message describing the exception.
+
             error (Optional[pydantic.ValidationError], default=None):
                 The `pydantic.ValidationError` instance with list of
                 validation errors (if available).
         """
-        super().__init__(message=REQUEST_BODY_VALIDATION_ERROR_MESSAGE, error=error)
+        _message = message or REQUEST_BODY_VALIDATION_ERROR_MESSAGE
+        super().__init__(message=_message, error=error)
 
 
 class ResultItemValidationError(ModelValidationError):

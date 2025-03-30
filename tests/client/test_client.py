@@ -6,6 +6,7 @@ import pytest
 from gfwapiclient.client.client import GFW_API_BASE_URL, Client
 from gfwapiclient.exceptions.client import AccessTokenError
 from gfwapiclient.http.client import HTTPClient
+from gfwapiclient.resources.insights.resources import InsightResource
 from gfwapiclient.resources.references.resources import ReferenceResource
 
 from ..conftest import MOCK_GFW_API_ACCESS_TOKEN, MOCK_GFW_API_BASE_URL
@@ -83,6 +84,17 @@ def test_client_initialization_with_custom_http_client_parameters(
     assert client._http_client._transport._pool._max_connections == 50
     assert client._http_client._transport._pool._max_keepalive_connections == 10
     assert client._http_client.max_redirects == 1
+
+
+def test_client_insights_property_returns_insight_resource_and_is_cached(
+    mock_base_url: str,
+    mock_access_token: str,
+) -> None:
+    """Test `Client.insights` returns `InsightResource` and caches the instance."""
+    client = Client()
+    assert isinstance(client.insights, InsightResource)
+    # Test that the property is cached
+    assert client.insights is client.insights
 
 
 def test_client_references_property_returns_reference_resource_and_is_cached(

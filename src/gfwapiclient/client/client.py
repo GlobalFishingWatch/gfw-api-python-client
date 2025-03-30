@@ -8,6 +8,7 @@ import httpx
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.resources import ReferenceResource
+from gfwapiclient.resources.insights.resources import InsightResource
 
 
 __all__ = ["Client"]
@@ -31,10 +32,14 @@ class Client:
     See: https://globalfishingwatch.org/our-apis/documentation#data-available
 
     Attributes:
+        insights (InsightResource):
+            Access to the vessel insights data resources.
+
         references (ReferenceResource):
             Access to the reference data resources.
     """
 
+    _insights: InsightResource
     _references: ReferenceResource
 
     def __init__(
@@ -115,6 +120,26 @@ class Client:
             max_redirects=max_redirects,
             **kwargs,
         )
+
+    @property
+    def insights(self) -> InsightResource:
+        """Insights data API resource.
+
+        Provides access to the Insights API resources, which allow users to retrieve
+        insights data for specified vessels.
+
+        For more details on the Insights API, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#insights-api
+
+        Returns:
+            InsightResource:
+                The insights data resource instance.
+        """
+        if not hasattr(self, "_insights"):
+            self._insights = InsightResource(http_client=self._http_client)
+        return self._insights
 
     @property
     def references(self) -> ReferenceResource:
