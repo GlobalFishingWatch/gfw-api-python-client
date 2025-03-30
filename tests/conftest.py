@@ -9,6 +9,8 @@ import respx
 
 from respx.patterns import parse_url_patterns
 
+from gfwapiclient.http.client import HTTPClient
+
 
 MOCK_GFW_API_BASE_URL: Final[str] = (
     "https://gateway.api.mocking.globalfishingwatch.org/v3/"
@@ -117,3 +119,14 @@ def mock_responsex(
     assert respx_mock._bases is not None, "Failed to set mock base URL in `respx`"
 
     return respx_mock
+
+
+@pytest.fixture
+def mock_http_client(mock_base_url: str, mock_access_token: str) -> HTTPClient:
+    """Fixture for creating a mock HTTP client.
+
+    Returns:
+        HTTPClient:
+            An instance of `HTTPClient` configured with a base URL and access token.
+    """
+    return HTTPClient(base_url=mock_base_url, access_token=mock_access_token)
