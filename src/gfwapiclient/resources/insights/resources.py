@@ -73,20 +73,22 @@ class InsightResource(BaseResource):
                 If the API request fails.
 
             RequestBodyValidationError:
-                if the request body is invalid.
+                If the request body is invalid.
         """
-        request_body = self._prepare_get_vessel_insights_request_body(
-            includes=includes,
-            start_date=start_date,
-            end_date=end_date,
-            vessels=vessels,
-            **kwargs,
+        request_body: VesselInsightBody = (
+            self._prepare_get_vessel_insights_request_body(
+                includes=includes,
+                start_date=start_date,
+                end_date=end_date,
+                vessels=vessels,
+                **kwargs,
+            )
         )
-        endpoint = VesselInsightEndPoint(
+        endpoint: VesselInsightEndPoint = VesselInsightEndPoint(
             request_body=request_body,
             http_client=self._http_client,
         )
-        result = await endpoint.request()
+        result: VesselInsightResult = await endpoint.request()
         return result
 
     def _prepare_get_vessel_insights_request_body(
@@ -105,7 +107,7 @@ class InsightResource(BaseResource):
                 "end_date": end_date,
                 "vessels": vessels,
             }
-            request_body = VesselInsightBody(**_request_body)
+            request_body: VesselInsightBody = VesselInsightBody(**_request_body)
         except pydantic.ValidationError as exc:
             raise RequestBodyValidationError(
                 message=VESSEL_INSIGHT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE, error=exc

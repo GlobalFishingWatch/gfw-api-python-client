@@ -7,8 +7,7 @@ from typing import Any, Final, Optional, Union
 import httpx
 
 from gfwapiclient.http.client import HTTPClient
-from gfwapiclient.resources import ReferenceResource
-from gfwapiclient.resources.insights.resources import InsightResource
+from gfwapiclient.resources import FourWingsResource, InsightResource, ReferenceResource
 
 
 __all__ = ["Client"]
@@ -32,6 +31,9 @@ class Client:
     See: https://globalfishingwatch.org/our-apis/documentation#data-available
 
     Attributes:
+        fourwings (FourWingsResource):
+            Access to the 4Wings data API resources.
+
         insights (InsightResource):
             Access to the vessel insights data resources.
 
@@ -39,6 +41,7 @@ class Client:
             Access to the reference data resources.
     """
 
+    _fourwings: FourWingsResource
     _insights: InsightResource
     _references: ReferenceResource
 
@@ -120,6 +123,26 @@ class Client:
             max_redirects=max_redirects,
             **kwargs,
         )
+
+    @property
+    def fourwings(self) -> FourWingsResource:
+        """4Wings data API resource.
+
+        Provides access to the 4Wings API resources, which allow users to retrieve
+        reports on fishing activity and SAR vessel detections.
+
+        For more details on the 4Wings API, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+
+        Returns:
+            FourWingsResource:
+                The 4Wings data resource instance.
+        """
+        if not hasattr(self, "_fourwings"):
+            self._fourwings = FourWingsResource(http_client=self._http_client)
+        return self._fourwings
 
     @property
     def insights(self) -> InsightResource:

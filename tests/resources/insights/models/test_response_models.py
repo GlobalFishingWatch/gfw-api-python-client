@@ -1,4 +1,4 @@
-"""Tests for `gfwapiclient.resources.insights.models.request`."""
+"""Tests for `gfwapiclient.resources.insights.models.response`."""
 
 from typing import Any, Dict, cast
 

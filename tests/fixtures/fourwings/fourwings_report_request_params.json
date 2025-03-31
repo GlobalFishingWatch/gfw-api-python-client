@@ -1,0 +1,17 @@
+{
+    "date-range": "2021-01-01,2021-01-15",
+    "datasets": [
+        "public-global-fishing-effort:latest",
+        "public-global-sar-presence:latest"
+    ],
+    "filters": [
+        "flag in ('ESP', 'FRA')",
+        "matched='false'",
+        "geartype in ('trawlers')"
+    ],
+    "format": "JSON",
+    "group-by": "VESSEL_ID",
+    "spatial-aggregation": true,
+    "spatial-resolution": "LOW",
+    "temporal-resolution": "HOURLY"
+}

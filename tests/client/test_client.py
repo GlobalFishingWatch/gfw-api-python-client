@@ -6,6 +6,7 @@ import pytest
 from gfwapiclient.client.client import GFW_API_BASE_URL, Client
 from gfwapiclient.exceptions.client import AccessTokenError
 from gfwapiclient.http.client import HTTPClient
+from gfwapiclient.resources.fourwings.resources import FourWingsResource
 from gfwapiclient.resources.insights.resources import InsightResource
 from gfwapiclient.resources.references.resources import ReferenceResource
 
@@ -84,6 +85,17 @@ def test_client_initialization_with_custom_http_client_parameters(
     assert client._http_client._transport._pool._max_connections == 50
     assert client._http_client._transport._pool._max_keepalive_connections == 10
     assert client._http_client.max_redirects == 1
+
+
+def test_client_fourwings_property_returns_insight_resource_and_is_cached(
+    mock_base_url: str,
+    mock_access_token: str,
+) -> None:
+    """Test `Client.fourwings` returns `FourWingsResource` and caches the instance."""
+    client = Client()
+    assert isinstance(client.fourwings, FourWingsResource)
+    # Test that the property is cached
+    assert client.fourwings is client.fourwings
 
 
 def test_client_insights_property_returns_insight_resource_and_is_cached(
