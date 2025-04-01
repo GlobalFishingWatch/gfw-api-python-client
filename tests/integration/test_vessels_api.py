@@ -30,7 +30,7 @@ from gfwapiclient.resources.vessels.search.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_basic(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_basic_success(gfw_client: gfw.Client) -> None:
     """Test basic vessel search by keyword (MMSI).
 
     This test verifies that the `search_vessels` method correctly retrieves vessel data
@@ -56,7 +56,7 @@ async def test_vessels_search_basic(gfw_client: gfw.Client) -> None:
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_advanced(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_advanced_success(gfw_client: gfw.Client) -> None:
     """Test advanced vessel search by keyword (MMSI and shipname).
 
     This test verifies that the `search_vessels` method correctly retrieves vessel data
@@ -82,7 +82,7 @@ async def test_vessels_search_advanced(gfw_client: gfw.Client) -> None:
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_get_by_ids(gfw_client: gfw.Client) -> None:
+async def test_vessels_get_vessels_by_ids_success(gfw_client: gfw.Client) -> None:
     """Test retrieving details of multiple vessels by IDs.
 
     This test verifies that the `get_vessels_by_ids` method correctly retrieves
@@ -111,7 +111,7 @@ async def test_vessels_get_by_ids(gfw_client: gfw.Client) -> None:
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_get_by_id(gfw_client: gfw.Client) -> None:
+async def test_vessels_gget_vessel_by_id_success(gfw_client: gfw.Client) -> None:
     """Test retrieving details of a single vessel by ID.
 
     This test verifies that the `get_vessel_by_id` method correctly retrieves
