@@ -27,7 +27,7 @@ async def test_fourwings_resource_get_report(
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
     mock_responsex: respx.MockRouter,
 ) -> None:
     """Test `FourWingsResource` get report succeeds with valid response."""
@@ -36,8 +36,8 @@ async def test_fourwings_resource_get_report(
         json={
             "entries": [
                 {
-                    mock_raw_four_wings_report_item["report_dataset"]: [
-                        mock_raw_four_wings_report_item
+                    mock_raw_fourwings_report_item["report_dataset"]: [
+                        mock_raw_fourwings_report_item
                     ]
                 }
             ]
