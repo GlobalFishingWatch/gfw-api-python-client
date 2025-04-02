@@ -85,7 +85,7 @@ class VesselListEndPoint(
         vessel_entries: List[Dict[str, Any]] = body.get("entries", [])
         transformed_data: List[Dict[str, Any]] = []
 
-        # Loop through "entries" list i.e {"entries": [{"dataset": [{...}]}]}
+        # Loop through "entries" list i.e [{"dataset": ..., ...}, ...]
         for vessel_entry in vessel_entries:
             # Append extracted dictionaries
             transformed_data.append(vessel_entry)

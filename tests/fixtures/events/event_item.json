@@ -1,0 +1,131 @@
+{
+    "start": "2016-12-17T20:57:49.000Z",
+    "end": "",
+    "id": "3ca9b73aee21fbf278a636709e0f8f03",
+    "type": "fishing",
+    "position": {
+        "lat": 54.9204,
+        "lon": -5.5465
+    },
+    "regions": {
+        "mpa": ["555786438", "555786428", "555624876", "555557202"],
+        "eez": ["5696"],
+        "rfmo": ["NEAFC", "NAMMCO", "IWC", "ACAP", "ICCAT", "ICES", "NASCO"],
+        "fao": ["27.7.a", "27.6", "27.6.a", "27.7", "27"],
+        "majorFao": ["27"],
+        "eez12Nm": ["5696"],
+        "highSeas": ["63203"],
+        "mpaNoTakePartial": [],
+        "mpaNoTake": []
+    },
+    "boundingBox": [
+        -5.3292866667, 54.775575, -5.943021666699991, 55.0624116667
+    ],
+    "distances": {
+        "startDistanceFromShoreKm": 14,
+        "endDistanceFromShoreKm": 2,
+        "startDistanceFromPortKm": 15.019969999999999,
+        "endDistanceFromPortKm": 7.348033999999999
+    },
+    "vessel": {
+        "id": "126570026-6217-2a10-f383-a42f66f78ea7",
+        "name": "NORTHERN VIKING",
+        "ssvid": "235063795",
+        "flag": "GBR",
+        "type": "fishing",
+        "publicAuthorizations": [
+            {
+                "hasPubliclyListedAuthorization": "false",
+                "rfmo": "ICCAT"
+            }
+        ]
+    },
+    "encounter": {
+        "vessel": {
+            "id": "2d971d23e-e7a1-1b04-5298-a53e51a17ac5",
+            "flag": null,
+            "name": "ZHEXIANGYU25232",
+            "type": "fishing",
+            "ssvid": "888111223",
+            "publicAuthorizations": [
+                {
+                    "hasPubliclyListedAuthorization": "false",
+                    "rfmo": "WCPFC"
+                }
+            ]
+        },
+        "medianDistanceKilometers": 0.034,
+        "medianSpeedKnots": 0.758,
+        "type": "fishing-fishing",
+        "potentialRisk": false,
+        "mainVesselPublicAuthorizationStatus": "not_matching_relevant_public_authorization",
+        "encounteredVesselPublicAuthorizationStatus": "not_matching_relevant_public_authorization"
+    },
+    "fishing": {
+        "totalDistanceKm": 1442.460024867923,
+        "averageSpeedKnots": 1.8645614012351122,
+        "averageDurationHours": null,
+        "potentialRisk": false,
+        "vesselPublicAuthorizationStatus": "not_matching_relevant_public_authorization"
+    },
+    "gap": {
+        "intentionalDisabling": true,
+        "distanceKm": "55.51093364869512",
+        "durationHours": 15.45,
+        "impliedSpeedKnots": "1.9400327695658373",
+        "positions12HoursBeforeSat": "23",
+        "positionsPerDaySatReception": 68.61675183927186,
+        "offPosition": {
+            "lat": -14.37886,
+            "lon": 65.0670116667
+        },
+        "onPosition": {
+            "lat": "-14.4101933333",
+            "lon": "65.5813966667"
+        }
+    },
+    "loitering": {
+        "totalTimeHours": 287.96388888888885,
+        "totalDistanceKm": 34.86680641407366,
+        "averageSpeedKnots": 0.06537822992561745,
+        "averageDistanceFromShoreKm": 392.8183837667117
+    },
+    "port_visit": {
+        "visitId": "a92fe2cfe6637cade94506b00d4584fd",
+        "confidence": "2",
+        "durationHrs": 44933.07305555556,
+        "startAnchorage": {
+            "anchorageId": "548671b3",
+            "atDock": true,
+            "distanceFromShoreKm": "1",
+            "flag": "CAN",
+            "id": "can-vancouver",
+            "lat": 49.309889830493304,
+            "lon": -123.08353899884875,
+            "name": "VANCOUVER",
+            "topDestination": "VANCOUVER"
+        },
+        "intermediateAnchorage": {
+            "anchorageId": "5486719d",
+            "atDock": true,
+            "distanceFromShoreKm": "0",
+            "flag": "CAN",
+            "id": "can-vancouver",
+            "lat": 49.28800229430145,
+            "lon": -123.10983798102913,
+            "name": "VANCOUVER",
+            "topDestination": "VANCOUVER"
+        },
+        "endAnchorage": {
+            "anchorageId": "548671c7",
+            "atDock": true,
+            "distanceFromShoreKm": "1",
+            "flag": "CAN",
+            "id": "can-vancouver",
+            "lat": 49.311623861913404,
+            "lon": -123.10679795864482,
+            "name": "VANCOUVER",
+            "topDestination": "VANCOUVER"
+        }
+    }
+}

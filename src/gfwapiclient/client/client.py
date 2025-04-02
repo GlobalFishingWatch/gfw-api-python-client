@@ -8,6 +8,7 @@ import httpx
 
 from gfwapiclient.http import HTTPClient
 from gfwapiclient.resources import (
+    EventResource,
     FourWingsResource,
     InsightResource,
     ReferenceResource,
@@ -42,6 +43,9 @@ class Client:
          vessels (VesselResource):
             Access to the Vessels data API resources.
 
+        events (EventResource):
+            Access to the Events data API resources.
+
         insights (InsightResource):
             Access to the vessel insights data resources.
 
@@ -51,6 +55,7 @@ class Client:
 
     _fourwings: FourWingsResource
     _vessels: VesselResource
+    _events: EventResource
     _insights: InsightResource
     _references: ReferenceResource
 
@@ -172,6 +177,26 @@ class Client:
         if not hasattr(self, "_vessels"):
             self._vessels = VesselResource(http_client=self._http_client)
         return self._vessels
+
+    @property
+    def events(self) -> EventResource:
+        """Events data API resource.
+
+        Provides access to the Events API resources, which allow users to retrieve
+        information about various vessel activities.
+
+        For more details on the Events API, refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#events-api
+
+        Returns:
+            EventResource:
+                The Events data resource instance.
+        """
+        if not hasattr(self, "_events"):
+            self._events = EventResource(http_client=self._http_client)
+        return self._events
 
     @property
     def insights(self) -> InsightResource:

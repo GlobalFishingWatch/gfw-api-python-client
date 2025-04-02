@@ -9,3 +9,8 @@ For detailed information about the Vessels API, please refer to the official
 `Global Fishing Watch Vessels API Documentation
 <https://globalfishingwatch.org/our-apis/documentation#vessels-api>`_.
 """
+
+from gfwapiclient.resources.vessels.resources import VesselResource
+
+
+__all__ = ["VesselResource"]
