@@ -2,6 +2,7 @@
 
 import http
 
+from abc import ABC, abstractmethod
 from typing import Any, Dict, Generic, Optional, Type
 
 import httpx
@@ -15,7 +16,7 @@ __all__ = ["AbstractBaseEndPoint"]
 
 
 class AbstractBaseEndPoint(
-    Generic[_RequestParamsT, _RequestBodyT, _ResultItemT, _ResultT],
+    ABC, Generic[_RequestParamsT, _RequestBodyT, _ResultItemT, _ResultT]
 ):
     """Abstract base class for an API resource endpoint.
 
@@ -160,3 +161,17 @@ class AbstractBaseEndPoint(
             headers=headers,
         )
         return request
+
+    @abstractmethod
+    async def request(self, **kwargs: Any) -> _ResultT:
+        """Send an HTTP request for this endpoint.
+
+        Args:
+            **kwargs (Any):
+                Additional keyword arguments to pass to the `httpx.Client.send()` method.
+
+        Returns:
+            _ResultT:
+                The result of the API request as a `_ResultT` instance.
+        """
+        raise NotImplementedError()
