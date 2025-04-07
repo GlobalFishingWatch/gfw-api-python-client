@@ -11,7 +11,7 @@ These are mostly guidelines, not rules. Use your best judgment, and feel free to
 
 ## Code of Conduct
 
-This project has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
+This project has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
 
 
 ## Open Development
@@ -33,12 +33,12 @@ This project follows [semantic versioning](http://semver.org/). We release patch
 
 ## Where to Find Known Issues
 
-We are using [GitHub Issues](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) for all issues. Before filing a new task, try to make sure your problem doesn't already exist.
+We are using [GitHub Issues](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) for all issues. Before creating a new task, try to make sure your problem doesn't already exist.
 
 
 ## Proposing a Change
 
-If you intend to change the public API, or make any non-trivial changes to the implementation, we recommend [filing an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues/new). This lets us reach an agreement on your proposal before you put significant effort into it.
+If you intend to change the public API, or make any non-trivial changes to the implementation, we recommend [creating an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues/new). This lets us reach an agreement on your proposal before you put significant effort into it.
 
 If you're only fixing a bug, it's fine to submit a pull request right away but we still recommend to file an issue detailing what you're fixing. This is helpful in case we don't accept that specific fix but want to keep track of the issue.
 
@@ -120,7 +120,7 @@ The footer should contain any information about **Breaking Changes** and is also
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under [our license](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under [our license](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/LICENSE).
 
 
 ## Developer's Certificate of Origin 1.1

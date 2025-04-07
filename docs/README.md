@@ -1,4 +1,4 @@
-# Global Fishing Watch API Client Documentation
+# Documentation
 
 ## What's this?
 
@@ -6,20 +6,19 @@ This directory contains the source code for Global Fishing Watch API Client docu
 
 ## Building the documentation
 
-Install Sphinx and other dependencies (i.e. theme etc.) needed for the documentation. From the project `root` directory, use:
+Install Sphinx and other dependencies (i.e. theme etc.) needed for the documentation. Navigate to the project's `root` directory and run:
 
 ```bash
 make install
 ```
 
-Build the documentation like this:
+Build the documentation using the following command:
 
 ```bash
 make docs
 ```
 
-The built documentation will be placed in the `docs/build` directory. Open
-`docs/build/index.html` to view the documentation.
+The generated documentation will be placed in the `docs/build` directory. Open `docs/build/index.html` in your web browser to view it.
 
 ## Helpful documentation commands
 
@@ -41,12 +40,12 @@ Test and check the links found in the documentation:
 make -C docs linkcheck
 ```
 
-For more commands run:
+Test and check the links found in the documentation:
 
 ```bash
 make -C docs
 ```
 
-## Documentation on Github Pages
+## Documentation on GitHub Pages
 
-The Global Fishing Watch API Client Documentation is hosted on Github Pages, and the latest version can be found at https://globalfishingwatch.github.io/gfw-api-python-client/.
+The Global Fishing Watch API Client Documentation is hosted on GitHub Pages. The latest version can be accessed at https://globalfishingwatch.github.io/gfw-api-python-client/.

@@ -127,7 +127,7 @@ notebooks = [
 
 [project.urls]
 Homepage = "https://github.com/GlobalFishingWatch/gfw-api-python-client"
-Documentation = "https://github.com/GlobalFishingWatch/gfw-api-python-client"
+Documentation = "https://globalfishingwatch.github.io/gfw-api-python-client/"
 Changelog = "https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/CHANGELOG.md"
 Repository = "https://github.com/GlobalFishingWatch/gfw-api-python-client"
 Issues = "https://github.com/GlobalFishingWatch/gfw-api-python-client/issues"
