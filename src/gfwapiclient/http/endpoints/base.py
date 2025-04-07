@@ -4,7 +4,7 @@ import http
 import json
 import logging
 
-from typing import Any, Dict, List, Optional, Type, Union
+from typing import Any, Dict, List, Optional, Type, Union, override
 
 import httpx
 import pydantic
@@ -97,6 +97,7 @@ class BaseEndPoint(
             http_client=http_client,
         )
 
+    @override
     async def request(self, **kwargs: Any) -> _ResultT:
         """Send an HTTP request for this endpoint.
 
@@ -111,7 +112,6 @@ class BaseEndPoint(
         return await self._request(**kwargs)
 
     async def _request(self, **kwargs: Any) -> _ResultT:
-        """Perform request-response flow for this endpoint."""
         """Perform request-response flow for this endpoint.
 
         Args:

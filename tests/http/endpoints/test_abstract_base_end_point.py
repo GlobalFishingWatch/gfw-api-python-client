@@ -2,7 +2,7 @@
 
 import http
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, override
 
 import httpx
 import pytest
@@ -22,6 +22,7 @@ from .conftest import (
     gap_intentional_disabling,
     geometry,
     limit,
+    mock_raw_result_item,
     sort,
     start_date,
     time_series_interval,
@@ -35,7 +36,12 @@ class MockAbstractBaseEndPoint(
 ):
     """A sample endpoint for testing `AbstractBaseEndPoint` and HTTP endpoints behavior."""
 
-    pass
+    @override
+    async def request(self, **kwargs: Any) -> MockListResult:
+        """Send an HTTP request for this endpoint."""
+        raw_item: Dict[str, Any] = mock_raw_result_item()
+        item: MockResultItem = MockResultItem(**raw_item)
+        return MockListResult(data=[item])
 
 
 @pytest.fixture
