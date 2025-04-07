@@ -19,6 +19,7 @@ from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
     ResultItemValidationError,
+    ResultValidationError,
 )
 
 
@@ -175,6 +176,47 @@ def test_result_item_validation_error_instance_with_httpx_response() -> None:
 
     assert repr(error).startswith("ResultItemValidationError")
     assert RESULT_ITEM_VALIDATION_ERROR_MESSAGE in repr(error)
+
+    assert error.response == response
+    assert error.body == body
+
+
+# ResultValidationError
+
+
+def test_result_validation_error_inheritance() -> None:
+    """Test that `ResultValidationError` is a subclass of `ModelValidationError`."""
+    assert issubclass(ResultValidationError, ModelValidationError)
+    assert issubclass(ResultValidationError, GFWAPIClientError)
+    assert issubclass(ResultValidationError, Exception)
+
+
+def test_result_validation_error_instance() -> None:
+    """Test that `ResultValidationError` can be instantiated."""
+    message = "Result validation error occurred."
+    error = ResultValidationError(message=message)
+    assert isinstance(error, ResultValidationError)
+    assert len(error.errors) == 0
+    assert message in str(error)
+    assert repr(error).startswith("ResultValidationError")
+    assert message in repr(error)
+
+
+def test_result_validation_error_instance_with_httpx_response() -> None:
+    """Test that `ResultValidationError` can be instantiated with `httpx.Response`."""
+    message = "Result validation error occurred."
+    response = httpx.Response(400, json={"error": "Bad Request", "statusCode": 400})
+    body = {"data": "invalid"}
+
+    error = ResultValidationError(message=message, response=response, body=body)
+    assert isinstance(error, ResultValidationError)
+    assert len(error.errors) == 0
+
+    assert message in str(error)
+    assert "Bad Request" in str(error)
+
+    assert repr(error).startswith("ResultValidationError")
+    assert message in repr(error)
 
     assert error.response == response
     assert error.body == body

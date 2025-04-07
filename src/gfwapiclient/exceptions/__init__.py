@@ -44,6 +44,7 @@ from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
     ResultItemValidationError,
+    ResultValidationError,
 )
 
 
@@ -69,6 +70,8 @@ __all__ = [
     "RequestParamsValidationError",
     "RequestTimeoutError",
     "ResultItemValidationError",
+    "ResultItemValidationError",
+    "ResultValidationError",
     "ServiceUnavailableError",
     "UnprocessableEntityError",
 ]
