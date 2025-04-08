@@ -59,7 +59,7 @@ Once installed, you can import and use `gfw-api-python-client` in your code:
 ```python
 import gfwapiclient as gfw
 
-client = gfw.Client(
+gfw_client = gfw.Client(
     access_token="<PASTE_YOUR_GFW_API_ACCESS_TOKEN_HERE>",
 )
 ```
