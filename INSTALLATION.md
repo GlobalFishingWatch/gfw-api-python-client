@@ -20,15 +20,15 @@ Using a virtual environment helps avoid conflicts with other Python projects and
 
 - Create a new virtual environment named `.venv`:
 
-```bash
-python3 -m venv .venv
-```
+    ```bash
+    python3 -m venv .venv
+    ```
 
 - Activate the virtual environment:
 
-```bash
-source .venv/bin/activate
-```
+    ```bash
+    source .venv/bin/activate
+    ```
 
 Your terminal prompt should now be prefixed with `(.venv)`, indicating that the virtual environment is active.
 
@@ -38,15 +38,15 @@ Your terminal prompt should now be prefixed with `(.venv)`, indicating that the 
 
 - Create a new virtual environment named `.venv`:
 
-```powershell
-python -m venv .venv
-```
+    ```powershell
+    python -m venv .venv
+    ```
 
 - Activate the virtual environment:
 
-```powershell
-.venv\Scripts\activate
-```
+    ```powershell
+    .venv\Scripts\activate
+    ```
 
 Your terminal prompt should now be prefixed with `(.venv)`, indicating that the virtual environment is active.
 
@@ -70,16 +70,16 @@ This method allows you to install the `gfw-api-python-client` directly from the 
 
 - Clone the repository
 
-```bash
-git clone https://github.com/GlobalFishingWatch/gfw-api-python-client.git
-cd gfw-api-python-client
-```
+    ```bash
+    git clone https://github.com/GlobalFishingWatch/gfw-api-python-client.git
+    cd gfw-api-python-client
+    ```
 
 - Install in **editable mode** with development dependencies:
 
-```bash
-make install
-```
+    ```bash
+    make install
+    ```
 
 This command performs an editable install (`-e .`) which links the installed package to your local source code. It also installs all the necessary development and documentation dependencies as defined in the [pyproject.toml](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/pyproject.toml) file.
 
@@ -99,21 +99,21 @@ If you installed the `gfw-api-python-client` from source, follow these steps to 
 
 - Navigate to the cloned repository directory:
 
-```bash
-cd gfw-api-python-client
-```
+    ```bash
+    cd gfw-api-python-client
+    ```
 
 - Fetch the latest changes from the remote repository:
 
-```bash
-git pull origin main
-```
+    ```bash
+    git pull origin main
+    ```
 
 - Re-install the package in editable mode to apply any changes and update dependencies:
 
-```bash
-make install
-```
+    ```bash
+    make install
+    ```
 
 ## Verifying Your Installation
 
