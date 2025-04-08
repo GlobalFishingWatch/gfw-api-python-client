@@ -84,16 +84,21 @@ class RequestParamsValidationError(ModelValidationError):
     def __init__(
         self,
         *,
+        message: Optional[str] = None,
         error: Optional[ValidationError] = None,
     ) -> None:
         """Initialize a new `RequestParamsValidationError` exception.
 
         Args:
+            message (Optional[str], default=None):
+                Error message describing the exception.
+
             error (Optional[pydantic.ValidationError], default=None):
                 The `pydantic.ValidationError` instance with list of
                 validation errors (if available).
         """
-        super().__init__(message=REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE, error=error)
+        _message: str = message or REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE
+        super().__init__(message=_message, error=error)
 
 
 class RequestBodyValidationError(ModelValidationError):
@@ -102,16 +107,21 @@ class RequestBodyValidationError(ModelValidationError):
     def __init__(
         self,
         *,
+        message: Optional[str] = None,
         error: Optional[ValidationError] = None,
     ) -> None:
         """Initialize a new `RequestBodyValidationError` exception.
 
         Args:
+            message (Optional[str], default=None):
+                Error message describing the exception.
+
             error (Optional[pydantic.ValidationError], default=None):
                 The `pydantic.ValidationError` instance with list of
                 validation errors (if available).
         """
-        super().__init__(message=REQUEST_BODY_VALIDATION_ERROR_MESSAGE, error=error)
+        _message: str = message or REQUEST_BODY_VALIDATION_ERROR_MESSAGE
+        super().__init__(message=_message, error=error)
 
 
 class ResultItemValidationError(ModelValidationError):
@@ -154,7 +164,7 @@ class ResultItemValidationError(ModelValidationError):
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
-        _message = super().__str__()
+        _message: str = super().__str__()
         if self.response:
             _message = f"{_message} \nResponse: {self.response.text}"
         return _message
@@ -210,7 +220,7 @@ class ResultValidationError(ModelValidationError):
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
-        _message = super().__str__()
+        _message: str = super().__str__()
         if self.response:
             _message = f"{_message} \nResponse: {self.response.text}"
         return _message

@@ -91,7 +91,7 @@ class APIError(GFWAPIClientError):
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
-        _message = super().__str__()
+        _message: str = super().__str__()
         if self.body:
             _message = f"{_message} \nBody: {self.body}"
         return _message

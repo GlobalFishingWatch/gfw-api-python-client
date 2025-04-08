@@ -14,8 +14,11 @@ class BaseResource:
     API requests.
     """
 
+    _http_client: HTTPClient
+
     def __init__(
         self,
+        *,
         http_client: HTTPClient,
     ) -> None:
         """Initialize a new `BaseResource`.

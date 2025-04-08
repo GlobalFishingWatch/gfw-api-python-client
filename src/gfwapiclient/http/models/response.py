@@ -53,7 +53,7 @@ class Result(Generic[_ResultItemT]):
     _result_item_class: Type[_ResultItemT]
     _data: Union[List[_ResultItemT], _ResultItemT]
 
-    def __init__(self, data: Union[List[_ResultItemT], _ResultItemT]) -> None:
+    def __init__(self, *, data: Union[List[_ResultItemT], _ResultItemT]) -> None:
         """Initializes a new `Result` instance.
 
         Args:
@@ -72,6 +72,11 @@ class Result(Generic[_ResultItemT]):
         This method provides direct access to the underlying data, which can be
         either a single `ResultItem` instance or a list of `ResultItem` instances.
 
+        Args:
+            **kwargs (Any):
+                Additional arguments passed to the `model_dump` method to customize
+                the serialization process.
+
         Returns:
             Union[List[_ResultItemT], _ResultItemT]:
                 The API endpoint result data, either a single `ResultItem` or a list of `ResultItem`.
@@ -83,6 +88,7 @@ class Result(Generic[_ResultItemT]):
 
     def df(
         self,
+        *,
         include: Optional[Set[str]] = None,
         exclude: Optional[Set[str]] = None,
         **kwargs: Any,

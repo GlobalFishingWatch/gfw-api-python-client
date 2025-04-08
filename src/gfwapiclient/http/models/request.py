@@ -61,10 +61,10 @@ class RequestParams(BaseModel):
         base_params: Dict[str, Any] = self.model_dump(**kwargs)
 
         # Ensure the dictionary is JSON-serializable.
-        base_params = to_jsonable_python(dict(**base_params))
+        base_json_params: Dict[str, Any] = to_jsonable_python(dict(**base_params))
 
         formatted_params: Dict[str, Any] = {}
-        for param_key, param_value in base_params.items():
+        for param_key, param_value in base_json_params.items():
             if isinstance(param_value, list):
                 # Serialize field as indexed list query param (e.g., "param_key[0]=value1", "param_key[1]=value2")
                 if self.indexed_fields and param_key in self.indexed_fields:
@@ -104,7 +104,7 @@ class RequestBody(BaseModel):
         the serialization process.
 
         Args:
-            **kwargs:
+            **kwargs (Any):
                 Additional arguments passed to the `model_dump` method to customize
                 the serialization process.
 
