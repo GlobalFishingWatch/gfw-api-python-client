@@ -1,1 +1,1 @@
-"""Integration tests for `gfwapiclient`."""
+"""Integration tests for the `gfwapiclient`."""

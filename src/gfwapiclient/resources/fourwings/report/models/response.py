@@ -141,6 +141,7 @@ class FourWingsReportResult(Result[FourWingsReportItem]):
         """Initializes a new `FourWingsReportResult`.
 
         Args:
-            data (List[FourWingsReportItem]): The list of report items.
+            data (List[FourWingsReportItem]):
+                The list of report items.
         """
         super().__init__(data=data)

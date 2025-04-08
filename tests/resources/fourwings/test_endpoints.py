@@ -26,7 +26,7 @@ async def test_fourwings_report_endpoint_request_success(
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
     mock_responsex: respx.MockRouter,
 ) -> None:
     """Test `FourWingsReportEndPoint` request succeeds with valid response."""
@@ -35,8 +35,8 @@ async def test_fourwings_report_endpoint_request_success(
         json={
             "entries": [
                 {
-                    mock_raw_four_wings_report_item["report_dataset"]: [
-                        mock_raw_four_wings_report_item
+                    mock_raw_fourwings_report_item["report_dataset"]: [
+                        mock_raw_fourwings_report_item
                     ]
                 }
             ]
@@ -65,12 +65,12 @@ async def test_fourwings_report_endpoint_request_invalid_response_body_failure(
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
     mock_responsex: respx.MockRouter,
 ) -> None:
     """Test `FourWingsReportEndPoint` request fails with invalid response body."""
     mock_responsex.post("4wings/report").respond(
-        200, json=[mock_raw_four_wings_report_item]
+        200, json=[mock_raw_fourwings_report_item]
     )
     request_params: FourWingsReportParams = FourWingsReportParams(
         **mock_raw_fourwings_report_request_params
@@ -93,7 +93,7 @@ async def test_fourwings_report_endpoint_request_failure(
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
     mock_responsex: respx.MockRouter,
 ) -> None:
     """Test `FourWingsReportEndPoint` request fails with invalid response."""

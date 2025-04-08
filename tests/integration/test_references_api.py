@@ -47,7 +47,7 @@ async def test_references_get_eez_regions_success(gfw_client: gfw.Client) -> Non
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_references_get_mpa_regions(gfw_client: gfw.Client) -> None:
+async def test_references_get_mpa_regions_success(gfw_client: gfw.Client) -> None:
     """Test retrieving available Marine Protected Area (MPA) regions data.
 
     This test verifies that the `get_mpa_regions` method can successfully fetch MPA region data from the API,
@@ -68,7 +68,7 @@ async def test_references_get_mpa_regions(gfw_client: gfw.Client) -> None:
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_references_get_rfmo_regions(gfw_client: gfw.Client) -> None:
+async def test_references_get_rfmo_regions_success(gfw_client: gfw.Client) -> None:
     """Test retrieving available Regional Fisheries Management Organization (RFMO) regions data.
 
     This test verifies that the `get_rfmo_regions` method can successfully fetch RFMO region data from the API,

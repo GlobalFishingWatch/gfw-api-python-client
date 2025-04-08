@@ -6,9 +6,11 @@ import pytest
 from gfwapiclient.client.client import GFW_API_BASE_URL, Client
 from gfwapiclient.exceptions.client import AccessTokenError
 from gfwapiclient.http.client import HTTPClient
+from gfwapiclient.resources.events.resources import EventResource
 from gfwapiclient.resources.fourwings.resources import FourWingsResource
 from gfwapiclient.resources.insights.resources import InsightResource
 from gfwapiclient.resources.references.resources import ReferenceResource
+from gfwapiclient.resources.vessels.resources import VesselResource
 
 from ..conftest import MOCK_GFW_API_ACCESS_TOKEN, MOCK_GFW_API_BASE_URL
 
@@ -87,7 +89,7 @@ def test_client_initialization_with_custom_http_client_parameters(
     assert client._http_client.max_redirects == 1
 
 
-def test_client_fourwings_property_returns_insight_resource_and_is_cached(
+def test_client_fourwings_property_returns_fourwing_resource_and_is_cached(
     mock_base_url: str,
     mock_access_token: str,
 ) -> None:
@@ -96,6 +98,28 @@ def test_client_fourwings_property_returns_insight_resource_and_is_cached(
     assert isinstance(client.fourwings, FourWingsResource)
     # Test that the property is cached
     assert client.fourwings is client.fourwings
+
+
+def test_client_vessels_property_returns_vessels_resource_and_is_cached(
+    mock_base_url: str,
+    mock_access_token: str,
+) -> None:
+    """Test `Client.vessels` returns `VesselResource` and caches the instance."""
+    client = Client()
+    assert isinstance(client.vessels, VesselResource)
+    # Test that the property is cached
+    assert client.vessels is client.vessels
+
+
+def test_client_events_property_returns_vessels_resource_and_is_cached(
+    mock_base_url: str,
+    mock_access_token: str,
+) -> None:
+    """Test `Client.events` returns `EventResource` and caches the instance."""
+    client = Client()
+    assert isinstance(client.events, EventResource)
+    # Test that the property is cached
+    assert client.events is client.events
 
 
 def test_client_insights_property_returns_insight_resource_and_is_cached(

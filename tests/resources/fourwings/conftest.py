@@ -38,7 +38,7 @@ def mock_raw_fourwings_report_request_body(
 
 
 @pytest.fixture
-def mock_raw_four_wings_report_item(
+def mock_raw_fourwings_report_item(
     load_json_fixture: Callable[[str], Dict[str, Any]],
 ) -> Dict[str, Any]:
     """Fixture for mock raw four wings report item.
@@ -48,6 +48,6 @@ def mock_raw_four_wings_report_item(
             Raw `FourWingsReportItem` sample data.
     """
     raw_four_wings_report_item: Dict[str, Any] = load_json_fixture(
-        "fourwings/four_wings_report_item.json"
+        "fourwings/fourwings_report_item.json"
     )
     return raw_four_wings_report_item

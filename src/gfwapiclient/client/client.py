@@ -6,8 +6,14 @@ from typing import Any, Final, Optional, Union
 
 import httpx
 
-from gfwapiclient.http.client import HTTPClient
-from gfwapiclient.resources import FourWingsResource, InsightResource, ReferenceResource
+from gfwapiclient.http import HTTPClient
+from gfwapiclient.resources import (
+    EventResource,
+    FourWingsResource,
+    InsightResource,
+    ReferenceResource,
+    VesselResource,
+)
 
 
 __all__ = ["Client"]
@@ -34,6 +40,12 @@ class Client:
         fourwings (FourWingsResource):
             Access to the 4Wings data API resources.
 
+         vessels (VesselResource):
+            Access to the Vessels data API resources.
+
+        events (EventResource):
+            Access to the Events data API resources.
+
         insights (InsightResource):
             Access to the vessel insights data resources.
 
@@ -42,6 +54,8 @@ class Client:
     """
 
     _fourwings: FourWingsResource
+    _vessels: VesselResource
+    _events: EventResource
     _insights: InsightResource
     _references: ReferenceResource
 
@@ -143,6 +157,46 @@ class Client:
         if not hasattr(self, "_fourwings"):
             self._fourwings = FourWingsResource(http_client=self._http_client)
         return self._fourwings
+
+    @property
+    def vessels(self) -> VesselResource:
+        """Vessels data API resource.
+
+        Provides access to the Vessels API resources, which allow users to search for
+        and retrieve information about vessels using various criteria.
+
+        For more details on the Vessels API, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+
+        Returns:
+            VesselResource:
+                The Vessels data resource instance.
+        """
+        if not hasattr(self, "_vessels"):
+            self._vessels = VesselResource(http_client=self._http_client)
+        return self._vessels
+
+    @property
+    def events(self) -> EventResource:
+        """Events data API resource.
+
+        Provides access to the Events API resources, which allow users to retrieve
+        information about various vessel activities.
+
+        For more details on the Events API, refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#events-api
+
+        Returns:
+            EventResource:
+                The Events data resource instance.
+        """
+        if not hasattr(self, "_events"):
+            self._events = EventResource(http_client=self._http_client)
+        return self._events
 
     @property
     def insights(self) -> InsightResource:

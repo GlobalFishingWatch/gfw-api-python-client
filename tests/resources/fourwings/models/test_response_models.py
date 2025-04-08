@@ -9,11 +9,11 @@ from gfwapiclient.resources.fourwings.report.models.response import (
 
 
 def test_fourwings_report_item_derializes_all_fields(
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
 ) -> None:
     """Test that `FourWingsReportItem` serializes all fields correctly."""
     vessel_insight_item: FourWingsReportItem = FourWingsReportItem(
-        **mock_raw_four_wings_report_item
+        **mock_raw_fourwings_report_item
     )
     assert vessel_insight_item.date is not None
     assert vessel_insight_item.detections is not None
@@ -38,11 +38,11 @@ def test_fourwings_report_item_derializes_all_fields(
 
 
 def test_fourwings_report_result_deserializes_all_fields(
-    mock_raw_four_wings_report_item: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
 ) -> None:
     """Test that `FourWingsReportResult` deserializes all fields correctly."""
     data: List[FourWingsReportItem] = [
-        FourWingsReportItem(**mock_raw_four_wings_report_item)
+        FourWingsReportItem(**mock_raw_fourwings_report_item)
     ]
     result = FourWingsReportResult(data=data)
     assert cast(List[FourWingsReportItem], result.data()) == data

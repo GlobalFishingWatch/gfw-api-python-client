@@ -146,10 +146,10 @@ async def test_insights_get_vessel_insights_related_to_vessels_listed_in_iuu_lis
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_all_types_success(
+async def test_insights_get_vessel_insights_multiple_insight_types_success(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights for all types.
+    """Test retrieving vessel insights for multiple insight types.
 
     This test verifies that the `get_vessel_insights` method can successfully retrieve
     vessel insights data for multiple insight types.
