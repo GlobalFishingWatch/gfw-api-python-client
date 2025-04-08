@@ -55,6 +55,7 @@ class BaseEndPoint(
 
     def __init__(
         self,
+        *,
         method: http.HTTPMethod,
         path: str,
         request_params: Optional[_RequestParamsT],
@@ -156,14 +157,11 @@ class BaseEndPoint(
             response.raise_for_status()
         except httpx.HTTPStatusError as exc:
             log.debug("Encountered httpx.HTTPStatusError", exc_info=True)
-            raise self._process_api_status_error(exc.response) from None
+            raise self._process_api_status_error(response=exc.response) from None
 
         return self._process_response_data(response=response)
 
-    def _process_response_data(
-        self,
-        response: httpx.Response,
-    ) -> _ResultT:
+    def _process_response_data(self, *, response: httpx.Response) -> _ResultT:
         """Parse, transform and cast response data.
 
         Args:
@@ -181,15 +179,20 @@ class BaseEndPoint(
             ResultItemValidationError:
                 If the response data cannot be casted to the `_ResultItemT` model.
         """
-        parsed_data = self._parse_response_data(response=response)
-        transformed_data = self._transform_response_data(body=parsed_data)
-        casted_data = self._cast_response_data(body=transformed_data, response=response)
-        result = self._build_api_result(data=casted_data)
+        parsed_data: Union[List[Dict[str, Any]], Dict[str, Any]] = (
+            self._parse_response_data(response=response)
+        )
+        transformed_data: Union[List[Dict[str, Any]], Dict[str, Any]] = (
+            self._transform_response_data(body=parsed_data)
+        )
+        casted_data: Union[List[_ResultItemT], _ResultItemT] = self._cast_response_data(
+            body=transformed_data, response=response
+        )
+        result: _ResultT = self._build_api_result(data=casted_data)
         return result
 
     def _parse_response_data(
-        self,
-        response: httpx.Response,
+        self, *, response: httpx.Response
     ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """Parse response and return data.
 
@@ -216,8 +219,7 @@ class BaseEndPoint(
         return parsed_data
 
     def _transform_response_data(
-        self,
-        body: Union[List[Dict[str, Any]], Dict[str, Any]],
+        self, *, body: Union[List[Dict[str, Any]], Dict[str, Any]]
     ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """Transform and reshape response body and return data.
 
@@ -233,6 +235,7 @@ class BaseEndPoint(
 
     def _cast_response_data(
         self,
+        *,
         body: Union[List[Dict[str, Any]], Dict[str, Any]],
         response: httpx.Response,
     ) -> Union[List[_ResultItemT], _ResultItemT]:
@@ -267,7 +270,7 @@ class BaseEndPoint(
             ) from exc
 
     def _build_api_result(
-        self, data: Union[List[_ResultItemT], _ResultItemT]
+        self, *, data: Union[List[_ResultItemT], _ResultItemT]
     ) -> _ResultT:
         """Build and return result for this API endpoint.
 
@@ -281,10 +284,7 @@ class BaseEndPoint(
         """
         return self._result_class(data=data)
 
-    def _process_api_status_error(
-        self,
-        response: httpx.Response,
-    ) -> APIStatusError:
+    def _process_api_status_error(self, *, response: httpx.Response) -> APIStatusError:
         """Processes raised HTTP status error.
 
         This function:
@@ -301,10 +301,10 @@ class BaseEndPoint(
                 An `APIStatusError` instance representing the error.
         """
         if response.is_closed and not response.is_stream_consumed:
-            body = None
-            error_message = f"Error code: {response.status_code}"
+            body: Any = None
+            error_message: str = f"Error code: {response.status_code}"
         else:
-            error_text = response.text.strip()
+            error_text: Any = response.text.strip()
             body = error_text
             try:
                 body = json.loads(error_text)
@@ -312,19 +312,17 @@ class BaseEndPoint(
             except Exception:
                 error_message = error_text or f"Error code: {response.status_code}"
 
-        return self._cast_api_status_error(error_message, body=body, response=response)
+        return self._cast_api_status_error(
+            error_message=error_message, body=body, response=response
+        )
 
     def _cast_api_status_error(
-        self,
-        err_msg: str,
-        *,
-        body: Any,
-        response: httpx.Response,
+        self, *, error_message: str, body: Any, response: httpx.Response
     ) -> APIStatusError:
         """Converts raised HTTP status error to specific `APIStatusError`.
 
         Args:
-            err_msg (str):
+            error_message (str):
                 The error message.
 
             body (Any):
@@ -339,28 +337,34 @@ class BaseEndPoint(
         """
         match response.status_code:
             case 400:
-                return BadRequestError(err_msg, response=response, body=body)
+                return BadRequestError(error_message, response=response, body=body)
             case 401:
-                return AuthenticationError(err_msg, response=response, body=body)
+                return AuthenticationError(error_message, response=response, body=body)
             case 403:
-                return PermissionDeniedError(err_msg, response=response, body=body)
+                return PermissionDeniedError(
+                    error_message, response=response, body=body
+                )
             case 404:
-                return NotFoundError(err_msg, response=response, body=body)
+                return NotFoundError(error_message, response=response, body=body)
             case 408:
-                return RequestTimeoutError(err_msg, response=response, body=body)
+                return RequestTimeoutError(error_message, response=response, body=body)
             case 409:
-                return ConflictError(err_msg, response=response, body=body)
+                return ConflictError(error_message, response=response, body=body)
             case 422:
-                return UnprocessableEntityError(err_msg, response=response, body=body)
+                return UnprocessableEntityError(
+                    error_message, response=response, body=body
+                )
             case 429:
-                return RateLimitError(err_msg, response=response, body=body)
+                return RateLimitError(error_message, response=response, body=body)
             case 500:
-                return InternalServerError(err_msg, response=response, body=body)
+                return InternalServerError(error_message, response=response, body=body)
             case 502:
-                return BadGatewayError(err_msg, response=response, body=body)
+                return BadGatewayError(error_message, response=response, body=body)
             case 503:
-                return ServiceUnavailableError(err_msg, response=response, body=body)
+                return ServiceUnavailableError(
+                    error_message, response=response, body=body
+                )
             case 504:
-                return GatewayTimeoutError(err_msg, response=response, body=body)
+                return GatewayTimeoutError(error_message, response=response, body=body)
             case _:
-                return APIStatusError(err_msg, response=response, body=body)
+                return APIStatusError(error_message, response=response, body=body)

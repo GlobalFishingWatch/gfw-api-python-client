@@ -1,0 +1,273 @@
+{
+    "registryInfoTotalRecords": 5,
+    "registryInfo": [
+        {
+            "id": "a8d00ce54b37add7f85a35fcce8e7a1b",
+            "sourceCode": ["GFW-REVIEW", "IMO", "NEAFC", "TMT_OTHER"],
+            "ssvid": "273379740",
+            "flag": "RUS",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "callsign": "UCRZ",
+            "imo": "9076260",
+            "latestVesselInfo": true,
+            "transmissionDateFrom": "2015-02-27T10:59:43Z",
+            "transmissionDateTo": "2025-02-25T08:26:32Z",
+            "geartypes": ["SPECIALIZED_REEFER"],
+            "lengthM": 126.8,
+            "tonnageGt": 6963.6,
+            "vesselInfoReference": "418225ffa5438506023be0c1d0f4716a",
+            "extraFields": [
+                {
+                    "registrySource": "TMT",
+                    "iuuStatus": null,
+                    "hasComplianceInfo": null,
+                    "images": [],
+                    "operator": null,
+                    "builtYear": null,
+                    "depthM": null
+                }
+            ]
+        },
+        {
+            "id": "a8d00ce54b37add7f85a35fcce8e7a1b",
+            "sourceCode": [
+                "GFW-REVIEW",
+                "ICCAT",
+                "IMO",
+                "ISSF",
+                "NEAFC",
+                "RUS",
+                "TMT_OTHER"
+            ],
+            "ssvid": "210631000",
+            "flag": "CYP",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "callsign": "5BWC3",
+            "imo": "9076260",
+            "transmissionDateFrom": "2013-05-15T20:19:43Z",
+            "transmissionDateTo": "2024-07-04T14:19:36Z",
+            "geartypes": ["SPECIALIZED_REEFER"],
+            "lengthM": 126.8,
+            "tonnageGt": 6963.6,
+            "vesselInfoReference": "e99af472b926d251e41457f6f1f5e9cc",
+            "extraFields": [
+                {
+                    "registrySource": "TMT",
+                    "iuuStatus": null,
+                    "hasComplianceInfo": null,
+                    "images": [],
+                    "operator": null,
+                    "builtYear": null,
+                    "depthM": null
+                }
+            ]
+        }
+    ],
+    "registryOwners": [
+        {
+            "name": "ZHOUSHAN SHUNHANG OCEAN FISHERIES",
+            "flag": "CHN",
+            "ssvid": "412331038",
+            "sourceCode": ["RESEARCH-PAPER"],
+            "dateFrom": "2013-11-15T00:28:32Z",
+            "dateTo": "2024-10-31T16:25:53Z"
+        }
+    ],
+    "registryPublicAuthorizations": [
+        {
+            "dateFrom": "2023-01-01T00:00:00Z",
+            "dateTo": "2024-12-31T00:00:00Z",
+            "ssvid": "210631000",
+            "sourceCode": ["ICCAT"]
+        },
+        {
+            "dateFrom": "2020-01-01T00:00:00Z",
+            "dateTo": "2024-12-01T00:00:00Z",
+            "ssvid": "210631000",
+            "sourceCode": ["NEAFC"]
+        },
+        {
+            "dateFrom": "2024-08-09T00:00:00Z",
+            "dateTo": "2024-12-01T00:00:00Z",
+            "ssvid": "273379740",
+            "sourceCode": ["NEAFC"]
+        }
+    ],
+    "combinedSourcesInfo": [
+        {
+            "vesselId": "da1cd7e1b-b8d0-539c-6581-2b3df8d0a6af",
+            "geartypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2015,
+                    "yearTo": 2025
+                }
+            ],
+            "shiptypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2015,
+                    "yearTo": 2025
+                }
+            ]
+        },
+        {
+            "vesselId": "8c7304226-6c71-edbe-0b63-c246734b3c01",
+            "geartypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2013,
+                    "yearTo": 2025
+                }
+            ],
+            "shiptypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2013,
+                    "yearTo": 2025
+                }
+            ]
+        },
+        {
+            "vesselId": "0cb77880e-ee49-2ce4-a849-c0b413b6ec89",
+            "geartypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2012,
+                    "yearTo": 2013
+                }
+            ],
+            "shiptypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2012,
+                    "yearTo": 2013
+                }
+            ]
+        },
+        {
+            "vesselId": "0edad163f-f53d-9ddb-5bef-f4a46be18559",
+            "geartypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2024,
+                    "yearTo": 2025
+                }
+            ],
+            "shiptypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2024,
+                    "yearTo": 2025
+                }
+            ]
+        },
+        {
+            "vesselId": "3c81a942b-bf0a-f476-ea72-75c02ef91f78",
+            "geartypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2015,
+                    "yearTo": 2016
+                }
+            ],
+            "shiptypes": [
+                {
+                    "name": "CARRIER",
+                    "source": "GFW_VESSEL_LIST",
+                    "yearFrom": 2015,
+                    "yearTo": 2016
+                }
+            ]
+        }
+    ],
+    "selfReportedInfo": [
+        {
+            "id": "da1cd7e1b-b8d0-539c-6581-2b3df8d0a6af",
+            "ssvid": "273379740",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "flag": "RUS",
+            "callsign": "UCRZ",
+            "imo": "9076260",
+            "messagesCounter": 263107,
+            "positionsCounter": 107659,
+            "sourceCode": ["AIS"],
+            "matchFields": "SEVERAL_FIELDS",
+            "transmissionDateFrom": "2015-02-27T10:59:21Z",
+            "transmissionDateTo": "2025-03-02T23:51:32Z"
+        },
+        {
+            "id": "0edad163f-f53d-9ddb-5bef-f4a46be18559",
+            "ssvid": "511101495",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "flag": "PLW",
+            "callsign": "T8A4891",
+            "imo": "9076260",
+            "messagesCounter": 51874,
+            "positionsCounter": 15380,
+            "sourceCode": ["AIS"],
+            "matchFields": "SEVERAL_FIELDS",
+            "transmissionDateFrom": "2024-07-04T14:27:03Z",
+            "transmissionDateTo": "2024-07-24T14:24:37Z"
+        },
+        {
+            "id": "8c7304226-6c71-edbe-0b63-c246734b3c01",
+            "ssvid": "210631000",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "flag": "CYP",
+            "callsign": "5BWC3",
+            "imo": "9076260",
+            "messagesCounter": 3369802,
+            "positionsCounter": 1337867,
+            "sourceCode": ["AIS"],
+            "matchFields": "SEVERAL_FIELDS",
+            "transmissionDateFrom": "2013-05-15T20:18:31Z",
+            "transmissionDateTo": "2024-07-04T14:25:05Z"
+        },
+        {
+            "id": "3c81a942b-bf0a-f476-ea72-75c02ef91f78",
+            "ssvid": "341346000",
+            "shipname": "FRIO FORWIN",
+            "nShipname": "FRIOFORWIN",
+            "flag": "KNA",
+            "callsign": "V4JQ3",
+            "imo": "9076260",
+            "messagesCounter": 51368,
+            "positionsCounter": 14491,
+            "sourceCode": ["AIS"],
+            "matchFields": "SEVERAL_FIELDS",
+            "transmissionDateFrom": "2015-10-30T09:27:12Z",
+            "transmissionDateTo": "2016-03-10T12:38:35Z"
+        },
+        {
+            "id": "0cb77880e-ee49-2ce4-a849-c0b413b6ec89",
+            "ssvid": "354666000",
+            "shipname": "FRIO AEGEAN",
+            "nShipname": "FRIOAEGEAN",
+            "flag": "PAN",
+            "callsign": "3FGY4",
+            "imo": "9076260",
+            "messagesCounter": 120929,
+            "positionsCounter": 37236,
+            "sourceCode": ["AIS"],
+            "matchFields": "SEVERAL_FIELDS",
+            "transmissionDateFrom": "2012-01-01T00:32:48Z",
+            "transmissionDateTo": "2013-05-15T20:25:05Z"
+        }
+    ],
+    "dataset": "public-global-vessel-identity:v3.0"
+}

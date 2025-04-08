@@ -1,0 +1,9 @@
+{
+    "binary": false,
+    "datasets": ["public-global-vessel-identity:latest"],
+    "ids": ["6583c51e3-3626-5638-866a-f47c3bc7ef7c"],
+    "includes": ["POTENTIAL_RELATED_SELF_REPORTED_INFO"],
+    "match_fields": ["ALL"],
+    "registries_info_data": "ALL",
+    "vessel_groups": ["my-vessel-group"]
+}

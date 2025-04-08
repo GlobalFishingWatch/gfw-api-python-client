@@ -33,9 +33,9 @@ class HTTPClient(httpx.AsyncClient):
 
     def __init__(
         self,
+        *,
         base_url: Optional[Union[str, httpx.URL]] = None,
         access_token: Optional[str] = None,
-        *,
         follow_redirects: Optional[bool] = True,
         timeout: Optional[float] = 60.0,
         connect_timeout: Optional[float] = 5.0,

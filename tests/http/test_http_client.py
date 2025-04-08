@@ -1,7 +1,5 @@
 """Tests for `gfwapiclient.http.client.HTTPClient`."""
 
-import os
-
 from typing import Type
 
 import httpx
@@ -47,18 +45,20 @@ def test_http_client_initialization_with_env_vars(
 
 def test_http_client_initialization_without_base_url(
     mock_access_token: str,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Test that initializing `HTTPClient` with missing `base_url` raises `BaseUrlError`."""
-    os.environ.pop("GFW_API_BASE_URL", None)
+    monkeypatch.delenv("GFW_API_BASE_URL", raising=False)
     with pytest.raises(BaseUrlError, match="The `base_url` must be provided"):
         HTTPClient()
 
 
 def test_http_client_initialization_without_access_token(
-    mock_base_url: object,
+    mock_base_url: str,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Test that initializing `HTTPClient` with missing `access_token` raises `AccessTokenError`."""
-    os.environ.pop("GFW_API_ACCESS_TOKEN", None)
+    monkeypatch.delenv("GFW_API_ACCESS_TOKEN", raising=False)
     with pytest.raises(AccessTokenError, match="The `access_token` must be provided"):
         HTTPClient()
 

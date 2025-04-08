@@ -34,6 +34,7 @@ class AbstractBaseEndPoint(
 
     def __init__(
         self,
+        *,
         method: http.HTTPMethod,
         path: str,
         request_params: Optional[_RequestParamsT],

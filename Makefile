@@ -32,9 +32,13 @@ typecheck:
 audit:
 	python -m pip_audit .
 
-.PHONY: test  ## Run all tests and generate a coverage report
+.PHONY: test  ## Run all unit tests and generate a coverage report
 test:
-	python -m pytest --cov-report term --cov-report=xml --cov=$(sources)
+	python -m pytest -m "not integration" --cov-report term --cov-report=xml --cov=$(sources)
+
+.PHONY: test-integration  ## Run only integration tests (if configured) without generate a coverage report
+test-integration:
+	python -m pytest -m "integration" -rs -n auto --dist=loadscope --maxfail=5 --durations=10 --tb=short
 
 .PHONY: pre-commit  ## Run all pre-commit hooks
 pre-commit:
