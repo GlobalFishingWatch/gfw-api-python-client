@@ -1,6 +1,6 @@
 # Security
 
-At **[Global Fishing Watch](https://globalfishingwatch.org/)**, we take the security of our users and the `gfw-api-python-client` project very seriously. If you believe you have discovered a security vulnerability, we encourage you to report it responsibly. Please follow the process outlined below to ensure it is handled promptly and effectively.
+At **[Global Fishing Watch](https://globalfishingwatch.org/)**, we take the security of our users and the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) project very seriously. If you believe you have discovered a security vulnerability, we encourage you to report it responsibly. Please follow the process outlined below to ensure it is handled promptly and effectively.
 
 ## Reporting a Security Vulnerability
 
