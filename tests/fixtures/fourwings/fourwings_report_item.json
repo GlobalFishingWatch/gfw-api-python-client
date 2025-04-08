@@ -1,0 +1,22 @@
+{
+    "callsign": "UBSS9",
+    "dataset": "public-global-vessel-identity:v3.0",
+    "date": "2022-01-13 04:00",
+    "detections": 1,
+    "entryTimestamp": "",
+    "exitTimestamp": "2022-01-14T16:00:00Z",
+    "firstTransmissionDate": "2019-07-12T12:08:27Z",
+    "flag": "RUS",
+    "geartype": "FISHING",
+    "hours": 0.9955555555555555,
+    "imo": "8602866",
+    "lastTransmissionDate": "2025-03-01T23:55:50Z",
+    "lat": 49.33,
+    "lon": 141.15,
+    "mmsi": "273453380",
+    "shipName": "ALSEY",
+    "vesselId": "e6154b2e7-7762-4889-fb46-976ec72875e1",
+    "vesselIDs": 6,
+    "vesselType": "FISHING",
+    "report_dataset": "public-global-fishing-effort:v3.0"
+}

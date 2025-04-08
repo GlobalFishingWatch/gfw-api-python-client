@@ -1,0 +1,10 @@
+{
+    "binary": false,
+    "datasets": ["public-global-vessel-identity:latest"],
+    "includes": ["OWNERSHIP", "MATCH_CRITERIA", "AUTHORIZATIONS"],
+    "limit": 20,
+    "match_fields": ["ALL"],
+    "query": "Don tito",
+    "since": "some_token",
+    "where": "(shipname = 'SEIN PHOENIX' OR mmsi = '441618000') AND flag = 'KOR'"
+}

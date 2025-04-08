@@ -1,0 +1,62 @@
+{
+    "datasets": [
+        "public-global-fishing-events:latest",
+        "public-global-encounters-events:latest",
+        "public-global-loitering-events:latest",
+        "public-global-port-visits-events:latest",
+        "public-global-gaps-events:latest"
+    ],
+    "vessels": [
+        "8c7304226-6c71-edbe-0b63-c246734b3c01",
+        "6583c51e3-3626-5638-866a-f47c3bc7ef7c"
+    ],
+    "types": [
+        "ENCOUNTER",
+        "FISHING",
+        "LOITERING",
+        "GAP_START",
+        "GAP",
+        "PORT_VISIT"
+    ],
+    "start_date": "2023-01-01",
+    "end_date": "2023-01-02",
+    "confidences": ["2", "3", "4"],
+    "encounter_types": [
+        "CARRIER-FISHING",
+        "FISHING-CARRIER",
+        "FISHING-SUPPORT",
+        "SUPPORT-FISHING"
+    ],
+    "geometry": {
+        "coordinates": [
+            [
+                [120.36621093749999, 26.725986812271756],
+                [122.36572265625, 26.725986812271756],
+                [122.36572265625, 28.323724553546015],
+                [120.36621093749999, 28.323724553546015],
+                [120.36621093749999, 26.725986812271756]
+            ]
+        ],
+        "type": "Polygon"
+    },
+    "region": {
+        "dataset": "public-eez-areas",
+        "id": "5690"
+    },
+    "vessel_types": [
+        "BUNKER",
+        "CARGO",
+        "DISCREPANCY",
+        "CARRIER",
+        "FISHING",
+        "GEAR",
+        "OTHER",
+        "PASSENGER",
+        "SEISMIC_VESSEL",
+        "SUPPORT"
+    ],
+    "vessel_groups": ["my-vessel-group"],
+    "flags": ["SEN"],
+    "duration": 30,
+    "gap_intentional_disabling": true
+}

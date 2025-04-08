@@ -38,7 +38,7 @@ test:
 
 .PHONY: test-integration  ## Run only integration tests (if configured) without generate a coverage report
 test-integration:
-	python -m pytest -m "integration" -rs
+	python -m pytest -m "integration" -rs -n auto --dist=loadscope --maxfail=5 --durations=10 --tb=short
 
 .PHONY: pre-commit  ## Run all pre-commit hooks
 pre-commit:

@@ -1,0 +1,7 @@
+{
+    "binary": false,
+    "dataset": "public-global-vessel-identity:latest",
+    "includes": ["POTENTIAL_RELATED_SELF_REPORTED_INFO"],
+    "match_fields": ["ALL"],
+    "registries_info_data": "ALL"
+}

@@ -1,8 +1,10 @@
 """Test configurations for `gfwapiclient`."""
 
+import json
 import os
 
-from typing import Final
+from pathlib import Path
+from typing import Any, Callable, Dict, Final
 
 import pytest
 import respx
@@ -130,6 +132,61 @@ def mock_http_client(mock_base_url: str, mock_access_token: str) -> HTTPClient:
             An instance of `HTTPClient` configured with a base URL and access token.
     """
     return HTTPClient(base_url=mock_base_url, access_token=mock_access_token)
+
+
+@pytest.fixture
+def load_json_fixture() -> Callable[[str], Dict[str, Any]]:
+    """Load a JSON fixture from the `tests/fixtures` directory.
+
+    This fixture provides a function to load JSON files as dictionaries.
+
+    Args:
+        filename (str):
+           The name of the JSON file to load.
+
+    Raises:
+        FileNotFoundError:
+            If the specified JSON file does not exist.
+
+        json.JSONDecodeError:
+            If the file is not valid JSON.
+
+    Returns:
+        Callable[[str], Dict[str, Any]]:
+            A function that takes a filename and returns the
+            parsed JSON data as a dictionary.
+
+    Example:
+        In a test function, use the fixture as follows:
+
+        ```python
+        from typing import Callable, Dict, Any
+
+
+        def test_example(load_json_fixture: Callable[[str], Dict[str, Any]]):
+            data = load_json_fixture("sample.json")
+
+            # Perform test using fixtures
+            # ...
+        ```
+
+    Usage:
+        - Place your JSON fixtures inside `tests/fixtures/`.
+        - Call `load_json_fixture("filename.json")` inside your tests.
+    """
+    fixtures_dir = Path(__file__).parent / "fixtures"
+
+    def _load_json(filename: str) -> Dict[str, Any]:
+        fixture_path = fixtures_dir / filename
+
+        if not fixture_path.exists():
+            raise FileNotFoundError(f"Fixture file not found: {fixture_path}")
+
+        with fixture_path.open("r", encoding="utf-8") as fixture_file:
+            fixture_data: Dict[str, Any] = json.load(fixture_file)
+            return fixture_data
+
+    return _load_json
 
 
 def pytest_configure(config: pytest.Config) -> None:
