@@ -15,7 +15,7 @@ from gfwapiclient.resources.insights.models.response import (
 class VesselInsightEndPoint(
     PostEndPoint[
         RequestParams, VesselInsightBody, VesselInsightItem, VesselInsightResult
-    ],
+    ]
 ):
     """Get Vessels Insights API endpoint.
 
@@ -32,6 +32,7 @@ class VesselInsightEndPoint(
 
     def __init__(
         self,
+        *,
         request_body: VesselInsightBody,
         http_client: HTTPClient,
     ) -> None:

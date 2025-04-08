@@ -29,6 +29,7 @@ class VesselSearchEndPoint(
 
     def __init__(
         self,
+        *,
         request_params: VesselSearchParams,
         http_client: HTTPClient,
     ) -> None:
@@ -52,6 +53,7 @@ class VesselSearchEndPoint(
     @override
     def _transform_response_data(
         self,
+        *,
         body: Union[List[Dict[str, Any]], Dict[str, Any]],
     ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """Transform and reshape response body and yield data.
@@ -86,7 +88,8 @@ class VesselSearchEndPoint(
 
         # Loop through "entries" list i.e {"entries": [{"dataset": [{...}]}]}
         for vessel_entry in vessel_entries:
-            # Append extracted dictionaries
-            transformed_data.append(vessel_entry)
+            # Append extracted dictionaries, if not empty
+            if vessel_entry:
+                transformed_data.append(dict(**vessel_entry))
 
         return transformed_data

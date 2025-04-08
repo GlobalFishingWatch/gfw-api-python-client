@@ -141,7 +141,10 @@ def test_base_endpoint_parse_response_data_success(
         json=mock_raw_result_item,
         headers={"content-type": "application/json"},
     )
-    assert mock_base_endpoint._parse_response_data(response) == mock_raw_result_item
+    assert (
+        mock_base_endpoint._parse_response_data(response=response)
+        == mock_raw_result_item
+    )
 
 
 def test_base_endpoint_process_response_data_content_type_error(
@@ -158,7 +161,7 @@ def test_base_endpoint_process_response_data_content_type_error(
     )
 
     with pytest.raises(ResultValidationError):
-        mock_base_endpoint._process_response_data(response)
+        mock_base_endpoint._process_response_data(response=response)
 
 
 def test_base_endpoint_process_response_data_item_validation_error(
@@ -177,7 +180,7 @@ def test_base_endpoint_process_response_data_item_validation_error(
     )
 
     with pytest.raises(ResultItemValidationError):
-        mock_base_endpoint._process_response_data(response)
+        mock_base_endpoint._process_response_data(response=response)
 
 
 def test_base_endpoint_process_api_status_error_on_closed_stream(
@@ -192,7 +195,7 @@ def test_base_endpoint_process_api_status_error_on_closed_stream(
     response.is_closed = True
     response.is_stream_consumed = False
 
-    error = mock_base_endpoint._process_api_status_error(response)
+    error = mock_base_endpoint._process_api_status_error(response=response)
 
     assert isinstance(error, APIStatusError)
     assert error.message == "Error code: 400"
@@ -211,7 +214,7 @@ def test_base_endpoint_process_api_status_error_invalid_json(
         status_code=500, text="Internal Server Error", request=request
     )
 
-    error = mock_base_endpoint._process_api_status_error(response)
+    error = mock_base_endpoint._process_api_status_error(response=response)
 
     assert isinstance(error, APIStatusError)
     assert error.message == "Internal Server Error"

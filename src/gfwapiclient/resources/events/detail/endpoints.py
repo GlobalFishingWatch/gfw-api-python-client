@@ -24,6 +24,7 @@ class EventDetailEndPoint(
 
     def __init__(
         self,
+        *,
         event_id: str,
         request_params: EventDetailParams,
         http_client: HTTPClient,

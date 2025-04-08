@@ -29,6 +29,7 @@ class InsightResource(BaseResource):
 
     async def get_vessel_insights(
         self,
+        *,
         includes: Union[List[VesselInsightInclude], List[str]],
         start_date: Union[datetime.date, str],
         end_date: Union[datetime.date, str],
@@ -93,6 +94,7 @@ class InsightResource(BaseResource):
 
     def _prepare_get_vessel_insights_request_body(
         self,
+        *,
         includes: Union[List[VesselInsightInclude], List[str]],
         start_date: Union[datetime.date, str],
         end_date: Union[datetime.date, str],

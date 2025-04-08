@@ -131,8 +131,8 @@ class VesselResource(BaseResource):
 
     async def get_vessels_by_ids(
         self,
-        ids: List[str],
         *,
+        ids: List[str],
         datasets: Optional[Union[List[VesselDataset], List[str]]] = None,
         registries_info_data: Optional[VesselRegistryInfoData] = None,
         includes: Optional[List[VesselInclude]] = None,
@@ -206,8 +206,8 @@ class VesselResource(BaseResource):
 
     async def get_vessel_by_id(
         self,
-        id: str,
         *,
+        id: str,
         dataset: Optional[Union[VesselDataset, str]] = None,
         registries_info_data: Optional[Union[VesselRegistryInfoData, str]] = None,
         includes: Optional[Union[List[VesselInclude], List[str]]] = None,
@@ -309,8 +309,8 @@ class VesselResource(BaseResource):
 
     def _prepare_get_vessels_by_ids_request_params(
         self,
-        ids: List[str],
         *,
+        ids: List[str],
         datasets: Optional[Union[List[VesselDataset], List[str]]] = None,
         registries_info_data: Optional[Union[VesselRegistryInfoData, str]] = None,
         includes: Optional[Union[List[VesselInclude], List[str]]] = None,

@@ -24,6 +24,7 @@ class EventStatsEndPoint(
 
     def __init__(
         self,
+        *,
         request_body: EventStatsBody,
         http_client: HTTPClient,
     ) -> None:

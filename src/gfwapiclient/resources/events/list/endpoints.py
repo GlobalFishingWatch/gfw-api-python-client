@@ -29,6 +29,7 @@ class EventListEndPoint(
 
     def __init__(
         self,
+        *,
         request_params: EventListParams,
         request_body: EventListBody,
         http_client: HTTPClient,
@@ -57,6 +58,7 @@ class EventListEndPoint(
     @override
     def _transform_response_data(
         self,
+        *,
         body: Union[List[Dict[str, Any]], Dict[str, Any]],
     ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """Transforms and reshapes the response body to extract event data.

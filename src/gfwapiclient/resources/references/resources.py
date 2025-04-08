@@ -2,7 +2,6 @@
 
 from typing import Any, Dict
 
-from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.http.resources import BaseResource
 from gfwapiclient.resources.references.regions.endpoints import (
     EEZRegionEndPoint,
@@ -27,15 +26,6 @@ class ReferenceResource(BaseResource):
     https://globalfishingwatch.org/our-apis/documentation#regions
     """
 
-    def __init__(self, http_client: HTTPClient) -> None:
-        """Initializes a new `ReferenceResource`.
-
-        Args:
-            http_client (HTTPClient):
-                The HTTP client to send requests.
-        """
-        super().__init__(http_client=http_client)
-
     async def get_eez_regions(self, **kwargs: Dict[str, Any]) -> EEZRegionResult:
         """Get available Exclusive Economic Zone (EEZ) regions data.
 
@@ -49,8 +39,8 @@ class ReferenceResource(BaseResource):
             EEZRegionResult:
                 An `EEZRegionResult` instance containing the EEZ regions data.
         """
-        endpoint = EEZRegionEndPoint(http_client=self._http_client)
-        result = await endpoint.request(**kwargs)
+        endpoint: EEZRegionEndPoint = EEZRegionEndPoint(http_client=self._http_client)
+        result: EEZRegionResult = await endpoint.request(**kwargs)
         return result
 
     async def get_mpa_regions(self, **kwargs: Dict[str, Any]) -> MPARegionResult:
@@ -66,8 +56,8 @@ class ReferenceResource(BaseResource):
             MPARegionResult:
                 An `MPARegionResult` instance containing the MPA regions data.
         """
-        endpoint = MPARegionEndPoint(http_client=self._http_client)
-        result = await endpoint.request(**kwargs)
+        endpoint: MPARegionEndPoint = MPARegionEndPoint(http_client=self._http_client)
+        result: MPARegionResult = await endpoint.request(**kwargs)
         return result
 
     async def get_rfmo_regions(self, **kwargs: Dict[str, Any]) -> RFMORegionResult:
@@ -83,6 +73,6 @@ class ReferenceResource(BaseResource):
             RFMORegionResult:
                 An `RFMORegionResult` instance containing the RFMO regions data.
         """
-        endpoint = RFMORegionEndPoint(http_client=self._http_client)
-        result = await endpoint.request(**kwargs)
+        endpoint: RFMORegionEndPoint = RFMORegionEndPoint(http_client=self._http_client)
+        result: RFMORegionResult = await endpoint.request(**kwargs)
         return result

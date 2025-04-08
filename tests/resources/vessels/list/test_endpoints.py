@@ -28,7 +28,7 @@ async def test_vessel_list_endpoint_request_success(
     """Test `VesselListEndPoint` request succeeds with a valid response."""
     mock_responsex.get("/vessels").respond(
         200,
-        json={"entries": [mock_raw_vessel_list_item]},
+        json={"entries": [mock_raw_vessel_list_item, {}]},
     )
     request_params: VesselListParams = VesselListParams(
         **mock_raw_vessel_list_request_params

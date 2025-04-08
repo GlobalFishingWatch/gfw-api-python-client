@@ -24,6 +24,7 @@ class GetEndPoint(
 
     def __init__(
         self,
+        *,
         path: str,
         request_params: Optional[_RequestParamsT],
         result_item_class: Type[_ResultItemT],

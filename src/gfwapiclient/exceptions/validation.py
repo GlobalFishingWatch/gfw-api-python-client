@@ -97,7 +97,7 @@ class RequestParamsValidationError(ModelValidationError):
                 The `pydantic.ValidationError` instance with list of
                 validation errors (if available).
         """
-        _message = message or REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE
+        _message: str = message or REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE
         super().__init__(message=_message, error=error)
 
 
@@ -120,7 +120,7 @@ class RequestBodyValidationError(ModelValidationError):
                 The `pydantic.ValidationError` instance with list of
                 validation errors (if available).
         """
-        _message = message or REQUEST_BODY_VALIDATION_ERROR_MESSAGE
+        _message: str = message or REQUEST_BODY_VALIDATION_ERROR_MESSAGE
         super().__init__(message=_message, error=error)
 
 
@@ -164,7 +164,7 @@ class ResultItemValidationError(ModelValidationError):
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
-        _message = super().__str__()
+        _message: str = super().__str__()
         if self.response:
             _message = f"{_message} \nResponse: {self.response.text}"
         return _message
@@ -220,7 +220,7 @@ class ResultValidationError(ModelValidationError):
 
     def __str__(self) -> str:
         """Return a string representation of the error."""
-        _message = super().__str__()
+        _message: str = super().__str__()
         if self.response:
             _message = f"{_message} \nResponse: {self.response.text}"
         return _message

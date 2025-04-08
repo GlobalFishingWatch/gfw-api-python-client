@@ -24,6 +24,7 @@ class PostEndPoint(
 
     def __init__(
         self,
+        *,
         path: str,
         request_params: Optional[_RequestParamsT],
         request_body: Optional[_RequestBodyT],

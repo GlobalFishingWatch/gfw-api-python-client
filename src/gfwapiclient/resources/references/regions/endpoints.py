@@ -28,6 +28,7 @@ class EEZRegionEndPoint(
 
     def __init__(
         self,
+        *,
         http_client: HTTPClient,
     ) -> None:
         """Initializes a new `EEZRegionEndPoint`.
@@ -57,6 +58,7 @@ class MPARegionEndPoint(
 
     def __init__(
         self,
+        *,
         http_client: HTTPClient,
     ) -> None:
         """Initializes a new `MPARegionEndPoint`.
@@ -86,6 +88,7 @@ class RFMORegionEndPoint(
 
     def __init__(
         self,
+        *,
         http_client: HTTPClient,
     ) -> None:
         """Initializes a new `RFMORegionEndPoint`.

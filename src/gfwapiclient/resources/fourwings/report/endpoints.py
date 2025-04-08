@@ -24,7 +24,7 @@ class FourWingsReportEndPoint(
         FourWingsReportBody,
         FourWingsReportItem,
         FourWingsReportResult,
-    ],
+    ]
 ):
     """Get 4Wings Report API endpoint.
 
@@ -34,6 +34,7 @@ class FourWingsReportEndPoint(
 
     def __init__(
         self,
+        *,
         request_params: FourWingsReportParams,
         request_body: FourWingsReportBody,
         http_client: HTTPClient,
@@ -62,6 +63,7 @@ class FourWingsReportEndPoint(
     @override
     def _transform_response_data(
         self,
+        *,
         body: Union[List[Dict[str, Any]], Dict[str, Any]],
     ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """Transform and reshape response body and yield data.

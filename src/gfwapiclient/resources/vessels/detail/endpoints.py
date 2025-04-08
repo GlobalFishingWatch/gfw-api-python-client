@@ -27,6 +27,7 @@ class VesselDetailEndPoint(
 
     def __init__(
         self,
+        *,
         vessel_id: str,
         request_params: VesselDetailParams,
         http_client: HTTPClient,
