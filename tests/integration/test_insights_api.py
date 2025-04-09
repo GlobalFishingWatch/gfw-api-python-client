@@ -22,13 +22,16 @@ from gfwapiclient.resources.insights.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_related_to_fishing_events_success(
+async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights related to fishing activity events.
+    """Test getting vessel insights related to fishing events.
 
-    This test verifies that the `get_vessel_insights` method can successfully retrieve
-    vessel insights data for fishing activity events.
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to fishing activity within a given
+    date range. It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=["FISHING"],
@@ -53,13 +56,16 @@ async def test_insights_get_vessel_insights_related_to_fishing_events_success(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_related_to_ais_off_events_success(
+async def test_insights_get_vessel_insights_get_insights_for_ais_off_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights related to AIS off (gap) events.
+    """Test getting vessel insights related to AIS off events (gaps).
 
-    This test verifies that the `get_vessel_insights` method can successfully retrieve
-    vessel insights data for AIS off (gap) events.
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to AIS off events (gaps) within a
+    given date range. It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=["GAP"],
@@ -84,13 +90,16 @@ async def test_insights_get_vessel_insights_related_to_ais_off_events_success(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_related_to_ais_coverage_events_success(
+async def test_insights_get_vessel_insights_get_insights_for_ais_coverage_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights related to AIS coverage events.
+    """Test getting vessel insights related to related to AIS coverage events.
 
-    This test verifies that the `get_vessel_insights` method can successfully retrieve
-    vessel insights data for AIS coverage events.
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to AIS coverage events within a
+    given date range. It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=["COVERAGE"],
@@ -115,13 +124,17 @@ async def test_insights_get_vessel_insights_related_to_ais_coverage_events_succe
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_related_to_vessels_listed_in_iuu_lists_success(
+async def test_insights_get_vessel_insights_get_insights_for_iuu_list(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights related to vessels listed in IUU lists.
+    """Test getting vessel insights related to being listed in the IUU list.
 
-    This test verifies that the `get_vessel_insights` method can successfully retrieve
-    vessel insights data for vessels listed in IUU lists.
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to its presence on an IUU (Illegal,
+    Unreported, and Unregulated) vessel list within a given date range.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `VesselInsightResult` and that the data can be converted to a
+    pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=["VESSEL-IDENTITY-IUU-VESSEL-LIST"],
@@ -146,13 +159,16 @@ async def test_insights_get_vessel_insights_related_to_vessels_listed_in_iuu_lis
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_insights_get_vessel_insights_multiple_insight_types_success(
+async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_types(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving vessel insights for multiple insight types.
+    """Test getting vessel insights for multiple insight types.
 
-    This test verifies that the `get_vessel_insights` method can successfully retrieve
-    vessel insights data for multiple insight types.
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel for multiple insight types within a
+    given date range. It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=["FISHING", "GAP", "VESSEL-IDENTITY-IUU-VESSEL-LIST", "COVERAGE"],
@@ -160,16 +176,16 @@ async def test_insights_get_vessel_insights_multiple_insight_types_success(
         end_date="2025-03-03",
         vessels=[
             {
-                "datasetId": "public-global-vessel-identity:latest",
-                "vesselId": "785101812-2127-e5d2-e8bf-7152c5259f5f",
+                "dataset_id": "public-global-vessel-identity:latest",
+                "vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f",
             },
             {
-                "datasetId": "public-global-vessel-identity:latest",
-                "vesselId": "2339c52c3-3a84-1603-f968-d8890f23e1ed",
+                "dataset_id": "public-global-vessel-identity:latest",
+                "vessel_id": "2339c52c3-3a84-1603-f968-d8890f23e1ed",
             },
             {
-                "datasetId": "public-global-vessel-identity:latest",
-                "vesselId": "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
+                "dataset_id": "public-global-vessel-identity:latest",
+                "vessel_id": "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
             },
         ],
     )
