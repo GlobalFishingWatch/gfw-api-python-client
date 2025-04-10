@@ -1,0 +1,259 @@
+# Build system requirements.
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+# Project metadata.
+[project]
+name = "gfw-api-python-client"
+version = "3.0.0"
+description = "Python package for accessing data from Global Fishing Watch APIs."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache License 2.0" }
+authors = [
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
+]
+maintainers = [
+  { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
+]
+keywords = [
+  "global fishing watch",
+  "gfw",
+  "apis",
+  "api client",
+  "fishing data",
+  "satellite data",
+  "vessel data",
+  "marine data",
+  "geospatial data",
+  "ocean monitoring",
+  "marine research",
+  "marine conservation",
+  "environmental research",
+  "ocean sustainability",
+  "ais",
+  "vms",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Framework :: Pydantic",
+  "Framework :: Pydantic :: 2",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities",
+  "Topic :: Scientific/Engineering",
+  "Typing :: Typed",
+]
+dependencies = [
+  "httpx~=0.28",                # Making HTTP requests
+  "pydantic~=2.10",             # Data validation and serialization
+  "pydantic-settings~=2.8",     # Type-hinted configurations or settings
+  "mapbox-vector-tile~=2.1",    # Encoding and decoding Mapbox Vector Tiles (MVT)
+  "pandas~=2.2",                # Data analysis and manipulation
+  "geopandas~=1.0",             # Geospatial data analysis and manipulation
+]
+
+[project.optional-dependencies]
+# Linting and code quality tools
+lint = [
+  "black>=25.1.0",               # Code formatting tool
+  "isort>=6.0.1",                # Python imports sorting tool
+  "mypy>=1.15.0",                # Static type checker
+  "pydocstyle>=6.3.0",           # Python docstring style checker
+  "ruff>=0.11.2",                # Linter and code analysis tool
+  "codespell[toml]>=2.4.1",      # Spell checker for code
+]
+
+# Testing tools
+test = [
+  "pytest>=8.3.5",            # Core testing framework
+  "pytest-asyncio>=0.26.0",   # Asyncio plugin for pytest
+  "pytest-cov>=6.0.0",        # Coverage plugin for pytest
+  "pytest-mock>=3.14.0",      # Mocking plugin for pytest
+  "pytest-xdist>=3.6.1",      # Parallel test execution for pytest
+  "pytest-timeout>=2.3.1",    # Timeout support for pytest
+  "coverage[toml]>=7.7.1",    # Code coverage reporting
+  "respx>=0.22.0",            # Utility for mocking httpx
+]
+
+# Development workflow and tools
+dev = [
+  "commitizen>=4.4.1",        # Standardized commit messages and versioning
+  "pre-commit>=4.2.0",        # Framework for managing pre-commit hooks
+  "pip-audit>=2.8.0",         # Audit for finding vulnerabilities in dependencies
+]
+
+# Build tools
+build = [
+  "build>=1.2.2",             # Python PEP 517 compliant build system
+  "setuptools>=78.1.0",       # Python packaging library
+  "twine>=6.1.0",             # For uploading Python packages to PyPI
+]
+
+# Documentation tools
+docs = [
+  "sphinx>=8.2.3",                  # Tool for generating documentation
+  "furo>=2024.8.6",                 # Sphinx theme for beautiful documentation
+  "myst-parser>=4.0.1",             # Writing documentation with Markdown in Sphinx
+  "myst-nb>=1.2.0",                 # Writing documentation with upyter Notebook in Sphinx
+  "sphinx-copybutton>=0.5.2",       # Add a "copy" button to code blocks in Sphinx
+  "sphinx-autobuild>=2024.10.3",    # Build, watch and serve documentation with live reload in the browser
+  "sphinx-inline-tabs>=2023.4.21",  # Add inline tabbed content to documentation
+  "sphinx-autodoc2>=0.5.0",         # Generates API documentation for Python packages
+]
+
+# Jupyter notebook and interactive tools
+notebooks = [
+  "ipykernel>=6.29.5",        # Jupyter kernel for Python
+  "ipython>=9.0.2",           # Enhanced interactive Python shell
+  "jupyterlab>=4.3.6",        # Jupyter's next-generation web-based interface
+  "watermark>=2.5.0",         # Add timestamps and version info to Jupyter notebook
+]
+
+
+[project.urls]
+Homepage = "https://github.com/GlobalFishingWatch/gfw-api-python-client"
+Documentation = "https://globalfishingwatch.github.io/gfw-api-python-client/"
+Changelog = "https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/CHANGELOG.md"
+Repository = "https://github.com/GlobalFishingWatch/gfw-api-python-client"
+Issues = "https://github.com/GlobalFishingWatch/gfw-api-python-client/issues"
+
+[tool.ruff]
+fix = true
+line-length = 88
+src = ["src", "tests"]
+target-version = "py312"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+unfixable = []
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "RUF",  # Ruff-specific rules
+    "ANN",  # flake8-annotations
+    "C",    # flake8-comprehensions
+    "B",    # flake8-bugbear
+    "I",    # isort
+    "D",    # pydocstyle
+]
+ignore = [
+  "E501",    # line too long, handled by black
+  "C901",    # too complex
+  "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+lines-between-types = 1
+known-first-party = ["gfwapiclient", "tests"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.black]
+target-version = ["py312"]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["gfwapiclient"]
+lines_after_imports = 2
+lines_between_sections = 1
+lines_between_types = 1
+ensure_newline_before_comments = true
+force_sort_within_sections = true
+src_paths = ["src", "tests"]
+
+[tool.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+files = "src,tests"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["src", "tests"]
+branch = true
+parallel = true
+context = "${CONTEXT}"
+
+[tool.coverage.report]
+precision = 2
+skip_empty = true
+ignore_errors = false
+show_missing = true
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about missing debug-only code:s
+  "def __repr__",
+  "if self.debug",
+  # Don't complain if tests don't hit defensive assertion code:
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "AbstractMethodError",
+  # Don't complain if non-runnable code isn't run:
+  "if 0:",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "3.0.0"
+version_files = [
+    "pyproject.toml:version",
+    "src/gfwapiclient/__version__.py",
+    "CITATION.cff:version",
+]
+version_provider = "commitizen"
+version_scheme = "semver"
+major_version_zero = false
+tag_format = "v$version"
+update_changelog_on_bump = true
+changelog_file = "CHANGELOG.md"
+bump_message = "chore(release): bump to v$new_version"
+
+[tool.codespell]
+skip = '.git,env*,venv*,build*,tmp*'
+
+
+# Build system metadata.
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["gfwapiclient", "gfwapiclient.*"]
+exclude = ["tests*"]
+namespaces = false
