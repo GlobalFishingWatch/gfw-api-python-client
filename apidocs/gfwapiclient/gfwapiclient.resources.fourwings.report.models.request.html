@@ -1,0 +1,1054 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="gfwapiclient.resources.fourwings.report.models.response" href="gfwapiclient.resources.fourwings.report.models.response.html" /><link rel="prev" title="gfwapiclient.resources.fourwings.report.models" href="gfwapiclient.resources.fourwings.report.models.html" />
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>gfwapiclient.resources.fourwings.report.models.request - Global Fishing Watch API Client documentation v0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Global Fishing Watch API Client documentation v0.1.0</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo-primary.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage-guides/index.html">Usage Guides</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/4wings-api.html">4Wings API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/vessels-api.html">Vessels API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/events-api.html">Events API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/insights-api.html">Insights API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/references-data-api.html">Reference Data API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development-guides/index.html">Development Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Development Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/git-workflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/code-of-conduct.html">Code of conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="gfwapiclient.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of gfwapiclient</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current has-children"><a class="reference internal" href="gfwapiclient.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.insights.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.insights</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.insights.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.insights.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.insights.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models.request</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.insights.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.insights.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.resources</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.insights.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.search.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.search</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.search.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.search.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.detail</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.detail.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.list.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.list.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.list.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.base.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models.response</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.vessels.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.references.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.references.regions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references.regions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.references.regions.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references.regions.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.references.regions.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.references.regions.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.references.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.resources.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.datasets</span></code></a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.events.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.detail.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.detail</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.detail.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.detail.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.list.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.list.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.list.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.list.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.list.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.list.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.base.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.base.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.base.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.response</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.stats.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.stats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.stats.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.stats.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.events.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 current has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l5 current has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings.report</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l6 current has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings.report.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l7 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.fourwings.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.resources</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.exceptions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of gfwapiclient.exceptions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.http.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.http</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.validation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.validation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.http.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of gfwapiclient.http</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.http.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of gfwapiclient.http.endpoints</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.post.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.post</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.get.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.get</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.base</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.abc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.abc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.http.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of gfwapiclient.http.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models.request</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.http.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.http.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.client</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of gfwapiclient.client</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.client.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.client.client</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.base</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of gfwapiclient.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.base.models</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gfwapiclient.__version__.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.__version__</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/GlobalFishingWatch/gfw-api-python-client">GitHub</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Useful Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/apidocs/gfwapiclient/gfwapiclient.resources.fourwings.report.models.request.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-gfwapiclient.resources.fourwings.report.models.request">
+<span id="gfwapiclient-resources-fourwings-report-models-request"></span><h1><a class="reference internal" href="#module-gfwapiclient.resources.fourwings.report.models.request" title="gfwapiclient.resources.fourwings.report.models.request"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.request</span></code></a><a class="headerlink" href="#module-gfwapiclient.resources.fourwings.report.models.request" title="Link to this heading">¶</a></h1>
+<p>Global Fishing Watch (GFW) API Python Client - 4Wings Report API Request Models.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-left">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportFormat</span></code></a></p></td>
+<td><p>4Wings report format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportSpatialResolution</span></code></a></p></td>
+<td><p>4Wings report spatial resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportGroupBy</span></code></a></p></td>
+<td><p>4Wings report grouped by criteria.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution</span></code></a></p></td>
+<td><p>4Wings report temporal resolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportBufferOperation</span></code></a></p></td>
+<td><p>4Wings report buffer operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit</span></code></a></p></td>
+<td><p>4Wings report buffer value unit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportDataset</span></code></a></p></td>
+<td><p>4Wings report dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsGeometry</span></code></a></p></td>
+<td><p>4Wings report GeoJSON-like geometry input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportRegion</span></code></a></p></td>
+<td><p>4Wings report region of interest.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportParams</span></code></a></p></td>
+<td><p>4Wings report request parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportBody</span></code></a></p></td>
+<td><p>4Wings report request body.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-left">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.__all__" title="gfwapiclient.resources.fourwings.report.models.request.__all__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__all__</span></code></a></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE" title="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE</span></code></a></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE" title="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE</span></code></a></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE" title="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE</span></code></a></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="api">
+<h3>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.__all__">
+<span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">__all__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['FourWingsReportBody',</span> <span class="pre">'FourWingsReportParams']</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.__all__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE">
+<span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Final" title="(in Python v3.13)"><span class="pre">Final</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'4Wings</span> <span class="pre">report</span> <span class="pre">request</span> <span class="pre">body</span> <span class="pre">validation</span> <span class="pre">failed.'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE">
+<span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Final" title="(in Python v3.13)"><span class="pre">Final</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'4Wings</span> <span class="pre">report</span> <span class="pre">request</span> <span class="pre">params</span> <span class="pre">validation</span> <span class="pre">failed.'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE">
+<span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Final" title="(in Python v3.13)"><span class="pre">Final</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportFormat</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report format.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat.JSON">
+<span class="sig-name descname"><span class="pre">JSON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'JSON'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat.JSON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportSpatialResolution</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report spatial resolution.</p>
+<p>Low means at 10th degree resolution and High means at 100th degree resolution.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.LOW">
+<span class="sig-name descname"><span class="pre">LOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LOW'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.LOW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.HIGH">
+<span class="sig-name descname"><span class="pre">HIGH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HIGH'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.HIGH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportGroupBy</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report grouped by criteria.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.VESSEL_ID">
+<span class="sig-name descname"><span class="pre">VESSEL_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'VESSEL_ID'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.VESSEL_ID" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAG">
+<span class="sig-name descname"><span class="pre">FLAG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FLAG'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAG" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.GEARTYPE">
+<span class="sig-name descname"><span class="pre">GEARTYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GEARTYPE'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.GEARTYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAGANDGEARTYPE">
+<span class="sig-name descname"><span class="pre">FLAGANDGEARTYPE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FLAGANDGEARTYPE'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAGANDGEARTYPE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.MMSI">
+<span class="sig-name descname"><span class="pre">MMSI</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MMSI'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.MMSI" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportTemporalResolution</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report temporal resolution.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.HOURLY">
+<span class="sig-name descname"><span class="pre">HOURLY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HOURLY'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.HOURLY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.DAILY">
+<span class="sig-name descname"><span class="pre">DAILY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DAILY'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.DAILY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.MONTHLY">
+<span class="sig-name descname"><span class="pre">MONTHLY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MONTHLY'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.MONTHLY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.YEARLY">
+<span class="sig-name descname"><span class="pre">YEARLY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'YEARLY'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.YEARLY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.ENTIRE">
+<span class="sig-name descname"><span class="pre">ENTIRE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ENTIRE'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.ENTIRE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportBufferOperation</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report buffer operation.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DIFFERENCE">
+<span class="sig-name descname"><span class="pre">DIFFERENCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DIFFERENCE'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DIFFERENCE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DISSOLVE">
+<span class="sig-name descname"><span class="pre">DISSOLVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DISSOLVE'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DISSOLVE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportBufferUnit</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report buffer value unit.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.MILES">
+<span class="sig-name descname"><span class="pre">MILES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MILES'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.MILES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.NAUTICALMILES">
+<span class="sig-name descname"><span class="pre">NAUTICALMILES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NAUTICALMILES'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.NAUTICALMILES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.KILOMETERS">
+<span class="sig-name descname"><span class="pre">KILOMETERS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'KILOMETERS'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.KILOMETERS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.RADIANS">
+<span class="sig-name descname"><span class="pre">RADIANS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'RADIANS'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.RADIANS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.DEGREES">
+<span class="sig-name descname"><span class="pre">DEGREES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DEGREES'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.DEGREES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportDataset</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>4Wings report dataset.</p>
+<p class="rubric">Initialization</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.FISHING_EFFORT_LATEST">
+<span class="sig-name descname"><span class="pre">FISHING_EFFORT_LATEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'public-global-fishing-effort:latest'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.FISHING_EFFORT_LATEST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST">
+<span class="sig-name descname"><span class="pre">SAR_PRESENCE_LATEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'public-global-sar-presence:latest'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsGeometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>4Wings report GeoJSON-like geometry input.</p>
+<p>Represents a GeoJSON-like geometry object used to filter the report data.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>type (str):</dt><dd><p>Geometry type (e.g., Polygon).</p>
+</dd>
+<dt>coordinates (Any):</dt><dd><p>Geometry coordinates.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.coordinates">
+<span class="sig-name descname"><span class="pre">coordinates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.coordinates" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportRegion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>4Wings report region of interest.</p>
+<p>Represents a region of interest used to filter the report data.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>dataset (Optional[str]):</dt><dd><p>Dataset containing the region.</p>
+</dd>
+<dt>id (Optional[str]):</dt><dd><p>Region ID.</p>
+</dd>
+<dt>buffer_operation (Optional[FourWingsReportBufferOperation]):</dt><dd><p>Buffer operation.</p>
+</dd>
+<dt>buffer_unit (Optional[FourWingsReportBufferUnit]):</dt><dd><p>Buffer unit.</p>
+</dd>
+<dt>buffer_value (Optional[str]):</dt><dd><p>Buffer value.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.dataset">
+<span class="sig-name descname"><span class="pre">dataset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.dataset" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_operation">
+<span class="sig-name descname"><span class="pre">buffer_operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_operation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_unit">
+<span class="sig-name descname"><span class="pre">buffer_unit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_unit" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_value">
+<span class="sig-name descname"><span class="pre">buffer_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.RequestParams</span></code></p>
+<p>4Wings report request parameters.</p>
+<p>Represents the query parameters for the 4Wings report request.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>spatial_resolution (Optional[FourWingsReportSpatialResolution]):</dt><dd><p>Spatial resolution.</p>
+</dd>
+<dt>format (Optional[FourWingsReportFormat]):</dt><dd><p>Report result format.</p>
+</dd>
+<dt>group_by (Optional[FourWingsReportGroupBy]):</dt><dd><p>Grouped by criteria.</p>
+</dd>
+<dt>temporal_resolution (Optional[FourWingsReportTemporalResolution]):</dt><dd><p>Temporal resolution.</p>
+</dd>
+<dt>datasets (Optional[List[FourWingsReportDataset]]):</dt><dd><p>Datasets that will be used to create the report.</p>
+</dd>
+<dt>filters (Optional[List[str]]):</dt><dd><p>Filters are applied to the dataset.</p>
+</dd>
+<dt>date_range (Optional[str]):</dt><dd><p>Start date and end date to filter the data.</p>
+</dd>
+<dt>spatial_aggregation (Optional[bool]):</dt><dd><p>Whether to spatially aggregate the report.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.indexed_fields">
+<span class="sig-name descname"><span class="pre">indexed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.13)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['datasets',</span> <span class="pre">'filters']</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.indexed_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_resolution">
+<span class="sig-name descname"><span class="pre">spatial_resolution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_resolution" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.format">
+<span class="sig-name descname"><span class="pre">format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.format" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.group_by">
+<span class="sig-name descname"><span class="pre">group_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.group_by" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.temporal_resolution">
+<span class="sig-name descname"><span class="pre">temporal_resolution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.temporal_resolution" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.datasets">
+<span class="sig-name descname"><span class="pre">datasets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.datasets" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.filters">
+<span class="sig-name descname"><span class="pre">filters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.filters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.date_range">
+<span class="sig-name descname"><span class="pre">date_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.date_range" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation">
+<span class="sig-name descname"><span class="pre">spatial_aggregation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.RequestBody</span></code></p>
+<p>4Wings report request body.</p>
+<p>Represents the request body for the 4Wings report request.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>geojson (Optional[FourWingsGeometry]): Geometry to filter the data.
+region (Optional[FourWingsReportRegion]): Region information.</p>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.geojson">
+<span class="sig-name descname"><span class="pre">geojson</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.geojson" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.region">
+<span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.region" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="gfwapiclient.resources.fourwings.report.models.response.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.response</span></code></div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="gfwapiclient.resources.fourwings.report.models.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models</span></code></div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Global Fishing Watch
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.request</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.__all__"><code class="docutils literal notranslate"><span class="pre">__all__</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE"><code class="docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE"><code class="docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE"><code class="docutils literal notranslate"><span class="pre">FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat"><code class="docutils literal notranslate"><span class="pre">FourWingsReportFormat</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat.JSON"><code class="docutils literal notranslate"><span class="pre">FourWingsReportFormat.JSON</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution"><code class="docutils literal notranslate"><span class="pre">FourWingsReportSpatialResolution</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.LOW"><code class="docutils literal notranslate"><span class="pre">FourWingsReportSpatialResolution.LOW</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution.HIGH"><code class="docutils literal notranslate"><span class="pre">FourWingsReportSpatialResolution.HIGH</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.VESSEL_ID"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy.VESSEL_ID</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAG"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy.FLAG</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.GEARTYPE"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy.GEARTYPE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.FLAGANDGEARTYPE"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy.FLAGANDGEARTYPE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy.MMSI"><code class="docutils literal notranslate"><span class="pre">FourWingsReportGroupBy.MMSI</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.HOURLY"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution.HOURLY</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.DAILY"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution.DAILY</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.MONTHLY"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution.MONTHLY</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.YEARLY"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution.YEARLY</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution.ENTIRE"><code class="docutils literal notranslate"><span class="pre">FourWingsReportTemporalResolution.ENTIRE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferOperation</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DIFFERENCE"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferOperation.DIFFERENCE</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation.DISSOLVE"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferOperation.DISSOLVE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.MILES"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit.MILES</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.NAUTICALMILES"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit.NAUTICALMILES</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.KILOMETERS"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit.KILOMETERS</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.RADIANS"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit.RADIANS</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit.DEGREES"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBufferUnit.DEGREES</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.FISHING_EFFORT_LATEST"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset.FISHING_EFFORT_LATEST</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset.SAR_PRESENCE_LATEST</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry"><code class="docutils literal notranslate"><span class="pre">FourWingsGeometry</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.type"><code class="docutils literal notranslate"><span class="pre">FourWingsGeometry.type</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry.coordinates"><code class="docutils literal notranslate"><span class="pre">FourWingsGeometry.coordinates</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.dataset"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion.dataset</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.id"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion.id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_operation"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion.buffer_operation</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_unit"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion.buffer_unit</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion.buffer_value"><code class="docutils literal notranslate"><span class="pre">FourWingsReportRegion.buffer_value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.indexed_fields"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.indexed_fields</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_resolution"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.spatial_resolution</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.format"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.format</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.group_by"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.group_by</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.temporal_resolution"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.temporal_resolution</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.datasets"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.datasets</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.filters"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.filters</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.date_range"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.date_range</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.spatial_aggregation</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBody</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.geojson"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBody.geojson</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody.region"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBody.region</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    </body>
+</html>

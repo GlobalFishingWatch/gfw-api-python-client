@@ -1,0 +1,1455 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="gfwapiclient.resources.events.stats" href="gfwapiclient.resources.events.stats.html" /><link rel="prev" title="gfwapiclient.resources.events.base.models.request" href="gfwapiclient.resources.events.base.models.request.html" />
+
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/><!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>gfwapiclient.resources.events.base.models.response - Global Fishing Watch API Client documentation v0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=4c969af8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Global Fishing Watch API Client documentation v0.1.0</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo-primary.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage-guides/index.html">Usage Guides</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/4wings-api.html">4Wings API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/vessels-api.html">Vessels API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/events-api.html">Events API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/insights-api.html">Insights API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage-guides/references-data-api.html">Reference Data API</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../development-guides/index.html">Development Guides</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Development Guides</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/git-workflow.html">Git Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/code-of-conduct.html">Code of conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/security.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../development-guides/license.html">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="gfwapiclient.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of gfwapiclient</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current has-children"><a class="reference internal" href="gfwapiclient.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.insights.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.insights</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.insights.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.insights.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.insights.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models.request</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.insights.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.insights.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.resources</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.insights.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.insights.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.search.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.search</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.search.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.search.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.search.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.search.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.detail</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.detail.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.detail.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.detail.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.list.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.list.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.list.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.vessels.list.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.list.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.vessels.base.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.vessels.base.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.base.models.response</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.vessels.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.vessels.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.references.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.references.regions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references.regions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.references.regions.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.references.regions.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.references.regions.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.references.regions.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.regions.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.references.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.references.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.resources.datasets.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.datasets</span></code></a></li>
+<li class="toctree-l4 current has-children"><a class="reference internal" href="gfwapiclient.resources.events.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.detail.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.detail</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.detail.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.detail.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.detail.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.detail.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.list.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.list</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.list.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.list.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.list.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.list.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.list.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.list.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5 current has-children"><a class="reference internal" href="gfwapiclient.resources.events.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l6 current has-children"><a class="reference internal" href="gfwapiclient.resources.events.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.base.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.base.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.request</span></code></a></li>
+<li class="toctree-l7 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.response</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.events.stats.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.stats</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.events.stats.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.events.stats.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.events.stats.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.events.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5 has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings.report</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l6 has-children"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of gfwapiclient.resources.fourwings.report.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.request</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="gfwapiclient.resources.fourwings.report.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.endpoints</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.resources.fourwings.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.resources</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.exceptions.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of gfwapiclient.exceptions</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.http.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.http</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.exceptions.validation.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.exceptions.validation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.http.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of gfwapiclient.http</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.http.endpoints.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of gfwapiclient.http.endpoints</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.post.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.post</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.get.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.get</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.base</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.endpoints.abc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.endpoints.abc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="gfwapiclient.http.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of gfwapiclient.http.models</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.models.request.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models.request</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="gfwapiclient.http.models.response.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.models.response</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.http.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.http.resources.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.http.resources</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.client</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of gfwapiclient.client</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.client.client.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.client.client</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="gfwapiclient.base.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.base</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of gfwapiclient.base</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="gfwapiclient.base.models.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.base.models</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gfwapiclient.__version__.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.__version__</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/GlobalFishingWatch/gfw-api-python-client">GitHub</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Useful Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-gfwapiclient.resources.events.base.models.response">
+<span id="gfwapiclient-resources-events-base-models-response"></span><h1><a class="reference internal" href="#module-gfwapiclient.resources.events.base.models.response" title="gfwapiclient.resources.events.base.models.response"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.response</span></code></a><a class="headerlink" href="#module-gfwapiclient.resources.events.base.models.response" title="Link to this heading">¶</a></h1>
+<p>Global Fishing Watch (GFW) API Python Client - Events API Base Response Models.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-left">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition" title="gfwapiclient.resources.events.base.models.response.EventPosition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventPosition</span></code></a></p></td>
+<td><p>Position of the event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions" title="gfwapiclient.resources.events.base.models.response.EventRegions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventRegions</span></code></a></p></td>
+<td><p>Regions associated with the event.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances" title="gfwapiclient.resources.events.base.models.response.EventDistances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventDistances</span></code></a></p></td>
+<td><p>Distances related to the event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization" title="gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventVesselPublicAuthorization</span></code></a></p></td>
+<td><p>Public authorization details of the vessel involved in the event.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel" title="gfwapiclient.resources.events.base.models.response.EventVessel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventVessel</span></code></a></p></td>
+<td><p>Vessel involved in the event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter" title="gfwapiclient.resources.events.base.models.response.EventEncounter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventEncounter</span></code></a></p></td>
+<td><p>Encounter event details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing" title="gfwapiclient.resources.events.base.models.response.EventFishing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventFishing</span></code></a></p></td>
+<td><p>Fishing event details.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap" title="gfwapiclient.resources.events.base.models.response.Gap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Gap</span></code></a></p></td>
+<td><p>Gap event details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering" title="gfwapiclient.resources.events.base.models.response.EventLoitering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventLoitering</span></code></a></p></td>
+<td><p>Loitering event details.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage" title="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventPortVisitAnchorage</span></code></a></p></td>
+<td><p>Port visit anchorage details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit" title="gfwapiclient.resources.events.base.models.response.EventPortVisit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventPortVisit</span></code></a></p></td>
+<td><p>Port visit event details.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem" title="gfwapiclient.resources.events.base.models.response.EventItem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventItem</span></code></a></p></td>
+<td><p>Event item details.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-left">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.__all__" title="gfwapiclient.resources.events.base.models.response.__all__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__all__</span></code></a></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="api">
+<h3>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h3>
+<dl class="py data">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.__all__">
+<span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">__all__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['EventItem']</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.__all__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPosition">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPosition" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Position of the event.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>lat (Optional[float]):</dt><dd><p>Latitude of the event.</p>
+</dd>
+<dt>lon (Optional[float]):</dt><dd><p>Longitude of the event.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPosition.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPosition.lat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPosition.lon">
+<span class="sig-name descname"><span class="pre">lon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPosition.lon" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventRegions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Regions associated with the event.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>mpa (Optional[List[str]]):</dt><dd><p>Marine Protected Areas.</p>
+</dd>
+<dt>eez (Optional[List[str]]):</dt><dd><p>Exclusive Economic Zones.</p>
+</dd>
+<dt>rfmo (Optional[List[str]]):</dt><dd><p>Regional Fisheries Management Organizations.</p>
+</dd>
+<dt>fao (Optional[List[str]]):</dt><dd><p>Food and Agriculture Organization areas.</p>
+</dd>
+<dt>major_fao (Optional[List[str]]):</dt><dd><p>Major FAO areas.</p>
+</dd>
+<dt>eez_12_nm (Optional[List[str]]):</dt><dd><p>12 nautical mile Exclusive Economic Zones.</p>
+</dd>
+<dt>high_seas (Optional[List[str]]):</dt><dd><p>High seas areas.</p>
+</dd>
+<dt>mpa_no_take_partial (Optional[List[str]]):</dt><dd><p>Partially no-take Marine Protected Areas.</p>
+</dd>
+<dt>mpa_no_take (Optional[List[str]]):</dt><dd><p>Fully no-take Marine Protected Areas.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.mpa">
+<span class="sig-name descname"><span class="pre">mpa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.eez">
+<span class="sig-name descname"><span class="pre">eez</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.eez" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.rfmo">
+<span class="sig-name descname"><span class="pre">rfmo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.rfmo" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.fao">
+<span class="sig-name descname"><span class="pre">fao</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.fao" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.major_fao">
+<span class="sig-name descname"><span class="pre">major_fao</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.major_fao" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.eez_12_nm">
+<span class="sig-name descname"><span class="pre">eez_12_nm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.eez_12_nm" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.high_seas">
+<span class="sig-name descname"><span class="pre">high_seas</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.high_seas" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take_partial">
+<span class="sig-name descname"><span class="pre">mpa_no_take_partial</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take_partial" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take">
+<span class="sig-name descname"><span class="pre">mpa_no_take</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventDistances">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventDistances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventDistances" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Distances related to the event.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>start_distance_from_shore_km (Optional[float]):</dt><dd><p>Start distance from shore in kilometers.</p>
+</dd>
+<dt>end_distance_from_shore_km (Optional[float]):</dt><dd><p>End distance from shore in kilometers.</p>
+</dd>
+<dt>start_distance_from_port_km (Optional[float]):</dt><dd><p>Start distance from port in kilometers.</p>
+</dd>
+<dt>end_distance_from_port_km (Optional[float]):</dt><dd><p>End distance from port in kilometers.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_shore_km">
+<span class="sig-name descname"><span class="pre">start_distance_from_shore_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_shore_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_shore_km">
+<span class="sig-name descname"><span class="pre">end_distance_from_shore_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_shore_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_port_km">
+<span class="sig-name descname"><span class="pre">start_distance_from_port_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_port_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_port_km">
+<span class="sig-name descname"><span class="pre">end_distance_from_port_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_port_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventVesselPublicAuthorization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Public authorization details of the vessel involved in the event.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>has_publicly_listed_authorization (Optional[str]):</dt><dd><p>Whether the vessel has publicly listed authorization.</p>
+</dd>
+<dt>rfmo (Optional[str]):</dt><dd><p>Regional Fisheries Management Organization.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.has_publicly_listed_authorization">
+<span class="sig-name descname"><span class="pre">has_publicly_listed_authorization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.has_publicly_listed_authorization" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.rfmo">
+<span class="sig-name descname"><span class="pre">rfmo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.rfmo" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventVessel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Vessel involved in the event.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>id (Optional[str]):</dt><dd><p>Vessel ID.</p>
+</dd>
+<dt>name (Optional[str]):</dt><dd><p>Vessel name.</p>
+</dd>
+<dt>ssvid (Optional[str]):</dt><dd><p>Vessel SSVID.</p>
+</dd>
+<dt>flag (Optional[str]):</dt><dd><p>Vessel flag.</p>
+</dd>
+<dt>type (Optional[str]):</dt><dd><p>Vessel type.</p>
+</dd>
+<dt>public_authorizations (Optional[List[EventVesselPublicAuthorization]]):</dt><dd><p>Public authorization details.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.ssvid">
+<span class="sig-name descname"><span class="pre">ssvid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.ssvid" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.flag" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventVessel.public_authorizations">
+<span class="sig-name descname"><span class="pre">public_authorizations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization" title="gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization"><span class="pre">gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventVessel.public_authorizations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventEncounter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Encounter event details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>vessel (Optional[EventVessel]):</dt><dd><p>Encountered vessel details.</p>
+</dd>
+<dt>median_distance_kilometers (Optional[float]):</dt><dd><p>Median distance in kilometers.</p>
+</dd>
+<dt>median_speed_knots (Optional[float]):</dt><dd><p>Median speed in knots.</p>
+</dd>
+<dt>type (Optional[str]):</dt><dd><p>Encounter type.</p>
+</dd>
+<dt>potential_risk (Optional[bool]):</dt><dd><p>Potential risk indicator.</p>
+</dd>
+<dt>main_vessel_public_authorization_status (Optional[str]):</dt><dd><p>Public authorization status of the main vessel.</p>
+</dd>
+<dt>encountered_vessel_public_authorization_status (Optional[str]):</dt><dd><p>Public authorization status of the encountered vessel.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.vessel">
+<span class="sig-name descname"><span class="pre">vessel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel" title="gfwapiclient.resources.events.base.models.response.EventVessel"><span class="pre">gfwapiclient.resources.events.base.models.response.EventVessel</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.vessel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.median_distance_kilometers">
+<span class="sig-name descname"><span class="pre">median_distance_kilometers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.median_distance_kilometers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.median_speed_knots">
+<span class="sig-name descname"><span class="pre">median_speed_knots</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.median_speed_knots" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.potential_risk">
+<span class="sig-name descname"><span class="pre">potential_risk</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.potential_risk" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.main_vessel_public_authorization_status">
+<span class="sig-name descname"><span class="pre">main_vessel_public_authorization_status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.main_vessel_public_authorization_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventEncounter.encountered_vessel_public_authorization_status">
+<span class="sig-name descname"><span class="pre">encountered_vessel_public_authorization_status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.encountered_vessel_public_authorization_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventFishing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Fishing event details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>total_distance_km (Optional[float]):</dt><dd><p>Total distance in kilometers.</p>
+</dd>
+<dt>average_speed_knots (Optional[float]):</dt><dd><p>Average speed in knots.</p>
+</dd>
+<dt>average_duration_hours (Optional[float]):</dt><dd><p>Average duration in hours.</p>
+</dd>
+<dt>potential_risk (Optional[bool]):</dt><dd><p>Potential risk indicator.</p>
+</dd>
+<dt>vessel_public_authorization_status (Optional[str]):</dt><dd><p>Public authorization status of the vessel.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing.total_distance_km">
+<span class="sig-name descname"><span class="pre">total_distance_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing.total_distance_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing.average_speed_knots">
+<span class="sig-name descname"><span class="pre">average_speed_knots</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing.average_speed_knots" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing.average_duration_hours">
+<span class="sig-name descname"><span class="pre">average_duration_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing.average_duration_hours" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing.potential_risk">
+<span class="sig-name descname"><span class="pre">potential_risk</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing.potential_risk" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventFishing.vessel_public_authorization_status">
+<span class="sig-name descname"><span class="pre">vessel_public_authorization_status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventFishing.vessel_public_authorization_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">Gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Gap event details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>intentional_disabling (Optional[bool]):</dt><dd><p>Whether the gap was due to intentional disabling.</p>
+</dd>
+<dt>distance_km (Optional[str]):</dt><dd><p>Distance in kilometers.</p>
+</dd>
+<dt>duration_hours (Optional[float]):</dt><dd><p>Duration in hours.</p>
+</dd>
+<dt>implied_speed_knots (Optional[str]):</dt><dd><p>Implied speed in knots.</p>
+</dd>
+<dt>positions_12_hours_before_sat (Optional[str]):</dt><dd><p>Positions 12 hours before satellite detection.</p>
+</dd>
+<dt>positions_per_day_sat_reception (Optional[float]):</dt><dd><p>Positions per day of satellite reception.</p>
+</dd>
+<dt>off_position (Optional[EventPosition]):</dt><dd><p>Position where the gap started.</p>
+</dd>
+<dt>on_position (Optional[EventPosition]):</dt><dd><p>Position where the gap ended.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.intentional_disabling">
+<span class="sig-name descname"><span class="pre">intentional_disabling</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.intentional_disabling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.distance_km">
+<span class="sig-name descname"><span class="pre">distance_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.distance_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.duration_hours">
+<span class="sig-name descname"><span class="pre">duration_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.duration_hours" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.implied_speed_knots">
+<span class="sig-name descname"><span class="pre">implied_speed_knots</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.implied_speed_knots" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.positions_12_hours_before_sat">
+<span class="sig-name descname"><span class="pre">positions_12_hours_before_sat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.positions_12_hours_before_sat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.positions_per_day_sat_reception">
+<span class="sig-name descname"><span class="pre">positions_per_day_sat_reception</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.positions_per_day_sat_reception" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.off_position">
+<span class="sig-name descname"><span class="pre">off_position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition" title="gfwapiclient.resources.events.base.models.response.EventPosition"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPosition</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.off_position" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.Gap.on_position">
+<span class="sig-name descname"><span class="pre">on_position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition" title="gfwapiclient.resources.events.base.models.response.EventPosition"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPosition</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.Gap.on_position" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventLoitering">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventLoitering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventLoitering" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Loitering event details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>total_time_hours (Optional[float]):</dt><dd><p>Total time in hours.</p>
+</dd>
+<dt>total_distance_km (Optional[float]):</dt><dd><p>Total distance in kilometers.</p>
+</dd>
+<dt>average_speed_knots (Optional[float]):</dt><dd><p>Average speed in knots.</p>
+</dd>
+<dt>average_distance_from_shore_km (Optional[float]):</dt><dd><p>Average distance from shore in kilometers.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventLoitering.total_time_hours">
+<span class="sig-name descname"><span class="pre">total_time_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.total_time_hours" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventLoitering.total_distance_km">
+<span class="sig-name descname"><span class="pre">total_distance_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.total_distance_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventLoitering.average_speed_knots">
+<span class="sig-name descname"><span class="pre">average_speed_knots</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.average_speed_knots" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventLoitering.average_distance_from_shore_km">
+<span class="sig-name descname"><span class="pre">average_distance_from_shore_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.average_distance_from_shore_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventPortVisitAnchorage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Port visit anchorage details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>anchorage_id (Optional[str]):</dt><dd><p>Anchorage ID.</p>
+</dd>
+<dt>at_dock (Optional[bool]):</dt><dd><p>Whether the vessel was at dock.</p>
+</dd>
+<dt>distance_from_shore_km (Optional[float]):</dt><dd><p>Distance from shore in kilometers.</p>
+</dd>
+<dt>flag (Optional[str]):</dt><dd><p>Flag of the anchorage.</p>
+</dd>
+<dt>id (Optional[str]):</dt><dd><p>Anchorage ID.</p>
+</dd>
+<dt>lat (Optional[float]):</dt><dd><p>Latitude of the anchorage.</p>
+</dd>
+<dt>lon (Optional[float]):</dt><dd><p>Longitude of the anchorage.</p>
+</dd>
+<dt>name (Optional[str]):</dt><dd><p>Name of the anchorage.</p>
+</dd>
+<dt>top_destination (Optional[str]):</dt><dd><p>Top destination from the anchorage.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.anchorage_id">
+<span class="sig-name descname"><span class="pre">anchorage_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.anchorage_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.at_dock">
+<span class="sig-name descname"><span class="pre">at_dock</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.at_dock" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.distance_from_shore_km">
+<span class="sig-name descname"><span class="pre">distance_from_shore_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.distance_from_shore_km" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.flag">
+<span class="sig-name descname"><span class="pre">flag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.flag" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lon">
+<span class="sig-name descname"><span class="pre">lon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lon" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.top_destination">
+<span class="sig-name descname"><span class="pre">top_destination</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.top_destination" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventPortVisit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
+<p>Port visit event details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>visit_id (Optional[str]):</dt><dd><p>Port visit ID.</p>
+</dd>
+<dt>confidence (Optional[str]):</dt><dd><p>Confidence level of the port visit.</p>
+</dd>
+<dt>duration_hrs (Optional[float]):</dt><dd><p>Duration of the port visit in hours.</p>
+</dd>
+<dt>start_anchorage (Optional[EventPortVisitAnchorage]):</dt><dd><p>Start anchorage details.</p>
+</dd>
+<dt>intermediate_anchorage (Optional[EventPortVisitAnchorage]):</dt><dd><p>Intermediate anchorage details.</p>
+</dd>
+<dt>end_anchorage (Optional[EventPortVisitAnchorage]):</dt><dd><p>End anchorage details.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.visit_id">
+<span class="sig-name descname"><span class="pre">visit_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.visit_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.confidence" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.duration_hrs">
+<span class="sig-name descname"><span class="pre">duration_hrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.duration_hrs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.start_anchorage">
+<span class="sig-name descname"><span class="pre">start_anchorage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage" title="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.start_anchorage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.intermediate_anchorage">
+<span class="sig-name descname"><span class="pre">intermediate_anchorage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage" title="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.intermediate_anchorage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventPortVisit.end_anchorage">
+<span class="sig-name descname"><span class="pre">end_anchorage</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage" title="gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.end_anchorage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.events.base.models.response.</span></span><span class="sig-name descname"><span class="pre">EventItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.ResultItem</span></code></p>
+<p>Event item details.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>start (Optional[datetime.datetime]):</dt><dd><p>Start time of the event.</p>
+</dd>
+<dt>end (Optional[datetime.datetime]):</dt><dd><p>End time of the event.</p>
+</dd>
+<dt>id (Optional[str]):</dt><dd><p>Event ID.</p>
+</dd>
+<dt>type (Optional[str]):</dt><dd><p>Event type.</p>
+</dd>
+<dt>position (Optional[EventPosition]):</dt><dd><p>Position of the event.</p>
+</dd>
+<dt>regions (Optional[EventRegions]):</dt><dd><p>Regions associated with the event.</p>
+</dd>
+<dt>bounding_box (Optional[List[float]]):</dt><dd><p>Bounding box of the event.</p>
+</dd>
+<dt>distances (Optional[EventDistances]):</dt><dd><p>Distances related to the event.</p>
+</dd>
+<dt>vessel (Optional[EventVessel]):</dt><dd><p>Vessel involved in the event.</p>
+</dd>
+<dt>encounter (Optional[EventEncounter]):</dt><dd><p>Encounter event details.</p>
+</dd>
+<dt>fishing (Optional[EventFishing]):</dt><dd><p>Fishing event details.</p>
+</dd>
+<dt>gap (Optional[Gap]):</dt><dd><p>Gap event details.</p>
+</dd>
+<dt>loitering (Optional[EventLoitering]):</dt><dd><p>Loitering event details.</p>
+</dd>
+<dt>port_visit (Optional[EventPortVisit]):</dt><dd><p>Port visit event details.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Initialization</p>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<cite>ValidationError</cite>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><cite>self</cite> is explicitly positional-only to allow <cite>self</cite> as a field name.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.start">
+<span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.end">
+<span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><span class="pre">datetime.datetime</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.position">
+<span class="sig-name descname"><span class="pre">position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition" title="gfwapiclient.resources.events.base.models.response.EventPosition"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPosition</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.position" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.regions">
+<span class="sig-name descname"><span class="pre">regions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions" title="gfwapiclient.resources.events.base.models.response.EventRegions"><span class="pre">gfwapiclient.resources.events.base.models.response.EventRegions</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.bounding_box" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.distances">
+<span class="sig-name descname"><span class="pre">distances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances" title="gfwapiclient.resources.events.base.models.response.EventDistances"><span class="pre">gfwapiclient.resources.events.base.models.response.EventDistances</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.distances" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.vessel">
+<span class="sig-name descname"><span class="pre">vessel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel" title="gfwapiclient.resources.events.base.models.response.EventVessel"><span class="pre">gfwapiclient.resources.events.base.models.response.EventVessel</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.vessel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.encounter">
+<span class="sig-name descname"><span class="pre">encounter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter" title="gfwapiclient.resources.events.base.models.response.EventEncounter"><span class="pre">gfwapiclient.resources.events.base.models.response.EventEncounter</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.encounter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.fishing">
+<span class="sig-name descname"><span class="pre">fishing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing" title="gfwapiclient.resources.events.base.models.response.EventFishing"><span class="pre">gfwapiclient.resources.events.base.models.response.EventFishing</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.fishing" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.gap">
+<span class="sig-name descname"><span class="pre">gap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap" title="gfwapiclient.resources.events.base.models.response.Gap"><span class="pre">gfwapiclient.resources.events.base.models.response.Gap</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.gap" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.loitering">
+<span class="sig-name descname"><span class="pre">loitering</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering" title="gfwapiclient.resources.events.base.models.response.EventLoitering"><span class="pre">gfwapiclient.resources.events.base.models.response.EventLoitering</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.loitering" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.port_visit">
+<span class="sig-name descname"><span class="pre">port_visit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit" title="gfwapiclient.resources.events.base.models.response.EventPortVisit"><span class="pre">gfwapiclient.resources.events.base.models.response.EventPortVisit</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.port_visit" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gfwapiclient.resources.events.base.models.response.EventItem.empty_datetime_str_to_none">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">empty_datetime_str_to_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#gfwapiclient.resources.events.base.models.response.EventItem.empty_datetime_str_to_none" title="Link to this definition">¶</a></dt>
+<dd><p>Convert any empty datetime string to <cite>None</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>value (Any): The value to validate.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>Optional[Any]:</dt><dd><p>The validated value, or <cite>None</cite> if it was an empty string.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="gfwapiclient.resources.events.stats.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.stats</span></code></div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="gfwapiclient.resources.events.base.models.request.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.request</span></code></div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Global Fishing Watch
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gfwapiclient.resources.events.base.models.response</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#api">API</a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.__all__"><code class="docutils literal notranslate"><span class="pre">__all__</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition"><code class="docutils literal notranslate"><span class="pre">EventPosition</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition.lat"><code class="docutils literal notranslate"><span class="pre">EventPosition.lat</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPosition.lon"><code class="docutils literal notranslate"><span class="pre">EventPosition.lon</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions"><code class="docutils literal notranslate"><span class="pre">EventRegions</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa"><code class="docutils literal notranslate"><span class="pre">EventRegions.mpa</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.eez"><code class="docutils literal notranslate"><span class="pre">EventRegions.eez</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.rfmo"><code class="docutils literal notranslate"><span class="pre">EventRegions.rfmo</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.fao"><code class="docutils literal notranslate"><span class="pre">EventRegions.fao</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.major_fao"><code class="docutils literal notranslate"><span class="pre">EventRegions.major_fao</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.eez_12_nm"><code class="docutils literal notranslate"><span class="pre">EventRegions.eez_12_nm</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.high_seas"><code class="docutils literal notranslate"><span class="pre">EventRegions.high_seas</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take_partial"><code class="docutils literal notranslate"><span class="pre">EventRegions.mpa_no_take_partial</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventRegions.mpa_no_take"><code class="docutils literal notranslate"><span class="pre">EventRegions.mpa_no_take</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances"><code class="docutils literal notranslate"><span class="pre">EventDistances</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_shore_km"><code class="docutils literal notranslate"><span class="pre">EventDistances.start_distance_from_shore_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_shore_km"><code class="docutils literal notranslate"><span class="pre">EventDistances.end_distance_from_shore_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances.start_distance_from_port_km"><code class="docutils literal notranslate"><span class="pre">EventDistances.start_distance_from_port_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventDistances.end_distance_from_port_km"><code class="docutils literal notranslate"><span class="pre">EventDistances.end_distance_from_port_km</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization"><code class="docutils literal notranslate"><span class="pre">EventVesselPublicAuthorization</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.has_publicly_listed_authorization"><code class="docutils literal notranslate"><span class="pre">EventVesselPublicAuthorization.has_publicly_listed_authorization</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVesselPublicAuthorization.rfmo"><code class="docutils literal notranslate"><span class="pre">EventVesselPublicAuthorization.rfmo</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel"><code class="docutils literal notranslate"><span class="pre">EventVessel</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.id"><code class="docutils literal notranslate"><span class="pre">EventVessel.id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.name"><code class="docutils literal notranslate"><span class="pre">EventVessel.name</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.ssvid"><code class="docutils literal notranslate"><span class="pre">EventVessel.ssvid</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.flag"><code class="docutils literal notranslate"><span class="pre">EventVessel.flag</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.type"><code class="docutils literal notranslate"><span class="pre">EventVessel.type</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventVessel.public_authorizations"><code class="docutils literal notranslate"><span class="pre">EventVessel.public_authorizations</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter"><code class="docutils literal notranslate"><span class="pre">EventEncounter</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.vessel"><code class="docutils literal notranslate"><span class="pre">EventEncounter.vessel</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.median_distance_kilometers"><code class="docutils literal notranslate"><span class="pre">EventEncounter.median_distance_kilometers</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.median_speed_knots"><code class="docutils literal notranslate"><span class="pre">EventEncounter.median_speed_knots</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.type"><code class="docutils literal notranslate"><span class="pre">EventEncounter.type</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.potential_risk"><code class="docutils literal notranslate"><span class="pre">EventEncounter.potential_risk</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.main_vessel_public_authorization_status"><code class="docutils literal notranslate"><span class="pre">EventEncounter.main_vessel_public_authorization_status</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventEncounter.encountered_vessel_public_authorization_status"><code class="docutils literal notranslate"><span class="pre">EventEncounter.encountered_vessel_public_authorization_status</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing"><code class="docutils literal notranslate"><span class="pre">EventFishing</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing.total_distance_km"><code class="docutils literal notranslate"><span class="pre">EventFishing.total_distance_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing.average_speed_knots"><code class="docutils literal notranslate"><span class="pre">EventFishing.average_speed_knots</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing.average_duration_hours"><code class="docutils literal notranslate"><span class="pre">EventFishing.average_duration_hours</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing.potential_risk"><code class="docutils literal notranslate"><span class="pre">EventFishing.potential_risk</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventFishing.vessel_public_authorization_status"><code class="docutils literal notranslate"><span class="pre">EventFishing.vessel_public_authorization_status</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap"><code class="docutils literal notranslate"><span class="pre">Gap</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.intentional_disabling"><code class="docutils literal notranslate"><span class="pre">Gap.intentional_disabling</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.distance_km"><code class="docutils literal notranslate"><span class="pre">Gap.distance_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.duration_hours"><code class="docutils literal notranslate"><span class="pre">Gap.duration_hours</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.implied_speed_knots"><code class="docutils literal notranslate"><span class="pre">Gap.implied_speed_knots</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.positions_12_hours_before_sat"><code class="docutils literal notranslate"><span class="pre">Gap.positions_12_hours_before_sat</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.positions_per_day_sat_reception"><code class="docutils literal notranslate"><span class="pre">Gap.positions_per_day_sat_reception</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.off_position"><code class="docutils literal notranslate"><span class="pre">Gap.off_position</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.Gap.on_position"><code class="docutils literal notranslate"><span class="pre">Gap.on_position</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering"><code class="docutils literal notranslate"><span class="pre">EventLoitering</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.total_time_hours"><code class="docutils literal notranslate"><span class="pre">EventLoitering.total_time_hours</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.total_distance_km"><code class="docutils literal notranslate"><span class="pre">EventLoitering.total_distance_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.average_speed_knots"><code class="docutils literal notranslate"><span class="pre">EventLoitering.average_speed_knots</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventLoitering.average_distance_from_shore_km"><code class="docutils literal notranslate"><span class="pre">EventLoitering.average_distance_from_shore_km</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.anchorage_id"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.anchorage_id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.at_dock"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.at_dock</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.distance_from_shore_km"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.distance_from_shore_km</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.flag"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.flag</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.id"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lat"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.lat</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.lon"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.lon</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.name"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.name</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisitAnchorage.top_destination"><code class="docutils literal notranslate"><span class="pre">EventPortVisitAnchorage.top_destination</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit"><code class="docutils literal notranslate"><span class="pre">EventPortVisit</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.visit_id"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.visit_id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.confidence"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.confidence</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.duration_hrs"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.duration_hrs</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.start_anchorage"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.start_anchorage</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.intermediate_anchorage"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.intermediate_anchorage</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventPortVisit.end_anchorage"><code class="docutils literal notranslate"><span class="pre">EventPortVisit.end_anchorage</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem"><code class="docutils literal notranslate"><span class="pre">EventItem</span></code></a><ul>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.start"><code class="docutils literal notranslate"><span class="pre">EventItem.start</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.end"><code class="docutils literal notranslate"><span class="pre">EventItem.end</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.id"><code class="docutils literal notranslate"><span class="pre">EventItem.id</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.type"><code class="docutils literal notranslate"><span class="pre">EventItem.type</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.position"><code class="docutils literal notranslate"><span class="pre">EventItem.position</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.regions"><code class="docutils literal notranslate"><span class="pre">EventItem.regions</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.bounding_box"><code class="docutils literal notranslate"><span class="pre">EventItem.bounding_box</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.distances"><code class="docutils literal notranslate"><span class="pre">EventItem.distances</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.vessel"><code class="docutils literal notranslate"><span class="pre">EventItem.vessel</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.encounter"><code class="docutils literal notranslate"><span class="pre">EventItem.encounter</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.fishing"><code class="docutils literal notranslate"><span class="pre">EventItem.fishing</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.gap"><code class="docutils literal notranslate"><span class="pre">EventItem.gap</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.loitering"><code class="docutils literal notranslate"><span class="pre">EventItem.loitering</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.port_visit"><code class="docutils literal notranslate"><span class="pre">EventItem.port_visit</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.events.base.models.response.EventItem.empty_datetime_str_to_none"><code class="docutils literal notranslate"><span class="pre">EventItem.empty_datetime_str_to_none()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/tabs.js?v=3ee01567"></script>
+    </body>
+</html>
