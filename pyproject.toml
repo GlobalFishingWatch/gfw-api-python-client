@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # Project metadata.
 [project]
 name = "gfw-api-python-client"
-version = "0.1.0"
+version = "3.0.0"
 description = "Python package for accessing data from Global Fishing Watch APIs."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -230,10 +230,11 @@ exclude_lines = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.0"
+version = "3.0.0"
 version_files = [
     "pyproject.toml:version",
     "src/gfwapiclient/__version__.py",
+    "CITATION.cff:version",
 ]
 version_provider = "commitizen"
 version_scheme = "semver"
@@ -241,7 +242,7 @@ major_version_zero = false
 tag_format = "v$version"
 update_changelog_on_bump = true
 changelog_file = "CHANGELOG.md"
-bump_message = "chore(release): bump $current_version to $new_version"
+bump_message = "chore(release): bump to v$new_version"
 
 [tool.codespell]
 skip = '.git,env*,venv*,build*,tmp*'
