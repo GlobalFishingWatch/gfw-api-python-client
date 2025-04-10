@@ -35,6 +35,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     # third-party extensions
     "myst_parser",
+    # "myst_nb",
     "autodoc2",
     "sphinx_copybutton",
     "sphinx_inline_tabs",
@@ -59,6 +60,7 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
+    "**.ipynb_checkpoints",
 ]
 
 
@@ -83,7 +85,14 @@ intersphinx_mapping = {
 # -- Options for myst-parser -------------------------------------------------
 # https://myst-parser.readthedocs.io/en/latest/configuration.html
 
-myst_enable_extensions = ["fieldlist", "deflist"]
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "fieldlist",
+    "deflist",
+    "dollarmath",
+    "html_image",
+]
 myst_heading_anchors = 3
 
 

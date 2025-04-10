@@ -188,12 +188,12 @@ Be descriptive and concise when naming your branches.
 
 When submitting a pull request, please ensure it meets the following criteria:
 
--   [ ] The PR targets the correct base branch (`develop` for features, `main` for hotfixes targeting a specific release).
--   [ ] The title and body provide a clear and concise explanation of **what** the PR does and **why** it's necessary.
--   [ ] All commits follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
--   [ ] All relevant checks pass locally (`make format`, `make pre-commit`, `make test`, etc.).
--   [ ] Documentation has been updated or created if the PR introduces new features or changes existing behavior.
--   [ ] Tests have been added for new features or bug fixes to ensure they function correctly and prevent regressions.
+-  The PR targets the correct base branch (`develop` for features, `main` for hotfixes targeting a specific release).
+-  The title and body provide a clear and concise explanation of **what** the PR does and **why** it's necessary.
+-  All commits follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
+-  All relevant checks pass locally (`make format`, `make pre-commit`, `make test`, etc.).
+-  Documentation has been updated or created if the PR introduces new features or changes existing behavior.
+-  Tests have been added for new features or bug fixes to ensure they function correctly and prevent regressions.
 
 ## Merge vs Rebase
 

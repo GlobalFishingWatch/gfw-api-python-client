@@ -1,10 +1,8 @@
-# Getting Started
+# Setup
 
-We're pleased that you are interested in contributing to `gfw-api-python-client`.
+This document is designed to help you set up your development environment for [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) and serve as a guide and reference for the development process. If you encounter any issues, please [open an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) on the issue tracker.
 
-This document is designed to help you set up your development environment for `gfw-api-python-client` and serve as a guide and reference for the development process. If you encounter any issues, please [open an issue](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues) on the issue tracker.
-
-## Get Source Code
+## Getting the Source Code
 
 To begin working on `gfw-api-python-client`, you'll need to obtain the source code. The source code is available on [GitHub](https://github.com/GlobalFishingWatch/gfw-api-python-client).
 
@@ -13,16 +11,16 @@ git clone https://github.com/GlobalFishingWatch/gfw-api-python-client.git
 cd gfw-api-python-client
 ```
 
-## Development Environment
+## Setting Up Your Development Environment
 
-`gfw-api-python-client` is a Python package. For development, ensure you have [Python installed](https://realpython.com/installing-python/) on your machine.
+`gfw-api-python-client` is a Python package, and a suitable Python installation (version 3.12 or higher) is required for development. You can download Python from the [official website](https://www.python.org/downloads/).
 
-It's highly recommended to use a [virtual environment](https://docs.python.org/3/tutorial/venv.html) to manage dependencies.
+We strongly recommend using a [virtual environment](https://docs.python.org/3/tutorial/venv.html) to isolate the project's dependencies.
 
 Here's how to set up your development environment:
 
 ```bash
-python -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
@@ -38,51 +36,78 @@ This allows you to develop and test your changes without needing to reinstall th
 
 ## Running Tests
 
-`gfw-api-python-client` uses the [pytest](https://pypi.org/project/pytest/) testing framework.
+We use the [pytest](https://pypi.org/project/pytest/) framework for our tests.
 
-To execute the tests:
+To execute all unit tests:
 
 ```bash
 make test
 ```
 
+To execute integration tests (which interact with live APIs):
+
+```bash
+make test-integration
+```
+
 ## Running Linters and Code Formatting
 
-`gfw-api-python-client` utilizes [pre-commit](https://pypi.org/project/pre-commit/) to manage code linting and formatting. `pre-commit` automates various checks across all files, ensuring a consistent code style throughout the codebase.
+To maintain a consistent code style, we use [pre-commit](https://pre-commit.com/) to manage linters and formatters. `pre-commit` runs configured checks on your staged files before you commit.
 
-To run the linters locally:
+To run all pre-commit checks manually:
 
 ```bash
 make pre-commit
 ```
 
+It's recommended to run these checks before pushing your code.
+
 ## Building Documentation
 
-The `gfw-api-python-client` documentation is built using [Sphinx](https://pypi.org/project/Sphinx/). The documentation is written in reStructuredText and Markdown.
+Our documentation is built using [Sphinx](https://www.sphinx-doc.org/en/master/). It's written in a combination of reStructuredText and Markdown (using MyST Parser).
 
-To build the documentation locally:
+To build the HTML documentation locally:
 
 ```bash
 make docs
 ```
 
-The generated documentation will be located in the `docs/build` directory. Open `docs/build/index.html` in your browser to view it.
+The generated HTML files will be in the `docs/build/html` directory. Open `docs/build/html/index.html` in your web browser to view the documentation.
 
-To build, watch, and serve the documentation with live reload in your browser:
+For a live-reloading documentation server during development:
 
 ```bash
 make servedocs
 ```
 
-## What Next?
+## Security and Dependency Auditing
 
-The following resources will help you navigate and contribute to `gfw-api-python-client`.
+To check for known security vulnerabilities in our dependencies:
+
+```bash
+make audit
+```
+
+## Useful Make Commands
+
+To list all `make` commands to help you during development at any time:
+
+```bash
+make help
+```
+
+
+## Next Steps and Useful Resources
+
+We encourage you to explore the following resources to better understand the project and our development practices:
 
 ### Project Specific Resources
 
 - [GitHub Issues](https://github.com/GlobalFishingWatch/gfw-api-python-client/issues): Find tasks, bug reports, and feature requests.
 - [Code of Conduct](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/CODE_OF_CONDUCT.md): Understand community expectations for respectful collaboration.
 - [Contributing Guide](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/CONTRIBUTING.md): Learn the specific contribution process.
+- [Git Workflow](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/GIT_WORKFLOW.md): Branching and commit strategies
+- [Installation](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/INSTALLATION.md): Installation instructions
 
 ### General Python Development
 

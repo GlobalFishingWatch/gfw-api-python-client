@@ -6,9 +6,11 @@ The sections below will help you get started with development, testing, and docu
 ```{toctree}
 :maxdepth: 1
 
-getting-started
+setup
+git-workflow
 contributing
 code-of-conduct
+security
 changelog
 license
 ```
