@@ -32,13 +32,13 @@ gfw_client = gfw.Client(
 The `gfw_client.fourwings` object provides methods to generate reports, retrieve the last generated report, and get global fishing effort statistics. These methods return a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
 
-## Creating a Report (`get_report`)
+## Creating a Report (`create_report`)
 
-The `get_report()` method allows you to generate a report for a specified geographic region, based on the provided datasets and parameters.
+The `create_report()` method allows you to generate a report for a specified geographic region, based on the provided datasets and parameters.
 
 
 ```python
-report_result = await gfw_client.fourwings.get_report(
+report_result = await gfw_client.fourwings.create_report(
     spatial_resolution="LOW",
     temporal_resolution="MONTHLY",
     group_by="GEARTYPE",
@@ -109,7 +109,7 @@ memory usage: 6.1+ MB
 
 ## Reference Data
 
-The 4Wings API often requires specifying geographic regions. You can use the [Reference Data API](references-data-api) to retrieve the `dataset` and `id` of various regions (e.g., EEZs, MPAs, RFMOs) that can then be used in the `get_report()` method.
+The 4Wings API often requires specifying geographic regions. You can use the [Reference Data API](references-data-api) to retrieve the `dataset` and `id` of various regions (e.g., EEZs, MPAs, RFMOs) that can then be used in the `create_report()` method.
 
 ## Next Steps
 

@@ -41,7 +41,7 @@ class FourWingsResource(BaseResource):
     for generating reports.
     """
 
-    async def get_report(
+    async def create_report(
         self,
         *,
         spatial_resolution: Optional[
@@ -60,7 +60,7 @@ class FourWingsResource(BaseResource):
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
-        """Get 4Wings report for a specified region.
+        """Create 4Wings report for a specified region.
 
         Generates a report from the 4Wings API based on the provided parameters.
 
@@ -126,17 +126,19 @@ class FourWingsResource(BaseResource):
             RequestBodyValidationError:
                 If the request body is invalid.
         """
-        request_params: FourWingsReportParams = self._prepare_get_report_request_params(
-            spatial_resolution=spatial_resolution,
-            group_by=group_by,
-            temporal_resolution=temporal_resolution,
-            datasets=datasets,
-            filters=filters,
-            start_date=start_date,
-            end_date=end_date,
-            spatial_aggregation=spatial_aggregation,
+        request_params: FourWingsReportParams = (
+            self._prepare_create_report_request_params(
+                spatial_resolution=spatial_resolution,
+                group_by=group_by,
+                temporal_resolution=temporal_resolution,
+                datasets=datasets,
+                filters=filters,
+                start_date=start_date,
+                end_date=end_date,
+                spatial_aggregation=spatial_aggregation,
+            )
         )
-        request_body: FourWingsReportBody = self._prepare_get_report_request_body(
+        request_body: FourWingsReportBody = self._prepare_create_report_request_body(
             geojson=geojson,
             region=region,
         )
@@ -149,7 +151,7 @@ class FourWingsResource(BaseResource):
         result: FourWingsReportResult = await endpoint.request()
         return result
 
-    def _prepare_get_report_request_body(
+    def _prepare_create_report_request_body(
         self,
         *,
         geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
@@ -170,7 +172,7 @@ class FourWingsResource(BaseResource):
 
         return request_body
 
-    def _prepare_get_report_request_params(
+    def _prepare_create_report_request_params(
         self,
         *,
         spatial_resolution: Optional[
@@ -187,8 +189,10 @@ class FourWingsResource(BaseResource):
         spatial_aggregation: Optional[bool] = None,
     ) -> FourWingsReportParams:
         """Prepare request parameters for the 4Wings report endpoint."""
-        date_range: Optional[str] = self._prepare_get_report_date_range_request_param(
-            start_date=start_date, end_date=end_date
+        date_range: Optional[str] = (
+            self._prepare_create_report_date_range_request_param(
+                start_date=start_date, end_date=end_date
+            )
         )
         try:
             _request_params: Dict[str, Any] = {
@@ -216,7 +220,7 @@ class FourWingsResource(BaseResource):
 
         return request_params
 
-    def _prepare_get_report_date_range_request_param(
+    def _prepare_create_report_date_range_request_param(
         self,
         *,
         start_date: Optional[Union[datetime.date, str]] = None,

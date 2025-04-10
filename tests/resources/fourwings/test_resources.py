@@ -23,14 +23,14 @@ from gfwapiclient.resources.fourwings.resources import FourWingsResource
 
 @pytest.mark.asyncio
 @pytest.mark.respx
-async def test_fourwings_resource_get_report(
+async def test_fourwings_resource_create_report(
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
     mock_raw_fourwings_report_item: Dict[str, Any],
     mock_responsex: respx.MockRouter,
 ) -> None:
-    """Test `FourWingsResource` get report succeeds with valid response."""
+    """Test `FourWingsResource` create report succeeds with valid response."""
     mock_responsex.post("4wings/report").respond(
         200,
         json={
@@ -44,7 +44,7 @@ async def test_fourwings_resource_get_report(
         },
     )
     resource: FourWingsResource = FourWingsResource(http_client=mock_http_client)
-    result: FourWingsReportResult = await resource.get_report(
+    result: FourWingsReportResult = await resource.create_report(
         **{
             **mock_raw_fourwings_report_request_params,
             **mock_raw_fourwings_report_request_body,
@@ -57,42 +57,42 @@ async def test_fourwings_resource_get_report(
 
 
 @pytest.mark.asyncio
-async def test_fourwings_resource_get_report_request_params_validation_error_raises(
+async def test_fourwings_resource_create_report_request_params_validation_error_raises(
     mock_http_client: HTTPClient,
 ) -> None:
-    """Test `FourWingsResource` get report raises `RequestParamsValidationError` with invalid parameters."""
+    """Test `FourWingsResource` create report raises `RequestParamsValidationError` with invalid parameters."""
     resource = FourWingsResource(http_client=mock_http_client)
 
     with pytest.raises(
         RequestParamsValidationError,
         match=FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE,
     ):
-        await resource.get_report(datasets=["INVALID_DATASET"])
+        await resource.create_report(datasets=["INVALID_DATASET"])
 
 
 @pytest.mark.asyncio
-async def test_fourwings_resource_get_report_dates_request_params_validation_error_raises(
+async def test_fourwings_resource_create_report_dates_request_params_validation_error_raises(
     mock_http_client: HTTPClient,
 ) -> None:
-    """Test `FourWingsResource` get report raises `RequestParamsValidationError` with invalid dates parameters."""
+    """Test `FourWingsResource` create report raises `RequestParamsValidationError` with invalid dates parameters."""
     resource = FourWingsResource(http_client=mock_http_client)
 
     with pytest.raises(
         RequestParamsValidationError,
         match=FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE,
     ):
-        await resource.get_report(start_date="INVALID_DATE", end_date="INVALID_DATE")
+        await resource.create_report(start_date="INVALID_DATE", end_date="INVALID_DATE")
 
 
 @pytest.mark.asyncio
-async def test_fourwings_resource_get_report_request_body_validation_error_raises(
+async def test_fourwings_resource_create_report_request_body_validation_error_raises(
     mock_http_client: HTTPClient,
 ) -> None:
-    """Test `FourWingsResource` get report raises `RequestBodyValidationError` with invalid parameters."""
+    """Test `FourWingsResource` create report raises `RequestBodyValidationError` with invalid parameters."""
     resource = FourWingsResource(http_client=mock_http_client)
 
     with pytest.raises(
         RequestBodyValidationError,
         match=FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE,
     ):
-        await resource.get_report(region={"buffer_unit": "INVALID_BUFFER_UNIT"})
+        await resource.create_report(region={"buffer_unit": "INVALID_BUFFER_UNIT"})
