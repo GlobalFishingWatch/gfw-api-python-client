@@ -26,11 +26,15 @@ from gfwapiclient.resources.references.regions.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_references_get_eez_regions_success(gfw_client: gfw.Client) -> None:
-    """Test retrieving available Exclusive Economic Zone (EEZ) regions data.
+async def test_references_get_eez_regions_get_list_of_eezs(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting the list of Exclusive Economic Zones (EEZs).
 
-    This test verifies that the `get_eez_regions` method can successfully fetch EEZ region data from the API,
-    that the returned data conforms to the expected model, and that it can be converted to a Pandas DataFrame.
+    This test verifies that the `get_eez_regions` method correctly retrieves
+    a list of Exclusive Economic Zone (EEZ) regions. It checks the structure
+    and content of the returned data, ensuring it's a valid `EEZRegionResult`
+    and that the data can be converted to a pandas DataFrame.
     """
     result: EEZRegionResult = await gfw_client.references.get_eez_regions()
 
@@ -47,11 +51,15 @@ async def test_references_get_eez_regions_success(gfw_client: gfw.Client) -> Non
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_references_get_mpa_regions_success(gfw_client: gfw.Client) -> None:
-    """Test retrieving available Marine Protected Area (MPA) regions data.
+async def test_references_get_mpa_regions_get_list_of_mpas(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting the list of Marine Protected Areas (MPAs).
 
-    This test verifies that the `get_mpa_regions` method can successfully fetch MPA region data from the API,
-    that the returned data conforms to the expected model, and that it can be converted to a Pandas DataFrame.
+    This test verifies that the `get_mpa_regions` method correctly retrieves
+    a list of Marine Protected Area (MPA) regions. It checks the structure
+    and content of the returned data, ensuring it's a valid `MPARegionResult`
+    and that the data can be converted to a pandas DataFrame.
     """
     result: MPARegionResult = await gfw_client.references.get_mpa_regions()
 
@@ -68,11 +76,16 @@ async def test_references_get_mpa_regions_success(gfw_client: gfw.Client) -> Non
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_references_get_rfmo_regions_success(gfw_client: gfw.Client) -> None:
-    """Test retrieving available Regional Fisheries Management Organization (RFMO) regions data.
+async def test_references_get_rfmo_regions_get_list_of_rfmos(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting the list of Regional Fisheries Management Organizations (RFMOs).
 
-    This test verifies that the `get_rfmo_regions` method can successfully fetch RFMO region data from the API,
-    that the returned data conforms to the expected model, and that it can be converted to a Pandas DataFrame.
+    This test verifies that the `get_rfmo_regions` method correctly retrieves
+    a list of Regional Fisheries Management Organization (RFMO) regions.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `RFMORegionResult` and that the data can be converted to a
+    pandas DataFrame.
     """
     result: RFMORegionResult = await gfw_client.references.get_rfmo_regions()
 

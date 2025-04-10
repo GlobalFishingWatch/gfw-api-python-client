@@ -30,13 +30,13 @@ from gfwapiclient.resources.vessels.search.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_vessels_basic_success(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_basic_search(gfw_client: gfw.Client) -> None:
     """Test basic vessel search by keyword (MMSI).
 
-    This test verifies that the `search_vessels` method correctly retrieves vessel data
-    based on a basic keyword search (MMSI in this case). It checks the structure and
-    content of the returned data, ensuring it's a valid `VesselSearchResult` and that
-    the data can be converted to a pandas DataFrame.
+    This test verifies that the `search_vessels` method can find vessels
+    based on a simple keyword query (e.g., MMSI). It checks the structure
+    and content of the returned data, ensuring it's a valid `VesselSearchResult`
+    and contains at least one result that can be converted to a pandas DataFrame.
     """
     result: VesselSearchResult = await gfw_client.vessels.search_vessels(
         query="368045130",
@@ -56,16 +56,17 @@ async def test_vessels_search_vessels_basic_success(gfw_client: gfw.Client) -> N
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_vessels_advanced_success(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_advanced_search(gfw_client: gfw.Client) -> None:
     """Test advanced vessel search by keyword (MMSI and shipname).
 
-    This test verifies that the `search_vessels` method correctly retrieves vessel data
-    based on an advanced keyword search (MMSI and shipname). It checks the structure
-    and content of the returned data, ensuring it's a valid `VesselSearchResult` and
-    that the data can be converted to a pandas DataFrame.
+    This test verifies that the `search_vessels` method can perform advanced
+    searches using a `where` clause with multiple conditions (e.g., MMSI
+    and shipname). It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselSearchResult` and contains at least one result
+    that can be converted to a pandas DataFrame.
     """
     result: VesselSearchResult = await gfw_client.vessels.search_vessels(
-        where='ssvid="775998121" AND shipname="DON TITO"',
+        where="ssvid='775998121' AND shipname='DON TITO'",
         datasets=["public-global-vessel-identity:latest"],
         includes=["MATCH_CRITERIA", "OWNERSHIP"],
     )
@@ -82,13 +83,15 @@ async def test_vessels_search_vessels_advanced_success(gfw_client: gfw.Client) -
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_get_vessels_by_ids_success(gfw_client: gfw.Client) -> None:
-    """Test retrieving details of multiple vessels by IDs.
+async def test_vessels_get_vessels_by_ids_get_details_of_multiple_vessels(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting details of multiple vessels by IDs.
 
-    This test verifies that the `get_vessels_by_ids` method correctly retrieves
-    details for multiple vessels based on their IDs. It checks the structure and
-    content of the returned data, ensuring it's a valid `VesselListResult` and that
-    the data can be converted to a pandas DataFrame.
+    This test verifies that the `get_vessels` method can retrieve details for
+    multiple vessels by their IDs. It checks the structure and content of the
+    returned data, ensuring it's a valid `VesselListResult` and contains details
+    for all requested vessel IDs that can be converted to a pandas DataFrame.
     """
     result: VesselListResult = await gfw_client.vessels.get_vessels_by_ids(
         ids=[
@@ -111,13 +114,15 @@ async def test_vessels_get_vessels_by_ids_success(gfw_client: gfw.Client) -> Non
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_gget_vessel_by_id_success(gfw_client: gfw.Client) -> None:
-    """Test retrieving details of a single vessel by ID.
+async def test_vessels_gget_vessel_by_id_get_details_one_vessel(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting details of a single vessel by ID.
 
-    This test verifies that the `get_vessel_by_id` method correctly retrieves
-    details for a single vessel based on its ID. It checks the structure and
-    content of the returned data, ensuring it's a valid `VesselDetailResult` and
-    that the data can be converted to a pandas DataFrame.
+    This test verifies that the `get_vessels` method can retrieve details for
+    a single vessel by its ID. It checks the structure and content of the
+    returned data, ensuring it's a valid `VesselDetailResult` and contains details
+    for the requested vessel ID that can be converted to a pandas DataFrame.
     """
     vessel_id = "c54923e64-46f3-9338-9dcb-ff09724077a3"
     result: VesselDetailResult = await gfw_client.vessels.get_vessel_by_id(

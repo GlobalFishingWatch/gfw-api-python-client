@@ -34,9 +34,7 @@ from gfwapiclient.resources.events.stats.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_fishing_events_with_geometry_and_flags(
-    gfw_client: gfw.Client,
-) -> None:
+async def test_events_get_all_events_get_fishing_events(gfw_client: gfw.Client) -> None:
     """Test retrieving fishing events with geometry and flags filters.
 
     This test verifies that the `get_all_events` method correctly retrieves
@@ -64,6 +62,7 @@ async def test_events_get_all_events_get_fishing_events_with_geometry_and_flags(
         },
         limit=1,
     )
+
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert len(data) >= 1, "Expected at least one event."
@@ -77,7 +76,7 @@ async def test_events_get_all_events_get_fishing_events_with_geometry_and_flags(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_encounter_events_with_geometry_and_vessels(
+async def test_events_get_all_events_get_encounter_events(
     gfw_client: gfw.Client,
 ) -> None:
     """Test retrieving encounter events with geometry, vessels, and flags filters.
@@ -109,6 +108,7 @@ async def test_events_get_all_events_get_encounter_events_with_geometry_and_vess
         },
         limit=1,
     )
+
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert len(data) >= 1, "Expected at least one event."
@@ -122,7 +122,7 @@ async def test_events_get_all_events_get_encounter_events_with_geometry_and_vess
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_loitering_events_with_geometry_and_vessels(
+async def test_events_get_all_events_get_loitering_events(
     gfw_client: gfw.Client,
 ) -> None:
     """Test retrieving loitering events with geometry, vessels, and flags filters.
@@ -154,6 +154,7 @@ async def test_events_get_all_events_get_loitering_events_with_geometry_and_vess
         },
         limit=1,
     )
+
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert len(data) >= 1, "Expected at least one event."
@@ -167,9 +168,7 @@ async def test_events_get_all_events_get_loitering_events_with_geometry_and_vess
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_port_visits_with_geometry_and_vessels(
-    gfw_client: gfw.Client,
-) -> None:
+async def test_events_get_all_events_get_port_visits(gfw_client: gfw.Client) -> None:
     """Test retrieving port visit events with geometry, vessels, and flags filters.
 
     This test verifies that the `get_all_events` method correctly retrieves
@@ -199,6 +198,7 @@ async def test_events_get_all_events_get_port_visits_with_geometry_and_vessels(
         },
         limit=1,
     )
+
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert len(data) >= 1, "Expected at least one event."
@@ -212,13 +212,13 @@ async def test_events_get_all_events_get_port_visits_with_geometry_and_vessels(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_fishing_events_in_senegal_eez(
+async def test_events_get_all_events_get_fishing_events_senegal_eez(
     gfw_client: gfw.Client,
 ) -> None:
     """Test retrieving fishing events within Senegal EEZ.
 
     This test verifies that the `get_all_events` method correctly retrieves
-    fishing event data within the Exclusive Economic Zone (EEZ) of Senegal.
+    fishing event data within the EEZ of Senegal using a region filter.
     It checks the structure and content of the returned data, ensuring it's a
     valid `EventListResult` and that the data can be converted to a
     pandas DataFrame.
@@ -234,6 +234,7 @@ async def test_events_get_all_events_get_fishing_events_in_senegal_eez(
         },
         limit=1,
     )
+
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert len(data) >= 1, "Expected at least one event."
@@ -247,9 +248,7 @@ async def test_events_get_all_events_get_fishing_events_in_senegal_eez(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_event_by_id_get_port_visit_event_by_id(
-    gfw_client: gfw.Client,
-) -> None:
+async def test_events_get_event_by_id_get_port_visit(gfw_client: gfw.Client) -> None:
     """Test retrieving a port visit event by its ID.
 
     This test verifies that the `get_event_by_id` method correctly retrieves
@@ -262,6 +261,7 @@ async def test_events_get_event_by_id_get_port_visit_event_by_id(
         id=event_id,
         dataset="public-global-port-visits-events:latest",
     )
+
     data: EventDetailItem = cast(EventDetailItem, result.data())
     assert isinstance(result, EventDetailResult)
     assert isinstance(data, EventDetailItem)
@@ -295,6 +295,7 @@ async def test_events_get_events_stats_get_encounters_stats(
         flags=["RUS"],
         duration=60,
     )
+
     data: EventStatsItem = cast(EventStatsItem, result.data())
     assert isinstance(result, EventStatsResult)
     assert isinstance(data, EventStatsItem)
@@ -307,7 +308,7 @@ async def test_events_get_events_stats_get_encounters_stats(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_events_stats_get_port_visits_stats_in_senegal_eez(
+async def test_events_get_events_stats_get_port_visits_stats_senegal_eez(
     gfw_client: gfw.Client,
 ) -> None:
     """Test retrieving port visits statistics in Senegal EEZ.
@@ -327,6 +328,7 @@ async def test_events_get_events_stats_get_port_visits_stats_in_senegal_eez(
         region={"dataset": "public-eez-areas", "id": "8371"},
         confidences=["3", "4"],
     )
+
     data: EventStatsItem = cast(EventStatsItem, result.data())
     assert isinstance(result, EventStatsResult)
     assert isinstance(data, EventStatsItem)

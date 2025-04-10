@@ -25,17 +25,17 @@ from gfwapiclient.resources.fourwings.report.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_get_report_related_to_fishing_effort_by_custom_polygon_success(
+async def test_fourwings_create_report_generate_fishing_effort_report_custom_polygon(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving 4Wings report related to fishing effort by custom polygon.
+    """Test generating fishing effort report by year and custom polygon.
 
-    This test verifies that the `get_report` method correctly retrieves fishing
-    effort data for a specified custom polygon. It checks the structure and
-    content of the returned data, ensuring it's a valid `FourWingsReportResult`
-    and that the data can be converted to a pandas DataFrame.
+    This test verifies that the `create_report` method correctly retrieves
+    fishing effort data grouped by year for a specified custom polygon.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
     """
-    result: FourWingsReportResult = await gfw_client.fourwings.get_report(
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
         spatial_resolution="LOW",
         temporal_resolution="YEARLY",
         group_by="FLAG",
@@ -83,6 +83,7 @@ async def test_fourwings_get_report_related_to_fishing_effort_by_custom_polygon_
             ],
         },
     )
+
     data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
     assert isinstance(result, FourWingsReportResult)
     assert len(data) >= 1, "Expected at least one FourWingsReportItem."
@@ -96,25 +97,146 @@ async def test_fourwings_get_report_related_to_fishing_effort_by_custom_polygon_
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_get_report_related_to_fishing_effort_by_existing_region_success(
+async def test_fourwings_create_report_generate_fishing_effort_report_grouped_by_gear_type_russian_eez(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test retrieving 4Wings report related to fishing effort by existing region.
+    """Test generating fishing effort report grouped by gear type in Russian EEZ.
 
-    This test verifies that the `get_report` method correctly retrieves fishing
-    effort data for a specified existing region. It checks the structure and
-    content of the returned data, ensuring it's a valid `FourWingsReportResult`
-    and that the data can be converted to a pandas DataFrame.
+    This test verifies that the `create_report` method correctly retrieves
+    fishing effort data grouped by gear type within the Exclusive Economic Zone
+    (EEZ) of Russia. It checks the structure and content of the returned data,
+    ensuring it's a valid `FourWingsReportResult` and that the data can be
+    converted to a pandas DataFrame.
     """
-    result: FourWingsReportResult = await gfw_client.fourwings.get_report(
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
         spatial_resolution="LOW",
         temporal_resolution="MONTHLY",
         group_by="GEARTYPE",
         datasets=["public-global-fishing-effort:latest"],
         start_date="2022-01-01",
         end_date="2022-05-01",
-        region={"dataset": "public-eez-areas", "id": "5690"},
+        region={
+            "dataset": "public-eez-areas",
+            "id": "5690",
+        },
     )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_nasca(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating report with total fishing hours per grid cell in MPA Dorsal de Nasca.
+
+    This test verifies that the `create_report` method correctly retrieves
+    total fishing hours per latitude/longitude grid cell within the Marine
+    Protected Area (MPA) Dorsal de Nasca. It checks the structure and content
+    of the returned data, ensuring it's a valid `FourWingsReportResult` and
+    that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="LOW",
+        temporal_resolution="ENTIRE",
+        spatial_aggregation=False,
+        datasets=["public-global-fishing-effort:latest"],
+        start_date="2022-01-01",
+        end_date="2022-12-01",
+        region={
+            "dataset": "public-mpa-all",
+            "id": "555745302",
+        },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+@pytest.mark.skip
+async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_nasca_buffer(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating report with total fishing hours per grid cell in MPA Nasca with buffer.
+
+    This test verifies that the `create_report` method correctly retrieves
+    total fishing hours per latitude/longitude grid cell within the Marine
+    Protected Area (MPA) Dorsal de Nasca, including a specified buffer.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="LOW",
+        temporal_resolution="ENTIRE",
+        spatial_aggregation=False,
+        datasets=["public-global-fishing-effort:latest"],
+        start_date="2022-01-01",
+        end_date="2022-12-01",
+        region={
+            "dataset": "public-mpa-all",
+            "id": "555745302",
+            "buffer_operation": "DISSOLVE",
+            "buffer_unit": "NAUTICALMILES",
+            "buffer_value": "4",
+        },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_fourwings_create_report_generate_region_daily_gridded_unmatched_detections_chile(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating daily gridded SAR presence data with unmatched detections in Chile.
+
+    This test verifies that the `create_report` method correctly retrieves
+    daily gridded data for SAR (Search and Rescue) presence within the
+    Exclusive Economic Zone (EEZ) of Chile, filtered to include only unmatched
+    detections. It checks the structure and content of the returned data,
+    ensuring it's a valid `FourWingsReportResult` and that the data can be
+    converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="HIGH",
+        temporal_resolution="HOURLY",
+        datasets=["public-global-sar-presence:latest"],
+        start_date="2022-01-01",
+        end_date="2022-01-06",
+        filters=["matched='false'"],
+        region={
+            "dataset": "public-eez-areas",
+            "id": "8465",
+        },
+    )
+
     data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
     assert isinstance(result, FourWingsReportResult)
     assert len(data) >= 1, "Expected at least one FourWingsReportItem."

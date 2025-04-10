@@ -26,7 +26,7 @@ class FourWingsReportEndPoint(
         FourWingsReportResult,
     ]
 ):
-    """Get 4Wings Report API endpoint.
+    """Create 4Wings Report API endpoint.
 
     This endpoint is used to generate reports from the 4Wings API.
     It supports both query parameters and request bodies for flexible report generation.
