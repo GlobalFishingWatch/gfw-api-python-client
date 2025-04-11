@@ -19,7 +19,7 @@ SRC_DIR = "../../src/gfwapiclient"
 project = "Global Fishing Watch API Client"
 copyright = "2025, Global Fishing Watch"
 author = "Global Fishing Watch"
-release = "0.1.0"
+release = "1.0.1"
 
 
 # -- General configuration ---------------------------------------------------
