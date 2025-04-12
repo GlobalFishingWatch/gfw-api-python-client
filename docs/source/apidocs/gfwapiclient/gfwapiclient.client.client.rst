@@ -87,6 +87,13 @@ API
 
       .. autodoc2-docstring:: gfwapiclient.client.client.Client._insights
 
+   .. py:attribute:: _datasets
+      :canonical: gfwapiclient.client.client.Client._datasets
+      :type: gfwapiclient.resources.DatasetResource
+      :value: None
+
+      .. autodoc2-docstring:: gfwapiclient.client.client.Client._datasets
+
    .. py:attribute:: _references
       :canonical: gfwapiclient.client.client.Client._references
       :type: gfwapiclient.resources.ReferenceResource
@@ -117,6 +124,12 @@ API
       :type: gfwapiclient.resources.InsightResource
 
       .. autodoc2-docstring:: gfwapiclient.client.client.Client.insights
+
+   .. py:property:: datasets
+      :canonical: gfwapiclient.client.client.Client.datasets
+      :type: gfwapiclient.resources.DatasetResource
+
+      .. autodoc2-docstring:: gfwapiclient.client.client.Client.datasets
 
    .. py:property:: references
       :canonical: gfwapiclient.client.client.Client.references
