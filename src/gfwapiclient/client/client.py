@@ -8,6 +8,7 @@ import httpx
 
 from gfwapiclient.http import HTTPClient
 from gfwapiclient.resources import (
+    DatasetResource,
     EventResource,
     FourWingsResource,
     InsightResource,
@@ -49,6 +50,9 @@ class Client:
         insights (InsightResource):
             Access to the vessel insights data resources.
 
+        datasets (DatasetResource):
+            Access to the datasets data resources.
+
         references (ReferenceResource):
             Access to the reference data resources.
     """
@@ -57,6 +61,7 @@ class Client:
     _vessels: VesselResource
     _events: EventResource
     _insights: InsightResource
+    _datasets: DatasetResource
     _references: ReferenceResource
 
     def __init__(
@@ -217,6 +222,26 @@ class Client:
         if not hasattr(self, "_insights"):
             self._insights = InsightResource(http_client=self._http_client)
         return self._insights
+
+    @property
+    def datasets(self) -> DatasetResource:
+        """Datasets data API resource.
+
+        Provides access to the Datasets API resources, which allow users to
+        retrieve SAR fixed infrastructure data and other datasets.
+
+        For more details on the Datasets API, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#datasets-api>
+
+        Returns:
+            DatasetResource:
+                The datasets data resource instance.
+        """
+        if not hasattr(self, "_datasets"):
+            self._datasets = DatasetResource(http_client=self._http_client)
+        return self._datasets
 
     @property
     def references(self) -> ReferenceResource:

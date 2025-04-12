@@ -2,7 +2,7 @@
 
 import http
 
-from typing import Any, Dict, List, Type, cast
+from typing import Any, Callable, Dict, List, Type, cast
 
 import httpx
 import pandas as pd
@@ -129,13 +129,13 @@ def test_base_endpoint_post_instance(
     assert endpoint._http_client == mock_http_client
 
 
-def test_base_endpoint_parse_response_data_success(
+def test_base_endpoint_parse_response_json_data_success(
     mock_base_endpoint: BaseEndPoint[
         MockRequestParams, MockRequestBody, MockResultItem, MockListResult
     ],
     mock_raw_result_item: Dict[str, Any],
 ) -> None:
-    """Test that `BaseEndPoint` can parse response data successfully."""
+    """Test that `BaseEndPoint` can parse response json data successfully."""
     response = httpx.Response(
         status_code=200,
         json=mock_raw_result_item,
@@ -145,6 +145,55 @@ def test_base_endpoint_parse_response_data_success(
         mock_base_endpoint._parse_response_data(response=response)
         == mock_raw_result_item
     )
+
+
+def test_base_endpoint_parse_response_mvt_data_success(
+    mock_base_endpoint: BaseEndPoint[
+        MockRequestParams, MockRequestBody, MockResultItem, MockListResult
+    ],
+    load_mvt_fixture: Callable[[str], bytes],
+) -> None:
+    """Test that `BaseEndPoint` can parse response mvt data successfully."""
+    mvt_data: bytes = load_mvt_fixture("datasets/sar_fixed_infrastructure.mvt")
+    response = httpx.Response(
+        status_code=200,
+        content=mvt_data,
+        headers={"Content-Type": "application/vnd.mapbox-vector-tile"},
+    )
+    response_data: List[Dict[str, Any]] = cast(
+        List[Dict[str, Any]], mock_base_endpoint._parse_response_data(response=response)
+    )
+    assert response_data is not None
+    assert isinstance(response_data, list) is True
+    assert len(response_data) >= 1
+
+    response_item: Dict[str, Any] = response_data[-1]
+    assert response_item is not None
+    assert isinstance(response_item, dict)
+    assert "structure_id" in response_item
+    assert "lon" in response_item
+    assert "lat" in response_item
+    assert "label" in response_item
+    assert "label_confidence" in response_item
+    assert "structure_start_date" in response_item
+    assert "structure_end_date" in response_item
+
+
+def test_base_endpoint_parse_response_mvt_data_failure(
+    mock_base_endpoint: BaseEndPoint[
+        MockRequestParams, MockRequestBody, MockResultItem, MockListResult
+    ],
+    load_mvt_fixture: Callable[[str], bytes],
+) -> None:
+    """Test that `BaseEndPoint` can not parse response with invalid mvt data."""
+    mvt_data: bytes = load_mvt_fixture("datasets/sar_fixed_infrastructure_item.json")
+    response = httpx.Response(
+        status_code=200,
+        content=mvt_data,
+        headers={"Content-Type": "application/vnd.mapbox-vector-tile"},
+    )
+    with pytest.raises(ResultValidationError):
+        mock_base_endpoint._parse_response_data(response=response)
 
 
 def test_base_endpoint_process_response_data_content_type_error(

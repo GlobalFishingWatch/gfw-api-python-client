@@ -8,10 +8,10 @@ from gfwapiclient.resources.fourwings.report.models.response import (
 )
 
 
-def test_fourwings_report_item_derializes_all_fields(
+def test_fourwings_report_item_deserializes_all_fields(
     mock_raw_fourwings_report_item: Dict[str, Any],
 ) -> None:
-    """Test that `FourWingsReportItem` serializes all fields correctly."""
+    """Test that `FourWingsReportItem` deserializes all fields correctly."""
     vessel_insight_item: FourWingsReportItem = FourWingsReportItem(
         **mock_raw_fourwings_report_item
     )
