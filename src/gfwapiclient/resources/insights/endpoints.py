@@ -21,13 +21,6 @@ class VesselInsightEndPoint(
 
     This endpoint retrieves insights for specified vessels based on the provided
     request parameters.
-
-    Args:
-        request_body (VesselInsightBody):
-            The request body containing vessel insight parameters.
-
-        http_client (HTTPClient):
-            The HTTP client for making API requests.
     """
 
     def __init__(

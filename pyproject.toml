@@ -63,7 +63,9 @@ dependencies = [
   "httpx~=0.28",                # Making HTTP requests
   "pydantic~=2.10",             # Data validation and serialization
   "pydantic-settings~=2.8",     # Type-hinted configurations or settings
+  "geojson-pydantic~=1.2",      # Data models for the GeoJSON specification
   "mapbox-vector-tile~=2.1",    # Encoding and decoding Mapbox Vector Tiles (MVT)
+  "mercantile~=1.2",            # Web mercator XYZ tile utilities
   "pandas~=2.2",                # Data analysis and manipulation
   "geopandas~=1.0",             # Geospatial data analysis and manipulation
 ]

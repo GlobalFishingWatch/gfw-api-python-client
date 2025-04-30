@@ -180,3 +180,4 @@ Explore the [Usage Guides](index) for other API resources to understand how you 
   - [Vessels API](vessels-api)
   - [Events API](events-api)
   - [Insights API](insights-api)
+  - [Datasets API](datasets-api)
