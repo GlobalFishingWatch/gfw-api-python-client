@@ -3,6 +3,8 @@
 <!-- start: badges -->
 [![ci](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client/branch/develop/graph/badge.svg?token=w4R4VZB5RY)](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client)
+[![pypi - version](https://img.shields.io/pypi/v/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
+[![pypi - python versions](https://img.shields.io/pypi/pyversions/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![license](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE)
 
 [![pre-commit action](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml)
