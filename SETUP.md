@@ -13,14 +13,14 @@ cd gfw-api-python-client
 
 ## Setting Up Your Development Environment
 
-`gfw-api-python-client` is a Python package, and a suitable Python installation (version 3.12 or higher) is required for development. You can download Python from the [official website](https://www.python.org/downloads/).
+`gfw-api-python-client` is a Python package, and a suitable Python installation (version 3.11 or higher) is required for development. You can download Python from the [official website](https://www.python.org/downloads/).
 
 We strongly recommend using a [virtual environment](https://docs.python.org/3/tutorial/venv.html) to isolate the project's dependencies.
 
 Here's how to set up your development environment:
 
 ```bash
-python3.12 -m venv .venv
+python3.11 -m venv .venv
 source .venv/bin/activate
 ```
 

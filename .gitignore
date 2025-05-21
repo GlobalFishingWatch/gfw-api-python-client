@@ -174,3 +174,4 @@ cython_debug/
 # Other files and folders
 tmp/
 .ipython/
+.ruff_cache/

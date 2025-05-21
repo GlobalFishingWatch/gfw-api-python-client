@@ -38,7 +38,7 @@ The Global Fishing Watch Python package currently works with the following APIs:
 
 ## Requirements
 
-- [Python >= 3.12](https://www.python.org/downloads/)
+- [Python >= 3.11](https://www.python.org/downloads/)
 - [pip >= 25](https://pip.pypa.io/en/stable/installation/)
 - [venv - Python's built-in virtual environment tool](https://docs.python.org/3/library/venv.html)
 - [API access token from the Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens)

@@ -10,7 +10,7 @@ name = "gfw-api-python-client"
 version = "1.0.1"
 description = "Python package for accessing data from Global Fishing Watch APIs."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 license = { text = "Apache License 2.0" }
 authors = [
   { name = "Global Fishing Watch", email = "apis@globalfishingwatch.org" },
@@ -49,6 +49,7 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
@@ -61,6 +62,7 @@ classifiers = [
 ]
 dependencies = [
   "httpx~=0.28",                # Making HTTP requests
+  "typing-extensions~=4.13",    # Backported Type Hints for Python 3.8+
   "pydantic~=2.10",             # Data validation and serialization
   "pydantic-settings~=2.8",     # Type-hinted configurations or settings
   "geojson-pydantic~=1.2",      # Data models for the GeoJSON specification
@@ -139,7 +141,7 @@ Issues = "https://github.com/GlobalFishingWatch/gfw-api-python-client/issues"
 fix = true
 line-length = 88
 src = ["src", "tests"]
-target-version = "py312"
+target-version = "py311"
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -175,7 +177,7 @@ known-first-party = ["gfwapiclient", "tests"]
 convention = "google"
 
 [tool.black]
-target-version = ["py312"]
+target-version = ["py311"]
 line-length = 88
 
 [tool.isort]
