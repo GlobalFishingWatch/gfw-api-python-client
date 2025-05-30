@@ -1,6 +1,8 @@
 """Global Fishing Watch (GFW) API Python Client - 4Wings Report API EndPoint."""
 
-from typing import Any, Dict, List, Union, override
+from typing import Any, Dict, List, Union
+
+from typing_extensions import override
 
 from gfwapiclient.exceptions.validation import ResultValidationError
 from gfwapiclient.http.client import HTTPClient

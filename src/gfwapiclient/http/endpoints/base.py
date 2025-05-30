@@ -4,11 +4,13 @@ import http
 import json
 import logging
 
-from typing import Any, Dict, List, Optional, Type, Union, override
+from typing import Any, Dict, List, Optional, Type, Union
 
 import httpx
 import mapbox_vector_tile
 import pydantic
+
+from typing_extensions import override
 
 from gfwapiclient.exceptions.http import (
     APIConnectionError,

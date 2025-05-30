@@ -2,10 +2,12 @@
 
 import http
 
-from typing import Any, Dict, Optional, override
+from typing import Any, Dict, Optional
 
 import httpx
 import pytest
+
+from typing_extensions import override
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.http.endpoints.abc import AbstractBaseEndPoint
