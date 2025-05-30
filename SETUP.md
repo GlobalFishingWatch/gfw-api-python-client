@@ -20,7 +20,7 @@ We strongly recommend using a [virtual environment](https://docs.python.org/3/tu
 Here's how to set up your development environment:
 
 ```bash
-python3.11 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 ```
 

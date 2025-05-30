@@ -21,7 +21,7 @@ Using a virtual environment helps avoid conflicts with other Python projects and
 - Create a new virtual environment named `.venv`:
 
     ```bash
-    python3.11 -m venv .venv
+    python3 -m venv .venv
     ```
 
 - Activate the virtual environment:
