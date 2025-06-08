@@ -25,6 +25,6 @@ API
 
 .. py:data:: __version__
    :canonical: gfwapiclient.__version__.__version__
-   :value: '1.0.1'
+   :value: '1.1.0'
 
    .. autodoc2-docstring:: gfwapiclient.__version__.__version__
