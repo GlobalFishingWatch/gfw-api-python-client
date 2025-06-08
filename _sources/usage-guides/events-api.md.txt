@@ -1,5 +1,7 @@
 # Events API
 
+<a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about various activities of a vessel, including fishing activity, encounters, port visits, loitering, and gaps in AIS reporting. The Events API allows you to retrieve lists of events, get details for a specific event, and obtain statistics on event occurrences. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb) version of this guide with more usage examples.
 
 ## Prerequisites

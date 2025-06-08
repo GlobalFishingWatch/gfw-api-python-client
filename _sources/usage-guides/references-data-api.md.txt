@@ -1,5 +1,7 @@
 # Reference Data API
 
+<a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access reference data, specifically geographic regions. The Reference Data API offers access to static datasets, currently focusing on Exclusive Economic Zones (EEZs), Marine Protected Areas (MPAs), and Regional Fisheries Management Organizations (RFMOs). Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb) version of this guide with more usage examples.
 
 ## Prerequisites
