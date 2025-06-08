@@ -222,4 +222,5 @@ Explore the [Usage Guides](index) for other API resources to understand how you 
   - [4Wings API](4wings-api)
   - [Vessels API](vessels-api)
   - [Insights API](insights-api)
+  - [Datasets API](datasets-api)
   - [Reference Data API](references-data-api)

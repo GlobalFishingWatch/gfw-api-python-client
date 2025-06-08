@@ -83,6 +83,16 @@ API
 
       .. autodoc2-docstring:: gfwapiclient.http.endpoints.base.BaseEndPoint._parse_response_data
 
+   .. py:method:: _parse_response_json_data(*, response: httpx.Response) -> typing.Union[typing.List[typing.Dict[str, typing.Any]], typing.Dict[str, typing.Any]]
+      :canonical: gfwapiclient.http.endpoints.base.BaseEndPoint._parse_response_json_data
+
+      .. autodoc2-docstring:: gfwapiclient.http.endpoints.base.BaseEndPoint._parse_response_json_data
+
+   .. py:method:: _parse_response_mvt_data(*, response: httpx.Response) -> typing.Union[typing.List[typing.Dict[str, typing.Any]], typing.Dict[str, typing.Any]]
+      :canonical: gfwapiclient.http.endpoints.base.BaseEndPoint._parse_response_mvt_data
+
+      .. autodoc2-docstring:: gfwapiclient.http.endpoints.base.BaseEndPoint._parse_response_mvt_data
+
    .. py:method:: _transform_response_data(*, body: typing.Union[typing.List[typing.Dict[str, typing.Any]], typing.Dict[str, typing.Any]]) -> typing.Union[typing.List[typing.Dict[str, typing.Any]], typing.Dict[str, typing.Any]]
       :canonical: gfwapiclient.http.endpoints.base.BaseEndPoint._transform_response_data
 

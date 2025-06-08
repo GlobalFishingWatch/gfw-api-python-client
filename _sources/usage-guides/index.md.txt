@@ -10,5 +10,6 @@ The sections below provide detailed instructions and examples for interacting wi
 vessels-api
 events-api
 insights-api
+datasets-api
 references-data-api
 ```

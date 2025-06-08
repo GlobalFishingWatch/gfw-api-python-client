@@ -43,6 +43,7 @@ To learn about how to use `gfw-api-python-client`, check out the following resou
   - [Vessels API](usage-guides/vessels-api)
   - [Events API](usage-guides/events-api)
   - [Insights API](usage-guides/insights-api)
+  - [Datasets API](usage-guides/datasets-api)
   - [References Data API](usage-guides/references-data-api)
 
 If you find bugs, need help, or want to contribute, check out the following resources:
