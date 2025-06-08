@@ -1,5 +1,7 @@
 # Datasets API
 
+<a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access various datasets available through the Global Fishing Watch API. Currently, it focuses on retrieving SAR (Synthetic Aperture Radar) fixed infrastructure data. The Datasets API allows you to retrieve this information, either by specifying `tile coordinates` or a `geographic geometry`. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb) version of this guide with more usage examples.
 
 ## Prerequisites
