@@ -39,6 +39,6 @@ API
 
 .. py:data:: __all__
    :canonical: gfwapiclient.resources.__all__
-   :value: ['EventResource', 'FourWingsResource', 'InsightResource', 'ReferenceResource', 'VesselResource']
+   :value: ['DatasetResource', 'EventResource', 'FourWingsResource', 'InsightResource', 'ReferenceResource', 'V...
 
    .. autodoc2-docstring:: gfwapiclient.resources.__all__

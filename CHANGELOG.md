@@ -1,3 +1,10 @@
+## v1.1.0 (2025-06-08)
+
+### Feat
+
+- add support for Python 3.11
+- **datasets**: implement get SAR fixed infrastructure API endpoint
+
 ## v1.0.1 (2025-04-11)
 
 ### Feat

@@ -99,4 +99,5 @@ Explore the [Usage Guides](index) for other API resources to understand how you 
   - [Vessels API](vessels-api)
   - [Events API](events-api)
   - [4Wings API](4wings-api)
+  - [Datasets API](datasets-api)
   - [Reference Data API](references-data-api)

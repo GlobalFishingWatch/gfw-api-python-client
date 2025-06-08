@@ -4,10 +4,13 @@ import http
 import json
 import logging
 
-from typing import Any, Dict, List, Optional, Type, Union, override
+from typing import Any, Dict, List, Optional, Type, Union
 
 import httpx
+import mapbox_vector_tile
 import pydantic
+
+from typing_extensions import override
 
 from gfwapiclient.exceptions.http import (
     APIConnectionError,
@@ -206,17 +209,65 @@ class BaseEndPoint(
 
         Raises:
             ResultValidationError:
-                If the response's Content-Type is invalid.
+                If the response's Content-Type is invalid or unsupported.
         """
         content_type, *_ = response.headers.get("content-type", "*").split(";")
-        if content_type != "application/json":
-            raise ResultValidationError(
-                message=f"Expected Content-Type response header to be `application/json` but received `{content_type}` instead.",
-                response=response,
-                body=response.text,
-            )
+        match content_type:
+            case "application/json":
+                return self._parse_response_json_data(response=response)
+            case "application/vnd.mapbox-vector-tile":
+                return self._parse_response_mvt_data(response=response)
+            case _:
+                raise ResultValidationError(
+                    message=f"Expected Content-Type response header to be `application/json` or `application/vnd.mapbox-vector-tile` but received `{content_type}` instead.",
+                    response=response,
+                    body=response.text,
+                )
+
+    def _parse_response_json_data(
+        self, *, response: httpx.Response
+    ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+        """Parse JSON response and return data.
+
+        Args:
+            response (httpx.Response):
+                The `httpx.Response` object to parse.
+
+        Returns:
+            Union[List[Dict[str, Any]], Dict[str, Any]]:
+                The parsed JSON response data as a dictionary or a list of
+                dictionaries.
+        """
         parsed_data: Union[List[Dict[str, Any]], Dict[str, Any]] = response.json()
         return parsed_data
+
+    def _parse_response_mvt_data(
+        self, *, response: httpx.Response
+    ) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+        """Parse Mapbox Vector Tile (MVT) response and return data.
+
+        Args:
+            response (httpx.Response):
+                The `httpx.Response` object containing MVT data to parse.
+
+        Returns:
+            Union[List[Dict[str, Any]], Dict[str, Any]]:
+                The parsed response data as a list of dictionaries,
+                where each dictionary represents feature properties.
+        """
+        try:
+            tile: Dict[str, Any] = mapbox_vector_tile.decode(response.content)
+            features: List[Dict[str, Any]] = tile.get("main", {}).get("features", [])
+            parsed_data: Union[List[Dict[str, Any]], Dict[str, Any]] = [
+                feature.get("properties", {}) for feature in features
+            ]
+            return parsed_data
+        except Exception as exc:
+            raise ResultValidationError(
+                message="Failed to decode Mapbox Vector Tile data.",
+                response=response,
+                body=response.content,
+            ) from exc
 
     def _transform_response_data(
         self, *, body: Union[List[Dict[str, Any]], Dict[str, Any]]

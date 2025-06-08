@@ -6,7 +6,7 @@ This guide provides detailed instructions for installing the [gfw-api-python-cli
 
 Before you begin, ensure you have the following installed on your system:
 
-- **Python** >= 3.12 ([Download Python](https://www.python.org/downloads/))
+- **Python** >= 3.11 ([Download Python](https://www.python.org/downloads/))
 - **pip** >= 25 ([Upgrade pip](https://pip.pypa.io/en/stable/installation/))
 - **Virtual Environment Tool** ([venv](https://docs.python.org/3/library/venv.html))
 
@@ -21,7 +21,7 @@ Using a virtual environment helps avoid conflicts with other Python projects and
 - Create a new virtual environment named `.venv`:
 
     ```bash
-    python3.12 -m venv .venv
+    python3 -m venv .venv
     ```
 
 - Activate the virtual environment:

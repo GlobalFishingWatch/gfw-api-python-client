@@ -189,6 +189,45 @@ def load_json_fixture() -> Callable[[str], Dict[str, Any]]:
     return _load_json
 
 
+@pytest.fixture
+def load_mvt_fixture() -> Callable[[str], bytes]:
+    """Load a Mapbox Vector Tile (MVT) fixture from the `tests/fixtures` directory.
+
+    This fixture provides a function to load `.mvt` files as raw bytes.
+
+    Args:
+        filename (str):
+            The name of the MVT file to load (e.g. "datasets/sar_fixed_infrastructure.mvt").
+
+    Raises:
+        FileNotFoundError:
+            If the specified MVT file does not exist.
+
+    Returns:
+        Callable[[str], bytes]:
+            A function that takes a filename and returns the binary MVT data.
+
+    Example:
+        def test_example(load_mvt_fixture: Callable[[str], bytes]):
+            mvt_data = load_mvt_fixture("sample_tile.mvt")
+            tile = mapbox_vector_tile.decode(mvt_data)
+
+            # Perform test using fixtures
+            # ...
+    """
+    fixtures_dir = Path(__file__).parent / "fixtures"
+
+    def _load_mvt(filename: str) -> bytes:
+        fixture_path = fixtures_dir / filename
+
+        if not fixture_path.exists():
+            raise FileNotFoundError(f"Fixture file not found: {fixture_path}")
+
+        return fixture_path.read_bytes()
+
+    return _load_mvt
+
+
 def pytest_configure(config: pytest.Config) -> None:
     """Perform initial pytest configuration.
 
