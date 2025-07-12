@@ -125,12 +125,16 @@ class EventVessel(BaseModel):
     Attributes:
         id (Optional[str]):
             Vessel ID.
+
         name (Optional[str]):
             Vessel name.
+
         ssvid (Optional[str]):
             Vessel SSVID.
+
         flag (Optional[str]):
             Vessel flag.
+
         type (Optional[str]):
             Vessel type.
 

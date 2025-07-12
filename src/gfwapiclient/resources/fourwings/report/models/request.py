@@ -190,8 +190,11 @@ class FourWingsReportBody(RequestBody):
     Represents the request body for the 4Wings report request.
 
     Attributes:
-        geojson (Optional[FourWingsGeometry]): Geometry to filter the data.
-        region (Optional[FourWingsReportRegion]): Region information.
+        geojson (Optional[FourWingsGeometry]):
+            Geometry to filter the data.
+
+        region (Optional[FourWingsReportRegion]):
+            Region information.
     """
 
     geojson: Optional[FourWingsGeometry] = Field(None, alias="geojson")
