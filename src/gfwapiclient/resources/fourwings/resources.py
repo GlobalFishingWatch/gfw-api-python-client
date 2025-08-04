@@ -65,48 +65,51 @@ class FourWingsResource(BaseResource):
         Generates a report from the 4Wings API based on the provided parameters.
 
         Args:
-            spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]]):
-                Spatial resolution of the report. Defaults to `HIGH`.
-                Allowed values: `HIGH`, `LOW`.
-                Example: `"LOW"`.
+            spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
+                Spatial resolution of the report. Defaults to `"HIGH"`.
+                Allowed values: `"HIGH"`, `"LOW"`.
+                Example: `"HIGH"`.
 
-            group_by (Optional[Union[FourWingsReportGroupBy, str]]):
-                Grouping criteria for the report.
-                Allowed values: `VESSEL_ID`, `FLAG`, `GEARTYPE`, `FLAGANDGEARTYPE`, `MMSI`.
+            group_by (Optional[Union[FourWingsReportGroupBy, str]], default=None):
+                Grouping criteria for the report. Defaults to `None`.
+                Allowed values: `"VESSEL_ID"`, `"FLAG"`, `"GEARTYPE"`, `"FLAGANDGEARTYPE"`, `"MMSI"`.
                 Example: `"FLAG"`.
 
-            temporal_resolution (Optional[Union[FourWingsReportTemporalResolution, str]]):
-                Temporal resolution of the report. Defaults to `HOURLY`
-                Allowed values: `HOURLY`, `DAILY`, `MONTHLY`, `YEARLY`, `ENTIRE`.
-                Example: `"MONTHLY"`.
+            temporal_resolution (Optional[Union[FourWingsReportTemporalResolution, str]], default="HOURLY"):
+                Temporal resolution of the report. Defaults to `"HOURLY"`
+                Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
+                Example: `"HOURLY"`.
 
-            datasets (Optional[Union[List[FourWingsReportDataset], List[str]]]):
-                Datasets to include in the report. Defaults to `public-global-fishing-effort:latest`.
-                Allowed values: `public-global-fishing-effort:latest`, `public-global-sar-presence:latest`.
+            datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-fishing-effort:latest"]):
+                Datasets that will be used to create the report. Defaults to `["public-global-fishing-effort:latest"]`.
+                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-sar-presence:latest"`,
+                `"public-global-presence:latest"`.
                 Example: `["public-global-fishing-effort:latest"]`.
 
-            filters (Optional[List[str]]):
-                Filters to apply to the report.
-                Example: `["flag in ('ESP', 'FRA')]`.
+            filters (Optional[List[str]], default=None):
+                Filters to apply to the report. Defaults to `None`.
+                Example: `["flag in ('ESP', 'FRA')"]`.
 
-            start_date (Optional[Union[datetime.date, str]]):
-                Start date for the report. Used to build `date_range`.
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
                 Example: `datetime.date(2021, 1, 1)` or `"2021-01-01"`.
 
-            end_date (Optional[Union[datetime.date, str]]):
-                End date for the report. Used to build `date_range`.
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
                 Example: `datetime.date(2021, 1, 15)` or `"2021-01-15"`.
 
-            spatial_aggregation (Optional[bool]):
-                Whether to spatially aggregate the report.
+            spatial_aggregation (Optional[bool], default=None):
+                Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]]):
-                GeoJSON geometry to filter the report.
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
+                Custom GeoJSON geometry to filter the report. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
 
-            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]]):
-                Region information to filter the report.
+            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+                Predefined region information to filter the report. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
             **kwargs (Dict[str, Any]):

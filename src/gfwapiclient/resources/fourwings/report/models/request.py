@@ -26,7 +26,17 @@ FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE: Final[str] = (
 
 
 class FourWingsReportFormat(str, Enum):
-    """4Wings report format."""
+    """4Wings report result format.
+
+    For more details on the 4Wings API supported report result formats, please refer to
+    the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
+    Attributes:
+        JSON (str):
+            JSON (JavaScript Object Notation) result format.
+    """
 
     JSON = "JSON"
 
@@ -34,7 +44,17 @@ class FourWingsReportFormat(str, Enum):
 class FourWingsReportSpatialResolution(str, Enum):
     """4Wings report spatial resolution.
 
-    Low means at 10th degree resolution and High means at 100th degree resolution.
+    For more details on the 4Wings API supported report spatial resolutions, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
+    Attributes:
+        LOW (str):
+            Coarse resolution (~10th degree).
+
+        HIGH (str):
+            Fine resolution (~100th degree).
     """
 
     LOW = "LOW"
@@ -42,7 +62,29 @@ class FourWingsReportSpatialResolution(str, Enum):
 
 
 class FourWingsReportGroupBy(str, Enum):
-    """4Wings report grouped by criteria."""
+    """4Wings report grouped by criteria.
+
+    For more details on the 4Wings API supported report grouped by criteria, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
+    Attributes:
+        VESSEL_ID (str):
+            Group by vessel ID.
+
+        FLAG (str):
+            Group by vessel flag.
+
+        GEARTYPE (str):
+            Group by gear type.
+
+        FLAGANDGEARTYPE (str):
+            Group by both flag and gear type.
+
+        MMSI (str):
+            Group by MMSI (Maritime Mobile Service Identity).
+    """
 
     VESSEL_ID = "VESSEL_ID"
     FLAG = "FLAG"
@@ -52,7 +94,29 @@ class FourWingsReportGroupBy(str, Enum):
 
 
 class FourWingsReportTemporalResolution(str, Enum):
-    """4Wings report temporal resolution."""
+    """4Wings report temporal resolution.
+
+    For more details on the 4Wings API supported report temporal resolutions, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
+    Attributes:
+        HOURLY (str):
+            Aggregate by hour.
+
+        DAILY (str):
+            Aggregate by day.
+
+        MONTHLY (str):
+            Aggregate by month.
+
+        YEARLY (str):
+            Aggregate by year.
+
+        ENTIRE (str):
+            Aggregate over the entire time period.
+    """
 
     HOURLY = "HOURLY"
     DAILY = "DAILY"
@@ -62,14 +126,49 @@ class FourWingsReportTemporalResolution(str, Enum):
 
 
 class FourWingsReportBufferOperation(str, Enum):
-    """4Wings report buffer operation."""
+    """4Wings report buffer operation.
+
+    For more details on the 4Wings API supported report buffer operations, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+
+    Attributes:
+        DIFFERENCE (str):
+            Compute the difference between geometries.
+
+        DISSOLVE (str):
+            Merge geometries into a single shape.
+    """
 
     DIFFERENCE = "DIFFERENCE"
     DISSOLVE = "DISSOLVE"
 
 
 class FourWingsReportBufferUnit(str, Enum):
-    """4Wings report buffer value unit."""
+    """4Wings report buffer value unit.
+
+    For more details on the 4Wings API supported report buffer value units, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+
+    Attributes:
+        MILES (str):
+            Miles.
+
+        NAUTICALMILES (str):
+            Nautical miles.
+
+        KILOMETERS (str):
+            Kilometers.
+
+        RADIANS (str):
+            Radians.
+
+        DEGREES (str):
+            Degrees.
+    """
 
     MILES = "MILES"
     NAUTICALMILES = "NAUTICALMILES"
@@ -79,23 +178,50 @@ class FourWingsReportBufferUnit(str, Enum):
 
 
 class FourWingsReportDataset(str, Enum):
-    """4Wings report dataset."""
+    """4Wings report dataset.
+
+    For more details on the 4Wings API supported datasets, please refer to
+    the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#supported-datasets
+
+    See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+
+    Attributes:
+        FISHING_EFFORT_LATEST (str):
+            Latest global fishing effort dataset.
+            See caveats: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+
+        SAR_PRESENCE_LATEST (str):
+            Latest global SAR presence dataset.
+            See caveats: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
+        PRESENCE_LATEST (str):
+            Latest global vessel presence dataset.
+            See caveats: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+    """
 
     FISHING_EFFORT_LATEST = "public-global-fishing-effort:latest"
     SAR_PRESENCE_LATEST = "public-global-sar-presence:latest"
+    PRESENCE_LATEST = "public-global-presence:latest"
 
 
 class FourWingsGeometry(BaseModel):
     """4Wings report GeoJSON-like geometry input.
 
-    Represents a GeoJSON-like geometry object used to filter the report data.
+    Represents a GeoJSON-compatible area of interest used for filtering report data.
+
+    For more details on the 4Wings API supported report geojson/geometries, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
     Attributes:
         type (str):
-            Geometry type (e.g., Polygon).
+            The type of geometry (e.g., "Polygon").
 
         coordinates (Any):
-            Geometry coordinates.
+            Geometry coordinates as a list or nested lists.
     """
 
     type: str = Field(...)
@@ -105,23 +231,28 @@ class FourWingsGeometry(BaseModel):
 class FourWingsReportRegion(BaseModel):
     """4Wings report region of interest.
 
-    Represents a region of interest used to filter the report data.
+    Represents a predefined region of interest used for filtering report data.
+
+    For more details on the 4Wings API supported report regions, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
     Attributes:
         dataset (Optional[str]):
             Dataset containing the region.
 
         id (Optional[str]):
-            Region ID.
+            Region identifier (ID).
 
         buffer_operation (Optional[FourWingsReportBufferOperation]):
-            Buffer operation.
+            Operation to apply on buffer geometry.
 
         buffer_unit (Optional[FourWingsReportBufferUnit]):
-            Buffer unit.
+            Unit used for buffer distance.
 
         buffer_value (Optional[str]):
-            Buffer value.
+            Value for the buffer distance.
     """
 
     dataset: Optional[str] = Field(None, alias="dataset")
@@ -138,27 +269,33 @@ class FourWingsReportParams(RequestParams):
 
     Represents the query parameters for the 4Wings report request.
 
+    For more details on the 4Wings API supported report request parameters, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
     Attributes:
         spatial_resolution (Optional[FourWingsReportSpatialResolution]):
-            Spatial resolution.
+            Spatial resolution of the report.
 
         format (Optional[FourWingsReportFormat]):
             Report result format.
 
         group_by (Optional[FourWingsReportGroupBy]):
-            Grouped by criteria.
+            Grouping criteria for the report.
 
         temporal_resolution (Optional[FourWingsReportTemporalResolution]):
-            Temporal resolution.
+            Temporal resolution of the report.
 
         datasets (Optional[List[FourWingsReportDataset]]):
             Datasets that will be used to create the report.
 
         filters (Optional[List[str]]):
-            Filters are applied to the dataset.
+            Filters to apply to the report datasets.
 
         date_range (Optional[str]):
-            Start date and end date to filter the data.
+            Start date and end date to filter the data as a comma-separated string
+            in `"YYYY-MM-DD,YYYY-MM-DD"` format.
 
         spatial_aggregation (Optional[bool]):
             Whether to spatially aggregate the report.
@@ -167,7 +304,7 @@ class FourWingsReportParams(RequestParams):
     indexed_fields: ClassVar[Optional[List[str]]] = ["datasets", "filters"]
 
     spatial_resolution: Optional[FourWingsReportSpatialResolution] = Field(
-        None, alias="spatial-resolution"
+        FourWingsReportSpatialResolution.HIGH, alias="spatial-resolution"
     )
     format: Optional[FourWingsReportFormat] = Field(
         FourWingsReportFormat.JSON, alias="format"
@@ -189,14 +326,18 @@ class FourWingsReportBody(RequestBody):
 
     Represents the request body for the 4Wings report request.
 
+    For more details on the 4Wings API supported report request body, please
+    refer to the official documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+
     Attributes:
         geojson (Optional[FourWingsGeometry]):
-            Geometry to filter the data.
+            Custom GeoJSON geometry to filter the report.
 
         region (Optional[FourWingsReportRegion]):
-            Region information.
+            Predefined region information to filter the report.
     """
 
     geojson: Optional[FourWingsGeometry] = Field(None, alias="geojson")
-
     region: Optional[FourWingsReportRegion] = Field(None, alias="region")
