@@ -41,7 +41,7 @@ class Client:
         fourwings (FourWingsResource):
             Access to the 4Wings data API resources.
 
-         vessels (VesselResource):
+        vessels (VesselResource):
             Access to the Vessels data API resources.
 
         events (EventResource):

@@ -11,6 +11,7 @@ For more information on the GFW API and its regions endpoints, please refer to t
 official Global Fishing Watch API documentation:
 
 See: https://globalfishingwatch.org/our-apis/documentation#reference-data
+
 See: https://globalfishingwatch.org/our-apis/documentation#regions
 """
 
