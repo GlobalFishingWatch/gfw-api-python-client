@@ -41,6 +41,319 @@ class FourWingsResource(BaseResource):
     for generating reports.
     """
 
+    async def create_fishing_effort_report(
+        self,
+        *,
+        spatial_resolution: Optional[
+            Union[FourWingsReportSpatialResolution, str]
+        ] = None,
+        group_by: Optional[Union[FourWingsReportGroupBy, str]] = None,
+        temporal_resolution: Optional[
+            Union[FourWingsReportTemporalResolution, str]
+        ] = None,
+        filters: Optional[List[str]] = None,
+        start_date: Optional[Union[datetime.date, str]] = None,
+        end_date: Optional[Union[datetime.date, str]] = None,
+        spatial_aggregation: Optional[bool] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> FourWingsReportResult:
+        """Create 4Wings AIS apparent fishing effort report for a specified region.
+
+        Generates AIS (Automatic Identification System) apparent fishing effort report
+        from the 4Wings API based on the provided parameters to visualize apparent
+        fishing activity based on AIS data.
+
+        Generated report can serves following analytical needs:
+
+        - Fisheries compliance monitoring
+        - Fleet management
+        - Supply chain visibility
+
+        Args:
+            spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
+                Spatial resolution of the report. Defaults to `"HIGH"`.
+                Allowed values: `"HIGH"`, `"LOW"`.
+                Example: `"HIGH"`.
+
+            group_by (Optional[Union[FourWingsReportGroupBy, str]], default=None):
+                Grouping criteria for the report. Defaults to `None`.
+                Allowed values: `"VESSEL_ID"`, `"FLAG"`, `"GEARTYPE"`, `"FLAGANDGEARTYPE"`, `"MMSI"`.
+                Example: `"FLAG"`.
+
+            temporal_resolution (Optional[Union[FourWingsReportTemporalResolution, str]], default="HOURLY"):
+                Temporal resolution of the report. Defaults to `"HOURLY"`
+                Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
+                Example: `"HOURLY"`.
+
+            filters (Optional[List[str]], default=None):
+                Filters to apply to the report. Defaults to `None`.
+                Allowed filters: `flag`, `geartype` and `vessel_id`.
+                Example: `["flag in ('ESP', 'FRA')"]`.
+
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 1)` or `"2021-01-01"`.
+
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 15)` or `"2021-01-15"`.
+
+            spatial_aggregation (Optional[bool], default=None):
+                Whether to spatially aggregate the report. Defaults to `None`.
+                Example: `True`.
+
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
+                Custom GeoJSON geometry to filter the report. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`.
+
+            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+                Predefined region information to filter the report. Defaults to `None`.
+                Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
+
+            **kwargs (Dict[str, Any]):
+                Additional keyword arguments.
+
+        Returns:
+            FourWingsReportResult:
+                The generated 4Wings report.
+
+        Raises:
+            GFWAPIClientError:
+                If the API request fails.
+
+            RequestParamsValidationError:
+                If the request parameters are invalid.
+
+            RequestBodyValidationError:
+                If the request body is invalid.
+        """
+        result: FourWingsReportResult = await self.create_report(
+            spatial_resolution=spatial_resolution,
+            group_by=group_by,
+            temporal_resolution=temporal_resolution,
+            datasets=[FourWingsReportDataset.FISHING_EFFORT_LATEST],
+            filters=filters,
+            start_date=start_date,
+            end_date=end_date,
+            spatial_aggregation=spatial_aggregation,
+            geojson=geojson,
+            region=region,
+            **kwargs,
+        )
+        return result
+
+    async def create_ais_presence_report(
+        self,
+        *,
+        spatial_resolution: Optional[
+            Union[FourWingsReportSpatialResolution, str]
+        ] = None,
+        group_by: Optional[Union[FourWingsReportGroupBy, str]] = None,
+        temporal_resolution: Optional[
+            Union[FourWingsReportTemporalResolution, str]
+        ] = None,
+        filters: Optional[List[str]] = None,
+        start_date: Optional[Union[datetime.date, str]] = None,
+        end_date: Optional[Union[datetime.date, str]] = None,
+        spatial_aggregation: Optional[bool] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> FourWingsReportResult:
+        """Create 4Wings AIS vessel presence report for a specified region.
+
+        Generates AIS (Automatic Identification System) apparent fishing effort report
+        from the 4Wings API based on the provided parameters to visualize any vessel
+        type presence and movement patterns based on AIS data.
+
+        Generated report can serves following analytical needs:
+
+        - Port traffic analysis
+        - Fleet management
+        - Supply chain visibility
+
+        Args:
+            spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
+                Spatial resolution of the report. Defaults to `"HIGH"`.
+                Allowed values: `"HIGH"`, `"LOW"`.
+                Example: `"HIGH"`.
+
+            group_by (Optional[Union[FourWingsReportGroupBy, str]], default=None):
+                Grouping criteria for the report. Defaults to `None`.
+                Allowed values: `"VESSEL_ID"`, `"FLAG"`, `"GEARTYPE"`, `"FLAGANDGEARTYPE"`, `"MMSI"`.
+                Example: `"FLAG"`.
+
+            temporal_resolution (Optional[Union[FourWingsReportTemporalResolution, str]], default="HOURLY"):
+                Temporal resolution of the report. Defaults to `"HOURLY"`
+                Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
+                Example: `"HOURLY"`.
+
+            filters (Optional[List[str]], default=None):
+                Filters to apply to the report. Defaults to `None`.
+                Allowed filters: `flag`, `vessel_type`, and `speed`.
+                Example: `["flag in ('ESP', 'FRA')"]`.
+
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 1)` or `"2021-01-01"`.
+
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 15)` or `"2021-01-15"`.
+
+            spatial_aggregation (Optional[bool], default=None):
+                Whether to spatially aggregate the report. Defaults to `None`.
+                Example: `True`.
+
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
+                Custom GeoJSON geometry to filter the report. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`.
+
+            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+                Predefined region information to filter the report. Defaults to `None`.
+                Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
+
+            **kwargs (Dict[str, Any]):
+                Additional keyword arguments.
+
+        Returns:
+            FourWingsReportResult:
+                The generated 4Wings report.
+
+        Raises:
+            GFWAPIClientError:
+                If the API request fails.
+
+            RequestParamsValidationError:
+                If the request parameters are invalid.
+
+            RequestBodyValidationError:
+                If the request body is invalid.
+        """
+        result: FourWingsReportResult = await self.create_report(
+            spatial_resolution=spatial_resolution,
+            group_by=group_by,
+            temporal_resolution=temporal_resolution,
+            datasets=[FourWingsReportDataset.PRESENCE_LATEST],
+            filters=filters,
+            start_date=start_date,
+            end_date=end_date,
+            spatial_aggregation=spatial_aggregation,
+            geojson=geojson,
+            region=region,
+            **kwargs,
+        )
+        return result
+
+    async def create_sar_presence_report(
+        self,
+        *,
+        spatial_resolution: Optional[
+            Union[FourWingsReportSpatialResolution, str]
+        ] = None,
+        group_by: Optional[Union[FourWingsReportGroupBy, str]] = None,
+        temporal_resolution: Optional[
+            Union[FourWingsReportTemporalResolution, str]
+        ] = None,
+        filters: Optional[List[str]] = None,
+        start_date: Optional[Union[datetime.date, str]] = None,
+        end_date: Optional[Union[datetime.date, str]] = None,
+        spatial_aggregation: Optional[bool] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> FourWingsReportResult:
+        """Create 4Wings SAR vessel detections report for a specified region.
+
+        Generates SAR (Synthetic-Aperture Radar) vessel detections report.
+
+        Generated report can serves following analytical needs:
+
+        - Dark vessel detection
+        - Remote area surveillance
+
+        Args:
+            spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
+                Spatial resolution of the report. Defaults to `"HIGH"`.
+                Allowed values: `"HIGH"`, `"LOW"`.
+                Example: `"HIGH"`.
+
+            group_by (Optional[Union[FourWingsReportGroupBy, str]], default=None):
+                Grouping criteria for the report. Defaults to `None`.
+                Allowed values: `"VESSEL_ID"`, `"FLAG"`, `"GEARTYPE"`, `"FLAGANDGEARTYPE"`, `"MMSI"`.
+                Example: `"FLAG"`.
+
+            temporal_resolution (Optional[Union[FourWingsReportTemporalResolution, str]], default="HOURLY"):
+                Temporal resolution of the report. Defaults to `"HOURLY"`
+                Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
+                Example: `"HOURLY"`.
+
+            filters (Optional[List[str]], default=None):
+                Filters to apply to the report. Defaults to `None`.
+                Allowed filters: `matched`, `flag`, `vessel_id`, `geartype`,
+                `neural_vessel_type` and `shiptype`.
+                Example: `["flag in ('ESP', 'FRA')"]`.
+
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 1)` or `"2021-01-01"`.
+
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for the report. Used to build `date_range`. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2021, 1, 15)` or `"2021-01-15"`.
+
+            spatial_aggregation (Optional[bool], default=None):
+                Whether to spatially aggregate the report. Defaults to `None`.
+                Example: `True`.
+
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
+                Custom GeoJSON geometry to filter the report. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`.
+
+            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+                Predefined region information to filter the report. Defaults to `None`.
+                Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
+
+            **kwargs (Dict[str, Any]):
+                Additional keyword arguments.
+
+        Returns:
+            FourWingsReportResult:
+                The generated 4Wings report.
+
+        Raises:
+            GFWAPIClientError:
+                If the API request fails.
+
+            RequestParamsValidationError:
+                If the request parameters are invalid.
+
+            RequestBodyValidationError:
+                If the request body is invalid.
+        """
+        result: FourWingsReportResult = await self.create_report(
+            spatial_resolution=spatial_resolution,
+            group_by=group_by,
+            temporal_resolution=temporal_resolution,
+            datasets=[FourWingsReportDataset.SAR_PRESENCE_LATEST],
+            filters=filters,
+            start_date=start_date,
+            end_date=end_date,
+            spatial_aggregation=spatial_aggregation,
+            geojson=geojson,
+            region=region,
+            **kwargs,
+        )
+        return result
+
     async def create_report(
         self,
         *,

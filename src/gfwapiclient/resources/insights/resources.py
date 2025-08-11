@@ -59,8 +59,7 @@ class InsightResource(BaseResource):
 
             vessels (Union[List[VesselInsightDatasetVessel], List[Dict[str, Any]]]):
                 List of vessel identifiers to retrieve insights for.
-                Example: `[{"vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f",
-                          "dataset_id": "public-global-vessel-identity:latest",}]`.
+                Example: `[{"vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f", "dataset_id": "public-global-vessel-identity:latest",}]`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
