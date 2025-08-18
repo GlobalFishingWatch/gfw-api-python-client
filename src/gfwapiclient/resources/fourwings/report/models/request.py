@@ -29,7 +29,7 @@ class FourWingsReportFormat(str, Enum):
     """4Wings report result format.
 
     For more details on the 4Wings API supported report result formats, please refer to
-    the official documentation:
+    the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
@@ -45,7 +45,7 @@ class FourWingsReportSpatialResolution(str, Enum):
     """4Wings report spatial resolution.
 
     For more details on the 4Wings API supported report spatial resolutions, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
@@ -65,7 +65,7 @@ class FourWingsReportGroupBy(str, Enum):
     """4Wings report grouped by criteria.
 
     For more details on the 4Wings API supported report grouped by criteria, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
@@ -97,7 +97,7 @@ class FourWingsReportTemporalResolution(str, Enum):
     """4Wings report temporal resolution.
 
     For more details on the 4Wings API supported report temporal resolutions, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
@@ -129,7 +129,7 @@ class FourWingsReportBufferOperation(str, Enum):
     """4Wings report buffer operation.
 
     For more details on the 4Wings API supported report buffer operations, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
@@ -149,7 +149,7 @@ class FourWingsReportBufferUnit(str, Enum):
     """4Wings report buffer value unit.
 
     For more details on the 4Wings API supported report buffer value units, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
@@ -181,7 +181,7 @@ class FourWingsReportDataset(str, Enum):
     """4Wings report dataset.
 
     For more details on the 4Wings API supported datasets, please refer to
-    the official documentation:
+    the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#supported-datasets
 
@@ -190,15 +190,15 @@ class FourWingsReportDataset(str, Enum):
     Attributes:
         FISHING_EFFORT_LATEST (str):
             Latest global fishing effort dataset.
-            See caveats: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
 
         SAR_PRESENCE_LATEST (str):
             Latest global SAR presence dataset.
-            See caveats: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
 
         PRESENCE_LATEST (str):
             Latest global vessel presence dataset.
-            See caveats: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
     """
 
     FISHING_EFFORT_LATEST = "public-global-fishing-effort:latest"
@@ -212,7 +212,7 @@ class FourWingsGeometry(BaseModel):
     Represents a GeoJSON-compatible area of interest used for filtering report data.
 
     For more details on the 4Wings API supported report geojson/geometries, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
@@ -234,7 +234,7 @@ class FourWingsReportRegion(BaseModel):
     Represents a predefined region of interest used for filtering report data.
 
     For more details on the 4Wings API supported report regions, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
@@ -270,7 +270,7 @@ class FourWingsReportParams(RequestParams):
     Represents the query parameters for the 4Wings report request.
 
     For more details on the 4Wings API supported report request parameters, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
@@ -327,7 +327,7 @@ class FourWingsReportBody(RequestBody):
     Represents the request body for the 4Wings report request.
 
     For more details on the 4Wings API supported report request body, please
-    refer to the official documentation:
+    refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 

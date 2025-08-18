@@ -38,7 +38,22 @@ class FourWingsResource(BaseResource):
     """4Wings data API resource.
 
     This resource provides methods to interact with the 4Wings API, specifically
-    for generating reports.
+    for generating AIS apparent fishing activity, AIS vessel presence
+    and SAR vessel detections reports.
+
+    For detailed information about the 4Wings API, refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+
+    For more details on the 4Wings data caveats, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+
+    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
+    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
     """
 
     async def create_fishing_effort_report(
@@ -70,6 +85,11 @@ class FourWingsResource(BaseResource):
         - Fisheries compliance monitoring
         - Fleet management
         - Supply chain visibility
+
+        For more details on the 4Wings AIS apparent fishing effort data caveats,
+        please refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
 
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
@@ -176,6 +196,17 @@ class FourWingsResource(BaseResource):
         - Fleet management
         - Supply chain visibility
 
+        For more details on the 4Wings AIS vessel presence data caveats,
+        please refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+
+        **Disclaimer:**
+
+        AIS vessel presence is one of the largest datasets available. To prevent timeouts
+        and ensure optimal performance, keep requests manageable: prefer simple, small
+        regions and shorter time ranges (e.g., a few days).
+
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
                 Spatial resolution of the report. Defaults to `"HIGH"`.
@@ -278,6 +309,11 @@ class FourWingsResource(BaseResource):
         - Dark vessel detection
         - Remote area surveillance
 
+        For more details on the 4Wings SAR vessel detections data caveats,
+        please refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
                 Spatial resolution of the report. Defaults to `"HIGH"`.
@@ -376,6 +412,32 @@ class FourWingsResource(BaseResource):
         """Create 4Wings report for a specified region.
 
         Generates a report from the 4Wings API based on the provided parameters.
+
+        Generated report can serves following analytical needs:
+
+        - Fisheries compliance monitoring
+        - Fleet management
+        - Supply chain visibility
+        - Port traffic analysis
+        - Fleet management
+        - Supply chain visibility
+        - Dark vessel detection
+        - Remote area surveillance
+
+        For more details on the 4Wings data caveats, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+
+        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
+        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+
+        **Disclaimer:**
+
+        AIS vessel presence is one of the largest datasets available. To prevent timeouts
+        and ensure optimal performance, keep requests manageable: prefer simple, small
+        regions and shorter time ranges (e.g., a few days).
 
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
