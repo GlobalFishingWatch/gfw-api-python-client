@@ -33,13 +33,23 @@ class FourWingsReportEndPoint(
     This endpoint is used to generate reports from the 4Wings API.
     It supports both query parameters and request bodies for flexible report generation.
 
-    For more details on the 4Wings Report API, please refer to the official documentation:
+    For more details on the 4Wings Report API, please refer to the official
+    Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+
+    For more details on the 4Wings data caveats, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+
+    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
+    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
     """
 
     def __init__(
