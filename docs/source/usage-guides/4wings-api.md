@@ -4,6 +4,8 @@
 
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access the 4Wings API, which is designed for generating reports and statistics on activities within specified regions. This API is particularly useful for creating data visualizations related to fishing effort and other vessel activities. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb) version of this guide with more usage examples.
 
+> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+
 ## Prerequisites
 
 - You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
@@ -32,7 +34,7 @@ The `gfw_client.fourwings` object provides methods to generate reports, retrieve
 
 ## Creating a Fishing Effort Report (`create_fishing_effort_report`)
 
-Generates **AIS (Automatic Identification System) apparent fishing effort** reports to visualize fishing activity. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat).
+Generates **AIS (Automatic Identification System) apparent fishing effort** reports to visualize fishing activity. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort).
 
 ```python
 fishing_effort_report_result = await gfw_client.fourwings.create_fishing_effort_report(
@@ -114,7 +116,9 @@ memory usage: 6.4+ MB
 
 ## Creating an AIS Presence Report (`create_ais_presence_report`)
 
-Generates **AIS (Automatic Identification System) vessel presence** reports to visualize movement patterns of any vessel type. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat).
+Generates **AIS (Automatic Identification System) vessel presence** reports to visualize movement patterns of any vessel type. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats).
+
+> **Disclaimer:** AIS vessel presence is one of the largest datasets available. To prevent timeouts and ensure optimal performance, keep requests manageable: prefer simple, small regions and shorter time ranges (e.g., a few days).
 
 ```python
 ais_presence_report_result = await gfw_client.fourwings.create_ais_presence_report(

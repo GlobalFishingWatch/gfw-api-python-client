@@ -4,6 +4,8 @@
 
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access various datasets available through the Global Fishing Watch API. Currently, it focuses on retrieving SAR (Synthetic Aperture Radar) fixed infrastructure data. The Datasets API allows you to retrieve this information, either by specifying `tile coordinates` or a `geographic geometry`. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb) version of this guide with more usage examples.
 
+> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+
 ## Prerequisites
 
 - You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
@@ -169,8 +171,8 @@ memory usage: 60.6+ KB
 
 Explore the [Usage Guides](index) for other API resources. Check out the following resources:
 
-  - [4Wings API](4wings-api)
-  - [Vessels API](vessels-api)
-  - [Events API](events-api)
-  - [Insights API](insights-api)
-  - [Reference Data API](references-data-api)
+- [4Wings API](4wings-api)
+- [Vessels API](vessels-api)
+- [Events API](events-api)
+- [Insights API](insights-api)
+- [Reference Data API](references-data-api)
