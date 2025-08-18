@@ -25,13 +25,13 @@ from gfwapiclient.resources.fourwings.report.models.response import (
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_create_report_generate_fishing_effort_report_custom_polygon(
+async def test_fourwings_create_report_generate_fishing_effort_report_yearly_grouped_by_flag_custom_polygon(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test generating fishing effort report by year and custom polygon.
+    """Test generating yearly fishing effort report by year and custom polygon.
 
     This test verifies that the `create_report` method correctly retrieves
-    fishing effort data grouped by year for a specified custom polygon.
+    yearly fishing effort data grouped by flag for a specified custom polygon.
     It checks the structure and content of the returned data, ensuring it's a
     valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
     """
@@ -97,13 +97,13 @@ async def test_fourwings_create_report_generate_fishing_effort_report_custom_pol
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_create_report_generate_fishing_effort_report_grouped_by_gear_type_russian_eez(
+async def test_fourwings_create_report_generate_fishing_effort_report_monthly_grouped_by_gear_type_russian_eez(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test generating fishing effort report grouped by gear type in Russian EEZ.
+    """Test generating monthly fishing effort report grouped by gear type in Russian EEZ.
 
     This test verifies that the `create_report` method correctly retrieves
-    fishing effort data grouped by gear type within the Exclusive Economic Zone
+    monthly fishing effort data grouped by gear type within the Exclusive Economic Zone
     (EEZ) of Russia. It checks the structure and content of the returned data,
     ensuring it's a valid `FourWingsReportResult` and that the data can be
     converted to a pandas DataFrame.
@@ -134,7 +134,7 @@ async def test_fourwings_create_report_generate_fishing_effort_report_grouped_by
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_nasca(
+async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_dorsal_de_nasca(
     gfw_client: gfw.Client,
 ) -> None:
     """Test generating report with total fishing hours per grid cell in MPA Dorsal de Nasca.
@@ -172,7 +172,7 @@ async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cel
 @pytest.mark.integration
 @pytest.mark.asyncio
 @pytest.mark.skip
-async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_nasca_buffer(
+async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cell_mpa_dorsal_de_nasca_with_buffer(
     gfw_client: gfw.Client,
 ) -> None:
     """Test generating report with total fishing hours per grid cell in MPA Nasca with buffer.
@@ -212,7 +212,7 @@ async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cel
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_create_report_generate_region_daily_gridded_unmatched_detections_chile(
+async def test_fourwings_create_report_generate_region_daily_gridded_sar_presence_unmatched_chile(
     gfw_client: gfw.Client,
 ) -> None:
     """Test generating daily gridded SAR presence data with unmatched detections in Chile.
@@ -234,6 +234,117 @@ async def test_fourwings_create_report_generate_region_daily_gridded_unmatched_d
         region={
             "dataset": "public-eez-areas",
             "id": "8465",
+        },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_fourwings_create_report_generate_sar_vessel_detection_matched_eez(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating SAR vessel detection report filtered by matched=true in EEZ.
+
+    This test verifies that the `create_report` method correctly retrieves SAR vessel
+    detection data filtered by matched='true' within the Exclusive Economic Zone (EEZ).
+    It checks the structure and content of the returned data, ensuring it's a valid
+    `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="HIGH",
+        temporal_resolution="HOURLY",
+        group_by="VESSEL_ID",
+        datasets=["public-global-sar-presence:latest"],
+        start_date="2017-01-01",
+        end_date="2017-01-02",
+        filters=["matched='true'"],
+        region={
+            "dataset": "public-eez-areas",
+            "id": "8492",
+        },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+@pytest.mark.skip
+async def test_fourwings_create_report_generate_ais_vessel_presence_daily_grouped_by_vessel_type(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating AIS vessel presence report grouped by vessel type in EEZ.
+
+    This test verifies that the `create_report` method correctly retrieves daily AIS
+    vessel presence data grouped by vessel type within the Exclusive Economic Zone (EEZ).
+    It checks the structure and content of the returned data, ensuring it's a valid
+    `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="LOW",
+        temporal_resolution="DAILY",
+        group_by="VESSEL_TYPE",
+        datasets=["public-global-presence:latest"],
+        start_date="2022-01-01",
+        end_date="2022-05-01",
+        region={
+            "dataset": "public-eez-areas",
+            "id": "5690",
+        },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_fourwings_create_report_ais_vessel_presence_daily_filtered_by_cargo_and_carrier(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test retrieving AIS vessel presence report filtered by cargo and carrier vessel types via GET.
+
+    This test verifies that the `create_report` method correctly retrieves AIS vessel presence data
+    filtered by vessel types 'cargo' and 'carrier' within the Exclusive Economic Zone (EEZ).
+    It checks the structure and content of the returned data, ensuring it's a valid
+    `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="LOW",
+        temporal_resolution="DAILY",
+        group_by="FLAG",
+        datasets=["public-global-presence:latest"],
+        start_date="2022-01-01",
+        end_date="2022-05-01",
+        filters=["vessel_type in ('cargo','carrier')"],
+        region={
+            "dataset": "public-eez-areas",
+            "id": "5690",
         },
     )
 

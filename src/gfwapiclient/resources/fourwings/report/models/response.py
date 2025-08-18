@@ -21,7 +21,7 @@ class FourWingsReportItem(ResultItem):
     Synthetic Aperture Radar (SAR) data.
 
     For more details on the 4Wings API supported report response bodies,
-    please refer to the official documentation:
+    please refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
 
@@ -70,7 +70,7 @@ class FourWingsReportItem(ResultItem):
             The vessel's IMO (International Maritime Organization) number (e.g `"8602866"`).
 
         mmsi (Optional[str]):
-            The vessel's MMSI ( Maritime Mobile Service Identity) number (e.g `"273453380"`).
+            The vessel's MMSI (Maritime Mobile Service Identity) number (e.g `"273453380"`).
 
         call_sign (Optional[str]):
             The vessel's call sign (e.g `"UBSS9"`).
@@ -129,7 +129,7 @@ class FourWingsReportItem(ResultItem):
 
         Args:
             value (Any):
-              The value to validate.
+                The value to validate.
 
         Returns:
             Optional[datetime.datetime]:
