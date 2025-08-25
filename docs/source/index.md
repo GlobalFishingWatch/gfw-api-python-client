@@ -29,6 +29,7 @@ GitHub <https://github.com/GlobalFishingWatch/gfw-api-python-client>
 
 Website <https://globalfishingwatch.org/>
 Our APIs <https://globalfishingwatch.org/our-apis/>
+Data Caveats <https://globalfishingwatch.org/our-apis/documentation#data-caveat>
 Terms of Use <https://globalfishingwatch.org/our-apis/documentation#terms-of-use>
 FAQs <https://globalfishingwatch.org/help-faqs/>
 R package <https://globalfishingwatch.github.io/gfwr/>

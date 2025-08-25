@@ -4,6 +4,8 @@
 
 This guide introduces you to the basics of using the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client). For detailed and alternative installation instructions, please refer to the [Installation](installation) section. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/getting-started.ipynb) version for this guide.
 
+> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+
 ## Authorization
 
 Before using the `gfw-api-python-client`, you need to obtain an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens). This token is crucial for authenticating your requests. For security and convenience, it's highly recommended to set your access token as an environment variable.
@@ -100,6 +102,7 @@ print(events_df.info())
 ```
 
 Output:
+
 ```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 3 entries, 0 to 2
