@@ -104,9 +104,12 @@ dev = [
 
 # Build tools
 build = [
-  "build>=1.2.2",             # Python PEP 517 compliant build system
-  "setuptools>=78.1.0",       # Python packaging library
-  "twine>=6.1.0",             # For uploading Python packages to PyPI
+  "build>=1.2.2",                 # Python PEP 517 compliant build system
+  "check-wheel-contents>=0.6.3",  # Check wheels have the right contents
+  "pydistcheck>=0.10.0",          # Inspect Python package distributions for common problems
+  "pyroma>=5.0",                  # Test project's packaging friendliness
+  "setuptools>=78.1.0",           # Python packaging library
+  "twine>=6.1.0",                 # For uploading Python packages to PyPI
 ]
 
 # Documentation tools
@@ -249,7 +252,10 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump to v$new_version"
 
 [tool.codespell]
-skip = '.git,env*,venv*,build*,tmp*'
+skip = ".git,env*,venv*,build*,tmp*"
+
+[tool.pydistcheck]
+inspect = false
 
 
 # Build system metadata.
@@ -263,4 +269,4 @@ exclude = ["tests*"]
 namespaces = false
 
 [tool.setuptools.package-data]
-"gfwapiclient" = ["py.typed"]
+gfwapiclient = ["py.typed"]
