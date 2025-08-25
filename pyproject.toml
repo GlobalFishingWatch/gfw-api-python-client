@@ -261,3 +261,6 @@ where = ["src"]
 include = ["gfwapiclient", "gfwapiclient.*"]
 exclude = ["tests*"]
 namespaces = false
+
+[tool.setuptools.package-data]
+"gfwapiclient" = ["py.typed"]
