@@ -199,7 +199,7 @@ memory usage: 22.0+ MB
 
 ## Creating a SAR Presence Report (`create_sar_presence_report`)
 
-Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identify vessels detected via radar, including non-broadcasting (`"dark"`) vessels. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats).
+Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identify vessels detected via radar, including non-broadcasting (possible `"dark"`) vessels. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats).
 
 ```python
 sar_presence_report_result = await gfw_client.fourwings.create_sar_presence_report(

@@ -4,7 +4,7 @@
 
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the Insights API focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Insights Data Caveats](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas)—it is critical to avoid misinterpreting the insights. You can find the [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction), for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
