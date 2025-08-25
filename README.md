@@ -17,9 +17,6 @@
 
 Python package for accessing data from Global Fishing Watch (GFW) APIs.
 
-> [!CAUTION]
-> **Posted: 05 Aug 2025. Temporary delay in data updates**. **Today (Aug 5)** we started a migration process that impacts API and data. During the following 3 weeks, our Packages and APIs may not show the latest data. Full updates will resume shortly.
-
 > **Important:**
 The `gfw-api-python-client` version 1 directly corresponds to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation#version-3-api). As of April 30th, 2024, API version 3 is the standard. For the most recent API updates, refer to our [API release notes](https://globalfishingwatch.org/our-apis/documentation#api-release-notes).
 
