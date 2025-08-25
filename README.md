@@ -6,6 +6,7 @@
 [![pypi - version](https://img.shields.io/pypi/v/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![pypi - python versions](https://img.shields.io/pypi/pyversions/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![license](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15617433.svg)](https://doi.org/10.5281/zenodo.15617433)
 
 [![pre-commit action](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
