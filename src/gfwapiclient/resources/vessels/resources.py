@@ -65,37 +65,42 @@ class VesselResource(BaseResource):
         """Search vessels based on provided parameters.
 
         Args:
-            since (Optional[str]):
+            since (Optional[str], default=None):
                 The token to send to get more results.
                 Defaults to `None`.
 
-            limit (Optional[int]):
-                Amount of search results to return. Maximum `50`.
-                Defaults to `20`.
+            limit (Optional[int], default=20):
+                Amount of search results to return. Defaults to `20`.
+                Maximum `50`.
+                Example: `20`.
 
-            datasets (Optional[Union[List[VesselDataset], List[str]]]):
+            datasets (Optional[Union[List[VesselDataset], List[str]]], default=["public-global-vessel-identity:latest"]):
                 Specify the datasets that will be used to search the vessel.
-                Allowed values: `"public-global-vessel-identity:latest"`.
                 Defaults to `["public-global-vessel-identity:latest"]`.
+                Allowed values: `"public-global-vessel-identity:latest"`.
+                Example: `["public-global-vessel-identity:latest"]`.
 
-            query (Optional[str]):
+            query (Optional[str], default=None):
                 Free form query that allows you to search a vessel by sending some identifier,
                 for example: MMSI, IMO, CALL SIGN, Shipname, etc. Minimum 3 characters.
+                Defaults to `None`.
                 Example: `"Don tito"`.
 
-            where (Optional[str]):
+            where (Optional[str], default=None):
                 Advanced query that allows you to search a vessel by sending several identifiers.
+                Defaults to `None`.
                 Example: `"(shipname = 'SEIN PHOENIX' OR mmsi = '441618000') AND flag = 'KOR'"`
 
-            match_fields (Optional[Union[List[VesselMatchField], List[str]]]):
-                This query param allows to filter by matchFields levels.
+            match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
+                This query param allows to filter by matchFields levels. Defaults to `None`.
                 Allowed values: `"SEVERAL_FIELDS"`, `"NO_MATCH"`, `"ALL"`.
-                Defaults to `None`
+                Example: `["ALL"]`.
 
-            includes (Optional[Union[List[VesselSearchInclude], List[str]]]):
+            includes (Optional[Union[List[VesselSearchInclude], List[str]]], default=["OWNERSHIP", "AUTHORIZATIONS", "MATCH_CRITERIA"]):
                 This query param allows to add extra information to the response.
+                Defaults to `["OWNERSHIP", "AUTHORIZATIONS", "MATCH_CRITERIA"]`.
                 Allowed values: "OWNERSHIP", "AUTHORIZATIONS", "MATCH_CRITERIA".
-                Defaults to `["OWNERSHIP", "AUTHORIZATIONS", "MATCH_CRITERIA"]`
+                Example: `["OWNERSHIP", "AUTHORIZATIONS"]`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
@@ -147,30 +152,33 @@ class VesselResource(BaseResource):
                 List of vessel IDs to retrieve.
                 Example: `["6583c51e3-3626-5638-866a-f47c3bc7ef7c"]`.
 
-            datasets (Optional[Union[List[VesselDataset], List[str]]]):
+            datasets (Optional[Union[List[VesselDataset], List[str]]], default=["public-global-vessel-identity:latest"]):
                 Specify the datasets that will be used to search the vessel.
-                Allowed values: `"public-global-vessel-identity:latest"`.
                 Defaults to `["public-global-vessel-identity:latest"]`.
+                Allowed values: `"public-global-vessel-identity:latest"`.
+                Example: `["public-global-vessel-identity:latest"]`.
 
-            registries_info_data (Optional[Union[VesselRegistryInfoData, str]]):
+            registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default="ALL"):
                 The response doesn't include all registry info data by default.
                 It means, the default value is `"NONE"`. You can use `"DELTA"` to get only the data
                 that changes in the time or `"ALL"` to get all data from the registries.
+                Defaults to `"ALL"`.
                 Allowed values: "NONE", "DELTA", "ALL".
-                Defaults to `"NONE"`.
+                Example: `"ALL"`.
 
-            includes (Optional[Union[List[VesselInclude], List[str]]]):
-                This query param allows to add extra information to the response.
-                Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+            includes (Optional[Union[List[VesselInclude], List[str]]], default=["POTENTIAL_RELATED_SELF_REPORTED_INFO"]):
+                This query param allows to add extra information to the response. Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+                Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
+                Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
 
-            match_fields (Optional[Union[List[VesselMatchField], List[str]]]):
-                This query param allows to filter by matchFields levels.
+            match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
+                This query param allows to filter by matchFields levels. Defaults to `None`.
                 Allowed values: `"SEVERAL_FIELDS"`, `"NO_MATCH"`, `"ALL"`.
-                Defaults to `None`
+                Example: `["ALL"]`.
 
-            vessel_groups (Optional[List[str]]):
-                List of vessel-groups.
-                Example: `['my-vessel-group']`.
+            vessel_groups (Optional[List[str]], default=None):
+                List of vessel-groups. Defaults to `None`
+                Example: `["my-vessel-group"]`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
@@ -221,26 +229,28 @@ class VesselResource(BaseResource):
                 The ID of the vessel to retrieve.
                 Example: `"6583c51e3-3626-5638-866a-f47c3bc7ef7c"`.
 
-            dataset (Optional[Union[VesselDataset, str]]):
-                Specify the dataset that will be used to search the vessel.
+            dataset (Optional[Union[VesselDataset, str]], default="public-global-vessel-identity:latest"):
+                Specify the dataset that will be used to search the vessel. Defaults to `"public-global-vessel-identity:latest"`.
                 Allowed values: `"public-global-vessel-identity:latest"`.
-                Defaults to `"public-global-vessel-identity:latest"`.
+                Example: `"public-global-vessel-identity:latest"`.
 
-            registries_info_data (Optional[Union[VesselRegistryInfoData, str]]):
+            registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default="ALL"):
                 The response doesn't include all registry info data by default.
                 It means, the default value is `"NONE"`. You can use `"DELTA"` to get only the data
                 that changes in the time or `"ALL"` to get all data from the registries.
-                Allowed values: "NONE", "DELTA", "ALL".
-                Defaults to `"NONE"`.
+                Defaults to `"ALL"`.
+                Allowed values: `"NONE"`, `"DELTA"`, `"ALL"`.
+                Example: `"ALL"`.
 
-            includes (Optional[Union[List[VesselInclude], List[str]]]):
-                This query param allows to add extra information to the response.
-                Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+            includes (Optional[Union[List[VesselInclude], List[str]]], default=["POTENTIAL_RELATED_SELF_REPORTED_INFO"]):
+                This query param allows to add extra information to the response. Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+                Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
+                Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
 
-            match_fields (Optional[Union[List[VesselMatchField], List[str]]]):
-                This query param allows to filter by matchFields levels.
+            match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
+                This query param allows to filter by matchFields levels. Defaults to `None`.
                 Allowed values: `"SEVERAL_FIELDS"`, `"NO_MATCH"`, `"ALL"`.
-                Defaults to `None`
+                Example: `["ALL"]`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
@@ -293,7 +303,12 @@ class VesselResource(BaseResource):
                 "query": query,
                 "where": where,
                 "includes": (
-                    includes or [VesselInclude.POTENTIAL_RELATED_SELF_REPORTED_INFO]
+                    includes
+                    or [
+                        VesselSearchInclude.OWNERSHIP,
+                        VesselSearchInclude.AUTHORIZATIONS,
+                        VesselSearchInclude.MATCH_CRITERIA,
+                    ]
                 ),
                 "binary": False,
                 "match_fields": match_fields,
