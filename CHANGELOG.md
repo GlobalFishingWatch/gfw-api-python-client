@@ -1,3 +1,10 @@
+## v1.2.0 (2025-09-02)
+
+### Feat
+
+- **fourwings**: add methods to create AIS and SAR presence reports
+- **fourwings**: support AIS vessel presence dataset in create report API
+
 ## v1.1.0 (2025-06-08)
 
 ### Feat
