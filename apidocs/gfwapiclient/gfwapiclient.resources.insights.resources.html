@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -498,27 +499,24 @@
 <dd><p>Get vessels insights data.</p>
 <p>Retrieves insights data for specified vessels based on the provided
 request parameters.</p>
-<dl>
-<dt>Args:</dt><dd><dl>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
 <dt>includes (Union[List[VesselInsightInclude], List[str]]):</dt><dd><p>List of insight types to include in the response.
 Allowed values are <cite>“FISHING”</cite>, <cite>“GAP”</cite>, <cite>“COVERAGE”</cite>, <cite>“IDENTITY”</cite>.
-Example: [“FISHING”, “GAP”].</p>
+Example: <cite>[“FISHING”, “GAP”]</cite>.</p>
 </dd>
 <dt>start_date (Union[datetime.date, str]):</dt><dd><p>The start date for the insights period.
-Format: <cite>“YYYY-MM-DD”</cite> or <cite>datetime.date</cite> object.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
 Example: “2020-01-01” or <cite>datetime.date(2020, 1, 1)</cite>.</p>
 </dd>
 <dt>end_date (Union[datetime.date, str]):</dt><dd><p>The end date for the insights period.
-Format: <cite>“YYYY-MM-DD”</cite> or <cite>datetime.date</cite> object.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
 Example: <cite>“2025-03-03”</cite> or <cite>datetime.date(2025, 3, 3)</cite>.</p>
 </dd>
 <dt>vessels (Union[List[VesselInsightDatasetVessel], List[Dict[str, Any]]]):</dt><dd><p>List of vessel identifiers to retrieve insights for.
-Example: <a href="#id1"><span class="problematic" id="id2">`</span></a>[{“vessel_id”: “785101812-2127-e5d2-e8bf-7152c5259f5f”,</p>
-<blockquote>
-<div><p>“dataset_id”: “public-global-vessel-identity:latest”,}]`.</p>
-</div></blockquote>
+Example: <cite>[{“vessel_id”: “785101812-2127-e5d2-e8bf-7152c5259f5f”, “dataset_id”: “public-global-vessel-identity:latest”,}]</cite>.</p>
 </dd>
-<dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
+<dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
 </dd>
 </dl>
 </dd>

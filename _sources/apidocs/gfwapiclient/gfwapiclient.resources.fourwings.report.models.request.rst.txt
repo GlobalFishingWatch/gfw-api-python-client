@@ -309,6 +309,12 @@ API
 
       .. autodoc2-docstring:: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST
 
+   .. py:attribute:: PRESENCE_LATEST
+      :canonical: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST
+      :value: 'public-global-presence:latest'
+
+      .. autodoc2-docstring:: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST
+
 .. py:class:: FourWingsGeometry(/, **data: typing.Any)
    :canonical: gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry
 

@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -502,16 +503,16 @@ by a geographic geometry. If <cite>z</cite>, <cite>x</cite>, and <cite>y</cite> 
 used.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>z: (Optional[int]):</dt><dd><p>Zoom level (from 0 to 9 for SAR fixed infrastructure dataset).
+<dt>z: (Optional[int], default=None):</dt><dd><p>Zoom level (from 0 to 9 for SAR fixed infrastructure dataset). Defaults to <cite>None</cite>.
 Example: <cite>1</cite>.</p>
 </dd>
-<dt>x: (Optional[int]):</dt><dd><p>X index (lat) of the tile.
+<dt>x: (Optional[int], default=None):</dt><dd><p>X index (lat) of the tile. Defaults to <cite>None</cite>.
 Example: <cite>0</cite>.</p>
 </dd>
-<dt>y: (Optional[int]):</dt><dd><p>Y index (lon) of the tile.
+<dt>y: (Optional[int], default=None):</dt><dd><p>Y index (lon) of the tile. Defaults to <cite>None</cite>.
 Example: <cite>1</cite>.</p>
 </dd>
-<dt>geometry (Optional[Union[Geometry, Dict[str, Any]]]):</dt><dd><p>Geometry used to filter SAR fixed infrastructure.
+<dt>geometry (Optional[Union[Geometry, Dict[str, Any]]], default=None):</dt><dd><p>Geometry used to filter SAR fixed infrastructure. Defaults to <cite>None</cite>.
 Example: <cite>{“type”: “Polygon”, “coordinates”: […]}</cite>.</p>
 </dd>
 <dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>

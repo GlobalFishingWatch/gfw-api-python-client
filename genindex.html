@@ -396,6 +396,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -910,10 +911,10 @@
 </li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.vessels.base.models.response.html#gfwapiclient.resources.vessels.base.models.response.CombinedSourceInfo">CombinedSourceInfo (class in gfwapiclient.resources.vessels.base.models.response)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.http.models.request.html#gfwapiclient.http.models.request.RequestParams.comma_separated_fields">comma_separated_fields (gfwapiclient.http.models.request.RequestParams attribute)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.html#gfwapiclient.resources.events.base.models.response.EventPortVisit.confidence">confidence (gfwapiclient.resources.events.base.models.response.EventPortVisit attribute)</a>
 </li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.request.html#gfwapiclient.resources.events.base.models.request.EventBaseBody.confidences">confidences (gfwapiclient.resources.events.base.models.request.EventBaseBody attribute)</a>
@@ -932,7 +933,13 @@
 </li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.insights.models.response.html#gfwapiclient.resources.insights.models.response.VesselInsightItem.coverage">coverage (gfwapiclient.resources.insights.models.response.VesselInsightItem attribute)</a>
 </li>
+        <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.fourwings.resources.html#gfwapiclient.resources.fourwings.resources.FourWingsResource.create_ais_presence_report">create_ais_presence_report() (gfwapiclient.resources.fourwings.resources.FourWingsResource method)</a>
+</li>
+        <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.fourwings.resources.html#gfwapiclient.resources.fourwings.resources.FourWingsResource.create_fishing_effort_report">create_fishing_effort_report() (gfwapiclient.resources.fourwings.resources.FourWingsResource method)</a>
+</li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.fourwings.resources.html#gfwapiclient.resources.fourwings.resources.FourWingsResource.create_report">create_report() (gfwapiclient.resources.fourwings.resources.FourWingsResource method)</a>
+</li>
+        <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.fourwings.resources.html#gfwapiclient.resources.fourwings.resources.FourWingsResource.create_sar_presence_report">create_sar_presence_report() (gfwapiclient.resources.fourwings.resources.FourWingsResource method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -2585,10 +2592,10 @@
 </li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.request.html#gfwapiclient.resources.events.base.models.request.EventType.PORT_VISIT">PORT_VISIT (gfwapiclient.resources.events.base.models.request.EventType attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.html#gfwapiclient.resources.events.base.models.response.EventItem.port_visit">port_visit (gfwapiclient.resources.events.base.models.response.EventItem attribute)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.request.html#gfwapiclient.resources.events.base.models.request.EventDataset.PORT_VISITS_EVENTS_LATEST">PORT_VISITS_EVENTS_LATEST (gfwapiclient.resources.events.base.models.request.EventDataset attribute)</a>
 </li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.html#gfwapiclient.resources.events.base.models.response.EventItem.position">position (gfwapiclient.resources.events.base.models.response.EventItem attribute)</a>
@@ -2609,6 +2616,8 @@
           <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.html#gfwapiclient.resources.events.base.models.response.EventFishing.potential_risk">(gfwapiclient.resources.events.base.models.response.EventFishing attribute)</a>
 </li>
         </ul></li>
+        <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.fourwings.report.models.request.html#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST">PRESENCE_LATEST (gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset attribute)</a>
+</li>
         <li><a href="apidocs/gfwapiclient/gfwapiclient.resources.events.base.models.response.html#gfwapiclient.resources.events.base.models.response.EventVessel.public_authorizations">public_authorizations (gfwapiclient.resources.events.base.models.response.EventVessel attribute)</a>
 </li>
     </ul></td>

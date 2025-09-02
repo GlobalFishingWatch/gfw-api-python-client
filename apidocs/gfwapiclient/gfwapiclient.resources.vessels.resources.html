@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -502,30 +503,35 @@ and retrieval by ID.</p>
 <dd><p>Search vessels based on provided parameters.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="simple">
-<dt>since (Optional[str]):</dt><dd><p>The token to send to get more results.
+<dt>since (Optional[str], default=None):</dt><dd><p>The token to send to get more results.
 Defaults to <cite>None</cite>.</p>
 </dd>
-<dt>limit (Optional[int]):</dt><dd><p>Amount of search results to return. Maximum <cite>50</cite>.
-Defaults to <cite>20</cite>.</p>
+<dt>limit (Optional[int], default=20):</dt><dd><p>Amount of search results to return. Defaults to <cite>20</cite>.
+Maximum <cite>50</cite>.
+Example: <cite>20</cite>.</p>
 </dd>
-<dt>datasets (Optional[Union[List[VesselDataset], List[str]]]):</dt><dd><p>Specify the datasets that will be used to search the vessel.
+<dt>datasets (Optional[Union[List[VesselDataset], List[str]]], default=[“public-global-vessel-identity:latest”]):</dt><dd><p>Specify the datasets that will be used to search the vessel.
+Defaults to <cite>[“public-global-vessel-identity:latest”]</cite>.
 Allowed values: <cite>“public-global-vessel-identity:latest”</cite>.
-Defaults to <cite>[“public-global-vessel-identity:latest”]</cite>.</p>
+Example: <cite>[“public-global-vessel-identity:latest”]</cite>.</p>
 </dd>
-<dt>query (Optional[str]):</dt><dd><p>Free form query that allows you to search a vessel by sending some identifier,
+<dt>query (Optional[str], default=None):</dt><dd><p>Free form query that allows you to search a vessel by sending some identifier,
 for example: MMSI, IMO, CALL SIGN, Shipname, etc. Minimum 3 characters.
+Defaults to <cite>None</cite>.
 Example: <cite>“Don tito”</cite>.</p>
 </dd>
-<dt>where (Optional[str]):</dt><dd><p>Advanced query that allows you to search a vessel by sending several identifiers.
+<dt>where (Optional[str], default=None):</dt><dd><p>Advanced query that allows you to search a vessel by sending several identifiers.
+Defaults to <cite>None</cite>.
 Example: <cite>“(shipname = ‘SEIN PHOENIX’ OR mmsi = ‘441618000’) AND flag = ‘KOR’”</cite></p>
 </dd>
-<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]]):</dt><dd><p>This query param allows to filter by matchFields levels.
+<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):</dt><dd><p>This query param allows to filter by matchFields levels. Defaults to <cite>None</cite>.
 Allowed values: <cite>“SEVERAL_FIELDS”</cite>, <cite>“NO_MATCH”</cite>, <cite>“ALL”</cite>.
-Defaults to <cite>None</cite></p>
+Example: <cite>[“ALL”]</cite>.</p>
 </dd>
-<dt>includes (Optional[Union[List[VesselSearchInclude], List[str]]]):</dt><dd><p>This query param allows to add extra information to the response.
+<dt>includes (Optional[Union[List[VesselSearchInclude], List[str]]], default=[“OWNERSHIP”, “AUTHORIZATIONS”, “MATCH_CRITERIA”]):</dt><dd><p>This query param allows to add extra information to the response.
+Defaults to <cite>[“OWNERSHIP”, “AUTHORIZATIONS”, “MATCH_CRITERIA”]</cite>.
 Allowed values: “OWNERSHIP”, “AUTHORIZATIONS”, “MATCH_CRITERIA”.
-Defaults to <cite>[“OWNERSHIP”, “AUTHORIZATIONS”, “MATCH_CRITERIA”]</cite></p>
+Example: <cite>[“OWNERSHIP”, “AUTHORIZATIONS”]</cite>.</p>
 </dd>
 <dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
 </dd>
@@ -555,25 +561,28 @@ Defaults to <cite>[“OWNERSHIP”, “AUTHORIZATIONS”, “MATCH_CRITERIA”]<
 <dt>ids (List[str]):</dt><dd><p>List of vessel IDs to retrieve.
 Example: <cite>[“6583c51e3-3626-5638-866a-f47c3bc7ef7c”]</cite>.</p>
 </dd>
-<dt>datasets (Optional[Union[List[VesselDataset], List[str]]]):</dt><dd><p>Specify the datasets that will be used to search the vessel.
+<dt>datasets (Optional[Union[List[VesselDataset], List[str]]], default=[“public-global-vessel-identity:latest”]):</dt><dd><p>Specify the datasets that will be used to search the vessel.
+Defaults to <cite>[“public-global-vessel-identity:latest”]</cite>.
 Allowed values: <cite>“public-global-vessel-identity:latest”</cite>.
-Defaults to <cite>[“public-global-vessel-identity:latest”]</cite>.</p>
+Example: <cite>[“public-global-vessel-identity:latest”]</cite>.</p>
 </dd>
-<dt>registries_info_data (Optional[Union[VesselRegistryInfoData, str]]):</dt><dd><p>The response doesn’t include all registry info data by default.
+<dt>registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default=”ALL”):</dt><dd><p>The response doesn’t include all registry info data by default.
 It means, the default value is <cite>“NONE”</cite>. You can use <cite>“DELTA”</cite> to get only the data
 that changes in the time or <cite>“ALL”</cite> to get all data from the registries.
+Defaults to <cite>“ALL”</cite>.
 Allowed values: “NONE”, “DELTA”, “ALL”.
-Defaults to <cite>“NONE”</cite>.</p>
+Example: <cite>“ALL”</cite>.</p>
 </dd>
-<dt>includes (Optional[Union[List[VesselInclude], List[str]]]):</dt><dd><p>This query param allows to add extra information to the response.
-Defaults to <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.</p>
+<dt>includes (Optional[Union[List[VesselInclude], List[str]]], default=[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]):</dt><dd><p>This query param allows to add extra information to the response. Defaults to <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.
+Allowed values: <cite>“POTENTIAL_RELATED_SELF_REPORTED_INFO”</cite>.
+Example: <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.</p>
 </dd>
-<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]]):</dt><dd><p>This query param allows to filter by matchFields levels.
+<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):</dt><dd><p>This query param allows to filter by matchFields levels. Defaults to <cite>None</cite>.
 Allowed values: <cite>“SEVERAL_FIELDS”</cite>, <cite>“NO_MATCH”</cite>, <cite>“ALL”</cite>.
-Defaults to <cite>None</cite></p>
+Example: <cite>[“ALL”]</cite>.</p>
 </dd>
-<dt>vessel_groups (Optional[List[str]]):</dt><dd><p>List of vessel-groups.
-Example: <cite>[‘my-vessel-group’]</cite>.</p>
+<dt>vessel_groups (Optional[List[str]], default=None):</dt><dd><p>List of vessel-groups. Defaults to <cite>None</cite>
+Example: <cite>[“my-vessel-group”]</cite>.</p>
 </dd>
 <dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
 </dd>
@@ -603,22 +612,24 @@ Example: <cite>[‘my-vessel-group’]</cite>.</p>
 <dt>id (str):</dt><dd><p>The ID of the vessel to retrieve.
 Example: <cite>“6583c51e3-3626-5638-866a-f47c3bc7ef7c”</cite>.</p>
 </dd>
-<dt>dataset (Optional[Union[VesselDataset, str]]):</dt><dd><p>Specify the dataset that will be used to search the vessel.
+<dt>dataset (Optional[Union[VesselDataset, str]], default=”public-global-vessel-identity:latest”):</dt><dd><p>Specify the dataset that will be used to search the vessel. Defaults to <cite>“public-global-vessel-identity:latest”</cite>.
 Allowed values: <cite>“public-global-vessel-identity:latest”</cite>.
-Defaults to <cite>“public-global-vessel-identity:latest”</cite>.</p>
+Example: <cite>“public-global-vessel-identity:latest”</cite>.</p>
 </dd>
-<dt>registries_info_data (Optional[Union[VesselRegistryInfoData, str]]):</dt><dd><p>The response doesn’t include all registry info data by default.
+<dt>registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default=”ALL”):</dt><dd><p>The response doesn’t include all registry info data by default.
 It means, the default value is <cite>“NONE”</cite>. You can use <cite>“DELTA”</cite> to get only the data
 that changes in the time or <cite>“ALL”</cite> to get all data from the registries.
-Allowed values: “NONE”, “DELTA”, “ALL”.
-Defaults to <cite>“NONE”</cite>.</p>
+Defaults to <cite>“ALL”</cite>.
+Allowed values: <cite>“NONE”</cite>, <cite>“DELTA”</cite>, <cite>“ALL”</cite>.
+Example: <cite>“ALL”</cite>.</p>
 </dd>
-<dt>includes (Optional[Union[List[VesselInclude], List[str]]]):</dt><dd><p>This query param allows to add extra information to the response.
-Defaults to <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.</p>
+<dt>includes (Optional[Union[List[VesselInclude], List[str]]], default=[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]):</dt><dd><p>This query param allows to add extra information to the response. Defaults to <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.
+Allowed values: <cite>“POTENTIAL_RELATED_SELF_REPORTED_INFO”</cite>.
+Example: <cite>[“POTENTIAL_RELATED_SELF_REPORTED_INFO”]</cite>.</p>
 </dd>
-<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]]):</dt><dd><p>This query param allows to filter by matchFields levels.
+<dt>match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):</dt><dd><p>This query param allows to filter by matchFields levels. Defaults to <cite>None</cite>.
 Allowed values: <cite>“SEVERAL_FIELDS”</cite>, <cite>“NO_MATCH”</cite>, <cite>“ALL”</cite>.
-Defaults to <cite>None</cite></p>
+Example: <cite>[“ALL”]</cite>.</p>
 </dd>
 <dt><a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
 </dd>

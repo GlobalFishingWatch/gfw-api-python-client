@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -485,48 +486,58 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.response.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.response.FourWingsReportItem" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.ResultItem</span></code></p>
 <p>4Wings report entry.</p>
-<p>Represents a single entry in the 4Wings report result.</p>
+<p>Represents a single entry in the 4Wings report result.
+Each entry captures multiple dimensions of vessel activity, identity,
+and detection using Automatic Identification System (AIS) or
+Synthetic Aperture Radar (SAR) data.</p>
+<p>For more details on the 4Wings API supported report response bodies,
+please refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region">https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region</a></p>
 <dl class="simple">
 <dt>Attributes:</dt><dd><dl class="simple">
-<dt>date (Optional[str]):</dt><dd><p>The date of the report entry.</p>
+<dt>date (Optional[str]):</dt><dd><p>The date of the report entry (e.g. <cite>“2022-01-13”</cite>).</p>
 </dd>
-<dt>detections (Optional[int]):</dt><dd><p>The number of detections.</p>
+<dt>detections (Optional[int]):</dt><dd><p>The number of vessel detections (e.g. <cite>12</cite>).</p>
 </dd>
-<dt>flag (Optional[str]):</dt><dd><p>The vessel’s flag.</p>
+<dt>flag (Optional[str]):</dt><dd><p>The vessel’s country flag (e.g. <cite>“ESP”</cite>).</p>
 </dd>
-<dt>gear_type (Optional[str]):</dt><dd><p>The vessel’s gear type.</p>
+<dt>gear_type (Optional[str]):</dt><dd><p>The vessel’s gear type (e.g. <cite>“FISHING”</cite>).</p>
 </dd>
-<dt>hours (Optional[float]):</dt><dd><p>The number of hours.</p>
+<dt>hours (Optional[float]):</dt><dd><p>The number of activity hours (e.g. <cite>26.6</cite>).</p>
 </dd>
-<dt>vessel_ids (Optional[int]):</dt><dd><p>The number of vessel IDs.</p>
+<dt>vessel_ids (Optional[int]):</dt><dd><p>The number of vessel identifiers (IDs) (e.g. <cite>3</cite>).</p>
 </dd>
-<dt>vessel_id (Optional[str]):</dt><dd><p>The vessel ID.</p>
+<dt>vessel_id (Optional[str]):</dt><dd><p>The vessel identifier (ID) (e.g <cite>“e6154b2e7-7762-4889-fb46-976ec72875e1”</cite>).</p>
 </dd>
-<dt>vessel_type (Optional[str]):</dt><dd><p>The vessel type.</p>
+<dt>vessel_type (Optional[str]):</dt><dd><p>The vessel type (e.g <cite>“FISHING”</cite>).</p>
 </dd>
-<dt>entry_timestamp (Optional[datetime.datetime]):</dt><dd><p>The entry timestamp.</p>
+<dt>entry_timestamp (Optional[datetime.datetime]):</dt><dd><p>The timestamp when the vessel entered the observation area in ISO-8601
+format (e.g <cite>“2022-01-14T14:00:00Z”</cite>).</p>
 </dd>
-<dt>exit_timestamp (Optional[datetime.datetime]):</dt><dd><p>The exit timestamp.</p>
+<dt>exit_timestamp (Optional[datetime.datetime]):</dt><dd><p>The timestamp when the vessel exited the observation area in ISO-8601
+format (e.g <cite>“2022-01-14T16:00:00Z”</cite>).</p>
 </dd>
-<dt>first_transmission_date (Optional[datetime.datetime]):</dt><dd><p>The first transmission date.</p>
+<dt>first_transmission_date (Optional[datetime.datetime]):</dt><dd><p>The vessel’s first AIS (Automatic Identification System) transmission
+date in ISO-8601 format (e.g <cite>“2019-07-12T12:08:27Z”</cite>).</p>
 </dd>
-<dt>last_transmission_date (Optional[datetime.datetime]):</dt><dd><p>The last transmission date.</p>
+<dt>last_transmission_date (Optional[datetime.datetime]):</dt><dd><p>The vessel’s last AIS (Automatic Identification System) transmission
+date in ISO-8601 format (e.g <cite>“2025-03-01T23:55:50Z”</cite>).</p>
 </dd>
-<dt>imo (Optional[str]):</dt><dd><p>The IMO number.</p>
+<dt>imo (Optional[str]):</dt><dd><p>The vessel’s IMO (International Maritime Organization) number (e.g <cite>“8602866”</cite>).</p>
 </dd>
-<dt>mmsi (Optional[str]):</dt><dd><p>The MMSI number.</p>
+<dt>mmsi (Optional[str]):</dt><dd><p>The vessel’s MMSI (Maritime Mobile Service Identity) number (e.g <cite>“273453380”</cite>).</p>
 </dd>
-<dt>call_sign (Optional[str]):</dt><dd><p>The call sign.</p>
+<dt>call_sign (Optional[str]):</dt><dd><p>The vessel’s call sign (e.g <cite>“UBSS9”</cite>).</p>
 </dd>
-<dt>dataset (Optional[str]):</dt><dd><p>The dataset.</p>
+<dt>dataset (Optional[str]):</dt><dd><p>The vessel information dataset (e.g <cite>“public-global-vessel-identity:v3.0”</cite>).</p>
 </dd>
-<dt>report_dataset (Optional[str]):</dt><dd><p>The dataset used to create the report.</p>
+<dt>report_dataset (Optional[str]):</dt><dd><p>The dataset used to create the report (e.g <cite>“public-global-fishing-effort:v3.0”</cite>).</p>
 </dd>
-<dt>ship_name (Optional[str]):</dt><dd><p>The ship name.</p>
+<dt>ship_name (Optional[str]):</dt><dd><p>The vessel’s ship name (e.g <cite>“ALSEY”</cite>).</p>
 </dd>
-<dt>lat (Optional[float]):</dt><dd><p>The latitude.</p>
+<dt>lat (Optional[float]):</dt><dd><p>The vessel’s reported latitude (e.g <cite>49.33</cite>).</p>
 </dd>
-<dt>lon (Optional[float]):</dt><dd><p>The longitude.</p>
+<dt>lon (Optional[float]):</dt><dd><p>The vessel’s reported longitude (e.g <cite>141.15</cite>).</p>
 </dd>
 </dl>
 </dd>
@@ -647,7 +658,7 @@ validated to form a valid model.</p>
 </dl>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt>Optional[datetime.datetime]:</dt><dd><p>The validated datetime or None.</p>
+<dt>Optional[datetime.datetime]:</dt><dd><p>The validated datetime object or <cite>None</cite> if input is empty.</p>
 </dd>
 </dl>
 </dd>
@@ -662,6 +673,15 @@ validated to form a valid model.</p>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.Result</span></code>[<a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.response.FourWingsReportItem" title="gfwapiclient.resources.fourwings.report.models.response.FourWingsReportItem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.resources.fourwings.report.models.response.FourWingsReportItem</span></code></a>]</p>
 <p>Result for 4Wings Report API endpoint.</p>
 <p>Represents the result of the 4Wings Report API endpoint.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>_result_item_class (Type[FourWingsReportItem]):</dt><dd><p>The model used for individual result items.</p>
+</dd>
+<dt>_data (List[FourWingsReportItem]):</dt><dd><p>List of report items returned in the response.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initializes a new <cite>FourWingsReportResult</cite>.</p>
 <dl class="simple">

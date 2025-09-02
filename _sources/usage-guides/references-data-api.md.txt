@@ -4,6 +4,8 @@
 
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access reference data, specifically geographic regions. The Reference Data API offers access to static datasets, currently focusing on Exclusive Economic Zones (EEZs), Marine Protected Areas (MPAs), and Regional Fisheries Management Organizations (RFMOs). Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb) version of this guide with more usage examples.
 
+> **Note:** See the [Reference Data Caveats](https://globalfishingwatch.org/our-apis/documentation#reference-data) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+
 ## Prerequisites
 
 - You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
@@ -178,8 +180,8 @@ memory usage: 1.4+ KB
 
 Explore the [Usage Guides](index) for other API resources to understand how you can combine reference data with dynamic information about events, vessels, and more. Check out the following resources:
 
-  - [4Wings API](4wings-api)
-  - [Vessels API](vessels-api)
-  - [Events API](events-api)
-  - [Insights API](insights-api)
-  - [Datasets API](datasets-api)
+- [4Wings API](4wings-api)
+- [Vessels API](vessels-api)
+- [Events API](events-api)
+- [Insights API](insights-api)
+- [Datasets API](datasets-api)

@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -506,62 +507,61 @@ Allowed values: <cite>[“public-global-encounters-events:latest”, “public-g
 “public-global-port-visits-events:latest”]</cite>.
 Example: <cite>[“public-global-fishing-events:latest”, “public-global-encounters-events:latest”]</cite>.</p>
 </dd>
-<dt>vessels (Optional[List[str]]):</dt><dd><p>List of vessel IDs to filter events.
+<dt>vessels (Optional[List[str]], default=None):</dt><dd><p>List of vessel IDs to filter events. Defaults to <cite>None</cite>.
 Example: <cite>[“55d38c0ee-e0d7-cb32-ac9c-8b3680d213b3”]</cite>.</p>
 </dd>
-<dt>types (Optional[Union[List[EventType], List[str]]]):</dt><dd><p>List of event types to filter events.
+<dt>types (Optional[Union[List[EventType], List[str]]], default=None):</dt><dd><p>List of event types to filter events. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“ENCOUNTER”, “PORT_VISIT”, “FISHING”, “CARRIER_OPERATIONS”, “LOITERING”]</cite>.
 Example: <cite>[“FISHING”, “ENCOUNTER”]</cite>.</p>
 </dd>
-<dt>start_date (Optional[Union[datetime.date, str]]):</dt><dd><p>Start date for event filtering.
-Format: YYYY-MM-DD.
-Example: <cite>“2017-01-01”</cite>.</p>
+<dt>start_date (Optional[Union[datetime.date, str]], default=None):</dt><dd><p>Start date for event filtering. Defaults to <cite>None</cite>.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
+Example: <cite>datetime.date(2017, 1, 1)</cite> or <cite>“2017-01-01”</cite>.</p>
 </dd>
-<dt>end_date (Optional[Union[datetime.date, str]]):</dt><dd><p>End date for event filtering.
-Format: YYYY-MM-DD.
-Example: <cite>“2017-01-31”</cite>.</p>
+<dt>end_date (Optional[Union[datetime.date, str]], default=None):</dt><dd><p>End date for event filtering. Defaults to <cite>None</cite>.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
+Example: <cite>datetime.date(2017, 1, 31)</cite> or <cite>“2017-01-31”</cite>.</p>
 </dd>
-<dt>confidences (Optional[Union[List[EventConfidence], List[str]]]):</dt><dd><p>List of event confidence levels to filter events.
+<dt>confidences (Optional[Union[List[EventConfidence], List[str]]], default=None):</dt><dd><p>List of event confidence levels to filter events. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“2”, “3”, “4”]</cite>.
 Example: <cite>[“3”, “4”]</cite>.</p>
 </dd>
-<dt>encounter_types (Optional[Union[List[EventEncounterType], List[str]]]):</dt><dd><p>List of encounter types to filter events.
+<dt>encounter_types (Optional[Union[List[EventEncounterType], List[str]]], default=None):</dt><dd><p>List of encounter types to filter events. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“CARRIER-FISHING”, “FISHING-CARRIER”, “FISHING-SUPPORT”,
 “SUPPORT-FISHING”, “FISHING-BUNKER”, “BUNKER-FISHING”, “FISHING-FISHING”,
 “FISHING-TANKER”, “TANKER-FISHING”, “CARRIER-BUNKER”, “BUNKER-CARRIER”,
 “SUPPORT-BUNKER”, “BUNKER-SUPPORT”]</cite>.
 Example: <cite>[“CARRIER-FISHING”, “FISHING-CARRIER”]</cite>.</p>
 </dd>
-<dt>duration (Optional[int]):</dt><dd><p>Duration to filter events (in minutes). Example: <cite>60</cite>.</p>
+<dt>duration (Optional[int], default=None):</dt><dd><p>Duration to filter events (in minutes). Defaults to <cite>None</cite>.
+Example: <cite>60</cite>.</p>
 </dd>
-<dt>vessel_types (Optional[Union[List[EventVesselType], List[str]]]):</dt><dd><p>List of vessel types to filter events.
+<dt>vessel_types (Optional[Union[List[EventVesselType], List[str]]], default=None):</dt><dd><p>List of vessel types to filter events. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“BUNKER”, “CARGO”, “DISCREPANCY”, “CARRIER”, “FISHING”,
 “GEAR”, “OTHER”, “PASSENGER”, “SEISMIC_VESSEL”, “SUPPORT”]</cite>.
 Example: <cite>[“FISHING”, “CARGO”]</cite>.</p>
 </dd>
-<dt>vessel_groups (Optional[List[str]]):</dt><dd><p>List of vessel groups to filter events.
+<dt>vessel_groups (Optional[List[str]], default=None):</dt><dd><p>List of vessel groups to filter events. Defaults to <cite>None</cite>.
 Example: <cite>[“my-vessel-group”]</cite>.</p>
 </dd>
-<dt>flags (Optional[List[str]]):</dt><dd><p>List of vessel flags to filter events.
+<dt>flags (Optional[List[str]], default=None):</dt><dd><p>List of vessel flags to filter events. Defaults to <cite>None</cite>.
 Example: <cite>[“USA”, “CAN”]</cite>.</p>
 </dd>
-<dt>geometry (Optional[Union[EventGeometry, Dict[str, Any]]]):</dt><dd><p>Geometry to filter events.
+<dt>geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):</dt><dd><p>Geometry to filter events. Defaults to <cite>None</cite>.
 Example: <cite>{“type”: “Polygon”, “coordinates”: […]}</cite>.</p>
 </dd>
-<dt>region (Optional[Union[EventRegion, Dict[str, Any]]]):</dt><dd><p>Region to filter events.
+<dt>region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):</dt><dd><p>Region to filter events. Defaults to <cite>None</cite>.
 Example: <cite>{“dataset”: “public-eez-areas”, “id”: “5690”}</cite>.</p>
 </dd>
-<dt>gap_intentional_disabling (Optional[bool]):</dt><dd><p>Filter events based on intentional disabling of gap.</p>
+<dt>gap_intentional_disabling (Optional[bool], default=None):</dt><dd><p>Filter events based on intentional disabling of gap. Defaults to <cite>None</cite>.</p>
 </dd>
-<dt>limit (Optional[int]):</dt><dd><p>Maximum number of events to return.
-Default: <cite>99999</cite>.
+<dt>limit (Optional[int], default=99999):</dt><dd><p>Maximum number of events to return. Defaults to <cite>99999</cite>.
 Example: <cite>100</cite>.</p>
 </dd>
-<dt>offset (Optional[int]):</dt><dd><p>Number of events to skip before returning results.
-Default: <cite>0</cite>.
+<dt>offset (Optional[int], default=0):</dt><dd><p>Number of events to skip before returning results. Defaults to <cite>0</cite>.
 Example: <cite>100</cite>.</p>
 </dd>
-<dt>sort (Optional[str]):</dt><dd><p>Property to sort the events by.
+<dt>sort (Optional[str], default=None):</dt><dd><p>Property to sort the events by. Defaults to <cite>None</cite>.
 Example: <cite>“-start”</cite>.</p>
 </dd>
 <dt><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs (Dict[str, Any]):</dt><dd><p>Additional keyword arguments.</p>
@@ -636,55 +636,55 @@ Example: <cite>[“public-global-fishing-events:latest”, “public-global-enco
 Allowed values: <cite>[“HOUR”, “DAY”, “MONTH”, “YEAR”]</cite>.
 Example: <cite>“DAY”</cite>.</p>
 </dd>
-<dt>vessels (Optional[List[str]]):</dt><dd><p>List of vessel IDs to filter statistics.
+<dt>vessels (Optional[List[str]], default=None):</dt><dd><p>List of vessel IDs to filter statistics. Defaults to <cite>None</cite>.
 Example: <cite>[“55d38c0ee-e0d7-cb32-ac9c-8b3680d213b3”]</cite>.</p>
 </dd>
-<dt>types (Optional[Union[List[EventType], List[str]]]):</dt><dd><p>List of event types to filter statistics.
+<dt>types (Optional[Union[List[EventType], List[str]]], default=None):</dt><dd><p>List of event types to filter statistics. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“ENCOUNTER”, “PORT_VISIT”, “FISHING”, “CARRIER_OPERATIONS”, “LOITERING”]</cite>.
 Example: <cite>[“FISHING”, “ENCOUNTER”]</cite>.</p>
 </dd>
-<dt>start_date (Optional[Union[datetime.date, str]]):</dt><dd><p>Start date for event filtering.
-Format: YYYY-MM-DD.
-Example: <cite>“2023-01-31”</cite>.</p>
+<dt>start_date (Optional[Union[datetime.date, str]], default=None):</dt><dd><p>Start date for event filtering. Defaults to <cite>None</cite>.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
+Example: <cite>datetime.date(2023, 1, 31)</cite> or <cite>“2023-01-31”</cite>.</p>
 </dd>
-<dt>end_date (Optional[Union[datetime.date, str]]):</dt><dd><p>End date for event filtering.
-Format: YYYY-MM-DD.
-Example: <cite>“2023-12-31”</cite>.</p>
+<dt>end_date (Optional[Union[datetime.date, str]], default=None):</dt><dd><p>End date for event filtering. Defaults to <cite>None</cite>.
+Allowed values: A string in <cite>ISO 8601 format</cite> or <cite>datetime.date</cite> instance.
+Example: <cite>datetime.date(2023, 12, 31)</cite> or <cite>“2023-12-31”</cite>.</p>
 </dd>
-<dt>confidences (Optional[Union[List[EventConfidence], List[str]]]):</dt><dd><p>List of event confidence levels to filter statistics.
+<dt>confidences (Optional[Union[List[EventConfidence], List[str]]], default=None):</dt><dd><p>List of event confidence levels to filter statistics. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“2”, “3”, “4”]</cite>.
 Example: <cite>[“3”, “4”]</cite>.</p>
 </dd>
-<dt>encounter_types (Optional[Union[List[EventEncounterType], List[str]]]):</dt><dd><p>List of encounter types to filter statistics.
+<dt>encounter_types (Optional[Union[List[EventEncounterType], List[str]]], default=None):</dt><dd><p>List of encounter types to filter statistics. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“CARRIER-FISHING”, “FISHING-CARRIER”, “FISHING-SUPPORT”,
 “SUPPORT-FISHING”, “FISHING-BUNKER”, “BUNKER-FISHING”, “FISHING-FISHING”,
 “FISHING-TANKER”, “TANKER-FISHING”, “CARRIER-BUNKER”, “BUNKER-CARRIER”,
 “SUPPORT-BUNKER”, “BUNKER-SUPPORT”]</cite>.
 Example: <cite>[“CARRIER-FISHING”, “FISHING-CARRIER”]</cite>.</p>
 </dd>
-<dt>duration (Optional[int]):</dt><dd><p>Duration to filter statistics (in minutes).
+<dt>duration (Optional[int], default=None):</dt><dd><p>Duration to filter statistics (in minutes). Defaults to <cite>None</cite>.
 Example: <cite>60</cite>.</p>
 </dd>
-<dt>vessel_types (Optional[Union[List[EventVesselType], List[str]]]):</dt><dd><p>List of vessel types to filter statistics.
+<dt>vessel_types (Optional[Union[List[EventVesselType], List[str]]], default=None):</dt><dd><p>List of vessel types to filter statistics. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“BUNKER”, “CARGO”, “DISCREPANCY”, “CARRIER”, “FISHING”,
 “GEAR”, “OTHER”, “PASSENGER”, “SEISMIC_VESSEL”, “SUPPORT”]</cite>.
 Example: <cite>[“FISHING”, “CARGO”]</cite>.</p>
 </dd>
-<dt>vessel_groups (Optional[List[str]]):</dt><dd><p>List of vessel groups to filter statistics.
+<dt>vessel_groups (Optional[List[str]], default=None):</dt><dd><p>List of vessel groups to filter statistics. Defaults to <cite>None</cite>.
 Example: <cite>[“my-vessel-group”]</cite>.</p>
 </dd>
-<dt>flags (Optional[List[str]]):</dt><dd><p>List of vessel flags to filter statistics.
+<dt>flags (Optional[List[str]], default=None):</dt><dd><p>List of vessel flags to filter statistics. Defaults to <cite>None</cite>.
 Example: <cite>[“USA”, “CAN”]</cite>.</p>
 </dd>
-<dt>geometry (Optional[Union[EventGeometry, Dict[str, Any]]]):</dt><dd><p>Geometry to filter statistics.
+<dt>geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):</dt><dd><p>Geometry to filter statistics. Defaults to <cite>None</cite>.
 Example: <cite>{“type”: “Polygon”, “coordinates”: […]}</cite>.</p>
 </dd>
-<dt>region (Optional[Union[EventRegion, Dict[str, Any]]]):</dt><dd><p>Region to filter statistics.
+<dt>region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):</dt><dd><p>Region to filter statistics. Defaults to <cite>None</cite>.
 Example: <cite>{“dataset”: “public-eez-areas”, “id”: “5690”}</cite>.</p>
 </dd>
-<dt>gap_intentional_disabling (Optional[bool]):</dt><dd><p>Filter statistics based on intentional disabling of gap.</p>
+<dt>gap_intentional_disabling (Optional[bool], default=None):</dt><dd><p>Filter statistics based on intentional disabling of gap. Defaults to <cite>None</cite>.</p>
 </dd>
-<dt>includes (Optional[Union[List[EventStatsInclude], List[str]]]):</dt><dd><p>List of additional information to include in the statistics.
+<dt>includes (Optional[Union[List[EventStatsInclude], List[str]]], default=None):</dt><dd><p>List of additional information to include in the statistics. Defaults to <cite>None</cite>.
 Allowed values: <cite>[“TOTAL_COUNT”, “TIME_SERIES”]</cite>.
 Example: <cite>[“TOTAL_COUNT”, “TIME_SERIES”]</cite>.</p>
 </dd>

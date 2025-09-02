@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -445,6 +446,9 @@
 <h1>4Wings API<a class="headerlink" href="#wings-api" title="Link to this heading">¶</a></h1>
 <p><a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb" target="_parent"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <p>This guide provides detailed instructions on how to use the <a class="reference external" href="https://github.com/GlobalFishingWatch/gfw-api-python-client">gfw-api-python-client</a> to access the 4Wings API, which is designed for generating reports and statistics on activities within specified regions. This API is particularly useful for creating data visualizations related to fishing effort and other vessel activities. Here is a <a class="reference external" href="https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb">Jupyter Notebook</a> version of this guide with more usage examples.</p>
+<blockquote>
+<div><p><strong>Note:</strong> See the <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a> and <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a> pages in the <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#introduction">GFW API documentation</a> for details on GFW data, API licenses, and rate limits.</p>
+</div></blockquote>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -471,9 +475,241 @@
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">gfw_client.fourwings</span></code> object provides methods to generate reports, retrieve the last generated report, and get global fishing effort statistics. These methods return a <code class="docutils literal notranslate"><span class="pre">result</span></code> object, which offers convenient ways to access the data as Pydantic models using <code class="docutils literal notranslate"><span class="pre">.data()</span></code> or as pandas DataFrames using <code class="docutils literal notranslate"><span class="pre">.df()</span></code>.</p>
 </section>
+<section id="creating-a-fishing-effort-report-create-fishing-effort-report">
+<h2>Creating a Fishing Effort Report (<code class="docutils literal notranslate"><span class="pre">create_fishing_effort_report</span></code>)<a class="headerlink" href="#creating-a-fishing-effort-report-create-fishing-effort-report" title="Link to this heading">¶</a></h2>
+<p>Generates <strong>AIS (Automatic Identification System) apparent fishing effort</strong> reports to visualize fishing activity. <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort">Please check the data caveats here</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fishing_effort_report_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gfw_client</span><span class="o">.</span><span class="n">fourwings</span><span class="o">.</span><span class="n">create_fishing_effort_report</span><span class="p">(</span>
+    <span class="n">spatial_resolution</span><span class="o">=</span><span class="s2">&quot;LOW&quot;</span><span class="p">,</span>
+    <span class="n">temporal_resolution</span><span class="o">=</span><span class="s2">&quot;MONTHLY&quot;</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s2">&quot;GEARTYPE&quot;</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2022-05-01&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;public-eez-areas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5690&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="access-the-report-data-as-pydantic-models">
+<h3>Access the report data as Pydantic models<a class="headerlink" href="#access-the-report-data-as-pydantic-models" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fishing_effort_report_data</span> <span class="o">=</span> <span class="n">fishing_effort_report_result</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+
+<span class="n">fishing_effort_report_item</span> <span class="o">=</span> <span class="n">fishing_effort_report_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">((</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">gear_type</span><span class="p">,</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">vessel_ids</span><span class="p">,</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span>
+    <span class="n">fishing_effort_report_item</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;2022-04&#39;</span><span class="p">,</span> <span class="s1">&#39;fishing&#39;</span><span class="p">,</span> <span class="mf">2.705</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">155.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="access-the-report-data-as-a-dataframe">
+<h3>Access the report data as a DataFrame<a class="headerlink" href="#access-the-report-data-as-a-dataframe" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fishing_effort_report_df</span> <span class="o">=</span> <span class="n">fishing_effort_report_result</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">fishing_effort_report_df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fishing_effort_report_df</span><span class="p">[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;gear_type&quot;</span><span class="p">,</span> <span class="s2">&quot;hours&quot;</span><span class="p">,</span> <span class="s2">&quot;vessel_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 41916 entries, 0 to 41915
+Data columns (total 20 columns):
+ #   Column                   Non-Null Count  Dtype
+---  ------                   --------------  -----
+ 0   date                     41916 non-null  object
+ 1   detections               0 non-null      object
+ 2   flag                     0 non-null      object
+ 3   gear_type                41916 non-null  object
+ 4   hours                    41916 non-null  float64
+ 5   vessel_ids               41916 non-null  int64
+ 6   vessel_id                0 non-null      object
+ 7   vessel_type              0 non-null      object
+ 8   entry_timestamp          0 non-null      object
+ 9   exit_timestamp           0 non-null      object
+ 10  first_transmission_date  0 non-null      object
+ 11  last_transmission_date   0 non-null      object
+ 12  imo                      0 non-null      object
+ 13  mmsi                     0 non-null      object
+ 14  call_sign                0 non-null      object
+ 15  dataset                  0 non-null      object
+ 16  report_dataset           41916 non-null  object
+ 17  ship_name                0 non-null      object
+ 18  lat                      41916 non-null  float64
+ 19  lon                      41916 non-null  float64
+dtypes: float64(3), int64(1), object(16)
+memory usage: 6.4+ MB
+</pre></div>
+</div>
+</section>
+</section>
+<section id="creating-an-ais-presence-report-create-ais-presence-report">
+<h2>Creating an AIS Presence Report (<code class="docutils literal notranslate"><span class="pre">create_ais_presence_report</span></code>)<a class="headerlink" href="#creating-an-ais-presence-report-create-ais-presence-report" title="Link to this heading">¶</a></h2>
+<p>Generates <strong>AIS (Automatic Identification System) vessel presence</strong> reports to visualize movement patterns of any vessel type. <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats">Please check the data caveats here</a>.</p>
+<blockquote>
+<div><p><strong>Disclaimer:</strong> AIS vessel presence is one of the largest datasets available. To prevent timeouts and ensure optimal performance, keep requests manageable: prefer simple, small regions and shorter time ranges (e.g., a few days).</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ais_presence_report_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gfw_client</span><span class="o">.</span><span class="n">fourwings</span><span class="o">.</span><span class="n">create_ais_presence_report</span><span class="p">(</span>
+    <span class="n">spatial_resolution</span><span class="o">=</span><span class="s2">&quot;LOW&quot;</span><span class="p">,</span>
+    <span class="n">temporal_resolution</span><span class="o">=</span><span class="s2">&quot;MONTHLY&quot;</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s2">&quot;GEARTYPE&quot;</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2022-05-01&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;public-eez-areas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5690&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>Access the report data as Pydantic models<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ais_presence_report_data</span> <span class="o">=</span> <span class="n">ais_presence_report_result</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+
+<span class="n">ais_presence_report_item</span> <span class="o">=</span> <span class="n">ais_presence_report_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">((</span>
+    <span class="n">ais_presence_report_item</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+    <span class="n">ais_presence_report_item</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+    <span class="n">ais_presence_report_item</span><span class="o">.</span><span class="n">vessel_ids</span><span class="p">,</span>
+    <span class="n">ais_presence_report_item</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span>
+    <span class="n">ais_presence_report_item</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;2022-04&#39;</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">50.4</span><span class="p">,</span> <span class="mf">160.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Access the report data as a DataFrame<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ais_presence_report_df</span> <span class="o">=</span> <span class="n">ais_presence_report_result</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ais_presence_report_df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ais_presence_report_df</span><span class="p">[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;hours&quot;</span><span class="p">,</span> <span class="s2">&quot;vessel_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 144227 entries, 0 to 144226
+Data columns (total 20 columns):
+ #   Column                   Non-Null Count   Dtype
+---  ------                   --------------   -----
+ 0   date                     144227 non-null  object
+ 1   detections               0 non-null       object
+ 2   flag                     0 non-null       object
+ 3   gear_type                144227 non-null  object
+ 4   hours                    144227 non-null  float64
+ 5   vessel_ids               144227 non-null  int64
+ 6   vessel_id                0 non-null       object
+ 7   vessel_type              0 non-null       object
+ 8   entry_timestamp          0 non-null       object
+ 9   exit_timestamp           0 non-null       object
+ 10  first_transmission_date  0 non-null       object
+ 11  last_transmission_date   0 non-null       object
+ 12  imo                      0 non-null       object
+ 13  mmsi                     0 non-null       object
+ 14  call_sign                0 non-null       object
+ 15  dataset                  0 non-null       object
+ 16  report_dataset           144227 non-null  object
+ 17  ship_name                0 non-null       object
+ 18  lat                      144227 non-null  float64
+ 19  lon                      144227 non-null  float64
+dtypes: float64(3), int64(1), object(16)
+memory usage: 22.0+ MB
+</pre></div>
+</div>
+</section>
+</section>
+<section id="creating-a-sar-presence-report-create-sar-presence-report">
+<h2>Creating a SAR Presence Report (<code class="docutils literal notranslate"><span class="pre">create_sar_presence_report</span></code>)<a class="headerlink" href="#creating-a-sar-presence-report-create-sar-presence-report" title="Link to this heading">¶</a></h2>
+<p>Generates <strong>SAR (Synthetic-Aperture Radar) vessel detections</strong> reports to identify vessels detected via radar, including non-broadcasting (possible <code class="docutils literal notranslate"><span class="pre">&quot;dark&quot;</span></code>) vessels. <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats">Please check the data caveats here</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sar_presence_report_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gfw_client</span><span class="o">.</span><span class="n">fourwings</span><span class="o">.</span><span class="n">create_sar_presence_report</span><span class="p">(</span>
+    <span class="n">spatial_resolution</span><span class="o">=</span><span class="s2">&quot;LOW&quot;</span><span class="p">,</span>
+    <span class="n">temporal_resolution</span><span class="o">=</span><span class="s2">&quot;MONTHLY&quot;</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s2">&quot;GEARTYPE&quot;</span><span class="p">,</span>
+    <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span>
+    <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2022-05-01&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;public-eez-areas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;5690&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>Access the report data as Pydantic models<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sar_presence_report_data</span> <span class="o">=</span> <span class="n">sar_presence_report_result</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+
+<span class="n">sar_presence_report_item</span> <span class="o">=</span> <span class="n">sar_presence_report_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">((</span>
+    <span class="n">sar_presence_report_item</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+    <span class="n">sar_presence_report_item</span><span class="o">.</span><span class="n">detections</span><span class="p">,</span>
+    <span class="n">sar_presence_report_item</span><span class="o">.</span><span class="n">vessel_ids</span><span class="p">,</span>
+    <span class="n">sar_presence_report_item</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span>
+    <span class="n">sar_presence_report_item</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;2022-04&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">46.6</span><span class="p">,</span> <span class="mf">142.6</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Access the report data as a DataFrame<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sar_presence_report_df</span> <span class="o">=</span> <span class="n">sar_presence_report_result</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sar_presence_report_df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sar_presence_report_df</span><span class="p">[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;detections&quot;</span><span class="p">,</span> <span class="s2">&quot;vessel_ids&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 3300 entries, 0 to 3299
+Data columns (total 20 columns):
+ #   Column                   Non-Null Count  Dtype
+---  ------                   --------------  -----
+ 0   date                     3300 non-null   object
+ 1   detections               3300 non-null   int64
+ 2   flag                     0 non-null      object
+ 3   gear_type                3300 non-null   object
+ 4   hours                    0 non-null      object
+ 5   vessel_ids               3300 non-null   int64
+ 6   vessel_id                0 non-null      object
+ 7   vessel_type              0 non-null      object
+ 8   entry_timestamp          0 non-null      object
+ 9   exit_timestamp           0 non-null      object
+ 10  first_transmission_date  0 non-null      object
+ 11  last_transmission_date   0 non-null      object
+ 12  imo                      0 non-null      object
+ 13  mmsi                     0 non-null      object
+ 14  call_sign                0 non-null      object
+ 15  dataset                  0 non-null      object
+ 16  report_dataset           3300 non-null   object
+ 17  ship_name                0 non-null      object
+ 18  lat                      3300 non-null   float64
+ 19  lon                      3300 non-null   float64
+dtypes: float64(2), int64(2), object(16)
+memory usage: 515.8+ KB
+</pre></div>
+</div>
+</section>
+</section>
 <section id="creating-a-report-create-report">
 <h2>Creating a Report (<code class="docutils literal notranslate"><span class="pre">create_report</span></code>)<a class="headerlink" href="#creating-a-report-create-report" title="Link to this heading">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">create_report()</span></code> method allows you to generate a report for a specified geographic region, based on the provided datasets and parameters.</p>
+<p>Generates a report for any <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#supported-datasets">supported datasets</a>, using fully customizable parameters. <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Please check the data caveats here</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">gfw_client</span><span class="o">.</span><span class="n">fourwings</span><span class="o">.</span><span class="n">create_report</span><span class="p">(</span>
     <span class="n">spatial_resolution</span><span class="o">=</span><span class="s2">&quot;LOW&quot;</span><span class="p">,</span>
     <span class="n">temporal_resolution</span><span class="o">=</span><span class="s2">&quot;MONTHLY&quot;</span><span class="p">,</span>
@@ -488,38 +724,48 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-<section id="access-the-report-data-as-pydantic-models">
-<h3>Access the report data as Pydantic models<a class="headerlink" href="#access-the-report-data-as-pydantic-models" title="Link to this heading">¶</a></h3>
+<section id="id5">
+<h3>Access the report data as Pydantic models<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report_data</span> <span class="o">=</span> <span class="n">report_result</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
-<span class="n">report</span> <span class="o">=</span> <span class="n">report_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">((</span><span class="n">report</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">report</span><span class="o">.</span><span class="n">lon</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="o">.</span><span class="n">model_dump</span><span class="p">())</span>
+
+<span class="n">report_item</span> <span class="o">=</span> <span class="n">report_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">((</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">gear_type</span><span class="p">,</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">hours</span><span class="p">,</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">vessel_ids</span><span class="p">,</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span>
+    <span class="n">report_item</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span>
+<span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_item</span><span class="o">.</span><span class="n">model_dump</span><span class="p">())</span>
 </pre></div>
 </div>
 <p><strong>Output:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;2022-04&#39;</span><span class="p">,</span> <span class="mf">3.126388888888889</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">155.2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;2022-04&#39;</span><span class="p">,</span> <span class="s1">&#39;fishing&#39;</span><span class="p">,</span> <span class="mf">2.705</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">155.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="access-the-report-data-as-a-dataframe">
-<h3>Access the report data as a DataFrame<a class="headerlink" href="#access-the-report-data-as-a-dataframe" title="Link to this heading">¶</a></h3>
+<section id="id6">
+<h3>Access the report data as a DataFrame<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">report_df</span> <span class="o">=</span> <span class="n">report_result</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="n">report_df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">report_df</span><span class="p">[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;hours&quot;</span><span class="p">,</span> <span class="s2">&quot;lat&quot;</span><span class="p">,</span> <span class="s2">&quot;lon&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 39715 entries, 0 to 39714
+RangeIndex: 41916 entries, 0 to 41915
 Data columns (total 20 columns):
  #   Column                   Non-Null Count  Dtype
 ---  ------                   --------------  -----
- 0   date                     39715 non-null  object
+ 0   date                     41916 non-null  object
  1   detections               0 non-null      object
  2   flag                     0 non-null      object
- 3   gear_type                39715 non-null  object
- 4   hours                    39715 non-null  float64
- 5   vessel_ids               39715 non-null  int64
+ 3   gear_type                41916 non-null  object
+ 4   hours                    41916 non-null  float64
+ 5   vessel_ids               41916 non-null  int64
  6   vessel_id                0 non-null      object
  7   vessel_type              0 non-null      object
  8   entry_timestamp          0 non-null      object
@@ -530,12 +776,12 @@ Data columns (total 20 columns):
  13  mmsi                     0 non-null      object
  14  call_sign                0 non-null      object
  15  dataset                  0 non-null      object
- 16  report_dataset           39715 non-null  object
+ 16  report_dataset           41916 non-null  object
  17  ship_name                0 non-null      object
- 18  lat                      39715 non-null  float64
- 19  lon                      39715 non-null  float64
+ 18  lat                      41916 non-null  float64
+ 19  lon                      41916 non-null  float64
 dtypes: float64(3), int64(1), object(16)
-memory usage: 6.1+ MB
+memory usage: 6.4+ MB
 </pre></div>
 </div>
 </section>
@@ -615,9 +861,24 @@ memory usage: 6.1+ MB
 <li><a class="reference internal" href="#">4Wings API</a><ul>
 <li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
-<li><a class="reference internal" href="#creating-a-report-create-report">Creating a Report (<code class="docutils literal notranslate"><span class="pre">create_report</span></code>)</a><ul>
+<li><a class="reference internal" href="#creating-a-fishing-effort-report-create-fishing-effort-report">Creating a Fishing Effort Report (<code class="docutils literal notranslate"><span class="pre">create_fishing_effort_report</span></code>)</a><ul>
 <li><a class="reference internal" href="#access-the-report-data-as-pydantic-models">Access the report data as Pydantic models</a></li>
 <li><a class="reference internal" href="#access-the-report-data-as-a-dataframe">Access the report data as a DataFrame</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-an-ais-presence-report-create-ais-presence-report">Creating an AIS Presence Report (<code class="docutils literal notranslate"><span class="pre">create_ais_presence_report</span></code>)</a><ul>
+<li><a class="reference internal" href="#id1">Access the report data as Pydantic models</a></li>
+<li><a class="reference internal" href="#id2">Access the report data as a DataFrame</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-a-sar-presence-report-create-sar-presence-report">Creating a SAR Presence Report (<code class="docutils literal notranslate"><span class="pre">create_sar_presence_report</span></code>)</a><ul>
+<li><a class="reference internal" href="#id3">Access the report data as Pydantic models</a></li>
+<li><a class="reference internal" href="#id4">Access the report data as a DataFrame</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-a-report-create-report">Creating a Report (<code class="docutils literal notranslate"><span class="pre">create_report</span></code>)</a><ul>
+<li><a class="reference internal" href="#id5">Access the report data as Pydantic models</a></li>
+<li><a class="reference internal" href="#id6">Access the report data as a DataFrame</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#reference-data">Reference Data</a></li>

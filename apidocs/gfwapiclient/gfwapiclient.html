@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -447,17 +448,15 @@
 <p>This package provides a Python client for interacting with the Global Fishing Watch (GFW) API,
 specifically <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#version-3-api">version 3</a>.
 It enables access to publicly available API resources, and facilitating the retrieval of the data.</p>
-<dl class="simple">
-<dt>Features:</dt><dd><ul class="simple">
-<li><p><strong>4Wings</strong>: Enables fast visualization, navigation, and analysis of gridded spatiotemporal datasets.</p></li>
-<li><p><strong>Vessels</strong>: Provides vessel search and identification details.</p></li>
-<li><p><strong>Events</strong>: Allows exploration of various vessel activities.</p></li>
-<li><p><strong>Insights</strong>: Identifies vessel activities, identities, and public authorizations.</p></li>
-<li><p><strong>Datasets</strong>: Grants access to Synthetic-Aperture Radar (SAR) fixed infrastructure data.</p></li>
-<li><p><strong>References</strong>: Supplies supporting metadata and reference information.</p></li>
+<p>Features:</p>
+<ul class="simple">
+<li><p><strong>4Wings</strong>: Access AIS apparent fishing effort, AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.</p></li>
+<li><p><strong>Vessels</strong>: Search and retrieve vessel identity based on AIS self-reported data, combined with authorization and registry data from regional and national registries.</p></li>
+<li><p><strong>Events</strong>: Retrieve vessel activity events such as encounters, loitering, port visits, fishing events, and AIS off (aka GAPs).</p></li>
+<li><p><strong>Insights</strong>: Access vessel insights that combine AIS activity, vessel identity, and public authorizations. Designed to support risk-based decision-making, operational planning, and due diligence—particularly for assessing risks of IUU (Illegal, Unreported, or Unregulated) fishing.</p></li>
+<li><p><strong>Datasets</strong>: Retrieve fixed offshore infrastructure detections (e.g., oil platforms, wind farms) from Sentinel-1 and Sentinel-2 satellite imagery, from 2017 up to 3 months ago, classified using deep learning.</p></li>
+<li><p><strong>References</strong>: Access metadata for EEZs, MPAs, and RFMOs to use in <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#events-api">Events API</a> and <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api">Map Visualization (4Wings API)</a> requests and analyses.</p></li>
 </ul>
-</dd>
-</dl>
 <p>For comprehensive details, please refer to the official
 <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#version-3-api">Global Fishing Watch API Documentation</a>.</p>
 <section id="subpackages">

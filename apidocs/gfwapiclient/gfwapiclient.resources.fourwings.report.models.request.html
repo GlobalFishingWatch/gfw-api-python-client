@@ -398,6 +398,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/">Website</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/">Our APIs</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#data-caveat">Data Caveats</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use">Terms of Use</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.org/help-faqs/">FAQs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://globalfishingwatch.github.io/gfwr/">R package</a></li>
@@ -452,7 +453,7 @@
 <table class="autosummary longtable docutils align-left">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportFormat</span></code></a></p></td>
-<td><p>4Wings report format.</p></td>
+<td><p>4Wings report result format.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution" title="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FourWingsReportSpatialResolution</span></code></a></p></td>
 <td><p>4Wings report spatial resolution.</p></td>
@@ -535,7 +536,17 @@
 <dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportFormat</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportFormat" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
-<p>4Wings report format.</p>
+<p>4Wings report result format.</p>
+<p>For more details on the 4Wings API supported report result formats, please refer to
+the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests">https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>JSON (str):</dt><dd><p>JSON (JavaScript Object Notation) result format.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -550,7 +561,18 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportSpatialResolution</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportSpatialResolution" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report spatial resolution.</p>
-<p>Low means at 10th degree resolution and High means at 100th degree resolution.</p>
+<p>For more details on the 4Wings API supported report spatial resolutions, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests">https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>LOW (str):</dt><dd><p>Coarse resolution (~10th degree).</p>
+</dd>
+<dt>HIGH (str):</dt><dd><p>Fine resolution (~100th degree).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -570,6 +592,24 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportGroupBy</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportGroupBy" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report grouped by criteria.</p>
+<p>For more details on the 4Wings API supported report grouped by criteria, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests">https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>VESSEL_ID (str):</dt><dd><p>Group by vessel ID.</p>
+</dd>
+<dt>FLAG (str):</dt><dd><p>Group by vessel flag.</p>
+</dd>
+<dt>GEARTYPE (str):</dt><dd><p>Group by gear type.</p>
+</dd>
+<dt>FLAGANDGEARTYPE (str):</dt><dd><p>Group by both flag and gear type.</p>
+</dd>
+<dt>MMSI (str):</dt><dd><p>Group by MMSI (Maritime Mobile Service Identity).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -604,6 +644,24 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportTemporalResolution</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportTemporalResolution" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report temporal resolution.</p>
+<p>For more details on the 4Wings API supported report temporal resolutions, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests">https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>HOURLY (str):</dt><dd><p>Aggregate by hour.</p>
+</dd>
+<dt>DAILY (str):</dt><dd><p>Aggregate by day.</p>
+</dd>
+<dt>MONTHLY (str):</dt><dd><p>Aggregate by month.</p>
+</dd>
+<dt>YEARLY (str):</dt><dd><p>Aggregate by year.</p>
+</dd>
+<dt>ENTIRE (str):</dt><dd><p>Aggregate over the entire time period.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -638,6 +696,18 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportBufferOperation</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferOperation" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report buffer operation.</p>
+<p>For more details on the 4Wings API supported report buffer operations, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request">https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>DIFFERENCE (str):</dt><dd><p>Compute the difference between geometries.</p>
+</dd>
+<dt>DISSOLVE (str):</dt><dd><p>Merge geometries into a single shape.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -657,6 +727,24 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportBufferUnit</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBufferUnit" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report buffer value unit.</p>
+<p>For more details on the 4Wings API supported report buffer value units, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request">https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>MILES (str):</dt><dd><p>Miles.</p>
+</dd>
+<dt>NAUTICALMILES (str):</dt><dd><p>Nautical miles.</p>
+</dd>
+<dt>KILOMETERS (str):</dt><dd><p>Kilometers.</p>
+</dd>
+<dt>RADIANS (str):</dt><dd><p>Radians.</p>
+</dd>
+<dt>DEGREES (str):</dt><dd><p>Degrees.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -691,6 +779,24 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportDataset</span></span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>4Wings report dataset.</p>
+<p>For more details on the 4Wings API supported datasets, please refer to
+the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#supported-datasets">https://globalfishingwatch.org/our-apis/documentation#supported-datasets</a></p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#api-dataset">https://globalfishingwatch.org/our-apis/documentation#api-dataset</a></p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>FISHING_EFFORT_LATEST (str):</dt><dd><p>Latest global fishing effort dataset.
+See data caveats: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort">https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort</a></p>
+</dd>
+<dt>SAR_PRESENCE_LATEST (str):</dt><dd><p>Latest global SAR presence dataset.
+See data caveats: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats">https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats</a></p>
+</dd>
+<dt>PRESENCE_LATEST (str):</dt><dd><p>Latest global vessel presence dataset.
+See data caveats: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats">https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Initialization</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
@@ -703,6 +809,11 @@
 <span class="sig-name descname"><span class="pre">SAR_PRESENCE_LATEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'public-global-sar-presence:latest'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST">
+<span class="sig-name descname"><span class="pre">PRESENCE_LATEST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'public-global-presence:latest'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -710,12 +821,15 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsGeometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
 <p>4Wings report GeoJSON-like geometry input.</p>
-<p>Represents a GeoJSON-like geometry object used to filter the report data.</p>
+<p>Represents a GeoJSON-compatible area of interest used for filtering report data.</p>
+<p>For more details on the 4Wings API supported report geojson/geometries, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request">https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request</a></p>
 <dl class="simple">
 <dt>Attributes:</dt><dd><dl class="simple">
-<dt>type (str):</dt><dd><p>Geometry type (e.g., Polygon).</p>
+<dt>type (str):</dt><dd><p>The type of geometry (e.g., “Polygon”).</p>
 </dd>
-<dt>coordinates (Any):</dt><dd><p>Geometry coordinates.</p>
+<dt>coordinates (Any):</dt><dd><p>Geometry coordinates as a list or nested lists.</p>
 </dd>
 </dl>
 </dd>
@@ -742,18 +856,21 @@ validated to form a valid model.</p>
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gfwapiclient.resources.fourwings.report.models.request.</span></span><span class="sig-name descname"><span class="pre">FourWingsReportRegion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**data:</span> <span class="pre">typing.Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportRegion" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="gfwapiclient.base.models.html#gfwapiclient.base.models.BaseModel" title="gfwapiclient.base.models.BaseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.base.models.BaseModel</span></code></a></p>
 <p>4Wings report region of interest.</p>
-<p>Represents a region of interest used to filter the report data.</p>
+<p>Represents a predefined region of interest used for filtering report data.</p>
+<p>For more details on the 4Wings API supported report regions, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request">https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request</a></p>
 <dl class="simple">
 <dt>Attributes:</dt><dd><dl class="simple">
 <dt>dataset (Optional[str]):</dt><dd><p>Dataset containing the region.</p>
 </dd>
-<dt>id (Optional[str]):</dt><dd><p>Region ID.</p>
+<dt>id (Optional[str]):</dt><dd><p>Region identifier (ID).</p>
 </dd>
-<dt>buffer_operation (Optional[FourWingsReportBufferOperation]):</dt><dd><p>Buffer operation.</p>
+<dt>buffer_operation (Optional[FourWingsReportBufferOperation]):</dt><dd><p>Operation to apply on buffer geometry.</p>
 </dd>
-<dt>buffer_unit (Optional[FourWingsReportBufferUnit]):</dt><dd><p>Buffer unit.</p>
+<dt>buffer_unit (Optional[FourWingsReportBufferUnit]):</dt><dd><p>Unit used for buffer distance.</p>
 </dd>
-<dt>buffer_value (Optional[str]):</dt><dd><p>Buffer value.</p>
+<dt>buffer_value (Optional[str]):</dt><dd><p>Value for the buffer distance.</p>
 </dd>
 </dl>
 </dd>
@@ -796,21 +913,25 @@ validated to form a valid model.</p>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.RequestParams</span></code></p>
 <p>4Wings report request parameters.</p>
 <p>Represents the query parameters for the 4Wings report request.</p>
+<p>For more details on the 4Wings API supported report request parameters, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests">https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests</a></p>
 <dl class="simple">
 <dt>Attributes:</dt><dd><dl class="simple">
-<dt>spatial_resolution (Optional[FourWingsReportSpatialResolution]):</dt><dd><p>Spatial resolution.</p>
+<dt>spatial_resolution (Optional[FourWingsReportSpatialResolution]):</dt><dd><p>Spatial resolution of the report.</p>
 </dd>
 <dt>format (Optional[FourWingsReportFormat]):</dt><dd><p>Report result format.</p>
 </dd>
-<dt>group_by (Optional[FourWingsReportGroupBy]):</dt><dd><p>Grouped by criteria.</p>
+<dt>group_by (Optional[FourWingsReportGroupBy]):</dt><dd><p>Grouping criteria for the report.</p>
 </dd>
-<dt>temporal_resolution (Optional[FourWingsReportTemporalResolution]):</dt><dd><p>Temporal resolution.</p>
+<dt>temporal_resolution (Optional[FourWingsReportTemporalResolution]):</dt><dd><p>Temporal resolution of the report.</p>
 </dd>
 <dt>datasets (Optional[List[FourWingsReportDataset]]):</dt><dd><p>Datasets that will be used to create the report.</p>
 </dd>
-<dt>filters (Optional[List[str]]):</dt><dd><p>Filters are applied to the dataset.</p>
+<dt>filters (Optional[List[str]]):</dt><dd><p>Filters to apply to the report datasets.</p>
 </dd>
-<dt>date_range (Optional[str]):</dt><dd><p>Start date and end date to filter the data.</p>
+<dt>date_range (Optional[str]):</dt><dd><p>Start date and end date to filter the data as a comma-separated string
+in <cite>“YYYY-MM-DD,YYYY-MM-DD”</cite> format.</p>
 </dd>
 <dt>spatial_aggregation (Optional[bool]):</dt><dd><p>Whether to spatially aggregate the report.</p>
 </dd>
@@ -875,9 +996,16 @@ validated to form a valid model.</p>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">gfwapiclient.http.models.RequestBody</span></code></p>
 <p>4Wings report request body.</p>
 <p>Represents the request body for the 4Wings report request.</p>
+<p>For more details on the 4Wings API supported report request body, please
+refer to the official Global Fishing Watch API documentation:</p>
+<p>See: <a class="reference external" href="https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request">https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request</a></p>
 <dl class="simple">
-<dt>Attributes:</dt><dd><p>geojson (Optional[FourWingsGeometry]): Geometry to filter the data.
-region (Optional[FourWingsReportRegion]): Region information.</p>
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>geojson (Optional[FourWingsGeometry]):</dt><dd><p>Custom GeoJSON geometry to filter the report.</p>
+</dd>
+<dt>region (Optional[FourWingsReportRegion]):</dt><dd><p>Predefined region information to filter the report.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <p class="rubric">Initialization</p>
@@ -1006,6 +1134,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset</span></code></a><ul>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.FISHING_EFFORT_LATEST"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset.FISHING_EFFORT_LATEST</span></code></a></li>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.SAR_PRESENCE_LATEST"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset.SAR_PRESENCE_LATEST</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportDataset.PRESENCE_LATEST"><code class="docutils literal notranslate"><span class="pre">FourWingsReportDataset.PRESENCE_LATEST</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsGeometry"><code class="docutils literal notranslate"><span class="pre">FourWingsGeometry</span></code></a><ul>
