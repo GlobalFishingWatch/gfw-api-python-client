@@ -88,78 +88,77 @@ class EventResource(BaseResource):
                 "public-global-port-visits-events:latest"]`.
                 Example: `["public-global-fishing-events:latest", "public-global-encounters-events:latest"]`.
 
-            vessels (Optional[List[str]]):
-                List of vessel IDs to filter events.
+            vessels (Optional[List[str]], default=None):
+                List of vessel IDs to filter events. Defaults to `None`.
                 Example: `["55d38c0ee-e0d7-cb32-ac9c-8b3680d213b3"]`.
 
-            types (Optional[Union[List[EventType], List[str]]]):
-                List of event types to filter events.
+            types (Optional[Union[List[EventType], List[str]]], default=None):
+                List of event types to filter events. Defaults to `None`.
                 Allowed values: `["ENCOUNTER", "PORT_VISIT", "FISHING", "CARRIER_OPERATIONS", "LOITERING"]`.
                 Example: `["FISHING", "ENCOUNTER"]`.
 
-            start_date (Optional[Union[datetime.date, str]]):
-                Start date for event filtering.
-                Format: YYYY-MM-DD.
-                Example: `"2017-01-01"`.
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for event filtering. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2017, 1, 1)` or `"2017-01-01"`.
 
-            end_date (Optional[Union[datetime.date, str]]):
-                End date for event filtering.
-                Format: YYYY-MM-DD.
-                Example: `"2017-01-31"`.
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for event filtering. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2017, 1, 31)` or `"2017-01-31"`.
 
-            confidences (Optional[Union[List[EventConfidence], List[str]]]):
-                List of event confidence levels to filter events.
+            confidences (Optional[Union[List[EventConfidence], List[str]]], default=None):
+                List of event confidence levels to filter events. Defaults to `None`.
                 Allowed values: `["2", "3", "4"]`.
                 Example: `["3", "4"]`.
 
-            encounter_types (Optional[Union[List[EventEncounterType], List[str]]]):
-                List of encounter types to filter events.
+            encounter_types (Optional[Union[List[EventEncounterType], List[str]]], default=None):
+                List of encounter types to filter events. Defaults to `None`.
                 Allowed values: `["CARRIER-FISHING", "FISHING-CARRIER", "FISHING-SUPPORT",
                 "SUPPORT-FISHING", "FISHING-BUNKER", "BUNKER-FISHING", "FISHING-FISHING",
                 "FISHING-TANKER", "TANKER-FISHING", "CARRIER-BUNKER", "BUNKER-CARRIER",
                 "SUPPORT-BUNKER", "BUNKER-SUPPORT"]`.
                 Example: `["CARRIER-FISHING", "FISHING-CARRIER"]`.
 
-            duration (Optional[int]):
-                Duration to filter events (in minutes). Example: `60`.
+            duration (Optional[int], default=None):
+                Duration to filter events (in minutes). Defaults to `None`.
+                Example: `60`.
 
-            vessel_types (Optional[Union[List[EventVesselType], List[str]]]):
-                List of vessel types to filter events.
+            vessel_types (Optional[Union[List[EventVesselType], List[str]]], default=None):
+                List of vessel types to filter events. Defaults to `None`.
                 Allowed values: `["BUNKER", "CARGO", "DISCREPANCY", "CARRIER", "FISHING",
                 "GEAR", "OTHER", "PASSENGER", "SEISMIC_VESSEL", "SUPPORT"]`.
                 Example: `["FISHING", "CARGO"]`.
 
-            vessel_groups (Optional[List[str]]):
-                List of vessel groups to filter events.
+            vessel_groups (Optional[List[str]], default=None):
+                List of vessel groups to filter events. Defaults to `None`.
                 Example: `["my-vessel-group"]`.
 
-            flags (Optional[List[str]]):
-                List of vessel flags to filter events.
+            flags (Optional[List[str]], default=None):
+                List of vessel flags to filter events. Defaults to `None`.
                 Example: `["USA", "CAN"]`.
 
-            geometry (Optional[Union[EventGeometry, Dict[str, Any]]]):
-                Geometry to filter events.
+            geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):
+                Geometry to filter events. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
 
-            region (Optional[Union[EventRegion, Dict[str, Any]]]):
-                Region to filter events.
+            region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
+                Region to filter events. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
-            gap_intentional_disabling (Optional[bool]):
-                Filter events based on intentional disabling of gap.
+            gap_intentional_disabling (Optional[bool], default=None):
+                Filter events based on intentional disabling of gap. Defaults to `None`.
 
-            limit (Optional[int]):
-                Maximum number of events to return.
-                Default: `99999`.
+            limit (Optional[int], default=99999):
+                Maximum number of events to return. Defaults to `99999`.
                 Example: `100`.
 
-            offset (Optional[int]):
-                Number of events to skip before returning results.
-                Default: `0`.
+            offset (Optional[int], default=0):
+                Number of events to skip before returning results. Defaults to `0`.
                 Example: `100`.
 
-            sort (Optional[str]):
-                Property to sort the events by.
+            sort (Optional[str], default=None):
+                Property to sort the events by. Defaults to `None`.
                 Example: `"-start"`.
 
             **kwargs (Dict[str, Any]):
@@ -297,69 +296,69 @@ class EventResource(BaseResource):
                 Allowed values: `["HOUR", "DAY", "MONTH", "YEAR"]`.
                 Example: `"DAY"`.
 
-            vessels (Optional[List[str]]):
-                List of vessel IDs to filter statistics.
+            vessels (Optional[List[str]], default=None):
+                List of vessel IDs to filter statistics. Defaults to `None`.
                 Example: `["55d38c0ee-e0d7-cb32-ac9c-8b3680d213b3"]`.
 
-            types (Optional[Union[List[EventType], List[str]]]):
-                List of event types to filter statistics.
+            types (Optional[Union[List[EventType], List[str]]], default=None):
+                List of event types to filter statistics. Defaults to `None`.
                 Allowed values: `["ENCOUNTER", "PORT_VISIT", "FISHING", "CARRIER_OPERATIONS", "LOITERING"]`.
                 Example: `["FISHING", "ENCOUNTER"]`.
 
-            start_date (Optional[Union[datetime.date, str]]):
-                Start date for event filtering.
-                Format: YYYY-MM-DD.
-                Example: `"2023-01-31"`.
+            start_date (Optional[Union[datetime.date, str]], default=None):
+                Start date for event filtering. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2023, 1, 31)` or `"2023-01-31"`.
 
-            end_date (Optional[Union[datetime.date, str]]):
-                End date for event filtering.
-                Format: YYYY-MM-DD.
-                Example: `"2023-12-31"`.
+            end_date (Optional[Union[datetime.date, str]], default=None):
+                End date for event filtering. Defaults to `None`.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
+                Example: `datetime.date(2023, 12, 31)` or `"2023-12-31"`.
 
-            confidences (Optional[Union[List[EventConfidence], List[str]]]):
-                List of event confidence levels to filter statistics.
+            confidences (Optional[Union[List[EventConfidence], List[str]]], default=None):
+                List of event confidence levels to filter statistics. Defaults to `None`.
                 Allowed values: `["2", "3", "4"]`.
                 Example: `["3", "4"]`.
 
-            encounter_types (Optional[Union[List[EventEncounterType], List[str]]]):
-                List of encounter types to filter statistics.
+            encounter_types (Optional[Union[List[EventEncounterType], List[str]]], default=None):
+                List of encounter types to filter statistics. Defaults to `None`.
                 Allowed values: `["CARRIER-FISHING", "FISHING-CARRIER", "FISHING-SUPPORT",
                 "SUPPORT-FISHING", "FISHING-BUNKER", "BUNKER-FISHING", "FISHING-FISHING",
                 "FISHING-TANKER", "TANKER-FISHING", "CARRIER-BUNKER", "BUNKER-CARRIER",
                 "SUPPORT-BUNKER", "BUNKER-SUPPORT"]`.
                 Example: `["CARRIER-FISHING", "FISHING-CARRIER"]`.
 
-            duration (Optional[int]):
-                Duration to filter statistics (in minutes).
+            duration (Optional[int], default=None):
+                Duration to filter statistics (in minutes). Defaults to `None`.
                 Example: `60`.
 
-            vessel_types (Optional[Union[List[EventVesselType], List[str]]]):
-                List of vessel types to filter statistics.
+            vessel_types (Optional[Union[List[EventVesselType], List[str]]], default=None):
+                List of vessel types to filter statistics. Defaults to `None`.
                 Allowed values: `["BUNKER", "CARGO", "DISCREPANCY", "CARRIER", "FISHING",
                 "GEAR", "OTHER", "PASSENGER", "SEISMIC_VESSEL", "SUPPORT"]`.
                 Example: `["FISHING", "CARGO"]`.
 
-            vessel_groups (Optional[List[str]]):
-                List of vessel groups to filter statistics.
+            vessel_groups (Optional[List[str]], default=None):
+                List of vessel groups to filter statistics. Defaults to `None`.
                 Example: `["my-vessel-group"]`.
 
-            flags (Optional[List[str]]):
-                List of vessel flags to filter statistics.
+            flags (Optional[List[str]], default=None):
+                List of vessel flags to filter statistics. Defaults to `None`.
                 Example: `["USA", "CAN"]`.
 
-            geometry (Optional[Union[EventGeometry, Dict[str, Any]]]):
-                Geometry to filter statistics.
+            geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):
+                Geometry to filter statistics. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
 
-            region (Optional[Union[EventRegion, Dict[str, Any]]]):
-                Region to filter statistics.
+            region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
+                Region to filter statistics. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
-            gap_intentional_disabling (Optional[bool]):
-                Filter statistics based on intentional disabling of gap.
+            gap_intentional_disabling (Optional[bool], default=None):
+                Filter statistics based on intentional disabling of gap. Defaults to `None`.
 
-            includes (Optional[Union[List[EventStatsInclude], List[str]]]):
-                List of additional information to include in the statistics.
+            includes (Optional[Union[List[EventStatsInclude], List[str]]], default=None):
+                List of additional information to include in the statistics. Defaults to `None`.
                 Allowed values: `["TOTAL_COUNT", "TIME_SERIES"]`.
                 Example: `["TOTAL_COUNT", "TIME_SERIES"]`.
 

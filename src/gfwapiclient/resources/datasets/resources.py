@@ -42,20 +42,20 @@ class DatasetResource(BaseResource):
         used.
 
         Args:
-            z: (Optional[int]):
-                Zoom level (from 0 to 9 for SAR fixed infrastructure dataset).
+            z: (Optional[int], default=None):
+                Zoom level (from 0 to 9 for SAR fixed infrastructure dataset). Defaults to `None`.
                 Example: `1`.
 
-            x: (Optional[int]):
-                X index (lat) of the tile.
+            x: (Optional[int], default=None):
+                X index (lat) of the tile. Defaults to `None`.
                 Example: `0`.
 
-            y: (Optional[int]):
-                Y index (lon) of the tile.
+            y: (Optional[int], default=None):
+                Y index (lon) of the tile. Defaults to `None`.
                 Example: `1`.
 
-            geometry (Optional[Union[Geometry, Dict[str, Any]]]):
-                Geometry used to filter SAR fixed infrastructure.
+            geometry (Optional[Union[Geometry, Dict[str, Any]]], default=None):
+                Geometry used to filter SAR fixed infrastructure. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
 
             **kwargs (Dict[str, Any]):

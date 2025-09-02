@@ -6,12 +6,13 @@ authors:
     website: "https://globalfishingwatch.org/"
     email: "apis@globalfishingwatch.org"
 abstract: "Python package for accessing data from Global Fishing Watch APIs."
-version: "1.1.0"
+version: "1.2.0"
+doi: 10.5281/zenodo.15617433
 license: "Apache-2.0"
 license-url: "https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/LICENSE"
 repository-code: "https://github.com/GlobalFishingWatch/gfw-api-python-client"
 url: "https://github.com/GlobalFishingWatch/gfw-api-python-client"
-date-released: "2025-06-08"
+date-released: "2025-09-02"
 keywords:
   - "global fishing watch"
   - "gfw"
