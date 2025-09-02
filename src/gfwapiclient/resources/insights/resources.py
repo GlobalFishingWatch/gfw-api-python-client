@@ -45,22 +45,21 @@ class InsightResource(BaseResource):
             includes (Union[List[VesselInsightInclude], List[str]]):
                 List of insight types to include in the response.
                 Allowed values are `"FISHING"`, `"GAP"`, `"COVERAGE"`, `"IDENTITY"`.
-                Example: ["FISHING", "GAP"].
+                Example: `["FISHING", "GAP"]`.
 
             start_date (Union[datetime.date, str]):
                 The start date for the insights period.
-                Format: `"YYYY-MM-DD"` or `datetime.date` object.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
                 Example: "2020-01-01" or `datetime.date(2020, 1, 1)`.
 
             end_date (Union[datetime.date, str]):
                 The end date for the insights period.
-                Format: `"YYYY-MM-DD"` or `datetime.date` object.
+                Allowed values: A string in `ISO 8601 format` or `datetime.date` instance.
                 Example: `"2025-03-03"` or `datetime.date(2025, 3, 3)`.
 
             vessels (Union[List[VesselInsightDatasetVessel], List[Dict[str, Any]]]):
                 List of vessel identifiers to retrieve insights for.
-                Example: `[{"vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f",
-                          "dataset_id": "public-global-vessel-identity:latest",}]`.
+                Example: `[{"vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f", "dataset_id": "public-global-vessel-identity:latest",}]`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.

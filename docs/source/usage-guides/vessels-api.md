@@ -1,6 +1,10 @@
 # Vessels API
 
-This guide provides detailed instructions on how to use the  [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about vessels. The Vessels API allows you to search for vessels, retrieve lists of vessels by their IDs, and get detailed information for a specific vessel, drawing from various datasets like identity, authorizations, and ownership. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb) version of this guide with more usage examples.
+<a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about vessels. The Vessels API allows you to search for vessels, retrieve lists of vessels by their IDs, and get detailed information for a specific vessel, drawing from various datasets like identity, authorizations, and ownership. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb) version of this guide with more usage examples.
+
+> **Note:** See the [Vessel Data Caveats](https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
@@ -31,7 +35,6 @@ The `gfw_client.vessels` object provides methods to search for and retrieve vess
 ## Searching for Vessels (`search_vessels`)
 
 The `search_vessels()` method allows you to find vessels based on a query and various filters within specified datasets.
-
 
 ```python
 vessel_search_result = await gfw_client.vessels.search_vessels(
@@ -87,7 +90,6 @@ memory usage: 260.0+ bytes
 ## Getting a List of Vessels by IDs (`get_vessels_by_ids`)
 
 The `get_vessels_by_ids()` method retrieves information for a list of vessels given their GFW Vessel IDs.
-
 
 ```python
 vessels_result = await gfw_client.vessels.get_vessels_by_ids(
@@ -198,8 +200,8 @@ memory usage: 188.0+ bytes
 
 Explore the [Usage Guides](index) for other API resources to understand how you can combine vessel data with information about events, and more. Check out the following resources:
 
-  - [4Wings API](4wings-api)
-  - [Events API](events-api)
-  - [Insights API](insights-api)
-  - [Datasets API](datasets-api)
-  - [Reference Data API](references-data-api)
+- [4Wings API](4wings-api)
+- [Events API](events-api)
+- [Insights API](insights-api)
+- [Datasets API](datasets-api)
+- [Reference Data API](references-data-api)

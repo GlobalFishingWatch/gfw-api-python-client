@@ -54,14 +54,23 @@ async def test_fourwings_report_endpoint_request_success(
         http_client=mock_http_client,
     )
     result: FourWingsReportResult = await endpoint.request()
-    data = cast(List[FourWingsReportItem], result.data())
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
     assert isinstance(result, FourWingsReportResult)
     assert isinstance(data[0], FourWingsReportItem)
 
 
 @pytest.mark.asyncio
 @pytest.mark.respx
+@pytest.mark.parametrize(
+    "mock_invalid_response_body",
+    [
+        None,  # Not a dict
+        [],  # Not a dict
+        {},  # Missing 'entries'
+    ],
+)
 async def test_fourwings_report_endpoint_request_invalid_response_body_failure(
+    mock_invalid_response_body: Any,
     mock_http_client: HTTPClient,
     mock_raw_fourwings_report_request_params: Dict[str, Any],
     mock_raw_fourwings_report_request_body: Dict[str, Any],
@@ -69,9 +78,7 @@ async def test_fourwings_report_endpoint_request_invalid_response_body_failure(
     mock_responsex: respx.MockRouter,
 ) -> None:
     """Test `FourWingsReportEndPoint` request fails with invalid response body."""
-    mock_responsex.post("4wings/report").respond(
-        200, json=[mock_raw_fourwings_report_item]
-    )
+    mock_responsex.post("4wings/report").respond(200, json=mock_invalid_response_body)
     request_params: FourWingsReportParams = FourWingsReportParams(
         **mock_raw_fourwings_report_request_params
     )
@@ -85,6 +92,48 @@ async def test_fourwings_report_endpoint_request_invalid_response_body_failure(
     )
     with pytest.raises(ResultValidationError):
         await endpoint.request()
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+@pytest.mark.parametrize(
+    "mock_invalid_response_body",
+    [
+        {"entries": []},  # Empty entries list
+        {"entries": [{}, None]},  # Non-dict entries in the list
+        {
+            "entries": [{"public-global-vessel-identity:v3.0": None}]
+        },  # Dataset value is not a list
+        {
+            "entries": [{"public-global-vessel-identity:v3.0": [None]}]
+        },  # Dataset item is not a dict
+    ],
+)
+async def test_fourwings_report_endpoint_request_invalid_response_body_entries_ignores(
+    mock_invalid_response_body: Any,
+    mock_http_client: HTTPClient,
+    mock_raw_fourwings_report_request_params: Dict[str, Any],
+    mock_raw_fourwings_report_request_body: Dict[str, Any],
+    mock_raw_fourwings_report_item: Dict[str, Any],
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test `FourWingsReportEndPoint` request ignores invalid response body entries."""
+    mock_responsex.post("4wings/report").respond(200, json=mock_invalid_response_body)
+    request_params: FourWingsReportParams = FourWingsReportParams(
+        **mock_raw_fourwings_report_request_params
+    )
+    request_body: FourWingsReportBody = FourWingsReportBody(
+        **mock_raw_fourwings_report_request_body
+    )
+    endpoint: FourWingsReportEndPoint = FourWingsReportEndPoint(
+        request_params=request_params,
+        request_body=request_body,
+        http_client=mock_http_client,
+    )
+    result: FourWingsReportResult = await endpoint.request()
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) == 0
 
 
 @pytest.mark.asyncio

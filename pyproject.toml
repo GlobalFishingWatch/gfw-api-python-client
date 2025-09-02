@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # Project metadata.
 [project]
 name = "gfw-api-python-client"
-version = "1.1.0"
+version = "1.2.0"
 description = "Python package for accessing data from Global Fishing Watch APIs."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -104,9 +104,12 @@ dev = [
 
 # Build tools
 build = [
-  "build>=1.2.2",             # Python PEP 517 compliant build system
-  "setuptools>=78.1.0",       # Python packaging library
-  "twine>=6.1.0",             # For uploading Python packages to PyPI
+  "build>=1.2.2",                 # Python PEP 517 compliant build system
+  "check-wheel-contents>=0.6.3",  # Check wheels have the right contents
+  "pydistcheck>=0.10.0",          # Inspect Python package distributions for common problems
+  "pyroma>=5.0",                  # Test project's packaging friendliness
+  "setuptools>=78.1.0",           # Python packaging library
+  "twine>=6.1.0",                 # For uploading Python packages to PyPI
 ]
 
 # Documentation tools
@@ -114,7 +117,7 @@ docs = [
   "sphinx>=8.2.3",                  # Tool for generating documentation
   "furo>=2024.8.6",                 # Sphinx theme for beautiful documentation
   "myst-parser>=4.0.1",             # Writing documentation with Markdown in Sphinx
-  "myst-nb>=1.2.0",                 # Writing documentation with upyter Notebook in Sphinx
+  "myst-nb>=1.2.0",                 # Writing documentation with Jupyter Notebook in Sphinx
   "sphinx-copybutton>=0.5.2",       # Add a "copy" button to code blocks in Sphinx
   "sphinx-autobuild>=2024.10.3",    # Build, watch and serve documentation with live reload in the browser
   "sphinx-inline-tabs>=2023.4.21",  # Add inline tabbed content to documentation
@@ -234,7 +237,7 @@ exclude_lines = [
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.1.0"
+version = "1.2.0"
 version_files = [
     "pyproject.toml:version",
     "src/gfwapiclient/__version__.py",
@@ -249,7 +252,10 @@ changelog_file = "CHANGELOG.md"
 bump_message = "chore(release): bump to v$new_version"
 
 [tool.codespell]
-skip = '.git,env*,venv*,build*,tmp*'
+skip = ".git,env*,venv*,build*,tmp*"
+
+[tool.pydistcheck]
+inspect = false
 
 
 # Build system metadata.
@@ -261,3 +267,6 @@ where = ["src"]
 include = ["gfwapiclient", "gfwapiclient.*"]
 exclude = ["tests*"]
 namespaces = false
+
+[tool.setuptools.package-data]
+gfwapiclient = ["py.typed"]

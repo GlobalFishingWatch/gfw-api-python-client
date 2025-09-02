@@ -32,6 +32,24 @@ class FourWingsReportEndPoint(
 
     This endpoint is used to generate reports from the 4Wings API.
     It supports both query parameters and request bodies for flexible report generation.
+
+    For more details on the 4Wings Report API, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+
+    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+
+    For more details on the 4Wings data caveats, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+
+    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+
+    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
     """
 
     def __init__(
@@ -87,7 +105,7 @@ class FourWingsReportEndPoint(
             ResultValidationError:
                 If the response body does not match the expected format.
         """
-        # expected: {entries: [{"key": [{}]}]}
+        # Expected: {entries: [{"key": [{}]}]}
         if not isinstance(body, dict) or "entries" not in body:
             raise ResultValidationError(
                 message="Expected a list of entries, but got an empty list.",
@@ -95,21 +113,29 @@ class FourWingsReportEndPoint(
             )
 
         # Transforming and reshaping entries
-        report_entries: List[Dict[str, Any]] = body.get("entries", [])
+        report_entries: List[Dict[str, Any]] = body.get("entries", []) or []
         transformed_data: List[Dict[str, Any]] = []
 
         # Loop through "entries" list i.e {"entries": [{"dataset": [{...}]}]}
         for report_entry in report_entries:
-            # Loop through each dataset "entries" list i.e {"dataset": [{...}]}
-            for report_dataset, report_dataset_entries in report_entry.items():
-                # Extract actual report item data i.e [{...}]}
-                for report_dataset_entry in report_dataset_entries or []:
-                    # Reshape
-                    _report_dataset_entry = {
-                        "report_dataset": report_dataset,
-                        **report_dataset_entry,
-                    }
-                    # Append extracted report dataset entry dictionaries
-                    transformed_data.append(_report_dataset_entry)
+            # Process "report_entry", if not empty
+            if isinstance(report_entry, dict):
+                # Loop through each dataset "entries" list i.e {"dataset": [{...}]}
+                for report_dataset, report_dataset_entries in report_entry.items():
+                    # Process "report_dataset_entries", if not empty
+                    if isinstance(report_dataset, str) and isinstance(
+                        report_dataset_entries, list
+                    ):
+                        # Extract actual report item data i.e [{...}]}
+                        for report_dataset_entry in report_dataset_entries or []:
+                            # Process extracted report dataset entry dictionaries, if not empty
+                            if isinstance(report_dataset_entry, dict):
+                                # Reshape
+                                _report_dataset_entry = {
+                                    "report_dataset": report_dataset,
+                                    **report_dataset_entry,
+                                }
+                                # Append extracted report dataset entry dictionaries
+                                transformed_data.append(_report_dataset_entry)
 
         return transformed_data

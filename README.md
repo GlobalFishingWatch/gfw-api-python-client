@@ -1,11 +1,13 @@
 # Global Fishing Watch API Python Client
 
 <!-- start: badges -->
+
 [![ci](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client/branch/develop/graph/badge.svg?token=w4R4VZB5RY)](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client)
 [![pypi - version](https://img.shields.io/pypi/v/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![pypi - python versions](https://img.shields.io/pypi/pyversions/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![license](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15617433.svg)](https://doi.org/10.5281/zenodo.15617433)
 
 [![pre-commit action](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/pre-commit.yaml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
@@ -13,12 +15,13 @@
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![conventional commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+
 <!-- end: badges -->
 
 Python package for accessing data from Global Fishing Watch (GFW) APIs.
 
 > **Important:**
-The `gfw-api-python-client` version 1 directly corresponds to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation#version-3-api). As of April 30th, 2024, API version 3 is the standard. For the most recent API updates, refer to our [API release notes](https://globalfishingwatch.org/our-apis/documentation#api-release-notes).
+> The `gfw-api-python-client` version 1 directly corresponds to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation#version-3-api). As of April 30th, 2024, API version 3 is the standard. For the most recent API updates, refer to our [API release notes](https://globalfishingwatch.org/our-apis/documentation#api-release-notes).
 
 ## Introduction
 
@@ -26,15 +29,19 @@ The `gfw-api-python-client` simplifies access to Global Fishing Watch (GFW) data
 
 The Global Fishing Watch Python package currently works with the following APIs:
 
-- [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api): vessel search and identity based on AIS self reported data and public registry information
+- [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api): Access AIS apparent fishing effort, AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.
 
-- [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api): encounters, loitering, port visits, AIS-disabling events and fishing events based on AIS data
+- [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api): Search and retrieve vessel identity based on AIS self-reported data, combined with authorization and registry data from regional and national registries.
 
-- [Gridded fishing effort (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api): apparent fishing effort based on AIS data and SAR vessel detections.
+- [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api): Retrieve vessel activity events such as encounters, loitering, port visits, fishing events, and AIS off (aka GAPs).
 
-- [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api): The Insights API is a set of indicators or 'vessel insights' that bring together important information on a vessel's known activity (based on AIS), vessel identity information and public authorizations. The objective of the insights is to support risk-based decision-making, operational planning, and other due diligence activities by making it easier for a user to identify vessel characteristics that can indicate an increased potential or opportunity for a vessel to engage in IUU (Illegal, Unreported, or Unregulated) fishing.
+- [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api): Access vessel insights that combine AIS activity, vessel identity, and public authorizations. Designed to support risk-based decision-making, operational planning, and due diligence—particularly for assessing risks of IUU (Illegal, Unreported, or Unregulated) fishing.
 
-> **Note**: See the [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#reference-data) page for GFW APIs for information on our API licenses and rate limits.
+- [Datasets API](https://globalfishingwatch.org/our-apis/documentation#datasets-api): Retrieve fixed offshore infrastructure detections (e.g., oil platforms, wind farms) from Sentinel-1 and Sentinel-2 satellite imagery, from 2017 up to 3 months ago, classified using deep learning.
+
+- [References API](https://globalfishingwatch.org/our-apis/documentation#regions): Access metadata for EEZs, MPAs, and RFMOs to use in [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) and [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api) requests and analyses.
+
+> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Requirements
 

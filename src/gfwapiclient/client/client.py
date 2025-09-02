@@ -31,17 +31,19 @@ class Client:
     for accessing GFW's data.
 
     For more details on the GFW API and available data, please refer to the
-    official documentation:
+    official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#introduction
 
     See: https://globalfishingwatch.org/our-apis/documentation#data-available
 
+    See: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+
     Attributes:
         fourwings (FourWingsResource):
             Access to the 4Wings data API resources.
 
-         vessels (VesselResource):
+        vessels (VesselResource):
             Access to the Vessels data API resources.
 
         events (EventResource):
@@ -148,7 +150,7 @@ class Client:
         """4Wings data API resource.
 
         Provides access to the 4Wings API resources, which allow users to retrieve
-        reports on fishing activity and SAR vessel detections.
+        reports on AIS apparent fishing effort, AIS vessel presence and SAR vessel detections.
 
         For more details on the 4Wings API, please refer to the official
         Global Fishing Watch API documentation:

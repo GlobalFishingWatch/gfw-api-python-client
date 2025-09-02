@@ -1,6 +1,10 @@
 # Getting Started
 
+<a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/getting-started.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 This guide introduces you to the basics of using the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client). For detailed and alternative installation instructions, please refer to the [Installation](installation) section. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/getting-started.ipynb) version for this guide.
+
+> **Note:** See the [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Authorization
 
@@ -17,6 +21,14 @@ export GFW_API_ACCESS_TOKEN="<PASTE_YOUR_GFW_API_ACCESS_TOKEN_HERE>"
 ```powershell
 $env:GFW_API_ACCESS_TOKEN = "<PASTE_YOUR_GFW_API_ACCESS_TOKEN_HERE>"
 ```
+
+### Google Colaboratory
+
+1.  Click the **key icon** (🔑) in the left sidebar to open **Secrets**.
+2.  Add a new secret named `GFW_API_ACCESS_TOKEN`.
+3.  Paste your API access token as the **value** and enable **Notebook access**.
+
+![Google Colaboratory Authorization](_static/google-colaboratory-authorization.png)
 
 ## Installation
 
@@ -90,6 +102,7 @@ print(events_df.info())
 ```
 
 Output:
+
 ```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 3 entries, 0 to 2

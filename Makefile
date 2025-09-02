@@ -84,12 +84,21 @@ servedocs:
 notebooks:
 	PYTHONHASHSEED=42 python -m jupyterlab
 
-.PHONY: build  ## Build a source distribution and a wheel distribution
+.PHONY: build  ## Build source and wheel distributions
 build: all clean
 	python -m build
 
-.PHONY: publish  ## Publish the distribution to PyPI
-publish: build
+.PHONY: distcheck  ## Validate built distributions
+distcheck: build
+	gunzip -tv dist/*.tar.gz
+	zip -T dist/*.whl
+	pyroma --min=10 dist/*.tar.gz
+	python -m twine check dist/* --strict
+	check-wheel-contents dist/*.whl
+	pydistcheck dist/*
+
+.PHONY: publish  ## Publish the built distributions to PyPI
+publish: distcheck
 	python -m twine upload dist/* --verbose
 
 .PHONY: help  ## Display this message
