@@ -187,6 +187,7 @@ async def test_fourwings_create_report_generate_total_fishing_hours_per_grid_cel
         spatial_resolution="LOW",
         temporal_resolution="ENTIRE",
         spatial_aggregation=False,
+        distance_from_port_km=3,
         datasets=["public-global-fishing-effort:latest"],
         start_date="2022-01-01",
         end_date="2022-12-01",

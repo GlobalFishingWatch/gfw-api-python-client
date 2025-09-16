@@ -54,6 +54,7 @@ async def test_fourwings_resource_create_ais_presence_report(
 ) -> None:
     """Test `FourWingsResource` create AIS vessel presence report succeeds with valid response."""
     mock_raw_fourwings_report_standard_response(FourWingsReportDataset.PRESENCE_LATEST)
+    mock_raw_fourwings_report_standard_request_params.pop("distance_from_port_km", None)
 
     resource: FourWingsResource = FourWingsResource(http_client=mock_http_client)
     result: FourWingsReportResult = await resource.create_ais_presence_report(
@@ -77,6 +78,7 @@ async def test_fourwings_resource_create_sar_presence_report(
     mock_raw_fourwings_report_standard_response(
         FourWingsReportDataset.SAR_PRESENCE_LATEST
     )
+    mock_raw_fourwings_report_standard_request_params.pop("distance_from_port_km", None)
 
     resource: FourWingsResource = FourWingsResource(http_client=mock_http_client)
     result: FourWingsReportResult = await resource.create_sar_presence_report(
