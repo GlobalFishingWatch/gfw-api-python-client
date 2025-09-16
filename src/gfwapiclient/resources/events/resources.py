@@ -70,7 +70,6 @@ class EventResource(BaseResource):
         flags: Optional[List[str]] = None,
         geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
-        gap_intentional_disabling: Optional[bool] = None,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
         sort: Optional[str] = None,
@@ -146,9 +145,6 @@ class EventResource(BaseResource):
                 Region to filter events. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
-            gap_intentional_disabling (Optional[bool], default=None):
-                Filter events based on intentional disabling of gap. Defaults to `None`.
-
             limit (Optional[int], default=99999):
                 Maximum number of events to return. Defaults to `99999`.
                 Example: `100`.
@@ -198,7 +194,6 @@ class EventResource(BaseResource):
             flags=flags,
             geometry=geometry,
             region=region,
-            gap_intentional_disabling=gap_intentional_disabling,
         )
 
         endpoint: EventListEndPoint = EventListEndPoint(
@@ -277,7 +272,6 @@ class EventResource(BaseResource):
         flags: Optional[List[str]] = None,
         geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
-        gap_intentional_disabling: Optional[bool] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
         **kwargs: Dict[str, Any],
     ) -> EventStatsResult:
@@ -354,9 +348,6 @@ class EventResource(BaseResource):
                 Region to filter statistics. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
-            gap_intentional_disabling (Optional[bool], default=None):
-                Filter statistics based on intentional disabling of gap. Defaults to `None`.
-
             includes (Optional[Union[List[EventStatsInclude], List[str]]], default=None):
                 List of additional information to include in the statistics. Defaults to `None`.
                 Allowed values: `["TOTAL_COUNT", "TIME_SERIES"]`.
@@ -391,7 +382,6 @@ class EventResource(BaseResource):
             flags=flags,
             geometry=geometry,
             region=region,
-            gap_intentional_disabling=gap_intentional_disabling,
             includes=includes,
         )
 
@@ -442,7 +432,6 @@ class EventResource(BaseResource):
         flags: Optional[List[str]] = None,
         geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
-        gap_intentional_disabling: Optional[bool] = None,
     ) -> EventListBody:
         """Prepares and returns the request body for the get all events endpoint."""
         try:
@@ -460,7 +449,6 @@ class EventResource(BaseResource):
                 "flags": flags,
                 "geometry": geometry,
                 "region": region,
-                "gap_intentional_disabling": gap_intentional_disabling,
             }
             request_body: EventListBody = EventListBody(**_request_body)
         except pydantic.ValidationError as exc:
@@ -505,7 +493,6 @@ class EventResource(BaseResource):
         flags: Optional[List[str]] = None,
         geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
-        gap_intentional_disabling: Optional[bool] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
     ) -> EventStatsBody:
         """Prepares and returns the request body for the get events statistics endpoint."""
@@ -525,7 +512,6 @@ class EventResource(BaseResource):
                 "flags": flags,
                 "geometry": geometry,
                 "region": region,
-                "gap_intentional_disabling": gap_intentional_disabling,
                 "includes": includes,
             }
             request_body: EventStatsBody = EventStatsBody(**_request_body)

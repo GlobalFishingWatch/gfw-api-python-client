@@ -495,10 +495,3 @@ API
       :value: 'Field(...)'
 
       .. autodoc2-docstring:: gfwapiclient.resources.events.base.models.request.EventBaseBody.vessel_types
-
-   .. py:attribute:: gap_intentional_disabling
-      :canonical: gfwapiclient.resources.events.base.models.request.EventBaseBody.gap_intentional_disabling
-      :type: typing.Optional[bool]
-      :value: 'Field(...)'
-
-      .. autodoc2-docstring:: gfwapiclient.resources.events.base.models.request.EventBaseBody.gap_intentional_disabling

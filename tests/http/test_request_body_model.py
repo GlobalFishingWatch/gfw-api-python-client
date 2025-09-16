@@ -33,9 +33,6 @@ class SampleRequestBody(RequestBody):
     confidences: Optional[List[int]] = Field(None)
     geometry: Optional[SampleSubRequestBody] = Field(None)
     duration: Optional[int] = Field(None)
-    gap_intentional_disabling: Optional[bool] = Field(
-        None, serialization_alias="gapIntentionalDisabling"
-    )
     time_series_interval: Optional[SampleRequestBodyEnum] = Field(
         None, serialization_alias="timeseriesInterval"
     )
@@ -60,7 +57,6 @@ geometry: Final[Dict[str, Any]] = {
     ],
 }
 duration: Final[int] = 60
-gap_intentional_disabling: Final[bool] = True
 time_series_interval: Final[SampleRequestBodyEnum] = SampleRequestBodyEnum.YEAR
 
 
@@ -79,7 +75,6 @@ def test_request_body_all_fields_serialization() -> None:
         "confidences": confidences,
         "geometry": geometry,
         "duration": duration,
-        "gap_intentional_disabling": gap_intentional_disabling,
         "time_series_interval": time_series_interval,
     }
     expected = {
@@ -88,7 +83,6 @@ def test_request_body_all_fields_serialization() -> None:
         "confidences": confidences,
         "geometry": geometry,
         "duration": duration,
-        "gapIntentionalDisabling": gap_intentional_disabling,
         "timeseriesInterval": time_series_interval.value,
     }
 
@@ -123,7 +117,6 @@ def test_request_body_serialization_includes_none_values_when_explicitly_allowed
         "confidences": None,
         "geometry": None,
         "duration": None,
-        "gapIntentionalDisabling": None,
         "timeseriesInterval": None,
     }
 
