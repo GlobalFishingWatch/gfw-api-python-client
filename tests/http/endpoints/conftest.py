@@ -32,9 +32,6 @@ class MockRequestParams(RequestParams):
     start_date: Optional[datetime.date] = Field(None, serialization_alias="start-date")
     confidences: Optional[List[int]] = Field(None)
     limit: Optional[int] = Field(None)
-    gap_intentional_disabling: Optional[bool] = Field(
-        None, serialization_alias="gap-intentional-disabling"
-    )
     sort: Optional[MockRequestParamsEnum] = Field(None)
 
 
@@ -60,9 +57,6 @@ class MockRequestBody(RequestBody):
     confidences: Optional[List[int]] = Field(None)
     geometry: Optional[MockSubRequestBody] = Field(None)
     duration: Optional[int] = Field(None)
-    gap_intentional_disabling: Optional[bool] = Field(
-        None, serialization_alias="gapIntentionalDisabling"
-    )
     time_series_interval: Optional[MockRequestBodyEnum] = Field(
         None, serialization_alias="timeseriesInterval"
     )
@@ -113,7 +107,6 @@ fields: Final[List[str]] = ["FLAGS", "VESSEL-IDS", "ACTIVITY-HOURS"]
 start_date: Final[datetime.date] = datetime.date.fromisoformat("2022-05-01")
 confidences: Final[List[int]] = [3, 4]
 limit: Final[int] = 10
-gap_intentional_disabling: Final[bool] = True
 sort: Final[MockRequestParamsEnum] = MockRequestParamsEnum.START_ASC
 geometry: Final[Dict[str, Any]] = {
     "type": "Polygon",
@@ -160,7 +153,6 @@ def mock_request_params() -> MockRequestParams:
         "start_date": start_date,
         "confidences": confidences,
         "limit": limit,
-        "gap_intentional_disabling": gap_intentional_disabling,
         "sort": sort,
     }
     return MockRequestParams(**request_params)
@@ -180,7 +172,6 @@ def mock_request_body() -> MockRequestBody:
         "confidences": confidences,
         "geometry": MockSubRequestBody(**geometry),
         "duration": duration,
-        "gap_intentional_disabling": gap_intentional_disabling,
         "time_series_interval": time_series_interval,
     }
     return MockRequestBody(**request_body)

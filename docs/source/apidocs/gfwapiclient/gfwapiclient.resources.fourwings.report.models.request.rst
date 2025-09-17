@@ -460,6 +460,13 @@ API
 
       .. autodoc2-docstring:: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation
 
+   .. py:attribute:: distance_from_port_km
+      :canonical: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.distance_from_port_km
+      :type: typing.Optional[int]
+      :value: 'Field(...)'
+
+      .. autodoc2-docstring:: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.distance_from_port_km
+
 .. py:class:: FourWingsReportBody(/, **data: typing.Any)
    :canonical: gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody
 

@@ -28,9 +28,6 @@ class SampleRequestParams(RequestParams):
     start_date: Optional[datetime.date] = Field(None, serialization_alias="start-date")
     confidences: Optional[List[int]] = Field(None)
     limit: Optional[int] = Field(None)
-    gap_intentional_disabling: Optional[bool] = Field(
-        None, serialization_alias="gap-intentional-disabling"
-    )
     sort: Optional[SampleRequestParamsEnum] = Field(None)
 
 
@@ -42,7 +39,6 @@ fields: Final[List[str]] = ["FLAGS", "VESSEL-IDS", "ACTIVITY-HOURS"]
 start_date: Final[datetime.date] = datetime.date.fromisoformat("2022-05-01")
 confidences: Final[List[int]] = [3, 4]
 limit: Final[int] = 10
-gap_intentional_disabling: Final[bool] = True
 sort: Final[SampleRequestParamsEnum] = SampleRequestParamsEnum.START_ASC
 
 
@@ -109,7 +105,6 @@ def test_request_params_mixed_field_serialization() -> None:
         "start_date": start_date,
         "confidences": confidences,
         "limit": limit,
-        "gap_intentional_disabling": gap_intentional_disabling,
         "sort": sort,
     }
     expected = {
@@ -119,7 +114,6 @@ def test_request_params_mixed_field_serialization() -> None:
         "start-date": start_date.isoformat(),
         "confidences": confidences,
         "limit": limit,
-        "gap-intentional-disabling": gap_intentional_disabling,
         "sort": sort.value,
     }
 

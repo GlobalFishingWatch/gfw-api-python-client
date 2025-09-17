@@ -158,9 +158,6 @@ class EventBaseBody(RequestBody):
 
         vessel_types (Optional[List[EventVesselType]]):
             Vessel types to filter by.
-
-        gap_intentional_disabling (Optional[bool]):
-            Whether to retrieve AIS off events (gaps) that were potentially intentional.
     """
 
     datasets: List[EventDataset] = Field(...)
@@ -176,4 +173,3 @@ class EventBaseBody(RequestBody):
     geometry: Optional[EventGeometry] = Field(None)
     region: Optional[EventRegion] = Field(None)
     vessel_types: Optional[List[EventVesselType]] = Field(None)
-    gap_intentional_disabling: Optional[bool] = Field(None)

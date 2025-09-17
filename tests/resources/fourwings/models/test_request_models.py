@@ -38,4 +38,5 @@ def test_fourwings_report_request_params_serializes_all_fields(
     assert fourwings_report_request_params.filters is not None
     assert fourwings_report_request_params.date_range is not None
     assert fourwings_report_request_params.spatial_aggregation is not None
+    assert fourwings_report_request_params.distance_from_port_km is not None
     assert fourwings_report_request_params.to_query_params() is not None

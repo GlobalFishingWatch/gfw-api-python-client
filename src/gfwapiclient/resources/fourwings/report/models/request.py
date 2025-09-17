@@ -299,6 +299,12 @@ class FourWingsReportParams(RequestParams):
 
         spatial_aggregation (Optional[bool]):
             Whether to spatially aggregate the report.
+
+        distance_from_port_km (Optional[int]):
+            Minimum distance from ports and anchorages.
+            ENUM values: 0, 1, 2, 3, 4, 5 (kilometers).
+            Applies only to fishing effort dataset.
+            Defaults to `3` kilometers to reduce overestimation near ports.
     """
 
     indexed_fields: ClassVar[Optional[List[str]]] = ["datasets", "filters"]
@@ -319,6 +325,9 @@ class FourWingsReportParams(RequestParams):
     filters: Optional[List[str]] = Field(None, alias="filters")
     date_range: Optional[str] = Field(None, alias="date-range")
     spatial_aggregation: Optional[bool] = Field(None, alias="spatial-aggregation")
+    distance_from_port_km: Optional[int] = Field(
+        None, alias="distance_from_port_km", ge=0
+    )
 
 
 class FourWingsReportBody(RequestBody):
