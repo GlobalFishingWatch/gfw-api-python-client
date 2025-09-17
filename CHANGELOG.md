@@ -1,3 +1,13 @@
+## v1.3.0 (2025-09-17)
+
+### Feat
+
+- **fourwings**: add `distance_from_port_km` param to report requests
+
+### Refactor
+
+- **events**: remove `gap_intentional_disabling` parameter from requests and tests
+
 ## v1.2.0 (2025-09-02)
 
 ### Feat
