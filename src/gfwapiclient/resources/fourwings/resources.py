@@ -70,6 +70,7 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
+        distance_from_port_km: Optional[int] = None,
         geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
@@ -126,6 +127,12 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
+            distance_from_port_km (Optional[int], default=None):
+                Minimum distance from ports and anchorages. Defaults to `None`.
+                Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
+                Applies only to fishing effort dataset.
+                Example: `3`.
+
             geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
                 Custom GeoJSON geometry to filter the report. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
@@ -160,6 +167,7 @@ class FourWingsResource(BaseResource):
             start_date=start_date,
             end_date=end_date,
             spatial_aggregation=spatial_aggregation,
+            distance_from_port_km=distance_from_port_km,
             geojson=geojson,
             region=region,
             **kwargs,
@@ -276,6 +284,7 @@ class FourWingsResource(BaseResource):
             start_date=start_date,
             end_date=end_date,
             spatial_aggregation=spatial_aggregation,
+            distance_from_port_km=None,
             geojson=geojson,
             region=region,
             **kwargs,
@@ -384,6 +393,7 @@ class FourWingsResource(BaseResource):
             start_date=start_date,
             end_date=end_date,
             spatial_aggregation=spatial_aggregation,
+            distance_from_port_km=None,
             geojson=geojson,
             region=region,
             **kwargs,
@@ -405,6 +415,7 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
+        distance_from_port_km: Optional[int] = None,
         geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
@@ -479,6 +490,12 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
+            distance_from_port_km (Optional[int], default=None):
+                Minimum distance from ports and anchorages. Defaults to `None`.
+                Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
+                Applies only to fishing effort dataset.
+                Example: `3`.
+
             geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
                 Custom GeoJSON geometry to filter the report. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`.
@@ -514,6 +531,7 @@ class FourWingsResource(BaseResource):
                 start_date=start_date,
                 end_date=end_date,
                 spatial_aggregation=spatial_aggregation,
+                distance_from_port_km=distance_from_port_km,
             )
         )
         request_body: FourWingsReportBody = self._prepare_create_report_request_body(
@@ -565,6 +583,7 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
+        distance_from_port_km: Optional[int] = None,
     ) -> FourWingsReportParams:
         """Prepare request parameters for the 4Wings report endpoint."""
         date_range: Optional[str] = (
@@ -585,6 +604,7 @@ class FourWingsResource(BaseResource):
                 "datasets": datasets or [FourWingsReportDataset.FISHING_EFFORT_LATEST],
                 "filters": filters or None,
                 "spatial_aggregation": spatial_aggregation or None,
+                "distance_from_port_km": distance_from_port_km or None,
                 "date_range": date_range or None,
             }
             request_params: FourWingsReportParams = FourWingsReportParams(

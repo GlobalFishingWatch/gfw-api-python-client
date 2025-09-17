@@ -59,6 +59,5 @@
     ],
     "vessel_groups": ["my-vessel-group"],
     "flags": ["SEN"],
-    "duration": 30,
-    "gap_intentional_disabling": true
+    "duration": 30
 }

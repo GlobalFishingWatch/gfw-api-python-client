@@ -21,7 +21,6 @@ from .conftest import (
     datasets,
     duration,
     fields,
-    gap_intentional_disabling,
     geometry,
     limit,
     mock_raw_result_item,
@@ -156,7 +155,6 @@ def test_abstract_base_endpoint_prepare_request_query_params(
         "start-date": start_date.isoformat(),
         "confidences": str(confidences[0]),
         "limit": str(limit),
-        "gap-intentional-disabling": str(gap_intentional_disabling).lower(),
         "sort": sort.value,
     }
 
@@ -205,7 +203,6 @@ def test_abstract_base_endpoint_prepare_request_json_body(
         "confidences": confidences,
         "geometry": geometry,
         "duration": duration,
-        "gapIntentionalDisabling": gap_intentional_disabling,
         "timeseriesInterval": time_series_interval.value,
     }
 

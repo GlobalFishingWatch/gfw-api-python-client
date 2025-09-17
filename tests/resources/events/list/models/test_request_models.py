@@ -41,5 +41,4 @@ def test_event_list_request_body_serializes_all_fields(
     assert event_list_request_body.vessel_groups is not None
     assert event_list_request_body.flags is not None
     assert event_list_request_body.duration is not None
-    assert event_list_request_body.gap_intentional_disabling is not None
     assert event_list_request_body.to_json_body() is not None

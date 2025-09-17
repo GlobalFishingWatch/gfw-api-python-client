@@ -13,5 +13,6 @@
     "group_by": "VESSEL_ID",
     "spatial_aggregation": true,
     "spatial_resolution": "LOW",
-    "temporal_resolution": "HOURLY"
+    "temporal_resolution": "HOURLY",
+    "distance_from_port_km": 3
 }
