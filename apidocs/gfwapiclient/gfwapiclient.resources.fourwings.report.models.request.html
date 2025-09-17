@@ -935,6 +935,11 @@ in <cite>“YYYY-MM-DD,YYYY-MM-DD”</cite> format.</p>
 </dd>
 <dt>spatial_aggregation (Optional[bool]):</dt><dd><p>Whether to spatially aggregate the report.</p>
 </dd>
+<dt>distance_from_port_km (Optional[int]):</dt><dd><p>Minimum distance from ports and anchorages.
+ENUM values: 0, 1, 2, 3, 4, 5 (kilometers).
+Applies only to fishing effort dataset.
+Defaults to <cite>3</cite> kilometers to reduce overestimation near ports.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -986,6 +991,11 @@ validated to form a valid model.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation">
 <span class="sig-name descname"><span class="pre">spatial_aggregation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.distance_from_port_km">
+<span class="sig-name descname"><span class="pre">distance_from_port_km</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.13)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Field(...)'</span></em><a class="headerlink" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.distance_from_port_km" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1160,6 +1170,7 @@ validated to form a valid model.</p>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.filters"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.filters</span></code></a></li>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.date_range"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.date_range</span></code></a></li>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.spatial_aggregation"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.spatial_aggregation</span></code></a></li>
+<li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportParams.distance_from_port_km"><code class="docutils literal notranslate"><span class="pre">FourWingsReportParams.distance_from_port_km</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#gfwapiclient.resources.fourwings.report.models.request.FourWingsReportBody"><code class="docutils literal notranslate"><span class="pre">FourWingsReportBody</span></code></a><ul>
