@@ -1,3 +1,19 @@
+## v1.4.0 (2026-01-13)
+
+### Feat
+
+- **bulk-downloads**: implement bulk report query API endpoints and models
+- **bulk-downloads**: implement bulk report API endpoints
+- **bulk-downloads**: implement bulk report file API endpoints and models
+- **bulk-downloads**: implement bulk report list API endpoints and models
+- **bulk-downloads**: implement bulk report detail API endpoints and models
+- **bulk-downloads**: implement bulk report create API endpoints and models
+- **bulk-downloads**: add base request and response models for Bulk Download API
+
+### Fix
+
+- **bulk-downloads**: correct typehints in docstrings
+
 ## v1.3.0 (2025-09-17)
 
 ### Feat

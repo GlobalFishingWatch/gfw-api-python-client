@@ -94,6 +94,13 @@ API
 
       .. autodoc2-docstring:: gfwapiclient.client.client.Client._datasets
 
+   .. py:attribute:: _bulk_downloads
+      :canonical: gfwapiclient.client.client.Client._bulk_downloads
+      :type: gfwapiclient.resources.BulkDownloadResource
+      :value: None
+
+      .. autodoc2-docstring:: gfwapiclient.client.client.Client._bulk_downloads
+
    .. py:attribute:: _references
       :canonical: gfwapiclient.client.client.Client._references
       :type: gfwapiclient.resources.ReferenceResource
@@ -130,6 +137,12 @@ API
       :type: gfwapiclient.resources.DatasetResource
 
       .. autodoc2-docstring:: gfwapiclient.client.client.Client.datasets
+
+   .. py:property:: bulk_downloads
+      :canonical: gfwapiclient.client.client.Client.bulk_downloads
+      :type: gfwapiclient.resources.BulkDownloadResource
+
+      .. autodoc2-docstring:: gfwapiclient.client.client.Client.bulk_downloads
 
    .. py:property:: references
       :canonical: gfwapiclient.client.client.Client.references

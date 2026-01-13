@@ -127,7 +127,7 @@ print(gfw.__version__)
 If the installation was successful, you should see the installed version number, for example:
 
 ```
-3.0.0
+1.4.0
 ```
 
 You can also try a basic import to ensure the package is accessible:

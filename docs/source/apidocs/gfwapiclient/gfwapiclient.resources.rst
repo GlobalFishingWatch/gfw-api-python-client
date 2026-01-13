@@ -16,6 +16,7 @@ Subpackages
    gfwapiclient.resources.insights
    gfwapiclient.resources.vessels
    gfwapiclient.resources.references
+   gfwapiclient.resources.bulk_downloads
    gfwapiclient.resources.datasets
    gfwapiclient.resources.events
    gfwapiclient.resources.fourwings
@@ -39,6 +40,6 @@ API
 
 .. py:data:: __all__
    :canonical: gfwapiclient.resources.__all__
-   :value: ['DatasetResource', 'EventResource', 'FourWingsResource', 'InsightResource', 'ReferenceResource', 'V...
+   :value: ['BulkDownloadResource', 'DatasetResource', 'EventResource', 'FourWingsResource', 'InsightResource',...
 
    .. autodoc2-docstring:: gfwapiclient.resources.__all__
