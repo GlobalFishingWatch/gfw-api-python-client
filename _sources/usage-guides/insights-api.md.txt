@@ -2,13 +2,13 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the Insights API focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Insights Data Caveats](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas)—it is critical to avoid misinterpreting the insights. You can find the [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction), for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Insights Data Caveats](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas)—it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
-- You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
+- Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).
 
 - You will need a valid `Vessel ID` to retrieve insights for a specific vessel. You can obtain these IDs using the [Vessels API](vessels-api).
 
@@ -31,6 +31,10 @@ gfw_client = gfw.Client(
     access_token=access_token,
 )
 ```
+
+The `gfw_client.insights` object provides methods for retrieving insights data for specified vessels. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
+
+> **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
 ## Getting Insights by Vessel (`get_vessel_insights`)
 
@@ -98,10 +102,11 @@ memory usage: 180.0+ bytes
 
 ## Next Steps
 
-Explore the [Usage Guides](index) for other API resources to understand how you can combine vessel insights with event data, vessel details, and more. Check out the following resources:
+Explore the [Usage Guides](index) and [Workflow Guides](../workflow-guides/index) for other API resources to understand how you can combine vessel insights with event data, vessel details, and more. Check out the following resources:
 
+- [4Wings API](4wings-api)
 - [Vessels API](vessels-api)
 - [Events API](events-api)
-- [4Wings API](4wings-api)
 - [Datasets API](datasets-api)
+- [Bulk Download API](bulk-downloads-api)
 - [Reference Data API](references-data-api)

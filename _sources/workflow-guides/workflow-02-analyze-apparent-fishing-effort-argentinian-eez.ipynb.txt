@@ -1,0 +1,2182 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "1b582ffc-7477-46c3-b5bf-2caf9d028bf2",
+   "metadata": {},
+   "source": [
+    "<a href=\"https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/workflow-guides/workflow-02-analyze-apparent-fishing-effort-argentinian-eez.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "87eddf13-ac9c-45b0-ae10-24eb1620e07e",
+   "metadata": {},
+   "source": [
+    "# Analyze apparent fishing effort in Argentinian EEZ"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d79f0ab4-ab4d-4098-82b0-b6a5c772e101",
+   "metadata": {},
+   "source": [
+    "This guide provides detailed instructions to on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to **Analyze apparent fishing effort in [Argentinian EEZ](https://www.marineregions.org/gazetteer.php?p=details&id=8466) region and monitor industrial trawlers** using **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)**, **[Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api)**, and **[Events API](https://globalfishingwatch.org/our-apis/documentation#events-api)**."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7ac25ecf-ffd7-40d7-9ea0-a6514c9fcd85",
+   "metadata": {},
+   "source": [
+    "**Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "71018cec-10c0-4619-9a7d-838a9f43cb15",
+   "metadata": {},
+   "source": [
+    "## Prerequisites"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "996ca24b-99e4-4546-805b-697e4c2eb321",
+   "metadata": {},
+   "source": [
+    "Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](https://globalfishingwatch.github.io/gfw-api-python-client/getting-started.html) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6be16f6f-19fc-4d19-a0ed-ba370c844fa6",
+   "metadata": {},
+   "source": [
+    "## Installation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "af48cf4e-e24c-47aa-a2c5-64cf87be9c33",
+   "metadata": {},
+   "source": [
+    "The `gfw-api-python-client` can be easily installed using pip:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "88c09924-87d2-4c86-ad60-aed623416193",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# %pip install gfw-api-python-client"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "eafaa9d1-2143-452c-813c-75b21fd2198c",
+   "metadata": {},
+   "source": [
+    "## Usage"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "420afe1c-ff77-40e2-9a07-7372dc95170c",
+   "metadata": {},
+   "source": [
+    "Import and use `gfw-api-python-client` in your Python codes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "cc98323c-c9e4-401c-8f26-f551968c003a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "\n",
+    "import pandas as pd\n",
+    "\n",
+    "import gfwapiclient as gfw"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "047ff069-3c87-47fe-bb4a-acb920df2137",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "try:\n",
+    "    from google.colab import userdata\n",
+    "\n",
+    "    access_token = userdata.get(\"GFW_API_ACCESS_TOKEN\")\n",
+    "except Exception:\n",
+    "    access_token = os.environ.get(\"GFW_API_ACCESS_TOKEN\")\n",
+    "\n",
+    "access_token = access_token or \"<PASTE_YOUR_GFW_API_ACCESS_TOKEN_HERE>\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "708e137f-6aa0-461e-b1af-33512a2093fc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gfw_client = gfw.Client(\n",
+    "    access_token=access_token,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b08a0e2c-3b9d-4c5e-b3a0-a5663fa32637",
+   "metadata": {},
+   "source": [
+    "## Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "62fe47aa-ed77-4815-b08d-8c96f2480b04",
+   "metadata": {},
+   "source": [
+    "**Use Case: A Fisheries Enforcement Officer Monitoring Industrial Trawlers**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5109f67f-aaae-4a7d-9a15-4db740542694",
+   "metadata": {},
+   "source": [
+    "Maria, a fisheries enforcement officer in Argentina, monitors industrial trawlers operating within **[Argentinian Exclusive Economic Zone (EEZ)](https://www.marineregions.org/gazetteer.php?p=details&id=8466)**. His goal is to:\n",
+    "\n",
+    "1. Analyzing apparent fishing effort for **trawlers** operating in Argentinian EEZ.\n",
+    "2. Identifying vessels involved in **apparent trawling activity** and determining their reported **flag states**.\n",
+    "3. Checking vessel history, including **potential transshipment** and **port visits**.\n",
+    "4. Generating reports to support fisheries enforcement decisions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b16b1b52-6b68-494a-9d76-ca7a7ab485a0",
+   "metadata": {},
+   "source": [
+    "**APIs Used:**\n",
+    "️\n",
+    "1. **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)** – Retrieve **apparent fishing effort** data for trawlers.\n",
+    "2. **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)** – Group vessels by ID that are involved in **trawling activity**.\n",
+    "3. **[Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api)** – Retrieve **vessel identity** & **ownership** details.\n",
+    "4. **[Events API](https://globalfishingwatch.org/our-apis/documentation#events-api)** – Fetch **port visits** & **potential transshipment** history. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c93924be-f36e-4f6c-830f-4d06c03d08f7",
+   "metadata": {},
+   "source": [
+    "**Important:** In order to avoid any misinterpretation of **GFW data**, please refer to our official **data caveats** documentations:\n",
+    "- [Apparent fishing effort](https://globalfishingwatch.org/dataset-and-code-fishing-effort/) \n",
+    "- [Exclusive economic zone boundaries definition](https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definition)\n",
+    "- [Vessel ID](https://globalfishingwatch.org/our-apis/documentation#vessel-id)\n",
+    "- [Vessel API - Vessel identity information](https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "01169672-36d5-4b2b-969d-471070d75f8c",
+   "metadata": {},
+   "source": [
+    "**Important Caveats:**\n",
+    "\n",
+    "1. The [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api) only supports **one active report per user at a time**.\n",
+    "2. **Sending multiple requests simultaneously** results in a **429 Too Many Requests** error.\n",
+    "3. If a report takes over **100 seconds** to generate, it may return a **524 Gateway Timeout** error."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2c1e1858-c328-4719-8f10-40ae5b43ecb0",
+   "metadata": {},
+   "source": [
+    "## Step 0: Identify the Region of Interest (ROI) - Argentinian EEZ"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "88789a27-1e15-44af-ba81-7d07ded02e4b",
+   "metadata": {},
+   "source": [
+    "Before making API requests, Maria must specify the geographic area for analysis using a **Region ID**:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "75a985b1-3803-48d9-b2f3-f12b29bd29e7",
+   "metadata": {},
+   "source": [
+    "**Options to Define the Region:**\n",
+    "\n",
+    "1. **Using Region ID** - Each EEZ has a unique ID in the **[public-eez-areas](https://globalfishingwatch.org/our-apis/documentation#regions)** dataset.\n",
+    "2. **Custom Geometries** - Users can define a custom area using GeoJSON.\n",
+    "   \n",
+    "For **[Argentinian EEZ, the region ID is 8466](https://www.marineregions.org/gazetteer.php?p=details&id=8466)** (public-eez-areas dataset)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "35a0691d-b747-48e6-8b02-5c2f54a5d536",
+   "metadata": {},
+   "source": [
+    "## Step 1: Retrieve Apparent Fishing Effort in Argentinian EEZ"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d57cd039-a667-44f7-b785-8d0e50530333",
+   "metadata": {},
+   "source": [
+    "Maria **first queries** the **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)** to get **apparent fishing effort for all vessels**, grouping them by **gear type** in **[Argentinian EEZ](https://www.marineregions.org/gazetteer.php?p=details&id=8466)**. Please [learn more about apparent fishing effort here](https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6229af14-613a-4809-96f5-9cb3d6bd3461",
+   "metadata": {},
+   "source": [
+    "**Filters Used:**\n",
+    "\n",
+    "1. **[Region ID](https://globalfishingwatch.org/our-apis/documentation#regions)** - 8466 Argentinian EEZ\n",
+    "2. **[Date Range](https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests)** - Last 6 Months\n",
+    "3. **[Grouped By](https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests)** - Gear Type"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b945aa10-40c3-490a-84e7-89092badd783",
+   "metadata": {},
+   "source": [
+    "**Why This Step?**\n",
+    "\n",
+    "- Identifies which gear types (e.g., `trawlers`, `squid jiggers` etc.) are most active in the Argentinian EEZ.\n",
+    "- Establishes baseline fishing activity trends before narrowing the search to specific vessels."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "62b9b9e5-4170-40d0-9aef-7579beb89bc0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_1_report_result = await gfw_client.fourwings.create_fishing_effort_report(\n",
+    "    spatial_resolution=\"HIGH\",\n",
+    "    group_by=\"GEARTYPE\",\n",
+    "    temporal_resolution=\"MONTHLY\",\n",
+    "    start_date=\"2024-08-01\",\n",
+    "    end_date=\"2025-01-31\",\n",
+    "    spatial_aggregation=True,\n",
+    "    region={\n",
+    "        \"dataset\": \"public-eez-areas\",\n",
+    "        \"id\": \"8466\",\n",
+    "    },\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "4d6190fc-a8fa-4d59-914e-ebae41943381",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_1_report_df = step_1_report_result.df()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "d98ca51f-bb46-4edc-9a61-3e26c56bbcc8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 40 entries, 0 to 39\n",
+      "Data columns (total 20 columns):\n",
+      " #   Column                   Non-Null Count  Dtype  \n",
+      "---  ------                   --------------  -----  \n",
+      " 0   date                     40 non-null     object \n",
+      " 1   detections               0 non-null      object \n",
+      " 2   flag                     0 non-null      object \n",
+      " 3   gear_type                40 non-null     object \n",
+      " 4   hours                    40 non-null     float64\n",
+      " 5   vessel_ids               40 non-null     int64  \n",
+      " 6   vessel_id                0 non-null      object \n",
+      " 7   vessel_type              0 non-null      object \n",
+      " 8   entry_timestamp          0 non-null      object \n",
+      " 9   exit_timestamp           0 non-null      object \n",
+      " 10  first_transmission_date  0 non-null      object \n",
+      " 11  last_transmission_date   0 non-null      object \n",
+      " 12  imo                      0 non-null      object \n",
+      " 13  mmsi                     0 non-null      object \n",
+      " 14  call_sign                0 non-null      object \n",
+      " 15  dataset                  0 non-null      object \n",
+      " 16  report_dataset           40 non-null     object \n",
+      " 17  ship_name                0 non-null      object \n",
+      " 18  lat                      0 non-null      object \n",
+      " 19  lon                      0 non-null      object \n",
+      "dtypes: float64(1), int64(1), object(18)\n",
+      "memory usage: 6.4+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_1_report_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "ce844c77-6cf0-4648-bdfb-3a72589c0785",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>gear_type</th>\n",
+       "      <th>hours</th>\n",
+       "      <th>vessel_ids</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>pots_and_traps</td>\n",
+       "      <td>92.029722</td>\n",
+       "      <td>3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>inconclusive</td>\n",
+       "      <td>215.623889</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>inconclusive</td>\n",
+       "      <td>98.155833</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>set_longlines</td>\n",
+       "      <td>17.925833</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>other_purse_seines</td>\n",
+       "      <td>57.377500</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            gear_type       hours  vessel_ids\n",
+       "0      pots_and_traps   92.029722           3\n",
+       "1        inconclusive  215.623889           2\n",
+       "2        inconclusive   98.155833           2\n",
+       "3       set_longlines   17.925833           1\n",
+       "4  other_purse_seines   57.377500           1"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_1_report_df[[\"gear_type\", \"hours\", \"vessel_ids\"]].head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "45319c2a-e82e-4a9a-8a2d-2ea6d9cdada4",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_1_agg_report_df = (\n",
+    "    step_1_report_df.groupby([\"gear_type\"], as_index=False)\n",
+    "    .agg(hours=(\"hours\", \"sum\"), vessel_ids=(\"vessel_ids\", \"sum\"))\n",
+    "    .sort_values(by=\"hours\", ascending=False)\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "121465c6-65ef-4efa-9d8a-4a0a136564bd",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>gear_type</th>\n",
+       "      <th>hours</th>\n",
+       "      <th>vessel_ids</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>trawlers</td>\n",
+       "      <td>240642.414444</td>\n",
+       "      <td>1315</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>fishing</td>\n",
+       "      <td>16023.201389</td>\n",
+       "      <td>94</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>squid_jigger</td>\n",
+       "      <td>6124.062222</td>\n",
+       "      <td>44</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>fixed_gear</td>\n",
+       "      <td>1948.325556</td>\n",
+       "      <td>16</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>inconclusive</td>\n",
+       "      <td>1072.351389</td>\n",
+       "      <td>14</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      gear_type          hours  vessel_ids\n",
+       "8      trawlers  240642.414444        1315\n",
+       "1       fishing   16023.201389          94\n",
+       "7  squid_jigger    6124.062222          44\n",
+       "2    fixed_gear    1948.325556          16\n",
+       "3  inconclusive    1072.351389          14"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_1_agg_report_df.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "449828f2-dda7-422c-8cfb-770ced828ca6",
+   "metadata": {},
+   "source": [
+    "### What We have Learned from Step 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e83e24d9-edb1-45d3-af4a-fa60b155ecab",
+   "metadata": {},
+   "source": [
+    "- Multiple **gear types** were potentially detected in Argentinian EEZ.\n",
+    "- `Trawlers` appear to be operating, but further **vessel-level investigation** is needed."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6fe5edf3-8e96-4147-8c59-a6bc8982662d",
+   "metadata": {},
+   "source": [
+    "## Step 2: Retrieve Vessel IDs for Trawlers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4bede3c0-3d01-4661-8b88-467244417d20",
+   "metadata": {},
+   "source": [
+    "Maria refines her **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)** request to group by **vessel ID**, and filtering only for **trawlers** in **[Argentinian EEZ](https://www.marineregions.org/gazetteer.php?p=details&id=8466)**. Please [learn more about apparent fishing effort here](https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2e2e42d9-1b9e-4115-b601-72d0e86ab91d",
+   "metadata": {},
+   "source": [
+    "**Filters Used:**\n",
+    "\n",
+    "1. **[Region ID](https://globalfishingwatch.org/our-apis/documentation#regions)** - [8466 Argentinian EEZ](https://www.marineregions.org/gazetteer.php?p=details&id=8466)\n",
+    "2. **[Date Range](https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests)** - Last 6 Months\n",
+    "3. **[Grouped By](https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests)** - Vessel ID\n",
+    "4. **[Gear Type](https://globalfishingwatch.org/our-apis/documentation#gear-types-supported)** - Trawlers "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "849f6157-fa79-456f-8974-d294c77a0729",
+   "metadata": {},
+   "source": [
+    "**Why Use group-by=VESSEL_ID?**\n",
+    "\n",
+    "Grouping by **VESSEL_ID** allows **individual vessel identification** in the response. This is crucial for **tracking vessel activity** and, more importantly, linking each detected vessel to the **[Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api)** in the next step. By structuring the query this way, we can fetch vessel details such as **flag, name, and ownership records** in **Step 3 below**.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "db35d1b2-ba32-4a58-97f3-17059b3de164",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_2_report_result = await gfw_client.fourwings.create_fishing_effort_report(\n",
+    "    spatial_resolution=\"HIGH\",\n",
+    "    group_by=\"VESSEL_ID\",\n",
+    "    temporal_resolution=\"ENTIRE\",\n",
+    "    filters=[\"geartype in ('trawlers')\"],\n",
+    "    start_date=\"2024-08-01\",\n",
+    "    end_date=\"2025-01-31\",\n",
+    "    spatial_aggregation=True,\n",
+    "    region={\n",
+    "        \"dataset\": \"public-eez-areas\",\n",
+    "        \"id\": \"8466\",\n",
+    "    },\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "301f888e-3b7e-4946-a7aa-496e05b53cbd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_2_report_df = step_2_report_result.df()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "866f84fb-50c4-47e2-95fa-43fbc06d17cd",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 385 entries, 0 to 384\n",
+      "Data columns (total 20 columns):\n",
+      " #   Column                   Non-Null Count  Dtype              \n",
+      "---  ------                   --------------  -----              \n",
+      " 0   date                     385 non-null    object             \n",
+      " 1   detections               0 non-null      object             \n",
+      " 2   flag                     385 non-null    object             \n",
+      " 3   gear_type                385 non-null    object             \n",
+      " 4   hours                    385 non-null    float64            \n",
+      " 5   vessel_ids               0 non-null      object             \n",
+      " 6   vessel_id                385 non-null    object             \n",
+      " 7   vessel_type              385 non-null    object             \n",
+      " 8   entry_timestamp          385 non-null    datetime64[ns, UTC]\n",
+      " 9   exit_timestamp           385 non-null    datetime64[ns, UTC]\n",
+      " 10  first_transmission_date  385 non-null    datetime64[ns, UTC]\n",
+      " 11  last_transmission_date   385 non-null    datetime64[ns, UTC]\n",
+      " 12  imo                      385 non-null    object             \n",
+      " 13  mmsi                     385 non-null    object             \n",
+      " 14  call_sign                385 non-null    object             \n",
+      " 15  dataset                  385 non-null    object             \n",
+      " 16  report_dataset           385 non-null    object             \n",
+      " 17  ship_name                385 non-null    object             \n",
+      " 18  lat                      0 non-null      object             \n",
+      " 19  lon                      0 non-null      object             \n",
+      "dtypes: datetime64[ns, UTC](4), float64(1), object(15)\n",
+      "memory usage: 60.3+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_2_report_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "82a786a1-c437-430e-aeb5-f61d02a5f900",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>flag</th>\n",
+       "      <th>gear_type</th>\n",
+       "      <th>hours</th>\n",
+       "      <th>mmsi</th>\n",
+       "      <th>ship_name</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>714.842500</td>\n",
+       "      <td>701000882</td>\n",
+       "      <td>FELIX AUGUSTO</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>641.522222</td>\n",
+       "      <td>701000932</td>\n",
+       "      <td>ANTONIO ALVAREZ</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>URY</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>10.023056</td>\n",
+       "      <td>770576463</td>\n",
+       "      <td>KALATXORI</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>326.160833</td>\n",
+       "      <td>701079000</td>\n",
+       "      <td>ENTRENA UNO</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>295.007500</td>\n",
+       "      <td>701000820</td>\n",
+       "      <td>CORAJE</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  flag gear_type       hours       mmsi        ship_name\n",
+       "0  ARG  TRAWLERS  714.842500  701000882    FELIX AUGUSTO\n",
+       "1  ARG  TRAWLERS  641.522222  701000932  ANTONIO ALVAREZ\n",
+       "2  URY  TRAWLERS   10.023056  770576463        KALATXORI\n",
+       "3  ARG  TRAWLERS  326.160833  701079000      ENTRENA UNO\n",
+       "4  ARG  TRAWLERS  295.007500  701000820           CORAJE"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_2_report_df[[\"flag\", \"gear_type\", \"hours\", \"mmsi\", \"ship_name\"]].head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "630d95dd-8f82-407f-b223-f55e981e3593",
+   "metadata": {},
+   "source": [
+    "### Explore Vessels Potentially Engaged in Trawling Activity in the Argentinian EEZ"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "984052a3-3920-4fce-8894-4b67af4a8a69",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_2_agg_report_df = (\n",
+    "    step_2_report_df.groupby([\"flag\", \"gear_type\", \"mmsi\", \"ship_name\"], as_index=False)\n",
+    "    .agg(hours=(\"hours\", \"sum\"))\n",
+    "    .sort_values(by=\"hours\", ascending=False)\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "83e4dafb-4491-40c9-9f4d-f4cc1e2b7766",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>flag</th>\n",
+       "      <th>gear_type</th>\n",
+       "      <th>mmsi</th>\n",
+       "      <th>ship_name</th>\n",
+       "      <th>hours</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>297</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>3151.855278</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>247</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>2270.097500</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>22</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>701000577</td>\n",
+       "      <td>MISS TIDE</td>\n",
+       "      <td>2244.895833</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>296</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>701023000</td>\n",
+       "      <td>CAROLINA P</td>\n",
+       "      <td>2065.586944</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>301</th>\n",
+       "      <td>ARG</td>\n",
+       "      <td>TRAWLERS</td>\n",
+       "      <td>701037000</td>\n",
+       "      <td>DON PEDRO</td>\n",
+       "      <td>1807.146111</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    flag gear_type       mmsi          ship_name        hours\n",
+       "297  ARG  TRAWLERS  701024000  ATLANTIC SURF III  3151.855278\n",
+       "247  ARG  TRAWLERS  701006605          CAPESANTE  2270.097500\n",
+       "22   ARG  TRAWLERS  701000577          MISS TIDE  2244.895833\n",
+       "296  ARG  TRAWLERS  701023000         CAROLINA P  2065.586944\n",
+       "301  ARG  TRAWLERS  701037000          DON PEDRO  1807.146111"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_2_agg_report_df.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3f948958-ebce-4478-8b17-d6143c38956b",
+   "metadata": {},
+   "source": [
+    "### What We have Learned from Step 2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d4fb7cba-a577-45fe-88fa-8e5001bb9869",
+   "metadata": {},
+   "source": [
+    "- There are vessels appear to have been engaged in potential trawling activity in Argentinian EEZ over the past 6 months i.e.,:\n",
+    "  - `ATLANTIC SURF III (mmsi: 701024000, flag: ARG)`\n",
+    "  - `CAPESANTE (mmsi: 701006605, flag: ARG)`\n",
+    "- We will retrieve these vessels' `ownership`, `flag history`, and `authorizations` in **Step 3 to validate** them."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "80289282-d160-4901-9bf8-a7996785c898",
+   "metadata": {},
+   "source": [
+    "## Step 3: Retrieve Vessel Details Using the Vessels API"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dcbde755-0e9c-48d9-babe-aaee3179b88d",
+   "metadata": {},
+   "source": [
+    "Maria queries the **[Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api)** to **get detailed vessel identity and ownership records**. Please [learn more about Vessels API here](https://globalfishingwatch.org/our-apis/documentation#vessels-api) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ba645e15-f111-48f3-96a4-7e091f27669e",
+   "metadata": {},
+   "source": [
+    "**Filters Used:**\n",
+    "\n",
+    "1. **Vessel IDs** from [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), **Step 2 above**.\n",
+    "2. **[Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset)** - `public-global-vessel-identity:latest`.\n",
+    "3. **[Includes](https://globalfishingwatch.org/our-apis/documentation#get-vessels-by-ids-url-parameters)** - `POTENTIAL_RELATED_SELF_REPORTED_INFO`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "42a309da-6a56-46a0-aa86-2a148d21d855",
+   "metadata": {},
+   "source": [
+    "**Note:** Vessels may change identifiers over time, such as their `Maritime Mobile Service Identity (MMSI)`,` International Maritime Organization (IMO) number)`, `call sign`, or even their `name`. These changes can occur due to `re-registration`, `changes in ownership`, or other `operational reasons` within the `AIS transponder`. Parameter (`includes = POTENTIAL_RELATED_SELF_REPORTED_INFO`) helps group all **vessel ids** that are **potentially related** as part of the **same physical vessel** based on publicly available registry information."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "24e8452f-7848-4c88-89db-66e4bf182cd1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_2_vessel_mmsis = list(step_2_agg_report_df[\"mmsi\"].head(n=2))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "f25ceec0-3188-4584-bb95-f76c9e0ac578",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['701024000', '701006605']"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_2_vessel_mmsis"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "446b506a-a19f-49cd-9110-ed8b9103af8b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_2_vessel_ids = list(\n",
+    "    step_2_report_df[step_2_report_df[\"mmsi\"].isin(step_2_vessel_mmsis)][\n",
+    "        \"vessel_id\"\n",
+    "    ].unique()\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "6233b1eb-ed4b-4ba9-bce8-faa1ee027dcc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['de8a03acd-dc6c-8e08-2867-24e55ffc0017',\n",
+       " '8e930bac5-594b-aa3f-081d-d12668819e1f']"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_2_vessel_ids"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "428889bd-4761-4301-b21e-fbc37eba5622",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_3_vessels_result = await gfw_client.vessels.get_vessels_by_ids(\n",
+    "    ids=step_2_vessel_ids,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "c64d68dc-b952-412f-827c-df5236c98bd7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_3_vessels_df = step_3_vessels_result.df()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "757e6c3c-d0df-4b8f-839d-1e31518d42d7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 2 entries, 0 to 1\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column                          Non-Null Count  Dtype \n",
+      "---  ------                          --------------  ----- \n",
+      " 0   dataset                         2 non-null      object\n",
+      " 1   registry_info_total_records     2 non-null      int64 \n",
+      " 2   registry_info                   2 non-null      object\n",
+      " 3   registry_owners                 2 non-null      object\n",
+      " 4   registry_public_authorizations  2 non-null      object\n",
+      " 5   combined_sources_info           2 non-null      object\n",
+      " 6   self_reported_info              2 non-null      object\n",
+      "dtypes: int64(1), object(6)\n",
+      "memory usage: 244.0+ bytes\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_3_vessels_df.info()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c2d30f1a-352b-42cb-8ee8-acd67f16103f",
+   "metadata": {},
+   "source": [
+    "**Understanding Vessel Details Response Data**\n",
+    "\n",
+    "- **registryInfoTotalRecords** – This represents the **number of registry records** found for the vessels.\n",
+    "- **registryInfo** – Contains **public registry data**. This data is sourced from official **vessel registries**.\n",
+    "- **registryOwners** – Lists the **registered owners** of the vessel based on public sources.\n",
+    "- **registryPublicAuthorizations** – Represents known **fishing authorizations** from public sources. Users should verify against national registries and RFMO records for additional context.\n",
+    "- **combinedSourcesInfo** – Provides inferred data from multiple sources, including. This is not explicitly reported by vessels but determined through **GFW's classification methods**.\n",
+    "- **selfReportedInfo** – Contains **AIS self-reported** data, including `MMSI`, `ship name`, and `flag` as broadcast by the **vessel itself**. Self-reported data may not always align with registry data and should be cross-checked."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "id": "4767e025-e26e-4a61-8971-8f2cc90385cc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>registry_info</th>\n",
+       "      <th>registry_owners</th>\n",
+       "      <th>self_reported_info</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>[{'id': '2d939efefd3f45788ed103ff0723f564', 's...</td>\n",
+       "      <td>[{'name': 'CLEARWATER SEAFOODS', 'flag': 'CAN'...</td>\n",
+       "      <td>[{'id': 'de8a03acd-dc6c-8e08-2867-24e55ffc0017...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>[{'id': '45502524c9a150e77869ee647423dba1', 's...</td>\n",
+       "      <td>[{'name': 'GLACIAR PESQUERA', 'flag': 'ARG', '...</td>\n",
+       "      <td>[{'id': '8e930bac5-594b-aa3f-081d-d12668819e1f...</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                                       registry_info  \\\n",
+       "0  [{'id': '2d939efefd3f45788ed103ff0723f564', 's...   \n",
+       "1  [{'id': '45502524c9a150e77869ee647423dba1', 's...   \n",
+       "\n",
+       "                                     registry_owners  \\\n",
+       "0  [{'name': 'CLEARWATER SEAFOODS', 'flag': 'CAN'...   \n",
+       "1  [{'name': 'GLACIAR PESQUERA', 'flag': 'ARG', '...   \n",
+       "\n",
+       "                                  self_reported_info  \n",
+       "0  [{'id': 'de8a03acd-dc6c-8e08-2867-24e55ffc0017...  \n",
+       "1  [{'id': '8e930bac5-594b-aa3f-081d-d12668819e1f...  "
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_3_vessels_df[[\"registry_info\", \"registry_owners\", \"self_reported_info\"]]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "46760bde-049d-433c-817d-ae63b1c58924",
+   "metadata": {},
+   "source": [
+    "### Explore Vessels Registry Info"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "7efdc6d6-52d8-40bb-9537-e09f242fdb25",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_3_registry_info_df = pd.json_normalize(\n",
+    "    step_3_vessels_df[\"registry_info\"].explode()\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "id": "27ab60a9-6496-4406-9ae4-57a7aa97f6fa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ssvid</th>\n",
+       "      <th>flag</th>\n",
+       "      <th>ship_name</th>\n",
+       "      <th>n_ship_name</th>\n",
+       "      <th>gear_types</th>\n",
+       "      <th>source_code</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>701006605</td>\n",
+       "      <td>ARG</td>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>[TRAWLERS]</td>\n",
+       "      <td>[GFW-REVIEW, IMO, RESEARCH-PAPER, TMT_OTHER_OF...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>316003980</td>\n",
+       "      <td>CAN</td>\n",
+       "      <td>ATLANTICLEADER</td>\n",
+       "      <td>ATLANTICLEADER</td>\n",
+       "      <td>[TRAWLERS]</td>\n",
+       "      <td>[IMO, TMT_OTHER_OFFICIAL]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>701024000</td>\n",
+       "      <td>ARG</td>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>ATLANTICSURF3</td>\n",
+       "      <td>[TRAWLERS]</td>\n",
+       "      <td>[IMO, TMT_OTHER_OFFICIAL]</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       ssvid flag          ship_name     n_ship_name  gear_types  \\\n",
+       "0  701006605  ARG          CAPESANTE       CAPESANTE  [TRAWLERS]   \n",
+       "1  316003980  CAN     ATLANTICLEADER  ATLANTICLEADER  [TRAWLERS]   \n",
+       "2  701024000  ARG  ATLANTIC SURF III   ATLANTICSURF3  [TRAWLERS]   \n",
+       "\n",
+       "                                         source_code  \n",
+       "0  [GFW-REVIEW, IMO, RESEARCH-PAPER, TMT_OTHER_OF...  \n",
+       "1                          [IMO, TMT_OTHER_OFFICIAL]  \n",
+       "2                          [IMO, TMT_OTHER_OFFICIAL]  "
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_3_registry_info_df[\n",
+    "    [\"ssvid\", \"flag\", \"ship_name\", \"n_ship_name\", \"gear_types\", \"source_code\"]\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5787e4ee-69e0-4769-ba05-9a57254c7289",
+   "metadata": {},
+   "source": [
+    "### Explore Registry Owners"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "id": "afe07c2a-81cb-45b3-9e86-c23b4ef67fe9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_3_registry_owners_df = pd.json_normalize(\n",
+    "    step_3_vessels_df[\"registry_owners\"].explode()\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "df7e0b65-0ab0-4722-aaec-3d11c7674b8f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ssvid</th>\n",
+       "      <th>flag</th>\n",
+       "      <th>name</th>\n",
+       "      <th>source_code</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>701006605</td>\n",
+       "      <td>CAN</td>\n",
+       "      <td>CLEARWATER SEAFOODS</td>\n",
+       "      <td>[RESEARCH-PAPER]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>316003980</td>\n",
+       "      <td>CAN</td>\n",
+       "      <td>CS MANPAR</td>\n",
+       "      <td>[TMT_OTHER_OFFICIAL]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>701024000</td>\n",
+       "      <td>ARG</td>\n",
+       "      <td>GLACIAR PESQUERA</td>\n",
+       "      <td>[TMT_OTHER_OFFICIAL]</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       ssvid flag                 name           source_code\n",
+       "0  701006605  CAN  CLEARWATER SEAFOODS      [RESEARCH-PAPER]\n",
+       "1  316003980  CAN            CS MANPAR  [TMT_OTHER_OFFICIAL]\n",
+       "2  701024000  ARG     GLACIAR PESQUERA  [TMT_OTHER_OFFICIAL]"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_3_registry_owners_df[[\"ssvid\", \"flag\", \"name\", \"source_code\"]]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7a22580f-7c7a-4181-9a80-e37687cc0471",
+   "metadata": {},
+   "source": [
+    "### Explore Vessels Self Reported Info"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "c2fa4bdd-1b51-4b37-abf5-aa18a1cab3e5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_3_self_reported_info_df = pd.json_normalize(\n",
+    "    step_3_vessels_df[\"self_reported_info\"].explode()\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "d1b559c7-4587-4019-a843-181017dd3f07",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>ssvid</th>\n",
+       "      <th>flag</th>\n",
+       "      <th>ship_name</th>\n",
+       "      <th>n_ship_name</th>\n",
+       "      <th>source_code</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>701006605</td>\n",
+       "      <td>ARG</td>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>[AIS]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>316003980</td>\n",
+       "      <td>CAN</td>\n",
+       "      <td>ATLANTIC LEADER</td>\n",
+       "      <td>ATLANTICLEADER</td>\n",
+       "      <td>[AIS]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>701024000</td>\n",
+       "      <td>ARG</td>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>ATLANTICSURF3</td>\n",
+       "      <td>[AIS]</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       ssvid flag          ship_name     n_ship_name source_code\n",
+       "0  701006605  ARG          CAPESANTE       CAPESANTE       [AIS]\n",
+       "1  316003980  CAN    ATLANTIC LEADER  ATLANTICLEADER       [AIS]\n",
+       "2  701024000  ARG  ATLANTIC SURF III   ATLANTICSURF3       [AIS]"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_3_self_reported_info_df[\n",
+    "    [\"ssvid\", \"flag\", \"ship_name\", \"n_ship_name\", \"source_code\"]\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6a6bcbcd-49a8-4575-9003-d8495deeb2d3",
+   "metadata": {},
+   "source": [
+    "### What We have Learned from Step 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "da9c80ea-94d7-4945-8e90-9f5ec4bad8f1",
+   "metadata": {},
+   "source": [
+    "- **Vessel Identity:**\n",
+    "  - `ATLANTIC SURF III (mmsi: 701024000, flag: ARG)`- appears to be registered under Argentina (ARG)\n",
+    "  - `CAPESANTE (mmsi: 701006605, flag: ARG)` - appears to be registered under Argentina (ARG)\n",
+    "- **Ownership & Historical Changes:**\n",
+    "  - `ATLANTIC SURF III (mmsi: 701024000, flag: ARG)` - **GLACIAR PESQUERA** appears to be listed as the registered owner.\n",
+    "  - `CAPESANTE (mmsi: 701006605, flag: ARG)`- **CLEARWATER SEAFOODS** appears to be listed as the registered owner."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4803ae37-3f96-40dc-8db8-690b51710735",
+   "metadata": {},
+   "source": [
+    "## Step 4: Detect Potential Port Visits, Encounters, or Fishing Events"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "058cc09a-64dc-4913-a90c-cadc7d38439a",
+   "metadata": {},
+   "source": [
+    "Now Maria checks `port visits`, `encounters`, and `fishing events` using the **[Events API](https://globalfishingwatch.org/our-apis/documentation#events-api)**, which allows **monitoring of vessel activities** such as `potential transshipments`, `unauthorized port entries`, or `fishing activity patterns`."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c8ee8f1c-7e5e-487f-ba45-7f7f609ba389",
+   "metadata": {},
+   "source": [
+    "**Filters Used:**\n",
+    "\n",
+    "1. **Vessel ID** from 4Wings API\n",
+    "2. **[Event Types](https://globalfishingwatch.org/our-apis/documentation#events-post-body-parameters)** - Port visits, encounters (potential transshipment), and fishing events.\n",
+    "3. **Time Range** - Last 6 months.\n",
+    "4. **[Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset)**:\n",
+    "   - `public-global-port-visits-events::latest` (Port Visits)\n",
+    "   - `public-global-encounters-events:latest` (Encounters between vessels)\n",
+    "   - `public-global-fishing-events:latest` (Fishing activity)\n",
+    "5. **[Encounter Types](https://globalfishingwatch.org/our-apis/documentation#events-post-body-parameters)** - CARRIER-FISHING"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "87c3b592-e431-457c-a5f4-5ce07711d52f",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_events_result = await gfw_client.events.get_all_events(\n",
+    "    datasets=[\n",
+    "        \"public-global-encounters-events:latest\",\n",
+    "        \"public-global-fishing-events:latest\",\n",
+    "        \"public-global-port-visits-events:latest\",\n",
+    "    ],\n",
+    "    vessels=step_2_vessel_ids,\n",
+    "    types=[\"ENCOUNTER\", \"FISHING\", \"PORT_VISIT\"],\n",
+    "    start_date=\"2024-08-01\",\n",
+    "    end_date=\"2025-01-31\",\n",
+    "    encounter_types=[\"CARRIER-FISHING\"],\n",
+    "    sort=\"-start\",\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "64cb0776-7f0d-481e-be98-da00b448c720",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_events_df = step_4_events_result.df()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "4c82d647-3870-4a54-979b-7f586575e5c1",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 359 entries, 0 to 358\n",
+      "Data columns (total 14 columns):\n",
+      " #   Column        Non-Null Count  Dtype              \n",
+      "---  ------        --------------  -----              \n",
+      " 0   start         359 non-null    datetime64[ns, UTC]\n",
+      " 1   end           359 non-null    datetime64[ns, UTC]\n",
+      " 2   id            359 non-null    object             \n",
+      " 3   type          359 non-null    object             \n",
+      " 4   position      359 non-null    object             \n",
+      " 5   regions       359 non-null    object             \n",
+      " 6   bounding_box  359 non-null    object             \n",
+      " 7   distances     359 non-null    object             \n",
+      " 8   vessel        359 non-null    object             \n",
+      " 9   encounter     0 non-null      object             \n",
+      " 10  fishing       351 non-null    object             \n",
+      " 11  gap           0 non-null      object             \n",
+      " 12  loitering     0 non-null      object             \n",
+      " 13  port_visit    8 non-null      object             \n",
+      "dtypes: datetime64[ns, UTC](2), object(12)\n",
+      "memory usage: 39.4+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_4_events_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "17d89920-cda2-497d-9797-1e05a84a0daa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "type\n",
+       "fishing       351\n",
+       "port_visit      8\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_4_events_df[\"type\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1b472de1-8fef-41a1-a76c-057406d86ee1",
+   "metadata": {},
+   "source": [
+    "### Explore Apparent Fishing Events"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "4d360bc4-9762-4ae6-b5b1-1b937e2d2ed0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_fishing_events_df = step_4_events_df[step_4_events_df[\"fishing\"].notna()]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "18ff38d6-9442-4742-9dc9-accfb1299e43",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_fishing_df = pd.concat(\n",
+    "    [\n",
+    "        pd.json_normalize(step_4_fishing_events_df[\"vessel\"], sep=\"_\"),\n",
+    "        pd.json_normalize(step_4_fishing_events_df[\"fishing\"], sep=\"_\"),\n",
+    "    ],\n",
+    "    axis=1,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "id": "fc6ebae0-eba2-4a8a-892c-6dfc38822bd7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 351 entries, 0 to 350\n",
+      "Data columns (total 12 columns):\n",
+      " #   Column                              Non-Null Count  Dtype  \n",
+      "---  ------                              --------------  -----  \n",
+      " 0   id                                  351 non-null    object \n",
+      " 1   name                                351 non-null    object \n",
+      " 2   ssvid                               351 non-null    object \n",
+      " 3   flag                                351 non-null    object \n",
+      " 4   type                                351 non-null    object \n",
+      " 5   public_authorizations               351 non-null    object \n",
+      " 6   nextPort                            0 non-null      object \n",
+      " 7   total_distance_km                   351 non-null    float64\n",
+      " 8   average_speed_knots                 351 non-null    float64\n",
+      " 9   average_duration_hours              0 non-null      object \n",
+      " 10  potential_risk                      351 non-null    bool   \n",
+      " 11  vessel_public_authorization_status  351 non-null    object \n",
+      "dtypes: bool(1), float64(2), object(9)\n",
+      "memory usage: 30.6+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_4_fishing_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "id": "8799e988-56a2-41d5-b472-bc83064e1807",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>ssvid</th>\n",
+       "      <th>total_distance_km</th>\n",
+       "      <th>average_speed_knots</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>222.721610</td>\n",
+       "      <td>4.098386</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>7.905335</td>\n",
+       "      <td>4.590909</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>2.794681</td>\n",
+       "      <td>4.655555</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>2.012392</td>\n",
+       "      <td>2.953846</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>3.260040</td>\n",
+       "      <td>3.705556</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>346</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>25.568796</td>\n",
+       "      <td>4.074561</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>347</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>45.830980</td>\n",
+       "      <td>3.771852</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>348</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>74.611830</td>\n",
+       "      <td>4.087912</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>349</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>82.607525</td>\n",
+       "      <td>3.788187</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>350</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>205.826282</td>\n",
+       "      <td>4.136848</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>351 rows × 4 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                  name      ssvid  total_distance_km  average_speed_knots\n",
+       "0    ATLANTIC SURF III  701024000         222.721610             4.098386\n",
+       "1    ATLANTIC SURF III  701024000           7.905335             4.590909\n",
+       "2    ATLANTIC SURF III  701024000           2.794681             4.655555\n",
+       "3    ATLANTIC SURF III  701024000           2.012392             2.953846\n",
+       "4    ATLANTIC SURF III  701024000           3.260040             3.705556\n",
+       "..                 ...        ...                ...                  ...\n",
+       "346          CAPESANTE  701006605          25.568796             4.074561\n",
+       "347          CAPESANTE  701006605          45.830980             3.771852\n",
+       "348          CAPESANTE  701006605          74.611830             4.087912\n",
+       "349          CAPESANTE  701006605          82.607525             3.788187\n",
+       "350          CAPESANTE  701006605         205.826282             4.136848\n",
+       "\n",
+       "[351 rows x 4 columns]"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_4_fishing_df[\n",
+    "    [\n",
+    "        \"name\",\n",
+    "        \"ssvid\",\n",
+    "        \"total_distance_km\",\n",
+    "        \"average_speed_knots\",\n",
+    "    ]\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "3659c048-c8bf-463c-a6cb-fc29f818ed77",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "ssvid\n",
+       "701024000    245\n",
+       "701006605    106\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_4_fishing_df[\"ssvid\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5da05a04-947e-4f87-b61e-bad015796e5f",
+   "metadata": {},
+   "source": [
+    "### Explore Port Visit Events"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "id": "e806616b-6ed7-4c0c-9bf4-2b4a23de2046",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_port_visit_events_df = step_4_events_df[step_4_events_df[\"port_visit\"].notna()]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "58a68605-9432-43fe-b8eb-4d0393f95f60",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "step_4_port_visits_df = pd.concat(\n",
+    "    [\n",
+    "        pd.json_normalize(step_4_port_visit_events_df[\"vessel\"], sep=\"_\"),\n",
+    "        pd.json_normalize(step_4_port_visit_events_df[\"port_visit\"], sep=\"_\"),\n",
+    "    ],\n",
+    "    axis=1,\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "685a746e-8091-4321-b851-79a5f3ca0f81",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 8 entries, 0 to 7\n",
+      "Data columns (total 37 columns):\n",
+      " #   Column                                         Non-Null Count  Dtype  \n",
+      "---  ------                                         --------------  -----  \n",
+      " 0   id                                             8 non-null      object \n",
+      " 1   name                                           8 non-null      object \n",
+      " 2   ssvid                                          8 non-null      object \n",
+      " 3   flag                                           8 non-null      object \n",
+      " 4   type                                           8 non-null      object \n",
+      " 5   public_authorizations                          8 non-null      object \n",
+      " 6   nextPort                                       0 non-null      object \n",
+      " 7   visit_id                                       8 non-null      object \n",
+      " 8   confidence                                     8 non-null      object \n",
+      " 9   duration_hrs                                   8 non-null      float64\n",
+      " 10  start_anchorage_anchorage_id                   8 non-null      object \n",
+      " 11  start_anchorage_at_dock                        8 non-null      bool   \n",
+      " 12  start_anchorage_distance_from_shore_km         8 non-null      float64\n",
+      " 13  start_anchorage_flag                           8 non-null      object \n",
+      " 14  start_anchorage_id                             8 non-null      object \n",
+      " 15  start_anchorage_lat                            8 non-null      float64\n",
+      " 16  start_anchorage_lon                            8 non-null      float64\n",
+      " 17  start_anchorage_name                           8 non-null      object \n",
+      " 18  start_anchorage_top_destination                8 non-null      object \n",
+      " 19  intermediate_anchorage_anchorage_id            8 non-null      object \n",
+      " 20  intermediate_anchorage_at_dock                 8 non-null      bool   \n",
+      " 21  intermediate_anchorage_distance_from_shore_km  8 non-null      float64\n",
+      " 22  intermediate_anchorage_flag                    8 non-null      object \n",
+      " 23  intermediate_anchorage_id                      8 non-null      object \n",
+      " 24  intermediate_anchorage_lat                     8 non-null      float64\n",
+      " 25  intermediate_anchorage_lon                     8 non-null      float64\n",
+      " 26  intermediate_anchorage_name                    8 non-null      object \n",
+      " 27  intermediate_anchorage_top_destination         8 non-null      object \n",
+      " 28  end_anchorage_anchorage_id                     8 non-null      object \n",
+      " 29  end_anchorage_at_dock                          8 non-null      bool   \n",
+      " 30  end_anchorage_distance_from_shore_km           8 non-null      float64\n",
+      " 31  end_anchorage_flag                             8 non-null      object \n",
+      " 32  end_anchorage_id                               8 non-null      object \n",
+      " 33  end_anchorage_lat                              8 non-null      float64\n",
+      " 34  end_anchorage_lon                              8 non-null      float64\n",
+      " 35  end_anchorage_name                             8 non-null      object \n",
+      " 36  end_anchorage_top_destination                  8 non-null      object \n",
+      "dtypes: bool(3), float64(10), object(24)\n",
+      "memory usage: 2.3+ KB\n"
+     ]
+    }
+   ],
+   "source": [
+    "step_4_port_visits_df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "0e77b956-f0f8-4fbd-8a49-0116e4401c12",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>name</th>\n",
+       "      <th>ssvid</th>\n",
+       "      <th>confidence</th>\n",
+       "      <th>start_anchorage_name</th>\n",
+       "      <th>intermediate_anchorage_name</th>\n",
+       "      <th>end_anchorage_name</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>4</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>4</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>4</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>4</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>4</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>4</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>ATLANTIC SURF III</td>\n",
+       "      <td>701024000</td>\n",
+       "      <td>4</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "      <td>MAR DEL PLATA</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>CAPESANTE</td>\n",
+       "      <td>701006605</td>\n",
+       "      <td>4</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "      <td>USHUAIA</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                name      ssvid confidence start_anchorage_name  \\\n",
+       "0  ATLANTIC SURF III  701024000          4        MAR DEL PLATA   \n",
+       "1          CAPESANTE  701006605          4              USHUAIA   \n",
+       "2  ATLANTIC SURF III  701024000          4        MAR DEL PLATA   \n",
+       "3          CAPESANTE  701006605          4              USHUAIA   \n",
+       "4  ATLANTIC SURF III  701024000          4        MAR DEL PLATA   \n",
+       "5          CAPESANTE  701006605          4              USHUAIA   \n",
+       "6  ATLANTIC SURF III  701024000          4        MAR DEL PLATA   \n",
+       "7          CAPESANTE  701006605          4              USHUAIA   \n",
+       "\n",
+       "  intermediate_anchorage_name end_anchorage_name  \n",
+       "0               MAR DEL PLATA      MAR DEL PLATA  \n",
+       "1                     USHUAIA            USHUAIA  \n",
+       "2               MAR DEL PLATA      MAR DEL PLATA  \n",
+       "3                     USHUAIA            USHUAIA  \n",
+       "4               MAR DEL PLATA      MAR DEL PLATA  \n",
+       "5                     USHUAIA            USHUAIA  \n",
+       "6               MAR DEL PLATA      MAR DEL PLATA  \n",
+       "7                     USHUAIA            USHUAIA  "
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_4_port_visits_df[\n",
+    "    [\n",
+    "        \"name\",\n",
+    "        \"ssvid\",\n",
+    "        \"confidence\",\n",
+    "        \"start_anchorage_name\",\n",
+    "        \"intermediate_anchorage_name\",\n",
+    "        \"end_anchorage_name\",\n",
+    "    ]\n",
+    "]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "32ee1871-f1c7-4561-9384-5a681293e7e5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "ssvid\n",
+       "701024000    4\n",
+       "701006605    4\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 44,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "step_4_port_visits_df[\"ssvid\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "61d59d0c-8919-40c4-ac30-bb9ab35a4d53",
+   "metadata": {},
+   "source": [
+    "### What We have learned from  step 4"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4771fe04-5984-4576-b774-a83f104d7194",
+   "metadata": {},
+   "source": [
+    "- **Apparent Fishing Events:**\n",
+    "  - `ATLANTIC SURF III (mmsi: 701024000, flag: ARG)`- has been detected in multiple apparent fishing events during the analyzed timeframe (August 2024 – January 2025)\n",
+    "  - `CAPESANTE (mmsi: 701006605, flag: ARG)` - has been detected in multiple apparent fishing events during the analyzed timeframe (August 2024 – January 2025)\n",
+    "- **Port Visit Events:**\n",
+    "  - `ATLANTIC SURF III (mmsi: 701024000, flag: ARG)`- potentially made multiple port visits, including stops at `MAR DEL PLATA`\n",
+    "  - `CAPESANTE (mmsi: 701006605, flag: ARG)` - potentially made multiple port visits, including stops at `USHUAIA`\n",
+    "- **ENCOUNTER Events:** No explicit **ENCOUNTER** events were returned in the response dataset. Check more details [here](https://globalfishingwatch.org/faqs/what-is-a-vessel-encounter/). You can read more about transshipment behavior from our [report](https://globalfishingwatch.org/wp-content/uploads/GlobalViewOfTransshipment_Aug2017.pdf) or [scientific publication](https://www.frontiersin.org/articles/10.3389/fmars.2018.00240/full)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f0cf3958-fb92-49c0-ba2f-2cfe971bcbc5",
+   "metadata": {},
+   "source": [
+    "**Potential Considerations:**\n",
+    "\n",
+    "- The vessel's fishing activities appear near the EEZ boundary, requiring further assessment of compliance with national or RFMO regulations.\n",
+    "- The absence of matching public authorizations in the RFMO registry does not necessarily indicate illegality, but it suggests that authorities may need to verify through national databases or official sources."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8b951044-6905-4e38-9885-13a98cf3a7cf",
+   "metadata": {},
+   "source": [
+    "### Summary of API Flow"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c8f86731-be44-4b89-8abb-cf2f6693b4c9",
+   "metadata": {},
+   "source": [
+    "1. **[4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api)** - Retrieve apparent fishing effort for **trawlers** within Argentinian EEZ.\n",
+    "2. **[Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api)** - Fetch **vessel identity**, **ownership history**, and **public authorizations**.\n",
+    "3. **[Events API](https://globalfishingwatch.org/our-apis/documentation#events-api)** - Detect potential **port visits**, **encounters**, and **apparent fishing** events to analyze operational patterns.\n",
+    "4. **Assess potential risks** - Compare registry records, AIS data, and inferred vessel activity for enforcement follow-ups.\n",
+    "5. **Generate a report** - Provide a structured analysis for relevant authorities."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.14"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

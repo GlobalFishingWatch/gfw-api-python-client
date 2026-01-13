@@ -2,13 +2,13 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about various activities of a vessel, including fishing activity, encounters, port visits, loitering, and gaps in AIS reporting. The Events API allows you to retrieve lists of events, get details for a specific event, and obtain statistics on event occurrences. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about various activities of a vessel, including fishing activity, encounters, port visits, loitering, and gaps in AIS reporting. The [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) allows you to retrieve lists of events, get details for a specific event, and obtain statistics on event occurrences. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation#how-are-the-events-estimated) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation#how-are-the-events-estimated), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
-- You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
+- Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).
 
 ## Getting Started
 
@@ -32,6 +32,8 @@ gfw_client = gfw.Client(
 
 The `gfw_client.events` object provides methods to retrieve event data and statistics. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
+> **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
+
 ## Retrieving All Events (`get_all_events`)
 
 The `get_all_events()` method allows you to retrieve a list of events based on specified criteria. The `datasets` parameter is mandatory.
@@ -45,7 +47,7 @@ events_result = await gfw_client.events.get_all_events(
         "dataset": "public-eez-areas",
         "id": "8371",
     },
-    limit=1,
+    limit=5,
 )
 ```
 
@@ -61,7 +63,7 @@ print(event.model_dump())
 **Output:**
 
 ```
-('a0f5848d1a83b7f0b4b8cda6873699ba', 'fishing', '9e01144bf-f383-e634-3178-ca7e34477f34')
+('bbbf5d0cfa9639e5eac0130fc2b742e9', 'fishing', '7374d1988-87f8-6037-66b4-59854a026efb')
 ```
 
 ### Access the events as a DataFrame
@@ -76,26 +78,26 @@ print(events_df[["id", "type"]].head())
 
 ```
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1 entries, 0 to 0
+RangeIndex: 5 entries, 0 to 4
 Data columns (total 14 columns):
  #   Column        Non-Null Count  Dtype
 ---  ------        --------------  -----
- 0   start         1 non-null      datetime64[ns, UTC]
- 1   end           1 non-null      datetime64[ns, UTC]
- 2   id            1 non-null      object
- 3   type          1 non-null      object
- 4   position      1 non-null      object
- 5   regions       1 non-null      object
- 6   bounding_box  1 non-null      object
- 7   distances     1 non-null      object
- 8   vessel        1 non-null      object
+ 0   start         5 non-null      datetime64[ns, UTC]
+ 1   end           5 non-null      datetime64[ns, UTC]
+ 2   id            5 non-null      object
+ 3   type          5 non-null      object
+ 4   position      5 non-null      object
+ 5   regions       5 non-null      object
+ 6   bounding_box  5 non-null      object
+ 7   distances     5 non-null      object
+ 8   vessel        5 non-null      object
  9   encounter     0 non-null      object
- 10  fishing       1 non-null      object
+ 10  fishing       5 non-null      object
  11  gap           0 non-null      object
  12  loitering     0 non-null      object
  13  port_visit    0 non-null      object
 dtypes: datetime64[ns, UTC](2), object(12)
-memory usage: 244.0+ bytes
+memory usage: 692.0+ bytes
 ```
 
 ## Retrieving a Single Event by ID (`get_event_by_id`)
@@ -120,7 +122,7 @@ print(event.model_dump())
 **Output:**
 
 ```
-('a0f5848d1a83b7f0b4b8cda6873699ba', 'fishing', '9e01144bf-f383-e634-3178-ca7e34477f34')
+('c2f0967e061f99a01793edac065de003', 'port_visit', '8c7304226-6c71-edbe-0b63-c246734b3c01')
 ```
 
 ### Access the event as a DataFrame
@@ -149,10 +151,10 @@ Data columns (total 14 columns):
  7   distances     1 non-null      object
  8   vessel        1 non-null      object
  9   encounter     0 non-null      object
- 10  fishing       1 non-null      object
+ 10  fishing       0 non-null      object
  11  gap           0 non-null      object
  12  loitering     0 non-null      object
- 13  port_visit    0 non-null      object
+ 13  port_visit    1 non-null      object
 dtypes: datetime64[ns, UTC](2), object(12)
 memory usage: 244.0+ bytes
 ```
@@ -185,7 +187,7 @@ print(event_stat.model_dump())
 **Output:**
 
 ```
-(24786, 1, 194)
+(24770, 1, 196)
 ```
 
 ### Access the statistics as a DataFrame
@@ -219,10 +221,11 @@ Please be aware that the accuracy and completeness of the event data can vary. R
 
 ## Next Steps
 
-Explore the [Usage Guides](index) for other API resources to understand how you can combine event data with information about vessels, and more. Check out the following resources:
+Explore the [Usage Guides](index) and [Workflow Guides](../workflow-guides/index) for other API resources to understand how you can combine event data with information about vessels, and more. Check out the following resources:
 
 - [4Wings API](4wings-api)
 - [Vessels API](vessels-api)
 - [Insights API](insights-api)
 - [Datasets API](datasets-api)
+- [Bulk Download API](bulk-downloads-api)
 - [Reference Data API](references-data-api)

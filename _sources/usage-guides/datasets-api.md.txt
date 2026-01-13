@@ -2,13 +2,13 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access various datasets available through the Global Fishing Watch API. Currently, it focuses on retrieving SAR (Synthetic Aperture Radar) fixed infrastructure data. The Datasets API allows you to retrieve this information, either by specifying `tile coordinates` or a `geographic geometry`. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access various datasets available through the Global Fishing Watch API. Currently, it focuses on retrieving SAR (Synthetic Aperture Radar) fixed infrastructure data. The [Datasets API](https://globalfishingwatch.org/our-apis/documentation#datasets-api) allows you to retrieve this information, either by specifying `tile coordinates` or a `geographic geometry`. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/datasets-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [SAR (Synthetic-Aperture Radar) Data Caveats](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats) and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [SAR (Synthetic-Aperture Radar) Data Caveats](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
-- You have installed the `gfw-api-python-client`. Refer to the [Getting Started](../getting-started) guide for installation instructions.
+- Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).
 
 ## Getting Started
 
@@ -31,6 +31,8 @@ gfw_client = gfw.Client(
 ```
 
 The `gfw_client.datasets` object provides methods to retrieve data from various datasets. The `get_sar_fixed_infrastructure` method allows you to access SAR fixed infrastructure data. This method returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
+
+> **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
 ## Retrieving SAR Fixed Infrastructure Data by Tile Coordinates (`get_sar_fixed_infrastructure` with z, x, y)
 
@@ -80,19 +82,19 @@ print(sar_infrastructure_df.head())
 
 ```
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1106 entries, 0 to 1105
+RangeIndex: 1156 entries, 0 to 1155
 Data columns (total 7 columns):
  #   Column                Non-Null Count  Dtype
 ---  ------                --------------  -----
- 0   structure_id          1106 non-null   int64
- 1   lat                   1106 non-null   float64
- 2   lon                   1106 non-null   float64
- 3   label                 1106 non-null   object
- 4   structure_start_date  1106 non-null   datetime64[ns, UTC]
- 5   structure_end_date    831 non-null    datetime64[ns, UTC]
- 6   label_confidence      1106 non-null   object
+ 0   structure_id          1156 non-null   int64
+ 1   lat                   1156 non-null   float64
+ 2   lon                   1156 non-null   float64
+ 3   label                 1156 non-null   object
+ 4   structure_start_date  1156 non-null   datetime64[ns, UTC]
+ 5   structure_end_date    857 non-null    datetime64[ns, UTC]
+ 6   label_confidence      1156 non-null   object
 dtypes: datetime64[ns, UTC](2), float64(2), int64(1), object(2)
-memory usage: 60.6+ KB
+memory usage: 63.3+ KB
 ```
 
 ## Retrieving SAR Fixed Infrastructure Data by Geometry (`get_sar_fixed_infrastructure` with geometry)
@@ -152,27 +154,28 @@ print(sar_infrastructure_df.head())
 
 ```
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 1106 entries, 0 to 1105
+RangeIndex: 1156 entries, 0 to 1155
 Data columns (total 7 columns):
  #   Column                Non-Null Count  Dtype
 ---  ------                --------------  -----
- 0   structure_id          1106 non-null   int64
- 1   lat                   1106 non-null   float64
- 2   lon                   1106 non-null   float64
- 3   label                 1106 non-null   object
- 4   structure_start_date  1106 non-null   datetime64[ns, UTC]
- 5   structure_end_date    831 non-null    datetime64[ns, UTC]
- 6   label_confidence      1106 non-null   object
+ 0   structure_id          1156 non-null   int64
+ 1   lat                   1156 non-null   float64
+ 2   lon                   1156 non-null   float64
+ 3   label                 1156 non-null   object
+ 4   structure_start_date  1156 non-null   datetime64[ns, UTC]
+ 5   structure_end_date    857 non-null    datetime64[ns, UTC]
+ 6   label_confidence      1156 non-null   object
 dtypes: datetime64[ns, UTC](2), float64(2), int64(1), object(2)
-memory usage: 60.6+ KB
+memory usage: 63.3+ KB
 ```
 
 ## Next Steps
 
-Explore the [Usage Guides](index) for other API resources. Check out the following resources:
+Explore the [Usage Guides](index) and [Workflow Guides](../workflow-guides/index) for other API resources. Check out the following resources:
 
 - [4Wings API](4wings-api)
 - [Vessels API](vessels-api)
 - [Events API](events-api)
 - [Insights API](insights-api)
+- [Bulk Download API](bulk-downloads-api)
 - [Reference Data API](references-data-api)
