@@ -20,6 +20,10 @@ def test_eez_region_item_deserializes_all_fields(
     assert eez_region_item.id == mock_raw_eez_region_item["id"]
     assert eez_region_item.label == mock_raw_eez_region_item["label"]
     assert eez_region_item.iso3 == mock_raw_eez_region_item["iso3"]
+    assert eez_region_item.iso_sov_1 == mock_raw_eez_region_item["isoSov1"]
+    assert eez_region_item.iso_sov_2 == mock_raw_eez_region_item["isoSov2"]
+    assert eez_region_item.iso_sov_3 == mock_raw_eez_region_item["isoSov3"]
+    assert eez_region_item.territory_1 == mock_raw_eez_region_item["territory1"]
     assert eez_region_item.dataset == "public-eez-areas"
 
 
@@ -30,7 +34,6 @@ def test_mpa_region_item_deserializes_all_fields(
     mpa_region_item = MPARegionItem(**mock_raw_mpa_region_item)
     assert mpa_region_item.id == mock_raw_mpa_region_item["id"]
     assert mpa_region_item.label == mock_raw_mpa_region_item["label"]
-    assert mpa_region_item.name == mock_raw_mpa_region_item["NAME"]
     assert mpa_region_item.dataset == "public-mpa-all"
 
 
@@ -41,7 +44,7 @@ def test_rfmo_region_item_deserializes_all_fields(
     rfmo_region_item = RFMORegionItem(**mock_raw_rfmo_region_item)
     assert rfmo_region_item.id == mock_raw_rfmo_region_item["id"]
     assert rfmo_region_item.label == mock_raw_rfmo_region_item["label"]
-    assert rfmo_region_item.rfb == mock_raw_rfmo_region_item["RFB"]
+    assert rfmo_region_item.id_ == mock_raw_rfmo_region_item["ID"]
     assert rfmo_region_item.dataset == "public-rfmo"
 
 

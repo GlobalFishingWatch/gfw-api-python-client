@@ -20,32 +20,63 @@ __all__ = [
 class EEZRegionItem(ResultItem):
     """Exclusive Economic Zone (EEZ) region item.
 
+    Represents single EEZ region item returned by the EEZ regions API endpoint.
+
     Attributes:
         id (Optional[int]):
-            Region ID.
+            Unique identifier for the EEZ region. Used in 4Wings, Events and
+            Bulk Download API queries.
 
         label (Optional[str]):
-            Region label.
+            Human-readable name of the EEZ region.
 
         iso3 (Optional[str]):
-            ISO3 country code.
+            ISO 3166-1 alpha-3 country code (`null` for joint regimes and
+            overlapping claims).
+
+        iso_sov_1 (Optional[str]):
+            Primary sovereignty ISO code.
+
+        iso_sov_2 (Optional[str]):
+            Secondary sovereignty ISO code (for joint regimes/overlapping claims).
+
+        iso_sov_3 (Optional[str]):
+            Tertiary sovereignty ISO code (for complex overlapping claims).
+
+        territory_1 (Optional[str]):
+            Territory name.
 
         dataset (str):
-            Dataset name or ID.
+            Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
     id: Optional[int] = Field(None)
     label: Optional[str] = Field(None)
     iso3: Optional[str] = Field(None)
+    iso_sov_1: Optional[str] = Field(None, alias="isoSov1")
+    iso_sov_2: Optional[str] = Field(None, alias="isoSov2")
+    iso_sov_3: Optional[str] = Field(None, alias="isoSov3")
+    territory_1: Optional[str] = Field(None, alias="territory1")
     dataset: Optional[str] = Field("public-eez-areas")
 
 
 class EEZRegionResult(Result[EEZRegionItem]):
     """Result for Exclusive Economic Zone (EEZ) regions API endpoint.
 
-    This model represents the result returned by the EEZ regions API endpoint.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+    Represents result (i.e., list of EEZ region items) returned by the EEZ regions
+    API endpoint.
+
+    For more details on the EEZ regions API endpoint supported response bodies,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
+    Attributes:
+        _result_item_class (Type[EEZRegionItem]):
+            The model used for individual result items.
+
+        _data (EEZRegionItem):
+            The EEZ region item returned in the response.
     """
 
     _result_item_class: Type[EEZRegionItem]
@@ -56,7 +87,7 @@ class EEZRegionResult(Result[EEZRegionItem]):
 
         Args:
             data (List[EEZRegionItem]):
-                A list of `EEZRegionItem` objects representing the EEZ regions.
+                The of list of EEZ region items.
         """
         super().__init__(data=data)
 
@@ -64,32 +95,42 @@ class EEZRegionResult(Result[EEZRegionItem]):
 class MPARegionItem(ResultItem):
     """Marine Protected Area (MPA) region item.
 
+    Represents single MPA region item returned by the MPA regions API endpoint.
+
     Attributes:
         id (Optional[str]):
-            Region ID.
+            Unique identifier for the MPA region. Used in 4Wings, Events and
+            Bulk Download API queries.
 
         label (Optional[str]):
-            Region label.
-
-        name (Optional[str]):
-            Region name.
+            Name and designation of the Marine Protected Area.
 
         dataset (str):
-            Dataset name or ID.
+            Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
     id: Optional[str] = Field(None)
     label: Optional[str] = Field(None)
-    name: Optional[str] = Field(None, validation_alias="NAME")
     dataset: Optional[str] = Field("public-mpa-all")
 
 
 class MPARegionResult(Result[MPARegionItem]):
     """Result for Marine Protected Area (MPA) regions API endpoint.
 
-    This model represents the result returned by the MPA regions API endpoint.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+    Represents result (i.e., list of MPA region items) returned by the MPA regions
+    API endpoint.
+
+    For more details on the MPA regions API endpoint supported response bodies,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
+    Attributes:
+        _result_item_class (Type[MPARegionItem]):
+            The model used for individual result items.
+
+        _data (MPARegionItem):
+            The MPA region item returned in the response.
     """
 
     _result_item_class: Type[MPARegionItem]
@@ -100,7 +141,7 @@ class MPARegionResult(Result[MPARegionItem]):
 
         Args:
             data (List[MPARegionItem]):
-                A list of `MPARegionItem` objects representing the MPA regions.
+                The of list of EEZ region items.
         """
         super().__init__(data=data)
 
@@ -108,32 +149,46 @@ class MPARegionResult(Result[MPARegionItem]):
 class RFMORegionItem(ResultItem):
     """Regional Fisheries Management Organization (RFMO) region item.
 
+    Represents single RFMO region item returned by the RFMO regions API endpoint.
+
     Attributes:
         id (Optional[str]):
-            Region ID.
+            Unique identifier for the RFMO region (matches the abbreviation).
+            Used in 4Wings, Events and Bulk Download API queries.
 
         label (Optional[str]):
-            Region label.
+            Standard abbreviation of the RFMO or fisheries body.
 
-        rfb (Optional[str]):
-            Region RFB.
+        id_ (Optional[str]):
+            Duplicate identifier field (matches id and label).
 
         dataset (str):
-            Dataset name or ID.
+            Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
     id: Optional[str] = Field(None)
     label: Optional[str] = Field(None)
-    rfb: Optional[str] = Field(None, title="RFB", validation_alias="RFB")
+    id_: Optional[str] = Field(None, alias="ID")
     dataset: Optional[str] = Field("public-rfmo")
 
 
 class RFMORegionResult(Result[RFMORegionItem]):
     """Result for Regional Fisheries Management Organization (RFMO) regions API endpoint.
 
-    This model represents the result returned by the RFMO regions API endpoint.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+    Represents result (i.e., list of RFMO region items) returned by the RFMO regions
+    API endpoint.
+
+    For more details on the RFMO regions API endpoint supported response bodies,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
+    Attributes:
+        _result_item_class (Type[RFMORegionItem]):
+            The model used for individual result items.
+
+        _data (RFMORegionItem):
+            The RFMO region item returned in the response.
     """
 
     _result_item_class: Type[RFMORegionItem]
@@ -144,6 +199,6 @@ class RFMORegionResult(Result[RFMORegionItem]):
 
         Args:
             data (List[RFMORegionItem]):
-                A list of `RFMORegionItem` objects representing the RFMO regions.
+                The of list of EEZ region items.
         """
         super().__init__(data=data)
