@@ -7,7 +7,7 @@ import pytest
 
 from pydantic import Field, ValidationError
 
-from gfwapiclient.base.models import BaseModel
+from gfwapiclient.base.models import BaseModel, Region, RegionDataset
 
 
 class SampleEnum(str, Enum):
@@ -184,3 +184,147 @@ def test_base_model_raises_validation_error_on_invalid_nested_model_fields() -> 
             id=id,
             nested=SampleModel(timeseries_interval=timeseries_interval),  # type: ignore[call-arg]
         )
+
+
+@pytest.mark.parametrize(
+    "dataset,value",
+    [
+        (
+            RegionDataset.PUBLIC_EEZ_AREAS,
+            "public-eez-areas",
+        ),
+        (
+            RegionDataset.PUBLIC_MPA_ALL,
+            "public-mpa-all",
+        ),
+        (
+            RegionDataset.PUBLIC_RFMO,
+            "public-rfmo",
+        ),
+    ],
+)
+def test_region_dataset_enum_correct_values(dataset: RegionDataset, value: str) -> None:
+    """Test that correct `RegionDataset` enum values can be instantiated."""
+    dataset_instance = RegionDataset(value)
+    assert dataset_instance == dataset
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    ["INVALID_DATASET", ""],
+)
+def test_region_dataset_enum_invalid_value_raises_value_error(
+    invalid_value: str,
+) -> None:
+    """Test that invalid `RegionDataset` enum values raise a `ValueError`."""
+    with pytest.raises(ValueError):
+        RegionDataset(invalid_value)
+
+
+def test_region_serializes_all_fields() -> None:
+    """Test that `Region` serializes all required fields correctly."""
+    region = Region(
+        dataset=RegionDataset.PUBLIC_EEZ_AREAS,
+        id="8371",
+    )
+
+    assert region.dataset == RegionDataset.PUBLIC_EEZ_AREAS
+    assert region.id == "8371"
+
+
+@pytest.mark.parametrize(
+    "value,dataset",
+    [
+        (
+            "public-eez-areas",
+            RegionDataset.PUBLIC_EEZ_AREAS,
+        ),
+        (
+            "public-mpa-all",
+            RegionDataset.PUBLIC_MPA_ALL,
+        ),
+        (
+            "public-rfmo",
+            RegionDataset.PUBLIC_RFMO,
+        ),
+    ],
+)
+def test_region_deserializes_string_dataset_value(
+    value: str, dataset: RegionDataset
+) -> None:
+    """Test that `Region` accepts dataset as a string enum value."""
+    region = Region(
+        id="8371",
+        dataset=value,  # type: ignore[arg-type]
+    )
+
+    assert region.dataset == dataset
+    assert region.id == "8371"
+
+
+@pytest.mark.parametrize(
+    "value,expected",
+    [
+        (8371, "8371"),
+        ("8371", "8371"),
+        (" 8371 ", "8371"),
+        ("", None),
+        ("   ", None),
+        (None, None),
+    ],
+)
+def test_region_normalize_id_fields(
+    value: Any,
+    expected: Optional[str],
+) -> None:
+    """Test that `Region` normalizes `ID` values correctly."""
+    region = Region(
+        dataset=RegionDataset.PUBLIC_EEZ_AREAS,
+        id=value,
+    )
+
+    assert region.id == expected
+
+
+@pytest.mark.parametrize(
+    "invalid_id",
+    [
+        [],  # invalid type
+        {},  # invalid type
+        ["123"],  # invalid type
+        {"id": "123"},  # invalid type
+    ],
+)
+def test_region_normalize_invalid_id_values_raise_validation_error(
+    invalid_id: Any,
+) -> None:
+    """Test that normalizes `Region` invalid ID values raise a `ValidationError`."""
+    with pytest.raises(ValidationError):
+        Region(
+            dataset=RegionDataset.PUBLIC_EEZ_AREAS,
+            id=invalid_id,
+        )
+
+
+def test_region_invalid_dataset_value_raises_validation_error() -> None:
+    """Test that invalid `Region` dataset values raise a `ValidationError`."""
+    with pytest.raises(ValidationError):
+        Region(
+            dataset="INVALID_DATASET",  # type: ignore[arg-type]
+            id="8371",
+        )
+
+
+def test_region_serializes_fields_with_aliases() -> None:
+    """Test that `Region` serializes fields using aliases correctly."""
+    region = Region(
+        dataset=RegionDataset.PUBLIC_EEZ_AREAS,
+        id=8371,  # type: ignore[arg-type]
+    )
+
+    output: Dict[str, Any] = region.model_dump(by_alias=True)
+
+    assert output == {
+        "dataset": "public-eez-areas",
+        "id": "8371",
+    }
