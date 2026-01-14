@@ -4,6 +4,7 @@ from typing import List, Optional, Type
 
 from pydantic import Field
 
+from gfwapiclient.base.models import Region, RegionDataset
 from gfwapiclient.http.models import Result, ResultItem
 
 
@@ -17,13 +18,13 @@ __all__ = [
 ]
 
 
-class EEZRegionItem(ResultItem):
+class EEZRegionItem(Region, ResultItem):
     """Exclusive Economic Zone (EEZ) region item.
 
     Represents single EEZ region item returned by the EEZ regions API endpoint.
 
     Attributes:
-        id (Optional[int]):
+        id (Optional[str]):
             Unique identifier for the EEZ region. Used in 4Wings, Events and
             Bulk Download API queries.
 
@@ -31,7 +32,7 @@ class EEZRegionItem(ResultItem):
             Human-readable name of the EEZ region.
 
         iso3 (Optional[str]):
-            ISO 3166-1 alpha-3 country code (`null` for joint regimes and
+            ISO 3166-1 alpha-3 country code (`None` for joint regimes and
             overlapping claims).
 
         iso_sov_1 (Optional[str]):
@@ -46,18 +47,17 @@ class EEZRegionItem(ResultItem):
         territory_1 (Optional[str]):
             Territory name.
 
-        dataset (str):
+        dataset (Optional[RegionDataset]):
             Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
-    id: Optional[int] = Field(None)
     label: Optional[str] = Field(None)
     iso3: Optional[str] = Field(None)
     iso_sov_1: Optional[str] = Field(None, alias="isoSov1")
     iso_sov_2: Optional[str] = Field(None, alias="isoSov2")
     iso_sov_3: Optional[str] = Field(None, alias="isoSov3")
     territory_1: Optional[str] = Field(None, alias="territory1")
-    dataset: Optional[str] = Field("public-eez-areas")
+    dataset: Optional[RegionDataset] = Field(RegionDataset.PUBLIC_EEZ_AREAS)
 
 
 class EEZRegionResult(Result[EEZRegionItem]):
@@ -92,7 +92,7 @@ class EEZRegionResult(Result[EEZRegionItem]):
         super().__init__(data=data)
 
 
-class MPARegionItem(ResultItem):
+class MPARegionItem(Region, ResultItem):
     """Marine Protected Area (MPA) region item.
 
     Represents single MPA region item returned by the MPA regions API endpoint.
@@ -105,13 +105,12 @@ class MPARegionItem(ResultItem):
         label (Optional[str]):
             Name and designation of the Marine Protected Area.
 
-        dataset (str):
+        dataset (Optional[RegionDataset]):
             Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
-    id: Optional[str] = Field(None)
     label: Optional[str] = Field(None)
-    dataset: Optional[str] = Field("public-mpa-all")
+    dataset: Optional[RegionDataset] = Field(RegionDataset.PUBLIC_MPA_ALL)
 
 
 class MPARegionResult(Result[MPARegionItem]):
@@ -146,7 +145,7 @@ class MPARegionResult(Result[MPARegionItem]):
         super().__init__(data=data)
 
 
-class RFMORegionItem(ResultItem):
+class RFMORegionItem(Region, ResultItem):
     """Regional Fisheries Management Organization (RFMO) region item.
 
     Represents single RFMO region item returned by the RFMO regions API endpoint.
@@ -162,14 +161,13 @@ class RFMORegionItem(ResultItem):
         id_ (Optional[str]):
             Duplicate identifier field (matches id and label).
 
-        dataset (str):
+        dataset (Optional[RegionDataset]):
             Dataset name or ID. Used in 4Wings, Events and Bulk Download API queries.
     """
 
-    id: Optional[str] = Field(None)
     label: Optional[str] = Field(None)
     id_: Optional[str] = Field(None, alias="ID")
-    dataset: Optional[str] = Field("public-rfmo")
+    dataset: Optional[RegionDataset] = Field(RegionDataset.PUBLIC_RFMO)
 
 
 class RFMORegionResult(Result[RFMORegionItem]):

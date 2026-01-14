@@ -17,7 +17,7 @@ def test_eez_region_item_deserializes_all_fields(
 ) -> None:
     """Test that `EEZRegionItem` deserializes all fields correctly."""
     eez_region_item = EEZRegionItem(**mock_raw_eez_region_item)
-    assert eez_region_item.id == mock_raw_eez_region_item["id"]
+    assert eez_region_item.id == str(mock_raw_eez_region_item["id"])
     assert eez_region_item.label == mock_raw_eez_region_item["label"]
     assert eez_region_item.iso3 == mock_raw_eez_region_item["iso3"]
     assert eez_region_item.iso_sov_1 == mock_raw_eez_region_item["isoSov1"]

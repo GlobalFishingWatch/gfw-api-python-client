@@ -77,11 +77,23 @@ class RegionDataset(str, Enum):
 class Region(BaseModel):
     """Region of interest.
 
-    Represents a predefined region (or area) of interest from:
+    Represents a predefined geographic region (or area) of interest supported by
+    the Global Fishing Watch APIs, including:
 
     - Exclusive Economic Zones (EEZ)
     - Marine Protected Areas (MPA)
     - Regional Fisheries Management Organizations (RFMO)
+
+    The predefined region (or area) of interest are used in other API endpoints when:
+
+    - Create a report of a specified region.
+    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+
+    - Get All Events:
+    See: https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint
+
+    - Create a Bulk Report.
+    See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
 
     For more details on the predefined region (or area) of interest, please refer
     to the official Global Fishing Watch API documentation:
@@ -89,7 +101,7 @@ class Region(BaseModel):
     See: https://globalfishingwatch.org/our-apis/documentation#regions
 
     Attributes:
-        dataset (Optional[str]):
+        dataset (Optional[RegionDataset]):
             Dataset name (or ID) containing the region of interest (e.g.,
             `"public-eez-areas"`).
 
@@ -106,18 +118,18 @@ class Region(BaseModel):
     )
     @classmethod
     def normalize_id(cls, value: Any) -> Optional[Any]:
-        """Normalize the unique region identifier to a string.
+        """Normalize the region identifier (ID) to a string.
 
-        Ensures the ``id`` field is consistently represented as a string.
-        Empty or whitespace-only values are normalized to ``None``.
+        Ensures the `id` field is consistently represented as a string.
+        Empty or whitespace-only values are normalized to `None`.
 
         Args:
             value (Any):
-                The raw `id` value to validate.
+                The raw region `id` value to validate.
 
         Returns:
             Optional[Any]:
-                The normalized string identifier, or ``None`` if the value
+                The normalized region string `id`, or `None` if the value
                 is empty or missing.
         """
         if isinstance(value, int):
