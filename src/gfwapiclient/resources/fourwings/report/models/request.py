@@ -5,7 +5,7 @@ from typing import Any, ClassVar, Final, List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel
+from gfwapiclient.base.models import BaseModel, Region, RegionDataset
 from gfwapiclient.http.models import RequestBody, RequestParams
 
 
@@ -228,18 +228,20 @@ class FourWingsGeometry(BaseModel):
     coordinates: Any = Field(...)
 
 
-class FourWingsReportRegion(BaseModel):
+class FourWingsReportRegion(Region):
     """4Wings report region of interest.
 
-    Represents a predefined region of interest used for filtering report data.
+    Represents a predefined region of interest used for filtering 4Wings report data.
 
     For more details on the 4Wings API supported report regions, please
     refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
     Attributes:
-        dataset (Optional[str]):
+        dataset (Optional[RegionDataset]):
             Dataset containing the region.
 
         id (Optional[str]):
@@ -255,8 +257,7 @@ class FourWingsReportRegion(BaseModel):
             Value for the buffer distance.
     """
 
-    dataset: Optional[str] = Field(None, alias="dataset")
-    id: Optional[str] = Field(None, alias="id")
+    dataset: Optional[RegionDataset] = Field(None, alias="dataset")
     buffer_operation: Optional[FourWingsReportBufferOperation] = Field(
         None, alias="bufferOperation"
     )

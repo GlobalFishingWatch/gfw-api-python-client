@@ -20,7 +20,14 @@ def test_bulk_report_create_request_body_serializes_all_fields(
     assert bulk_report_create_request_body.format is not None
     assert bulk_report_create_request_body.region is not None
     assert bulk_report_create_request_body.filters is not None
+
+    expected_raw_bulk_report_create_request_body = {
+        **mock_raw_bulk_report_create_request_body
+    }
+    expected_raw_bulk_report_create_request_body["region"]["id"] = str(
+        mock_raw_bulk_report_create_request_body["region"]["id"]
+    )
     assert (
         bulk_report_create_request_body.to_json_body()
-        == mock_raw_bulk_report_create_request_body
+        == expected_raw_bulk_report_create_request_body
     )

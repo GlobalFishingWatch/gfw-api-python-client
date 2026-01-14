@@ -126,9 +126,9 @@ def test_bulk_report_geometry_invalid_inputs_raise_validation_erro(
 
 def test_bulk_report_region_serializes_all_fields() -> None:
     """Test that `BulkReportRegion` serializes all required fields correctly."""
-    region: BulkReportRegion = BulkReportRegion(dataset=region_dataset, id=region_id)
-    assert region.dataset == region_dataset
-    assert region.id == region_id
+    region: BulkReportRegion = BulkReportRegion(dataset=region_dataset, id=region_id)  # type: ignore[arg-type]
+    assert str(region.dataset) == region_dataset
+    assert region.id == str(region_id)
 
 
 def test_bulk_report_region_optional_fields_default_to_none() -> None:

@@ -100,6 +100,23 @@ class Region(BaseModel):
 
     See: https://globalfishingwatch.org/our-apis/documentation#regions
 
+    For more details on the predefined region (or area) of interest data caveats,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definition
+
+    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition
+
+    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eez-mpa-or-rfmo
+
+    See: https://globalfishingwatch.org/our-apis/documentation#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+
+    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definitions
+
+    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition-2
+
     Attributes:
         dataset (Optional[RegionDataset]):
             Dataset name (or ID) containing the region of interest (e.g.,
