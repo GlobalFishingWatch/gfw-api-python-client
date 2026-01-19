@@ -204,3 +204,65 @@ def test_result_dataframe_conversion_exclude(
     assert len(output) == 2
     assert "id" not in list(output.columns)
     assert "flags" not in list(output.columns)
+
+
+def test_result_filter_returns_only_items_matching_predicate(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` filter with a predicate returns a new `Result` containing only matched `ResultItem` objects."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item is not None and item.confidence is not None and item.confidence >= 4
+
+    filtered_result: Result[SampleResultItem] = result.filter(predicate=predicate)
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleListResult)
+    assert len(filtered_data) == 1
+    assert filtered_data[-1].confidence == 4
+
+
+def test_result_filter_returns_empty_result_when_no_items_match_predicate(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` filter with a predicate that matches no `ResultItem` objects returns a new empty `Result`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item is not None and item.confidence is not None and item.confidence >= 5
+
+    filtered_result: Result[SampleResultItem] = result.filter(predicate=predicate)
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleListResult)
+    assert len(filtered_data) == 0
+    assert filtered_data == []
+
+
+def test_result_filter_without_predicate_returns_all_items(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` filter without a predicate returns new `Result` containing all `ResultItem` objects."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    filtered_result: Result[SampleResultItem] = result.filter()
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleListResult)
+    assert len(filtered_data) == 2

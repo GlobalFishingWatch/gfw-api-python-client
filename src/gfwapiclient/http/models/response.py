@@ -1,15 +1,6 @@
 """Global Fishing Watch (GFW) API Python Client - HTTP Response Models."""
 
-from typing import (
-    Any,
-    Generic,
-    List,
-    Optional,
-    Set,
-    Type,
-    TypeVar,
-    Union,
-)
+from typing import Any, Callable, Generic, List, Optional, Set, Type, TypeVar, Union
 
 import geopandas as gpd
 import pandas as pd
@@ -123,6 +114,38 @@ class Result(Generic[_ResultItemT]):
             **kwargs,
         )
         return df
+
+    def filter(
+        self,
+        *,
+        predicate: Optional[Callable[[_ResultItemT], bool]] = None,
+    ) -> "Result[_ResultItemT]":
+        """Filters API endpoint result data using a predicate function.
+
+        This method returns a new `Result` instance containing only those
+        `ResultItem` objects for which `predicate(item)` evaluates to `True`.
+
+        If `predicate` is `None`, a shallow copy of the result is returned,
+        containing all `ResultItem` objects.
+
+        Args:
+            predicate (Optional[Callable[[_ResultItemT], bool]], default=None):
+                An optional callable that accepts a `ResultItem` instance and
+                returns `True` if it should be included.
+
+        Returns:
+            Result[_ResultItemT]:
+                A new `Result` instance containing the filtered `ResultItem` objects.
+        """
+        items: List[_ResultItemT] = (
+            [*self._data] if isinstance(self._data, list) else [self._data]
+        )
+
+        filtered_items = [*items]
+        if predicate and callable(predicate):
+            filtered_items = [item for item in items if predicate(item)]
+
+        return self.__class__(data=filtered_items)
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])
