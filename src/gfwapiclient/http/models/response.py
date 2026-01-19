@@ -147,5 +147,36 @@ class Result(Generic[_ResultItemT]):
 
         return self.__class__(data=filtered_items)
 
+    def find(
+        self,
+        *,
+        predicate: Optional[Callable[[_ResultItemT], bool]] = None,
+    ) -> Optional[_ResultItemT]:
+        """Finds the first API endpoint result item matching a predicate.
+
+        This method returns the first `ResultItem` for which
+        `predicate(item)` evaluates to `True`.
+
+        If `predicate` is `None`, or if no items match, `None` is returned.
+
+        Args:
+            predicate (Optional[Callable[[_ResultItemT], bool]], default=None):
+                An optional callable that accepts a `ResultItem` instance and
+                returns `True` for the desired item.
+
+        Returns:
+            Optional[_ResultItemT]:
+                The first matching `ResultItem`, or `None` if no match is found.
+        """
+        if predicate is None or not callable(predicate):
+            return None
+
+        items = [*self._data] if isinstance(self._data, list) else [self._data]
+        for item in items:
+            if predicate(item):
+                return item
+
+        return None
+
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])

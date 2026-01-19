@@ -266,3 +266,133 @@ def test_result_filter_without_predicate_returns_all_items(
     assert filtered_result is not result
     assert isinstance(filtered_result, SampleListResult)
     assert len(filtered_data) == 2
+
+
+def test_result_filter_works_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` filter works correctly with a single `ResultItem`."""
+    input = {**mock_result_item}
+    data = SampleResultItem(**input)
+    result = SampleSingleResult(data=data)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item is not None and item.confidence is not None and item.confidence >= 3
+
+    filtered_result: Result[SampleResultItem] = result.filter(predicate=predicate)
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleSingleResult)
+    assert len(filtered_data) == 1
+    assert filtered_data[-1].confidence == 3
+
+
+def test_result_filter_works_with_empty_result_set() -> None:
+    """Tests that `Result` filter works correctly with empty `ResultItem` objects."""
+    result = SampleListResult(data=[])
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item is not None and item.confidence is not None and item.confidence >= 3
+
+    filtered_result: Result[SampleResultItem] = result.filter(predicate=predicate)
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleListResult)
+    assert len(filtered_data) == 0
+    assert filtered_data == []
+
+
+def test_result_find_returns_first_matching_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` find returns the first `ResultItem` matching the predicate."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item.confidence is not None and item.confidence >= 3
+
+    found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is not None
+    assert isinstance(found, SampleResultItem)
+    assert found.confidence == 3
+
+
+def test_result_find_returns_none_when_no_items_match_predicate(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` find returns `None` when no `ResultItem` matches the predicate."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item.confidence is not None and item.confidence >= 5
+
+    found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is None
+
+
+def test_result_find_returns_none_when_predicate_is_none(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` find returns `None` when predicate is not provided."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input)]
+    result = SampleListResult(data=data)
+
+    found: Optional[SampleResultItem] = result.find()
+
+    assert found is None
+
+
+def test_result_find_returns_none_for_empty_result_set() -> None:
+    """Tests that `Result` find returns `None` when the result contains no items."""
+    result = SampleListResult(data=[])
+
+    def predicate(item: SampleResultItem) -> bool:
+        return True
+
+    found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is None
+
+
+def test_result_find_works_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` find works correctly with a single `ResultItem`."""
+    item = SampleResultItem(**mock_result_item)
+    result = SampleSingleResult(data=item)
+
+    def predicate(item: SampleResultItem) -> bool:
+        return item.id == cast(str, mock_result_item["id"])
+
+    found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is not None
+    assert found is item
+
+
+def test_result_find_returns_none_when_single_item_does_not_match(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` find returns `None` when the single `ResultItem` does not match."""
+    item = SampleResultItem(**mock_result_item)
+    result = SampleSingleResult(data=item)
+
+    def predicate(_: SampleResultItem) -> bool:
+        return False
+
+    found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is None
