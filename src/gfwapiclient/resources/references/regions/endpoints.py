@@ -1,9 +1,9 @@
-"""Global Fishing Watch (GFW) API Python Client - Regions API EndPoints."""
+"""Global Fishing Watch (GFW) API Python Client - Regions API endpoints."""
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.http.endpoints import GetEndPoint
 from gfwapiclient.http.models import RequestBody, RequestParams
-from gfwapiclient.resources.references.regions.models import (
+from gfwapiclient.resources.references.regions.models.response import (
     EEZRegionItem,
     EEZRegionResult,
     MPARegionItem,
@@ -22,8 +22,11 @@ class EEZRegionEndPoint(
     """Get Exclusive Economic Zone (EEZ) regions API endpoint.
 
     This endpoint retrieves a list of Exclusive Economic Zone (EEZ) regions.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+
+    For more details on the EEZ regions API endpoint, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
     """
 
     def __init__(
@@ -52,8 +55,11 @@ class MPARegionEndPoint(
     """Get Marine Protected Area (MPA) regions API endpoint.
 
     This endpoint retrieves a list of Marine Protected Area (MPA) regions.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+
+    For more details on the MPA regions API endpoint, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
     """
 
     def __init__(
@@ -82,8 +88,11 @@ class RFMORegionEndPoint(
     """Get Regional Fisheries Management Organization (RFMO) regions API endpoint.
 
     This endpoint retrieves a list of Regional Fisheries Management Organization (RFMO) regions.
-    See the API documentation for more details:
-    https://globalfishingwatch.org/our-apis/documentation#regions
+
+    For more details on the RFMO regions API endpoint, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
     """
 
     def __init__(

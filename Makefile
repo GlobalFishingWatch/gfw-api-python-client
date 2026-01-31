@@ -11,13 +11,11 @@ install:
 
 .PHONY: format  ## Auto-format python source files
 format:
-	python -m black $(sources)
 	python -m ruff check --fix $(sources)
 	python -m ruff format $(sources)
 
 .PHONY: format-notebooks  ## Auto-format Jupyter Notebooks
 format-notebooks:
-	python -m black $(notebooks-sources)
 	python -m ruff check --fix $(notebooks-sources)
 	python -m ruff format $(notebooks-sources)
 
@@ -25,13 +23,11 @@ format-notebooks:
 lint:
 	python -m ruff check $(sources)
 	python -m ruff format --check $(sources)
-	python -m black $(sources) --check --diff
 
 .PHONY: lint-notebooks  ## Lint Jupyter Notebooks
 lint-notebooks:
 	python -m ruff check $(notebooks-sources)
 	python -m ruff format --check $(notebooks-sources)
-	python -m black $(notebooks-sources) --check --diff
 
 .PHONY: codespell  ## Use Codespell to do spellchecking
 codespell:
