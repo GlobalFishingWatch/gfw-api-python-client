@@ -64,29 +64,29 @@ dependencies = [
   "httpx~=0.28",                # Making HTTP requests
   "typing-extensions~=4.15",    # Backported Type Hints for Python 3.8+
   "pydantic~=2.12",             # Data validation and serialization
-  "pydantic-settings~=2.11",    # Type-hinted configurations or settings
+  "pydantic-settings~=2.12",    # Type-hinted configurations or settings
   "geojson-pydantic~=2.1",      # Data models for the GeoJSON specification
   "mapbox-vector-tile~=2.2",    # Encoding and decoding Mapbox Vector Tiles (MVT)
   "mercantile~=1.2",            # Web mercator XYZ tile utilities
-  "pandas~=2.3",                # Data analysis and manipulation
+  "pandas~=3.0",                # Data analysis and manipulation
   "geopandas~=1.1",             # Geospatial data analysis and manipulation
 ]
 
 [project.optional-dependencies]
 # Linting and code quality tools
 lint = [
-  "black[jupyter]>=25.9.0",      # Code formatting tool
+  "black[jupyter]>=26.1.0",      # Code formatting tool
   "isort>=7.0.0",                # Python imports sorting tool
-  "mypy>=1.18.2",                # Static type checker
+  "mypy>=1.19.1",                # Static type checker
   "pydocstyle>=6.3.0",           # Python docstring style checker
-  "ruff>=0.14.2",                # Linter and code analysis tool
+  "ruff>=0.14.14",                # Linter and code analysis tool
   "codespell[toml]>=2.4.1",      # Spell checker for code
 ]
 
 # Testing tools
 test = [
-  "pytest>=8.4.2",            # Core testing framework
-  "pytest-asyncio>=1.2.0",    # Asyncio plugin for pytest
+  "pytest>=9.0.2",            # Core testing framework
+  "pytest-asyncio>=1.3.0",    # Asyncio plugin for pytest
   "pytest-cov>=7.0.0",        # Coverage plugin for pytest
   "pytest-mock>=3.15.1",      # Mocking plugin for pytest
   "pytest-xdist>=3.8.0",      # Parallel test execution for pytest
@@ -97,39 +97,39 @@ test = [
 
 # Development workflow and tools
 dev = [
-  "commitizen>=4.9.1",        # Standardized commit messages and versioning
-  "pre-commit>=4.3.0",        # Framework for managing pre-commit hooks
-  "pip-audit>=2.9.0",         # Audit for finding vulnerabilities in dependencies
+  "commitizen>=4.12.1",        # Standardized commit messages and versioning
+  "pre-commit>=4.5.1",        # Framework for managing pre-commit hooks
+  "pip-audit>=2.10.0",         # Audit for finding vulnerabilities in dependencies
 ]
 
 # Build tools
 build = [
-  "build>=1.2.2",                 # Python PEP 517 compliant build system
+  "build>=1.4.0",                 # Python PEP 517 compliant build system
   "check-wheel-contents>=0.6.3",  # Check wheels have the right contents
-  "pydistcheck>=0.10.0",          # Inspect Python package distributions for common problems
-  "pyroma>=5.0",                  # Test project's packaging friendliness
-  "setuptools>=80.9.0",           # Python packaging library
+  "pydistcheck>=0.11.3",          # Inspect Python package distributions for common problems
+  "pyroma>=5.0.1",                  # Test project's packaging friendliness
+  "setuptools>=80.10.2",           # Python packaging library
   "twine>=6.2.0",                 # For uploading Python packages to PyPI
 ]
 
 # Documentation tools
 docs = [
-  "sphinx>=8.2.3",                  # Tool for generating documentation
-  "furo>=2025.9.25",                # Sphinx theme for beautiful documentation
-  "myst-parser>=4.0.1",             # Writing documentation with Markdown in Sphinx
+  "sphinx>=9.0.4",                  # Tool for generating documentation
+  "furo>=2025.12.19",                # Sphinx theme for beautiful documentation
+  "myst-parser>=5.0.0",             # Writing documentation with Markdown in Sphinx
   "myst-nb>=1.3.0",                 # Writing documentation with Jupyter Notebook in Sphinx
   "sphinx-copybutton>=0.5.2",       # Add a "copy" button to code blocks in Sphinx
   "sphinx-autobuild>=2025.8.25",    # Build, watch and serve documentation with live reload in the browser
-  "sphinx-inline-tabs>=2023.4.21",  # Add inline tabbed content to documentation
+  "sphinx-inline-tabs>=2025.12.21.14",  # Add inline tabbed content to documentation
   "sphinx-autodoc2>=0.5.0",         # Generates API documentation for Python packages
 ]
 
 # Jupyter notebook and interactive tools
 notebooks = [
   "ipykernel>=7.1.0",         # Jupyter kernel for Python
-  "ipython>=9.6.0",           # Enhanced interactive Python shell
-  "jupyterlab>=4.4.10",       # Jupyter's next-generation web-based interface
-  "watermark>=2.5.0",         # Add timestamps and version info to Jupyter notebook
+  "ipython>=9.9.0",           # Enhanced interactive Python shell
+  "jupyterlab>=4.5.3",       # Jupyter's next-generation web-based interface
+  "watermark>=2.6.0",         # Add timestamps and version info to Jupyter notebook
 ]
 
 
