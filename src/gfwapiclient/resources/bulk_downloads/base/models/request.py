@@ -5,11 +5,8 @@ various Bulk Download API endpoints.
 """
 
 from enum import Enum
-from typing import Any
 
-from pydantic import Field
-
-from gfwapiclient.base.models import BaseModel, Region
+from gfwapiclient.base.models import GeoJson, Region
 
 
 __all__ = [
@@ -62,7 +59,7 @@ class BulkReportFormat(str, Enum):
     JSON = "JSON"
 
 
-class BulkReportGeometry(BaseModel):
+class BulkReportGeometry(GeoJson):
     """Bulk report GeoJSON-like geometry input.
 
     Represents a GeoJSON-compatible custom area of interest used for filtering
@@ -72,17 +69,9 @@ class BulkReportGeometry(BaseModel):
     refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
-
-    Attributes:
-        type (str):
-            The type of geometry (e.g., "Polygon").
-
-        coordinates (Any):
-            Geometry coordinates as a list or nested lists.
     """
 
-    type: str = Field(...)
-    coordinates: Any = Field(...)
+    pass
 
 
 class BulkReportRegion(Region):
