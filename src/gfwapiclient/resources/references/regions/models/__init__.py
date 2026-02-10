@@ -26,6 +26,8 @@ See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-if-
 
 See: https://globalfishingwatch.org/our-apis/documentation#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
 
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+
 See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definitions
 
 See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition-2

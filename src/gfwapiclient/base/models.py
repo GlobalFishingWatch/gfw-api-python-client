@@ -1,13 +1,14 @@
 """Global Fishing Watch (GFW) API Python Client - Base Models."""
 
-from typing import ClassVar
+from enum import Enum
+from typing import Any, ClassVar, Optional
 
-from pydantic import AliasGenerator, ConfigDict
+from pydantic import AliasGenerator, ConfigDict, Field, field_validator
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic.alias_generators import to_camel
 
 
-__all__ = ["BaseModel"]
+__all__ = ["BaseModel", "Region", "RegionDataset"]
 
 
 class BaseModel(PydanticBaseModel):
@@ -47,3 +48,111 @@ class BaseModel(PydanticBaseModel):
         use_enum_values=True,
         validate_default=True,
     )
+
+
+class RegionDataset(str, Enum):
+    """Regions API dataset.
+
+    For more details on the Regions API supported datasets, please refer
+    to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
+    Attributes:
+        PUBLIC_EEZ_AREAS (str):
+            Exclusive Economic Zone (EEZ) regions dataset.
+
+        PUBLIC_MPA_ALL (str):
+            Marine Protected Area (MPA) regions dataset.
+
+        PUBLIC_RFMO (str):
+            Regional Fisheries Management Organization (RFMO) regions dataset.
+    """
+
+    PUBLIC_EEZ_AREAS = "public-eez-areas"
+    PUBLIC_MPA_ALL = "public-mpa-all"
+    PUBLIC_RFMO = "public-rfmo"
+
+
+class Region(BaseModel):
+    """Region of interest.
+
+    Represents a predefined geographic region (or area) of interest supported by
+    the Global Fishing Watch APIs, including:
+
+    - Exclusive Economic Zones (EEZ)
+    - Marine Protected Areas (MPA)
+    - Regional Fisheries Management Organizations (RFMO)
+
+    The predefined region (or area) of interest are used in other API endpoints when:
+
+    - Create a report of a specified region.
+    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+
+    - Get All Events:
+    See: https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint
+
+    - Create a Bulk Report.
+    See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+
+    For more details on the predefined region (or area) of interest, please refer
+    to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
+
+    For more details on the predefined region (or area) of interest data caveats,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definition
+
+    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition
+
+    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eez-mpa-or-rfmo
+
+    See: https://globalfishingwatch.org/our-apis/documentation#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+
+    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definitions
+
+    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition-2
+
+    Attributes:
+        dataset (Optional[RegionDataset]):
+            Dataset name (or ID) containing the region of interest (e.g.,
+            `"public-eez-areas"`).
+
+        id (Optional[str]):
+            Unique identifier (ID) for the region of interest (e.g., `"8466"`).
+    """
+
+    dataset: Optional[RegionDataset] = Field(None, alias="dataset")
+    id: Optional[str] = Field(None, alias="id")
+
+    @field_validator(
+        "id",
+        mode="before",
+    )
+    @classmethod
+    def normalize_id(cls, value: Any) -> Optional[Any]:
+        """Normalize the region identifier (ID) to a string.
+
+        Ensures the `id` field is consistently represented as a string.
+        Empty or whitespace-only values are normalized to `None`.
+
+        Args:
+            value (Any):
+                The raw region `id` value to validate.
+
+        Returns:
+            Optional[Any]:
+                The normalized region string `id`, or `None` if the value
+                is empty or missing.
+        """
+        if isinstance(value, int):
+            return str(value)
+
+        if isinstance(value, str) and value.strip() == "":
+            return None
+
+        return value

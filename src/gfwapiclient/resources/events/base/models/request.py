@@ -7,7 +7,7 @@ from typing import Any, List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel
+from gfwapiclient.base.models import BaseModel, Region
 from gfwapiclient.http.models.request import RequestBody
 
 
@@ -101,19 +101,20 @@ class EventGeometry(BaseModel):
     coordinates: Any = Field(...)
 
 
-class EventRegion(BaseModel):
+class EventRegion(Region):
     """Region where the events occur.
 
-    Attributes:
-        dataset (str):
-            The dataset containing the region.
+    Represents a predefined area of interest used for filtering events data.
 
-        id (str):
-            The region ID.
+    For more details on the Events API supported regions, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#events-post-body-parameters
+
+    See: https://globalfishingwatch.org/our-apis/documentation#regions
     """
 
-    dataset: str = Field(...)
-    id: str = Field(...)
+    pass
 
 
 class EventBaseBody(RequestBody):

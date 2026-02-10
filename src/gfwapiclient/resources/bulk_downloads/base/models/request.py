@@ -5,11 +5,11 @@ various Bulk Download API endpoints.
 """
 
 from enum import Enum
-from typing import Any, Optional, Union
+from typing import Any
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel
+from gfwapiclient.base.models import BaseModel, Region
 
 
 __all__ = [
@@ -85,7 +85,7 @@ class BulkReportGeometry(BaseModel):
     coordinates: Any = Field(...)
 
 
-class BulkReportRegion(BaseModel):
+class BulkReportRegion(Region):
     """Bulk report region of interest.
 
     Represents a predefined area of interest used for filtering bulk report data.
@@ -96,17 +96,9 @@ class BulkReportRegion(BaseModel):
     See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
 
     See: https://globalfishingwatch.org/our-apis/documentation#regions
-
-    Attributes:
-        dataset (Optional[str]):
-            Dataset containing the region of interest (e.g. `"public-eez-areas"`).
-
-        id (Optional[Union[str, int]]):
-            Region of interest identifier (ID) (e.g. `8466`).
     """
 
-    dataset: Optional[str] = Field(None, alias="dataset")
-    id: Optional[Union[str, int]] = Field(None, alias="id")
+    pass
 
 
 class BulkReportFileType(str, Enum):
