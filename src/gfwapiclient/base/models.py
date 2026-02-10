@@ -1,14 +1,21 @@
 """Global Fishing Watch (GFW) API Python Client - Base Models."""
 
-from enum import Enum
-from typing import Any, ClassVar, Optional
+import json
 
-from pydantic import AliasGenerator, ConfigDict, Field, field_validator
+from enum import Enum
+from pathlib import Path
+from typing import Any, ClassVar, Dict, Optional, Self, Union, cast
+
+import geopandas as gpd
+
+from geojson_pydantic.features import Feature, FeatureCollection
+from geojson_pydantic.geometries import Geometry
+from pydantic import AliasGenerator, ConfigDict, Field, field_validator, model_validator
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic.alias_generators import to_camel
 
 
-__all__ = ["BaseModel", "Region", "RegionDataset"]
+__all__ = ["BaseModel", "GeoJson", "Region", "RegionDataset"]
 
 
 class BaseModel(PydanticBaseModel):
@@ -156,3 +163,151 @@ class Region(BaseModel):
             return None
 
         return value
+
+
+class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseModel]]]):
+    """Custom GeoJSON-like region (or area) of interest.
+
+    Represents a GeoJSON-compatible custom geographic region (or area) of interest
+    used in other API endpoints when:
+
+    - Create a report of a specified region.
+    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+
+    - Get All Events:
+    See: https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint
+
+    - Create a Bulk Report.
+    See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+
+    Attributes:
+        type (Literal["FeatureCollection"]):
+            The GeoJSON object type. Always set to ``"FeatureCollection"``.
+
+        features (List[Feature[Geometry, Union[Dict[str, Any], BaseModel]]]):
+            A list of GeoJSON Feature objects contained in this collection.
+            Each feature consists of a geometry object and an optional
+            properties object.
+    """
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_geojson(cls, value: Any) -> Optional[Any]:
+        """Normalize arbitrary input into a GeoJSON FeatureCollection.
+
+        Converts different forms of GeoJSON-compatible input into a standard
+        FeatureCollection format, which is the internal representation used by
+        `GeoJson`.
+
+        Args:
+            value (Any):
+                The value to normalize.
+
+        Returns:
+            Optional[Any]:
+                The normalized GeoJSON FeatureCollection, otherwise the input
+                is returned as-is.
+        """
+        # Normalize GeoJSON-compatible dict inputs
+        if isinstance(value, dict) and "type" in value:
+            geojson_type: Optional[str] = value.get("type")
+
+            if geojson_type == "FeatureCollection":
+                return value
+
+            if geojson_type == "Feature":
+                return cls._wrap_geojson_feature(feature=value)
+
+            if geojson_type and "coordinates" in value:
+                return cls._wrap_geojson_geometry(geometry=value)
+
+        return value
+
+    @classmethod
+    def _wrap_geojson_feature(cls, *, feature: Any) -> Dict[str, Any]:
+        """Wrap a GeoJSON Feature into a FeatureCollection.
+
+        Converts a bare GeoJSON Feature object into a FeatureCollection object
+        containing a provided Feature as its only member.
+
+        Args:
+            feature (Any):
+                A valid GeoJSON Feature object.
+
+        Returns:
+            Dict[str, Any]:
+                A GeoJSON FeatureCollection object.
+        """
+        return {
+            "type": "FeatureCollection",
+            "features": [feature],
+        }
+
+    @classmethod
+    def _wrap_geojson_geometry(cls, *, geometry: Any) -> Dict[str, Any]:
+        """Wrap a GeoJSON Geometry into a FeatureCollection.
+
+        Converts a bare GeoJSON Geometry object (e.g., Point, Polygon etc.) into a
+        FeatureCollection object containing a single Feature with null properties.
+
+        Args:
+            geometry (Any):
+                A valid GeoJSON Geometry object.
+
+        Returns:
+            Dict[str, Any]:
+                A GeoJSON FeatureCollection object.
+        """
+        return {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": None,
+                    "geometry": geometry,
+                }
+            ],
+        }
+
+    @classmethod
+    def from_file_or_geojson(
+        cls,
+        *,
+        filename: Optional[Union[str, Path]] = None,
+        geojson: Optional[Union[str, Dict[str, Any]]] = None,
+        **kwargs: Dict[str, Any],
+    ) -> Self:
+        """Create a `GeoJson` instance from a spatial file or a GeoJSON object.
+
+        Reads a GeoJSON-like object from a file, JSON-string, or dictionary and
+        converts it into a `GeoJson` instance.
+
+        Args:
+            filename(Optional[Union[str, Path]]):
+                Path to a spatial file (e.g., GeoJSON, Shapefile, etc.).
+
+            geojson (Optional[Union[str, Dict[str, Any]]]):
+                A GeoJSON-like object provided as a JSON string or dictionary.
+
+            **kwargs (Dict[str, Any]):
+                Additional keyword arguments passed to `geopandas.read_file()`
+                when reading from a file.
+
+        Returns:
+            GeoJson:
+                A fully populated `GeoJson` instance.
+        """
+        raw_geojson: Union[str, Dict[str, Any]] = geojson or {}
+
+        # Read GeoJson from a file or URL
+        if filename:
+            gdf: gpd.GeoDataFrame = gpd.read_file(filename, **kwargs)
+            raw_geojson = gdf.to_json(
+                na="drop", show_bbox=True, drop_id=True, to_wgs84=True
+            )
+
+        if isinstance(raw_geojson, str):
+            raw_geojson = json.loads(raw_geojson)
+        raw_geojson = cast(Dict[str, Any], raw_geojson)
+
+        return cls(**raw_geojson)
