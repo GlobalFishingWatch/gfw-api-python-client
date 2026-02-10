@@ -3,11 +3,11 @@
 import datetime
 
 from enum import Enum
-from typing import Any, List, Optional
+from typing import List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel, Region
+from gfwapiclient.base.models import GeoJson, Region
 from gfwapiclient.http.models.request import RequestBody
 
 
@@ -86,19 +86,18 @@ class EventDataset(str, Enum):
     PORT_VISITS_EVENTS_LATEST = "public-global-port-visits-events:latest"
 
 
-class EventGeometry(BaseModel):
+class EventGeometry(GeoJson):
     """GeoJSON-like region where the events occur.
 
-    Attributes:
-        type (str):
-            The GeoJSON geometry type (e.g., "Polygon").
+    Represents a GeoJSON-compatible area of interest used for filtering event data.
 
-        coordinates (Any):
-            The GeoJSON coordinates.
+    For more details on the Events API supported geojson/geometries, please
+    refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#events-post-body-parameters
     """
 
-    type: str = Field(...)
-    coordinates: Any = Field(...)
+    pass
 
 
 class EventRegion(Region):

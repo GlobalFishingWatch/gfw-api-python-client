@@ -2,6 +2,7 @@
 
 import datetime
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 import pydantic
@@ -68,7 +69,7 @@ class EventResource(BaseResource):
         vessel_types: Optional[Union[List[EventVesselType], List[str]]] = None,
         vessel_groups: Optional[List[str]] = None,
         flags: Optional[List[str]] = None,
-        geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
+        geometry: Optional[Union[EventGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
@@ -137,9 +138,11 @@ class EventResource(BaseResource):
                 List of vessel flags to filter events. Defaults to `None`.
                 Example: `["USA", "CAN"]`.
 
-            geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):
-                Geometry to filter events. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geometry (Optional[Union[EventGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the events. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
                 Region to filter events. Defaults to `None`.
@@ -270,7 +273,7 @@ class EventResource(BaseResource):
         vessel_types: Optional[Union[List[EventVesselType], List[str]]] = None,
         vessel_groups: Optional[List[str]] = None,
         flags: Optional[List[str]] = None,
-        geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
+        geometry: Optional[Union[EventGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
         **kwargs: Dict[str, Any],
@@ -340,9 +343,11 @@ class EventResource(BaseResource):
                 List of vessel flags to filter statistics. Defaults to `None`.
                 Example: `["USA", "CAN"]`.
 
-            geometry (Optional[Union[EventGeometry, Dict[str, Any]]], default=None):
-                Geometry to filter statistics. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geometry (Optional[Union[EventGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the events statistics. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
                 Region to filter statistics. Defaults to `None`.
@@ -430,11 +435,14 @@ class EventResource(BaseResource):
         vessel_types: Optional[Union[List[EventVesselType], List[str]]] = None,
         vessel_groups: Optional[List[str]] = None,
         flags: Optional[List[str]] = None,
-        geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
+        geometry: Optional[Union[EventGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
     ) -> EventListBody:
         """Prepares and returns the request body for the get all events endpoint."""
         try:
+            _geometry: Optional[EventGeometry] = (
+                self._prepare_events_request_body_geometry(geometry=geometry)
+            )
             _request_body: Dict[str, Any] = {
                 "datasets": datasets,
                 "vessels": vessels,
@@ -447,7 +455,7 @@ class EventResource(BaseResource):
                 "vessel_types": vessel_types,
                 "vessel_groups": vessel_groups,
                 "flags": flags,
-                "geometry": geometry,
+                "geometry": _geometry,
                 "region": region,
             }
             request_body: EventListBody = EventListBody(**_request_body)
@@ -491,12 +499,15 @@ class EventResource(BaseResource):
         vessel_types: Optional[Union[List[EventVesselType], List[str]]] = None,
         vessel_groups: Optional[List[str]] = None,
         flags: Optional[List[str]] = None,
-        geometry: Optional[Union[EventGeometry, Dict[str, Any]]] = None,
+        geometry: Optional[Union[EventGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
     ) -> EventStatsBody:
         """Prepares and returns the request body for the get events statistics endpoint."""
         try:
+            _geometry: Optional[EventGeometry] = (
+                self._prepare_events_request_body_geometry(geometry=geometry)
+            )
             _request_body: Dict[str, Any] = {
                 "datasets": datasets,
                 "timeseries_interval": timeseries_interval,
@@ -510,7 +521,7 @@ class EventResource(BaseResource):
                 "vessel_types": vessel_types,
                 "vessel_groups": vessel_groups,
                 "flags": flags,
-                "geometry": geometry,
+                "geometry": _geometry,
                 "region": region,
                 "includes": includes,
             }
@@ -522,3 +533,20 @@ class EventResource(BaseResource):
             ) from exc
 
         return request_body
+
+    def _prepare_events_request_body_geometry(
+        self,
+        *,
+        geometry: Optional[Union[EventGeometry, Dict[str, Any], str, Path]] = None,
+    ) -> Optional[EventGeometry]:
+        """Prepare and return events request body geometry."""
+        if isinstance(geometry, EventGeometry):
+            return geometry
+
+        if isinstance(geometry, (str, Path)):
+            return EventGeometry.from_file_or_geojson(filename=geometry)
+
+        if isinstance(geometry, dict):
+            EventGeometry.from_file_or_geojson(geojson=geometry)
+
+        return None
