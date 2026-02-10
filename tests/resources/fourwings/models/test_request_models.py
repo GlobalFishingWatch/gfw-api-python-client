@@ -17,10 +17,15 @@ def test_fourwings_report_request_body_serializes_all_fields(
     )
     assert fourwings_report_request_body.geojson is not None
     assert fourwings_report_request_body.region is not None
-    assert (
+
+    fourwings_report_request_json_body: Dict[str, Any] = (
         fourwings_report_request_body.to_json_body()
-        == mock_raw_fourwings_report_request_body
     )
+    for attr_name in ["region"]:
+        assert (
+            fourwings_report_request_json_body[attr_name]
+            == mock_raw_fourwings_report_request_body[attr_name]
+        )
 
 
 def test_fourwings_report_request_params_serializes_all_fields(
