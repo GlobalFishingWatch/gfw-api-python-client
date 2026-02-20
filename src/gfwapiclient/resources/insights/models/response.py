@@ -2,7 +2,7 @@
 
 import datetime
 
-from typing import List, Optional, Type
+from typing import Any, Dict, List, Optional, Type
 
 from pydantic import Field
 
@@ -134,8 +134,8 @@ class ApparentFishing(BaseModel):
     )
 
 
-class IuuListPeriod(BaseModel):
-    """IUU list period.
+class PeriodicValue(BaseModel):
+    """Periodic vessel value (i.e., `FLAG CHANGE`, `IUU`, `MOU` etc.).
 
     Attributes:
         from_ (Optional[datetime.datetime], default=None):
@@ -143,17 +143,21 @@ class IuuListPeriod(BaseModel):
 
         to (Optional[datetime.datetime], default=None):
             The end date of the period.
+
+        value (Optional[Any], default=None):
+            The value of the period.
     """
 
     from_: Optional[datetime.datetime] = Field(None, alias="from")
     to: Optional[datetime.datetime] = Field(None, alias="to")
+    value: Optional[Any] = Field(None, alias="value")
 
 
-class IuuVesselList(BaseModel):
-    """IUU vessel list.
+class PeriodicValueList(BaseModel):
+    """Periodic vessel value (i.e., `FLAG CHANGE`, `IUU`, `MOU` etc.) list.
 
     Attributes:
-        values_in_the_period (Optional[List[IuuListPeriod]], default=None):
+        values_in_the_period (Optional[List[PeriodicValue]], default=None):
             The values in the period.
 
         total_times_listed (Optional[int], default=None):
@@ -163,7 +167,7 @@ class IuuVesselList(BaseModel):
             The total times listed in the period.
     """
 
-    values_in_the_period: Optional[List[IuuListPeriod]] = Field(
+    values_in_the_period: Optional[List[PeriodicValue]] = Field(
         None, alias="valuesInThePeriod"
     )
     total_times_listed: Optional[int] = Field(None, alias="totalTimesListed")
@@ -172,19 +176,45 @@ class IuuVesselList(BaseModel):
     )
 
 
+class FlagsChanges(PeriodicValueList):
+    """Periodic FLAG CHANGES list."""
+
+    pass
+
+
+class IuuVesselList(PeriodicValueList):
+    """Periodic IUU vessel list."""
+
+    pass
+
+
+class MouList(PeriodicValueList):
+    """Periodic MOU vessel list."""
+
+    pass
+
+
 class VesselIdentity(BaseModel):
-    """IUU (Illegal, Unreported, or Unregulated) insights.
+    """FLAG CHANGES, IUU (Illegal, Unreported, or Unregulated), and MOU insights.
 
     Attributes:
         datasets (Optional[List[str]], default=None):
             The datasets used for IUU insights.
 
+        flag_changes (Optional[FlagsChanges], default=None):
+            The FLAG CHANGES list.
+
         iuu_vessel_list (Optional[IuuVesselList], default=None):
             The IUU vessel list.
+
+        mou_list (Optional[Optional[Dict[str, MouList]]], default=None):
+            The MOU vessel list.
     """
 
     datasets: Optional[List[str]] = Field(None, alias="datasets")
+    flag_changes: Optional[FlagsChanges] = Field(None, alias="flagsChanges")
     iuu_vessel_list: Optional[IuuVesselList] = Field(None, alias="iuuVesselList")
+    mou_list: Optional[Optional[Dict[str, MouList]]] = Field(None, alias="mouList")
 
 
 class VesselInsightItem(ResultItem):
@@ -197,7 +227,8 @@ class VesselInsightItem(ResultItem):
         vessel_ids_without_identity (Optional[List[str]], default=None):
             The list of vessel IDs without identity.
 
-        gap (Optional[Gap], default=None): The AIS off insights.
+        gap (Optional[Gap], default=None):
+            The AIS off insights.
 
         coverage (Optional[Coverage], default=None):
             The coverage insights.
@@ -206,7 +237,7 @@ class VesselInsightItem(ResultItem):
             The apparent fishing insights.
 
         vessel_identity (Optional[VesselIdentity], default=None):
-            The IUU insights.
+            The FLAG CHANGES, IUU, and MOU insights.
     """
 
     period: Optional[Period] = Field(None, alias="period")
