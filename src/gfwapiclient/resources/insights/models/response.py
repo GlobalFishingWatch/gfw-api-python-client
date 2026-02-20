@@ -57,7 +57,7 @@ class Gap(BaseModel):
     """AIS off insights.
 
     Attributes:
-        datasets ( Optional[List[str]], default=None):
+        datasets (Optional[List[str]], default=None):
             The datasets used for AIS off insights.
 
         historical_counters (Optional[PeriodicCounters], default=None):
