@@ -1,6 +1,17 @@
 """Global Fishing Watch (GFW) API Python Client - HTTP Response Models."""
 
-from typing import Any, Callable, Generic, List, Optional, Set, Type, TypeVar, Union
+from typing import (
+    Any,
+    Callable,
+    Generic,
+    Iterator,
+    List,
+    Optional,
+    Set,
+    Type,
+    TypeVar,
+    Union,
+)
 
 import geopandas as gpd
 import pandas as pd
@@ -73,7 +84,7 @@ class Result(Generic[_ResultItemT]):
                 The API endpoint result data, either a single `ResultItem` or a list of `ResultItem`.
         """
         _items: Union[List[_ResultItemT], _ResultItemT] = (
-            [*self._data] if isinstance(self._data, list) else self._data
+            list(self._data) if isinstance(self._data, list) else self._data
         )
         return _items
 
@@ -106,11 +117,11 @@ class Result(Generic[_ResultItemT]):
                 A `DataFrame` representing the API endpoint result. If the result items
                 contain geospatial data, a `GeoDataFrame` may be returned.
         """
-        items: List[_ResultItemT] = (
-            [*self._data] if isinstance(self._data, list) else [self._data]
-        )
         df = pd.DataFrame(
-            [item.model_dump(include=include, exclude=exclude) for item in items],
+            [
+                item.model_dump(include=include, exclude=exclude)
+                for item in self._iter_data()
+            ],
             **kwargs,
         )
         return df
@@ -137,14 +148,12 @@ class Result(Generic[_ResultItemT]):
             Result[_ResultItemT]:
                 A new `Result` instance containing the filtered `ResultItem` objects.
         """
-        items: List[_ResultItemT] = (
-            [*self._data] if isinstance(self._data, list) else [self._data]
-        )
+        if predicate is None or not callable(predicate):
+            return self.__class__(data=list(self._iter_data()))
 
-        filtered_items = [*items]
-        if predicate and callable(predicate):
-            filtered_items = [item for item in items if predicate(item)]
-
+        filtered_items: List[_ResultItemT] = [
+            item for item in self._iter_data() if predicate(item)
+        ]
         return self.__class__(data=filtered_items)
 
     def find(
@@ -171,12 +180,34 @@ class Result(Generic[_ResultItemT]):
         if predicate is None or not callable(predicate):
             return None
 
-        items = [*self._data] if isinstance(self._data, list) else [self._data]
-        for item in items:
+        for item in self._iter_data():
             if predicate(item):
                 return item
 
         return None
+
+    def _iter_data(self) -> Iterator[_ResultItemT]:
+        """Iterate lazily over API endpoint result data without copying.
+
+        This internal helper provides a unified iteration interface over
+        the underlying response data regardless of whether the result
+        contains:
+
+        - a single `ResultItem`
+        - a list of `ResultItem`
+
+        Yields:
+            _ResultItemT:
+                Individual `ResultItem` contained in API endpoint result data.
+
+        Returns:
+            Iterator[_ResultItemT]:
+                An iterator over API endpoint result data.
+        """
+        if isinstance(self._data, list):
+            yield from self._data
+        else:
+            yield self._data
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])
