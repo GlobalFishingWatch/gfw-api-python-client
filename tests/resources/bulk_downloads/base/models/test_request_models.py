@@ -104,8 +104,14 @@ def test_bulk_report_file_type_enum_invalid_value_raises_value_error(
 def test_bulk_report_geometry_serializes_all_fields() -> None:
     """Test that `BulkReportGeometry` serializes all required fields correctly."""
     geom: BulkReportGeometry = BulkReportGeometry(**geometry)
-    assert geom.type == "Polygon"
-    assert geom.coordinates == geometry.get("coordinates")
+
+    assert geom.type == "FeatureCollection"
+    assert geom.features is not None
+    assert len(geom.features) == 1
+
+    geom_model_dump: Dict[str, Any] = geom.features[0].model_dump(mode="json")
+    assert geom_model_dump["geometry"]["type"] == geometry["type"]
+    assert geom_model_dump["geometry"]["coordinates"] == geometry["coordinates"]
 
 
 @pytest.mark.parametrize(

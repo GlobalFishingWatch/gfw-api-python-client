@@ -1,11 +1,11 @@
 """Global Fishing Watch (GFW) API Python Client - 4Wings Report API Request Models."""
 
 from enum import Enum
-from typing import Any, ClassVar, Final, List, Optional
+from typing import ClassVar, Final, List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel, Region, RegionDataset
+from gfwapiclient.base.models import GeoJson, Region, RegionDataset
 from gfwapiclient.http.models import RequestBody, RequestParams
 
 
@@ -206,7 +206,7 @@ class FourWingsReportDataset(str, Enum):
     PRESENCE_LATEST = "public-global-presence:latest"
 
 
-class FourWingsGeometry(BaseModel):
+class FourWingsGeometry(GeoJson):
     """4Wings report GeoJSON-like geometry input.
 
     Represents a GeoJSON-compatible area of interest used for filtering report data.
@@ -215,17 +215,9 @@ class FourWingsGeometry(BaseModel):
     refer to the official Global Fishing Watch API documentation:
 
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
-
-    Attributes:
-        type (str):
-            The type of geometry (e.g., "Polygon").
-
-        coordinates (Any):
-            Geometry coordinates as a list or nested lists.
     """
 
-    type: str = Field(...)
-    coordinates: Any = Field(...)
+    pass
 
 
 class FourWingsReportRegion(Region):

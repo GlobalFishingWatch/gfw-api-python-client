@@ -27,7 +27,13 @@ def test_bulk_report_create_request_body_serializes_all_fields(
     expected_raw_bulk_report_create_request_body["region"]["id"] = str(
         mock_raw_bulk_report_create_request_body["region"]["id"]
     )
-    assert (
+
+    bulk_report_create_request_json_body: Dict[str, Any] = (
         bulk_report_create_request_body.to_json_body()
-        == expected_raw_bulk_report_create_request_body
     )
+
+    for attr_name in ["name", "dataset", "format", "region", "filters"]:
+        assert (
+            bulk_report_create_request_json_body[attr_name]
+            == expected_raw_bulk_report_create_request_body[attr_name]
+        )

@@ -2,6 +2,7 @@
 
 import datetime
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Union, cast
 
 import pydantic
@@ -71,7 +72,7 @@ class FourWingsResource(BaseResource):
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
         distance_from_port_km: Optional[int] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -135,9 +136,11 @@ class FourWingsResource(BaseResource):
                 Applies only to fishing effort dataset.
                 Example: `3`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
-                Custom GeoJSON geometry to filter the report. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the report. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
@@ -190,7 +193,7 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -254,9 +257,11 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
-                Custom GeoJSON geometry to filter the report. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the report. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
@@ -309,7 +314,7 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -372,9 +377,11 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
-                Custom GeoJSON geometry to filter the report. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the report. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
@@ -429,7 +436,7 @@ class FourWingsResource(BaseResource):
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
         distance_from_port_km: Optional[int] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -514,9 +521,11 @@ class FourWingsResource(BaseResource):
                 Applies only to fishing effort dataset.
                 Example: `3`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any]]], default=None):
-                Custom GeoJSON geometry to filter the report. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+                Custom GeoJSON geometry to filter the report. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
@@ -552,8 +561,12 @@ class FourWingsResource(BaseResource):
                 distance_from_port_km=distance_from_port_km,
             )
         )
+
+        _geojson: Optional[FourWingsGeometry] = (
+            self._prepare_create_report_request_body_geojson(geojson=geojson)
+        )
         request_body: FourWingsReportBody = self._prepare_create_report_request_body(
-            geojson=geojson,
+            geojson=_geojson,
             region=region,
         )
 
@@ -663,3 +676,20 @@ class FourWingsResource(BaseResource):
                 ) from exc
 
         return date_range
+
+    def _prepare_create_report_request_body_geojson(
+        self,
+        *,
+        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
+    ) -> Optional[FourWingsGeometry]:
+        """Prepare and return create report request body geojson."""
+        if isinstance(geojson, FourWingsGeometry):
+            return geojson
+
+        if isinstance(geojson, (str, Path)):
+            return FourWingsGeometry.from_file_or_geojson(filename=geojson)
+
+        if isinstance(geojson, dict):
+            FourWingsGeometry.from_file_or_geojson(geojson=geojson)
+
+        return None

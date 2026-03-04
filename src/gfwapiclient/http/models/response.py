@@ -2,7 +2,9 @@
 
 from typing import (
     Any,
+    Callable,
     Generic,
+    Iterator,
     List,
     Optional,
     Set,
@@ -82,7 +84,7 @@ class Result(Generic[_ResultItemT]):
                 The API endpoint result data, either a single `ResultItem` or a list of `ResultItem`.
         """
         _items: Union[List[_ResultItemT], _ResultItemT] = (
-            [*self._data] if isinstance(self._data, list) else self._data
+            list(self._data) if isinstance(self._data, list) else self._data
         )
         return _items
 
@@ -115,14 +117,97 @@ class Result(Generic[_ResultItemT]):
                 A `DataFrame` representing the API endpoint result. If the result items
                 contain geospatial data, a `GeoDataFrame` may be returned.
         """
-        items: List[_ResultItemT] = (
-            [*self._data] if isinstance(self._data, list) else [self._data]
-        )
         df = pd.DataFrame(
-            [item.model_dump(include=include, exclude=exclude) for item in items],
+            [
+                item.model_dump(include=include, exclude=exclude)
+                for item in self._iter_data()
+            ],
             **kwargs,
         )
         return df
+
+    def filter(
+        self,
+        *,
+        predicate: Optional[Callable[[_ResultItemT], bool]] = None,
+    ) -> "Result[_ResultItemT]":
+        """Filters API endpoint result data using a predicate function.
+
+        This method returns a new `Result` instance containing only those
+        `ResultItem` objects for which `predicate(item)` evaluates to `True`.
+
+        If `predicate` is `None`, a shallow copy of the result is returned,
+        containing all `ResultItem` objects.
+
+        Args:
+            predicate (Optional[Callable[[_ResultItemT], bool]], default=None):
+                An optional callable that accepts a `ResultItem` instance and
+                returns `True` if it should be included.
+
+        Returns:
+            Result[_ResultItemT]:
+                A new `Result` instance containing the filtered `ResultItem` objects.
+        """
+        if predicate is None or not callable(predicate):
+            return self.__class__(data=list(self._iter_data()))
+
+        filtered_items: List[_ResultItemT] = [
+            item for item in self._iter_data() if predicate(item)
+        ]
+        return self.__class__(data=filtered_items)
+
+    def find(
+        self,
+        *,
+        predicate: Optional[Callable[[_ResultItemT], bool]] = None,
+    ) -> Optional[_ResultItemT]:
+        """Finds the first API endpoint result item matching a predicate.
+
+        This method returns the first `ResultItem` for which
+        `predicate(item)` evaluates to `True`.
+
+        If `predicate` is `None`, or if no items match, `None` is returned.
+
+        Args:
+            predicate (Optional[Callable[[_ResultItemT], bool]], default=None):
+                An optional callable that accepts a `ResultItem` instance and
+                returns `True` for the desired item.
+
+        Returns:
+            Optional[_ResultItemT]:
+                The first matching `ResultItem`, or `None` if no match is found.
+        """
+        if predicate is None or not callable(predicate):
+            return None
+
+        for item in self._iter_data():
+            if predicate(item):
+                return item
+
+        return None
+
+    def _iter_data(self) -> Iterator[_ResultItemT]:
+        """Iterate lazily over API endpoint result data without copying.
+
+        This internal helper provides a unified iteration interface over
+        the underlying response data regardless of whether the result
+        contains:
+
+        - a single `ResultItem`
+        - a list of `ResultItem`
+
+        Yields:
+            _ResultItemT:
+                Individual `ResultItem` contained in API endpoint result data.
+
+        Returns:
+            Iterator[_ResultItemT]:
+                An iterator over API endpoint result data.
+        """
+        if isinstance(self._data, list):
+            yield from self._data
+        else:
+            yield self._data
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])

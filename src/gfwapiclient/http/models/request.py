@@ -96,6 +96,8 @@ class RequestBody(BaseModel):
     ensuring proper handling of null values and field aliases.
     """
 
+    # geojson_fields: ClassVar[Optional[List[str]]] = None model_dump(mode="json")
+
     def to_json_body(self, **kwargs: Any) -> Dict[str, Any]:
         """Converts the `RequestBody` instance to a JSON-compatible HTTP request body.
 
