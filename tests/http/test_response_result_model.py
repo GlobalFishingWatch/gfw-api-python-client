@@ -308,6 +308,38 @@ def test_result_filter_works_with_empty_result_set() -> None:
     assert filtered_data == []
 
 
+@pytest.mark.parametrize(
+    "invalid_predicate",
+    [
+        "invalid",
+        123,
+        object(),
+        True,
+        [],
+        {},
+    ],
+)
+def test_result_filter_invalid_predicate_returns_result_copy(
+    mock_result_item: Dict[str, Any],
+    invalid_predicate: Any,
+) -> None:
+    """Tests that `Result` filter with an invalid predicates returns shalslow copy of the `Result`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    filtered_result: Result[SampleResultItem] = result.filter(
+        predicate=invalid_predicate
+    )
+    filtered_data: List[SampleResultItem] = cast(
+        List[SampleResultItem], filtered_result.data()
+    )
+
+    assert filtered_result is not result
+    assert isinstance(filtered_result, SampleListResult)
+    assert len(filtered_data) == 2
+
+
 def test_result_find_returns_first_matching_item(
     mock_result_item: Dict[str, Any],
 ) -> None:
@@ -394,5 +426,23 @@ def test_result_find_returns_none_when_single_item_does_not_match(
         return False
 
     found: Optional[SampleResultItem] = result.find(predicate=predicate)
+
+    assert found is None
+
+
+@pytest.mark.parametrize(
+    "invalid_predicate",
+    ["invalid", 123, object(), True, [], {}],
+)
+def test_result_find_invalid_predicate_returns_none(
+    mock_result_item: Dict[str, Any],
+    invalid_predicate: Any,
+) -> None:
+    """Tests that `Result` find with an invalid predicates returns `None`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input)]
+    result = SampleListResult(data=data)
+
+    found: Optional[SampleResultItem] = result.find(predicate=invalid_predicate)
 
     assert found is None
