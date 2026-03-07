@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Insights API EndPoints."""
+"""Global Fishing Watch (GFW) API Python Client - Get Vessels Insights API Endpoint."""
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.http.endpoints import PostEndPoint
@@ -21,6 +21,26 @@ class VesselInsightEndPoint(
 
     This endpoint retrieves insights for specified vessels based on the provided
     request parameters.
+
+    For detailed information about the Get Vessels Insights API endpoint, please
+    refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels-body
+
+    For more details on the Get Vessels Insights data caveats, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas
+
+    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
     """
 
     def __init__(

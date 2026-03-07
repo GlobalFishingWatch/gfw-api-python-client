@@ -1,18 +1,26 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Insights API Models.
+"""Global Fishing Watch (GFW) API Python Client - Get Vessels Insights API Models.
 
-This module contains the Pydantic models used for interacting with the Global Fishing Watch
-Vessels Insights API. These models define the structure of the request and response data
-for the API endpoints, ensuring type safety and data validation.
+This module defines Pydantic data models used for interacting with the
+Vessels Insights API endpoint. These models are used to represent request bodies
+and response data when retrieving insights data for specified vessels.
 
-For more information on the Vessels Insights API, please refer to the
-`Global Fishing Watch API documentation <https://globalfishingwatch.org/our-apis/documentation#insights-api>`_.
+For detailed information about the Get Vessels Insights API endpoint, please
+refer to the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels-body
+
+For more details on the Get Vessels Insights data caveats, please refer to the
+official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas
+
+See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
 """
-
-from gfwapiclient.resources.insights.models.request import VesselInsightBody
-from gfwapiclient.resources.insights.models.response import (
-    VesselInsightItem,
-    VesselInsightResult,
-)
-
-
-__all__ = ["VesselInsightBody", "VesselInsightItem", "VesselInsightResult"]
