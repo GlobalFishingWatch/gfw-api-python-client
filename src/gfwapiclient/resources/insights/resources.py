@@ -82,13 +82,17 @@ class InsightResource(BaseResource):
 
         See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas
 
-        See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
-
         See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas
 
         See: https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage
 
+        See: https://globalfishingwatch.org/our-apis/documentation#insights-api-ais-off-event-aka-gap
+
         See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+
+        **Important:**
+
+        `start_date` must be on or after `January 1, 2020`
 
         Args:
             includes (Union[List[VesselInsightInclude], List[str]], default=["FISHING"]):

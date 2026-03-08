@@ -25,10 +25,10 @@ from gfwapiclient.resources.insights.models.response import (
 async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test getting vessel insights related to fishing events.
+    """Test getting vessel insights related to apparent fishing events.
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel related to fishing activity within a given
+    insights for a specific vessel related to apparent fishing activity within a given
     date range. It checks the structure and content of the returned data,
     ensuring it's a valid `VesselInsightResult` and that the data can be
     converted to a pandas DataFrame.
@@ -56,10 +56,10 @@ async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
 async def test_insights_get_vessel_insights_get_insights_for_ais_off_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test getting vessel insights related to AIS off events (gaps).
+    """Test getting vessel insights related to AIS off/disabling events (gaps).
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel related to AIS off events (gaps) within a
+    insights for a specific vessel related to AIS off/disabling events (gaps) within a
     given date range. It checks the structure and content of the returned data,
     ensuring it's a valid `VesselInsightResult` and that the data can be
     converted to a pandas DataFrame.

@@ -16,11 +16,11 @@ official Global Fishing Watch API documentation:
 
 See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas
 
-See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
-
 See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas
 
 See: https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage
+
+See: https://globalfishingwatch.org/our-apis/documentation#insights-api-ais-off-event-aka-gap
 
 See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
 """
