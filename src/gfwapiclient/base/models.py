@@ -91,7 +91,8 @@ class Region(BaseModel):
     - Marine Protected Areas (MPA)
     - Regional Fisheries Management Organizations (RFMO)
 
-    The predefined region (or area) of interest are used in other API endpoints when:
+    The predefined region (or area) of interest are used in other
+    Global Fishing Watch API endpoints when:
 
     - Create a report of a specified region.
     See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
@@ -166,10 +167,13 @@ class Region(BaseModel):
 
 
 class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseModel]]]):
-    """Custom GeoJSON-like region (or area) of interest.
+    """Custom GeoJSON-compatible region (or area) of interest.
 
     Represents a GeoJSON-compatible custom geographic region (or area) of interest
-    used in other API endpoints when:
+    supported by the Global Fishing Watch APIs.
+
+    The GeoJSON-compatible custom geographic region (or area) of interest are used
+    in other Global Fishing Watch API endpoints when:
 
     - Create a report of a specified region.
     See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
@@ -182,7 +186,7 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
 
     Attributes:
         type (Literal["FeatureCollection"]):
-            The GeoJSON object type. Always set to ``"FeatureCollection"``.
+            The GeoJSON object type. Always set to `"FeatureCollection"`.
 
         features (List[Feature[Geometry, Union[Dict[str, Any], BaseModel]]]):
             A list of GeoJSON Feature objects contained in this collection.
@@ -218,7 +222,7 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
             if geojson_type == "Feature":
                 return cls._wrap_geojson_feature(feature=value)
 
-            if geojson_type and "coordinates" in value:
+            if geojson_type and ("coordinates" in value or "geometries" in value):
                 return cls._wrap_geojson_geometry(geometry=value)
 
         return value
@@ -279,15 +283,23 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
     ) -> Self:
         """Create a `GeoJson` instance from a spatial file or a GeoJSON object.
 
-        Reads a GeoJSON-like object from a file, JSON-string, or dictionary and
+        Reads a GeoJSON-compatible object from a file, JSON-string, or dictionary and
         converts it into a `GeoJson` instance.
+
+        If both `filename` and `geojson` are provided, `filename` takes precedence.
 
         Args:
             filename(Optional[Union[str, Path]]):
                 Path to a spatial file (e.g., GeoJSON, Shapefile, etc.).
+                Supported formats depend on the GeoPandas/GDAL installation.
+                Example: `"path/to/your/spatial/file.shp"` or
+                `"path/to/your/spatial/file.json"`.
 
             geojson (Optional[Union[str, Dict[str, Any]]]):
-                A GeoJSON-like object provided as a JSON string or dictionary.
+                A GeoJSON-compatible object provided as a JSON string or
+                Python dictionary.
+                Example: `'{"type": "Polygon", "coordinates": [...]}'` or
+                `{"type": "Polygon", "coordinates": [...]}`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments passed to `geopandas.read_file()`
@@ -299,7 +311,7 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
         """
         raw_geojson: Union[str, Dict[str, Any]] = geojson or {}
 
-        # Read GeoJson from a file or URL
+        # Read GeoJson from a spatial file
         if filename:
             gdf: gpd.GeoDataFrame = gpd.read_file(filename, **kwargs)
             raw_geojson = gdf.to_json(

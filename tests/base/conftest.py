@@ -44,6 +44,25 @@ def mock_raw_geojson_feature_collection(
 
 
 @pytest.fixture
+def mock_raw_geojson_geometrycollection(
+    load_json_fixture: Callable[[str], Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Fixture for a mock raw geojson geometry collection.
+
+    This fixture loads sample JSON data representing a
+    `GeoJson` geojson geometry collection from a fixture file.
+
+    Returns:
+        Dict[str, Any]:
+            Raw `GeoJson` sample data as a dictionary.
+    """
+    raw_geojson_geometrycollection: Dict[str, Any] = load_json_fixture(
+        "base/geojson/geojson_geometrycollection.json"
+    )
+    return raw_geojson_geometrycollection
+
+
+@pytest.fixture
 def mock_raw_geojson_linestring(
     load_json_fixture: Callable[[str], Dict[str, Any]],
 ) -> Dict[str, Any]:

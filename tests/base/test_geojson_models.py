@@ -13,20 +13,6 @@ from pydantic import ValidationError
 from gfwapiclient.base.models import GeoJson
 
 
-def test_geojson_model_serializes_feature_collection(
-    mock_raw_geojson_feature_collection: Dict[str, Any],
-) -> None:
-    """Test that `GeoJson` serializes feature collection correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_feature_collection)
-
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-
-    assert geojson.model_dump(mode="json") == mock_raw_geojson_feature_collection
-
-
 def test_geojson_model_serializes_feature_to_feature_collection(
     mock_raw_geojson_feature: Dict[str, Any],
 ) -> None:
@@ -42,11 +28,25 @@ def test_geojson_model_serializes_feature_to_feature_collection(
     assert geojson.features[0].model_dump(mode="json") == mock_raw_geojson_feature
 
 
-def test_geojson_model_serializes_multipoint_to_feature_collection(
-    mock_raw_geojson_multipoint: Dict[str, Any],
+def test_geojson_model_serializes_feature_collection(
+    mock_raw_geojson_feature_collection: Dict[str, Any],
 ) -> None:
-    """Test that `GeoJson` serializes multipoint to feature collection correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipoint)
+    """Test that `GeoJson` serializes feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_feature_collection)
+
+    assert isinstance(geojson, FeatureCollection)
+    assert geojson.type == "FeatureCollection"
+    assert geojson.features is not None
+    assert len(geojson.features) == 1
+
+    assert geojson.model_dump(mode="json") == mock_raw_geojson_feature_collection
+
+
+def test_geojson_model_serializes_geometrycollection_to_feature_collection(
+    mock_raw_geojson_geometrycollection: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes geometrycollection to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_geometrycollection)
 
     assert isinstance(geojson, FeatureCollection)
     assert geojson.type == "FeatureCollection"
@@ -55,32 +55,13 @@ def test_geojson_model_serializes_multipoint_to_feature_collection(
     assert isinstance(geojson.features[0], Feature) is True
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
-    assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipoint["type"]
     assert (
-        feature_model_dump["geometry"]["coordinates"]
-        == mock_raw_geojson_multipoint["coordinates"]
-    )
-
-
-def test_geojson_model_serializes_multipolygon_to_feature_collection(
-    mock_raw_geojson_multipolygon: Dict[str, Any],
-) -> None:
-    """Test that `GeoJson` serializes multipolygon to feature collection correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipolygon)
-
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
-
-    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
-    assert (
-        feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipolygon["type"]
+        feature_model_dump["geometry"]["type"]
+        == mock_raw_geojson_geometrycollection["type"]
     )
     assert (
-        feature_model_dump["geometry"]["coordinates"]
-        == mock_raw_geojson_multipolygon["coordinates"]
+        feature_model_dump["geometry"]["geometries"]
+        == mock_raw_geojson_geometrycollection["geometries"]
     )
 
 
@@ -124,6 +105,48 @@ def test_geojson_model_serializes_multilinestring_to_feature_collection(
     assert (
         feature_model_dump["geometry"]["coordinates"]
         == mock_raw_geojson_multilinestring["coordinates"]
+    )
+
+
+def test_geojson_model_serializes_multipoint_to_feature_collection(
+    mock_raw_geojson_multipoint: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes multipoint to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipoint)
+
+    assert isinstance(geojson, FeatureCollection)
+    assert geojson.type == "FeatureCollection"
+    assert geojson.features is not None
+    assert len(geojson.features) == 1
+    assert isinstance(geojson.features[0], Feature) is True
+
+    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
+    assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipoint["type"]
+    assert (
+        feature_model_dump["geometry"]["coordinates"]
+        == mock_raw_geojson_multipoint["coordinates"]
+    )
+
+
+def test_geojson_model_serializes_multipolygon_to_feature_collection(
+    mock_raw_geojson_multipolygon: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes multipolygon to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipolygon)
+
+    assert isinstance(geojson, FeatureCollection)
+    assert geojson.type == "FeatureCollection"
+    assert geojson.features is not None
+    assert len(geojson.features) == 1
+    assert isinstance(geojson.features[0], Feature) is True
+
+    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
+    assert (
+        feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipolygon["type"]
+    )
+    assert (
+        feature_model_dump["geometry"]["coordinates"]
+        == mock_raw_geojson_multipolygon["coordinates"]
     )
 
 
@@ -172,6 +195,9 @@ def test_geojson_model_serializes_polygon_to_feature_collection(
     [
         {},
         {"type": "invalid_type"},
+        {"type": "Point"},
+        {"coordinates": []},
+        {"geometries": []},
     ],
 )
 def test_geojson_model_raises_validation_error_on_invalid_geojson_input_data(
