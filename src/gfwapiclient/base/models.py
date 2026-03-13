@@ -1,21 +1,39 @@
 """Global Fishing Watch (GFW) API Python Client - Base Models."""
 
-import json
-
 from enum import Enum
 from pathlib import Path
-from typing import Any, ClassVar, Dict, Optional, Self, Union, cast
+from typing import (
+    Any,
+    ClassVar,
+    Dict,
+    Optional,
+    Protocol,
+    Self,
+    Union,
+    cast,
+    runtime_checkable,
+)
 
 import geopandas as gpd
 
 from geojson_pydantic.features import Feature, FeatureCollection
 from geojson_pydantic.geometries import Geometry
-from pydantic import AliasGenerator, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    AliasGenerator,
+    ConfigDict,
+    Field,
+    FilePath,
+    Json,
+    TypeAdapter,
+    ValidationError,
+    field_validator,
+    model_validator,
+)
 from pydantic import BaseModel as PydanticBaseModel
 from pydantic.alias_generators import to_camel
 
 
-__all__ = ["BaseModel", "GeoJson", "Region", "RegionDataset"]
+__all__ = ["BaseModel", "GeoJson", "OnInvalid", "Region", "RegionDataset"]
 
 
 class BaseModel(PydanticBaseModel):
@@ -166,6 +184,37 @@ class Region(BaseModel):
         return value
 
 
+class OnInvalid(str, Enum):
+    """Error handling strategy.
+
+    Attributes:
+        RAISE (str):
+            Raise the underlying exception immediately.
+
+        IGNORE (str):
+            Suppress the underlying exception and return `None`.
+    """
+
+    RAISE = "raise"
+    IGNORE = "ignore"
+
+
+@runtime_checkable
+class SupportsGeoJsonInterface(Protocol):
+    """Protocol for objects exposing a GeoJSON interface.
+
+    For more details on `GeoJSON` and `__geo_interface__`, please refer
+    to the official documentations:
+
+    See: https://geojson.org/
+
+    See: https://gist.github.com/sgillies/2217756
+    """
+
+    @property
+    def __geo_interface__(self) -> Dict[str, Any]: ...  # pragma: no cover
+
+
 class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseModel]]]):
     """Custom GeoJSON-compatible region (or area) of interest.
 
@@ -184,6 +233,13 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
     - Create a Bulk Report.
     See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
 
+    For more details on `GeoJSON` and `__geo_interface__`, please refer
+    to the official documentations:
+
+    See: https://geojson.org/
+
+    See: https://gist.github.com/sgillies/2217756
+
     Attributes:
         type (Literal["FeatureCollection"]):
             The GeoJSON object type. Always set to `"FeatureCollection"`.
@@ -193,6 +249,9 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
             Each feature consists of a geometry object and an optional
             properties object.
     """
+
+    _file_path_adapter: ClassVar[Optional[TypeAdapter[FilePath]]] = None
+    _json_dict_adapter: ClassVar[Optional[TypeAdapter[Json[Dict[str, Any]]]]] = None
 
     @model_validator(mode="before")
     @classmethod
@@ -219,85 +278,77 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
             if geojson_type == "FeatureCollection":
                 return value
 
+            # Wrap a GeoJSON Feature into a FeatureCollection
             if geojson_type == "Feature":
-                return cls._wrap_geojson_feature(feature=value)
+                return {
+                    "type": "FeatureCollection",
+                    "features": [value],
+                }
 
+            # Wrap a GeoJSON Geometry/GeometryCollection into a FeatureCollection
             if geojson_type and ("coordinates" in value or "geometries" in value):
-                return cls._wrap_geojson_geometry(geometry=value)
+                return {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": None,
+                            "geometry": value,
+                        }
+                    ],
+                }
 
         return value
-
-    @classmethod
-    def _wrap_geojson_feature(cls, *, feature: Any) -> Dict[str, Any]:
-        """Wrap a GeoJSON Feature into a FeatureCollection.
-
-        Converts a bare GeoJSON Feature object into a FeatureCollection object
-        containing a provided Feature as its only member.
-
-        Args:
-            feature (Any):
-                A valid GeoJSON Feature object.
-
-        Returns:
-            Dict[str, Any]:
-                A GeoJSON FeatureCollection object.
-        """
-        return {
-            "type": "FeatureCollection",
-            "features": [feature],
-        }
-
-    @classmethod
-    def _wrap_geojson_geometry(cls, *, geometry: Any) -> Dict[str, Any]:
-        """Wrap a GeoJSON Geometry into a FeatureCollection.
-
-        Converts a bare GeoJSON Geometry object (e.g., Point, Polygon etc.) into a
-        FeatureCollection object containing a single Feature with null properties.
-
-        Args:
-            geometry (Any):
-                A valid GeoJSON Geometry object.
-
-        Returns:
-            Dict[str, Any]:
-                A GeoJSON FeatureCollection object.
-        """
-        return {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": None,
-                    "geometry": geometry,
-                }
-            ],
-        }
 
     @classmethod
     def from_file_or_geojson(
         cls,
         *,
-        filename: Optional[Union[str, Path]] = None,
-        geojson: Optional[Union[str, Dict[str, Any]]] = None,
+        source: Union[str, Path, Dict[str, Any], SupportsGeoJsonInterface],
         **kwargs: Dict[str, Any],
     ) -> Self:
-        """Create a `GeoJson` instance from a spatial file or a GeoJSON object.
+        """Create a `GeoJson` instance from a spatial data source.
 
-        Reads a GeoJSON-compatible object from a file, JSON-string, or dictionary and
-        converts it into a `GeoJson` instance.
+        Reads a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-string,
+        GeoJSON-dictionary, GeoDataFrame, or an object implementing `__geo_interface__`
+        and converts it into a `GeoJson` instance.
 
-        If both `filename` and `geojson` are provided, `filename` takes precedence.
+        For more details on `GeoJSON` and `__geo_interface__`, please refer
+        to the official documentations:
+
+        See: https://geojson.org/
+
+        See: https://gist.github.com/sgillies/2217756
+
+        When `source` is a filesystem path, the file is read using `geopandas.read_file`.
+
+        Supported formats depend on the underlying GDAL installation,
+        commonly including:
+
+        - GeoJSON (.geojson, .json)
+        - ESRI Shapefile (.shp)
+        - GeoPackage (.gpkg)
+        - FlatGeobuf (.fgb)
+        - KML / KMZ (if enabled)
+        - many additional OGR-supported formats
+
+        See: https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html
+
+        See: https://gdal.org/drivers/vector/index.html
+
+        A properly configured GDAL installation is required.
 
         Args:
-            filename(Optional[Union[str, Path]]):
+            source (Union[str, Path, Dict[str, Any], SupportsGeoJsonInterface]):
+                Spatial input source.
+
                 Path to a spatial file (e.g., GeoJSON, Shapefile, etc.).
-                Supported formats depend on the GeoPandas/GDAL installation.
                 Example: `"path/to/your/spatial/file.shp"` or
                 `"path/to/your/spatial/file.json"`.
 
-            geojson (Optional[Union[str, Dict[str, Any]]]):
-                A GeoJSON-compatible object provided as a JSON string or
-                Python dictionary.
+                GeoJSON-compatible object provided as a JSON-string, Python dictionary,
+                `geopandas.GeoDataFrame`, `shapely`, or an object implementing
+                `__geo_interface__`.
                 Example: `'{"type": "Polygon", "coordinates": [...]}'` or
                 `{"type": "Polygon", "coordinates": [...]}`.
 
@@ -308,18 +359,104 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
         Returns:
             GeoJson:
                 A fully populated `GeoJson` instance.
-        """
-        raw_geojson: Union[str, Dict[str, Any]] = geojson or {}
 
-        # Read GeoJson from a spatial file
-        if filename:
-            gdf: gpd.GeoDataFrame = gpd.read_file(filename, **kwargs)
-            raw_geojson = gdf.to_json(
-                na="drop", show_bbox=True, drop_id=True, to_wgs84=True
+        Raises:
+            ValueError:
+                If the source cannot be interpreted as a valid spatial input source.
+
+            ValidationError:
+                If `GeoJson` validation fails.
+        """
+        # Normalize `str` source to `Path` or `Dict`
+        _source: Optional[Union[Path, Dict[str, Any], SupportsGeoJsonInterface]] = (
+            cls.parse_file_path(value=source) or cls.parse_geojson_json(value=source)
+            if isinstance(source, str)
+            else source
+        )
+        if not isinstance(_source, (Path, dict, SupportsGeoJsonInterface)):
+            raise ValueError(
+                f"Expected a non-empty GeoJSON-compatible source `(Path, dict, SupportsGeoJsonInterface)` but received {type(source)}: {source!r}"
             )
 
-        if isinstance(raw_geojson, str):
-            raw_geojson = json.loads(raw_geojson)
-        raw_geojson = cast(Dict[str, Any], raw_geojson)
+        # Create from a spatial file e.g., GeoJSON file, Shapefile etc.
+        _geojson: Union[gpd.GeoDataFrame, Dict[str, Any] | SupportsGeoJsonInterface] = (
+            cast(gpd.GeoDataFrame, gpd.read_file(_source, **kwargs))
+            if isinstance(_source, Path)
+            else _source
+        )
 
-        return cls(**raw_geojson)
+        # Create from an object implementing `__geo_interface__`
+        # e.g., GeoDataFrame, shapely etc.
+        if isinstance(_geojson, SupportsGeoJsonInterface):
+            _geojson = _geojson.__geo_interface__
+
+        return cls(**_geojson)
+
+    @classmethod
+    def parse_file_path(
+        cls, *, value: str, on_invalid: OnInvalid = OnInvalid.IGNORE
+    ) -> Optional[Path]:
+        """Parse, validate and convert a filesystem path into `Path`.
+
+        Attempts to interpret a string as a valid existing file path using
+        Pydantic's `TypeAdapter` and `FilePath` validator.
+
+        Args:
+            value (str):
+                Candidate filesystem path.
+
+            on_invalid (OnInvalid, default=OnInvalid.IGNORE):
+                Behaviour when parsing or validation fails.
+
+        Returns:
+            Optional[Path]:
+                Validated path if successful, otherwise `None`.
+
+        Raises:
+            ValidationError:
+                If validation fails and `on_invalid=OnInvalid.RAISE`.
+
+            OSError:
+                If filesystem access fails and `on_invalid=OnInvalid.RAISE`.
+        """
+        try:
+            if not cls._file_path_adapter:
+                cls._file_path_adapter = TypeAdapter(FilePath)
+
+            return cls._file_path_adapter.validate_python(value)
+        except (ValidationError, OSError) as exc:
+            if on_invalid == "raise":
+                raise exc
+            return None
+
+    @classmethod
+    def parse_geojson_json(
+        cls, *, value: str, on_invalid: OnInvalid = OnInvalid.IGNORE
+    ) -> Optional[Dict[str, Any]]:
+        """Parse, validate and convert a GeoJSON JSON-string into `dict`.
+
+        Args:
+            value (str):
+                JSON string expected to represent a GeoJSON object.
+
+            on_invalid (OnInvalid, default=OnInvalid.IGNORE):
+                Behaviour when parsing or validation fails.
+
+        Returns:
+            Optional[Dict[str, Any]]:
+                Parsed GeoJSON dictionary or `None`.
+
+        Raises:
+            ValidationError:
+                If JSON parsing or validation fails and `on_invalid=OnInvalid.RAISE`.
+
+        """
+        try:
+            if not cls._json_dict_adapter:
+                cls._json_dict_adapter = TypeAdapter(Json[Dict[str, Any]])
+
+            return cls._json_dict_adapter.validate_python(value)
+        except ValidationError as exc:
+            if on_invalid == "raise":
+                raise exc
+            return None
