@@ -6,6 +6,7 @@ from typing import (
     Any,
     ClassVar,
     Dict,
+    List,
     Optional,
     Protocol,
     Self,
@@ -17,7 +18,7 @@ from typing import (
 import geopandas as gpd
 
 from geojson_pydantic.features import Feature, FeatureCollection
-from geojson_pydantic.geometries import Geometry
+from geojson_pydantic.geometries import Geometry, GeometryCollection
 from pydantic import (
     AliasGenerator,
     ConfigDict,
@@ -221,7 +222,7 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
     Represents a GeoJSON-compatible custom geographic region (or area) of interest
     supported by the Global Fishing Watch APIs.
 
-    The GeoJSON-compatible custom geographic region (or area) of interest are used
+    The GeoJSON-compatible custom geographic regions (areas of interest) are used
     in other Global Fishing Watch API endpoints when:
 
     - Create a report of a specified region.
@@ -252,6 +253,47 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
 
     _file_path_adapter: ClassVar[Optional[TypeAdapter[FilePath]]] = None
     _json_dict_adapter: ClassVar[Optional[TypeAdapter[Json[Dict[str, Any]]]]] = None
+
+    def to_geometry(self) -> Geometry:
+        """Convert a `GeoJson` object into into a single or collection of geometry.
+
+        This method extracts and aggregates all geometries contained within the
+        features of `GeoJson` object. The resulting `Geometry` represents the
+        union of all geometries contained in the `GeoJson`:
+
+        - Multiple features are converted into a `GeometryCollection`.
+        - Individual features return their geometry directly i.e., `Point`,
+        `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, or `MultiPolygon`.
+        - Features without geometries (`geometry=None`) are ignored.
+
+        Returns:
+            Geometry:
+                A single or collection of geometry representing all geometries contained in the `GeoJson` object.
+
+        Raises:
+            ValueError:
+                If the `GeoJson` object contains no valid geometries.
+        """
+        geometries: List[Geometry] = []
+        for feature in self.features or []:
+            if feature.geometry:
+                if isinstance(feature.geometry, GeometryCollection):
+                    for geometry in feature.geometry.geometries or []:
+                        geometries.append(geometry)
+                else:
+                    geometries.append(feature.geometry)
+
+        if not geometries:
+            raise ValueError(
+                f"Expected `GeoJson` object with valid geometries but received {self!r}"
+            )
+
+        if len(geometries) == 1:
+            return geometries[0]
+
+        return GeometryCollection.create(
+            geometries=geometries,
+        )
 
     @model_validator(mode="before")
     @classmethod

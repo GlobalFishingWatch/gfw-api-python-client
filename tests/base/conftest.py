@@ -1,6 +1,6 @@
 """Test configurations for `gfwapiclient.base`."""
 
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, List
 
 import pytest
 
@@ -174,3 +174,67 @@ def mock_raw_geojson_polygon(
         "base/geojson/geojson_polygon.json"
     )
     return raw_geojson_polygon
+
+
+@pytest.fixture
+def mock_raw_geojson_features(
+    mock_raw_geojson_geometrycollection: Dict[str, Any],
+    mock_raw_geojson_linestring: Dict[str, Any],
+    mock_raw_geojson_multilinestring: Dict[str, Any],
+    mock_raw_geojson_multipoint: Dict[str, Any],
+    mock_raw_geojson_multipolygon: Dict[str, Any],
+    mock_raw_geojson_point: Dict[str, Any],
+    mock_raw_geojson_polygon: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """Fixture for a mock raw geojson features.
+
+    This fixture create sample JSON data representing a
+    list of `GeoJSON` features.
+
+    Returns:
+        List[Dict[str, Any]]:
+            Raw `GeoJSON` sample features data as a list of dictionaries.
+    """
+    raw_geojson_features: List[Dict[str, Any]] = [
+        {
+            "type": "Feature",
+            "geometry": {**mock_raw_geojson_feature},
+            "properties": None,
+        }
+        for mock_raw_geojson_feature in [
+            mock_raw_geojson_geometrycollection,  # GeometryCollection
+            mock_raw_geojson_linestring,  # LineString
+            mock_raw_geojson_multilinestring,  # MultiLineString
+            mock_raw_geojson_multipoint,  # MultiPoint
+            mock_raw_geojson_multipolygon,  # MultiPolygon
+            mock_raw_geojson_point,  # Point
+            mock_raw_geojson_polygon,  # Polygon
+        ]
+    ]
+    return raw_geojson_features
+
+
+@pytest.fixture
+def mock_raw_geojson_feature_collections(
+    mock_raw_geojson_features: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    """Fixture for a mock raw geojson feature collections.
+
+    This fixture create sample JSON data representing a
+    list of `GeoJSON` feature collections.
+
+    Returns:
+        List[Dict[str, Any]]:
+            Raw `GeoJSON` sample feature collections data as a list of dictionaries.
+    """
+    raw_geojson_feature_collections: List[Dict[str, Any]] = [
+        {
+            "type": "FeatureCollection",
+            "features": mock_raw_features,  # At least 2 features
+        }
+        for mock_raw_features in [
+            mock_raw_geojson_features[-idx:]
+            for idx in range(2, len(mock_raw_geojson_features) + 1)
+        ]
+    ]
+    return raw_geojson_feature_collections
