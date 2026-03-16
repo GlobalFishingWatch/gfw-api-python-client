@@ -3,14 +3,61 @@
 import json
 
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Union
 
+import geopandas as gpd
 import pytest
+import shapely
 
 from geojson_pydantic.features import Feature, FeatureCollection
+from geojson_pydantic.geometries import (
+    Geometry,
+    GeometryCollection,
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+)
 from pydantic import ValidationError
 
-from gfwapiclient.base.models import GeoJson
+from gfwapiclient.base.models import GeoJson, OnInvalid, SupportsGeoJsonInterface
+
+
+def assert_valid_geojson(geojson: GeoJson) -> None:
+    """Assert that an object is a valid `GeoJson`.
+
+    Its checks:
+        - Object is a `GeoJson` instance
+        - Object is a GeoJSON `FeatureCollection``
+        - Supports `__geo_interface__`
+        - Contains at least one Feature
+
+    Args:
+        geojson (GeoJson):
+            Object to validate.
+    """
+    assert isinstance(geojson, GeoJson)
+    assert isinstance(geojson, FeatureCollection)
+    assert isinstance(geojson, SupportsGeoJsonInterface)
+    assert hasattr(geojson, "__geo_interface__")
+    assert geojson.type == "FeatureCollection"
+    assert geojson.features is not None
+    assert geojson.length >= 1
+    assert len(geojson.features) >= 1
+    assert isinstance(geojson.features[0], Feature) is True
+    assert hasattr(geojson.features[0], "__geo_interface__")
+
+
+def test_geojson_model_serializes_feature_to_feature_collection(
+    mock_raw_geojson_feature: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes feature to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_feature)
+
+    assert_valid_geojson(geojson)
+    assert geojson.features[0].model_dump(mode="json") == mock_raw_geojson_feature
 
 
 def test_geojson_model_serializes_feature_collection(
@@ -19,68 +66,26 @@ def test_geojson_model_serializes_feature_collection(
     """Test that `GeoJson` serializes feature collection correctly."""
     geojson: GeoJson = GeoJson(**mock_raw_geojson_feature_collection)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-
+    assert_valid_geojson(geojson)
     assert geojson.model_dump(mode="json") == mock_raw_geojson_feature_collection
 
 
-def test_geojson_model_serializes_feature_to_feature_collection(
-    mock_raw_geojson_feature: Dict[str, Any],
+def test_geojson_model_serializes_geometrycollection_to_feature_collection(
+    mock_raw_geojson_geometrycollection: Dict[str, Any],
 ) -> None:
-    """Test that `GeoJson` serializes feature correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_feature)
+    """Test that `GeoJson` serializes geometrycollection to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_geometrycollection)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
-
-    assert geojson.features[0].model_dump(mode="json") == mock_raw_geojson_feature
-
-
-def test_geojson_model_serializes_multipoint_to_feature_collection(
-    mock_raw_geojson_multipoint: Dict[str, Any],
-) -> None:
-    """Test that `GeoJson` serializes multipoint to feature collection correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipoint)
-
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
-
-    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
-    assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipoint["type"]
-    assert (
-        feature_model_dump["geometry"]["coordinates"]
-        == mock_raw_geojson_multipoint["coordinates"]
-    )
-
-
-def test_geojson_model_serializes_multipolygon_to_feature_collection(
-    mock_raw_geojson_multipolygon: Dict[str, Any],
-) -> None:
-    """Test that `GeoJson` serializes multipolygon to feature collection correctly."""
-    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipolygon)
-
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
+    assert_valid_geojson(geojson)
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
     assert (
-        feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipolygon["type"]
+        feature_model_dump["geometry"]["type"]
+        == mock_raw_geojson_geometrycollection["type"]
     )
     assert (
-        feature_model_dump["geometry"]["coordinates"]
-        == mock_raw_geojson_multipolygon["coordinates"]
+        feature_model_dump["geometry"]["geometries"]
+        == mock_raw_geojson_geometrycollection["geometries"]
     )
 
 
@@ -90,11 +95,7 @@ def test_geojson_model_serializes_linestring_to_feature_collection(
     """Test that `GeoJson` serializes linestring to feature collection correctly."""
     geojson: GeoJson = GeoJson(**mock_raw_geojson_linestring)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
+    assert_valid_geojson(geojson)
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
     assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_linestring["type"]
@@ -110,11 +111,7 @@ def test_geojson_model_serializes_multilinestring_to_feature_collection(
     """Test that `GeoJson` serializes multilinestring to feature collection correctly."""
     geojson: GeoJson = GeoJson(**mock_raw_geojson_multilinestring)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
+    assert_valid_geojson(geojson)
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
     assert (
@@ -127,17 +124,47 @@ def test_geojson_model_serializes_multilinestring_to_feature_collection(
     )
 
 
+def test_geojson_model_serializes_multipoint_to_feature_collection(
+    mock_raw_geojson_multipoint: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes multipoint to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipoint)
+
+    assert_valid_geojson(geojson)
+
+    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
+    assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipoint["type"]
+    assert (
+        feature_model_dump["geometry"]["coordinates"]
+        == mock_raw_geojson_multipoint["coordinates"]
+    )
+
+
+def test_geojson_model_serializes_multipolygon_to_feature_collection(
+    mock_raw_geojson_multipolygon: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes multipolygon to feature collection correctly."""
+    geojson: GeoJson = GeoJson(**mock_raw_geojson_multipolygon)
+
+    assert_valid_geojson(geojson)
+
+    feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
+    assert (
+        feature_model_dump["geometry"]["type"] == mock_raw_geojson_multipolygon["type"]
+    )
+    assert (
+        feature_model_dump["geometry"]["coordinates"]
+        == mock_raw_geojson_multipolygon["coordinates"]
+    )
+
+
 def test_geojson_model_serializes_point_to_feature_collection(
     mock_raw_geojson_point: Dict[str, Any],
 ) -> None:
     """Test that `GeoJson` serializes point to feature collection correctly."""
     geojson: GeoJson = GeoJson(**mock_raw_geojson_point)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
+    assert_valid_geojson(geojson)
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
     assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_point["type"]
@@ -153,11 +180,7 @@ def test_geojson_model_serializes_polygon_to_feature_collection(
     """Test that `GeoJson` serializes polygon to feature collection correctly."""
     geojson: GeoJson = GeoJson(**mock_raw_geojson_polygon)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
-    assert isinstance(geojson.features[0], Feature) is True
+    assert_valid_geojson(geojson)
 
     feature_model_dump: Dict[str, Any] = geojson.features[0].model_dump(mode="json")
     assert feature_model_dump["geometry"]["type"] == mock_raw_geojson_polygon["type"]
@@ -172,56 +195,294 @@ def test_geojson_model_serializes_polygon_to_feature_collection(
     [
         {},
         {"type": "invalid_type"},
+        {"type": "Point"},
+        {"coordinates": []},
+        {"geometries": []},
+        {"features": []},
+        {"geometry": []},
+        {"type": "FeatureCollection", "features": None},
+        {"type": "Feature", "geometry": None},
+        {"type": "GeometryCollection", "geometries": None},
+        {"type": "Point", "coordinates": None},
     ],
 )
-def test_geojson_model_raises_validation_error_on_invalid_geojson_input_data(
+def test_geojson_model_serializes_invalid_data_raises_validation_error(
     invalid_data: Any,
 ) -> None:
-    """Tests that `GeoJson` raises a `ValidationError` on invalid geojson input data."""
+    """Test that `GeoJson` serializes raises a `ValidationError` on invalid data."""
     with pytest.raises(ValidationError):
         GeoJson(**invalid_data)
+
+
+def test_geojson_model_serialize_deserialize_roundtrips(
+    mock_raw_geojson_feature_collection: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` can be serialized and deserialized without loss."""
+    original: GeoJson = GeoJson(**mock_raw_geojson_feature_collection)
+    reconstructed: GeoJson = GeoJson(**original.model_dump(mode="json"))
+
+    assert_valid_geojson(original)
+    assert_valid_geojson(reconstructed)
+    assert original.model_dump(mode="json") == reconstructed.model_dump(mode="json")
+
+
+def test_geojson_model_geo_interface_serialize_deserialize_roundtrips(
+    mock_raw_geojson_feature_collection: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` can be serialized and deserialized from `__geo_interface__` without loss."""
+    original: GeoJson = GeoJson(**mock_raw_geojson_feature_collection)
+    reconstructed: GeoJson = GeoJson(**original.__geo_interface__)
+
+    assert_valid_geojson(original)
+    assert_valid_geojson(reconstructed)
+    assert original.__geo_interface__ == reconstructed.__geo_interface__
+
+
+def test_geojson_model_to_geometry_serializes_to_geometry(
+    mock_raw_geojson_features: List[Dict[str, Any]],
+) -> None:
+    """Test that `GeoJson` serializes to geometry correctly."""
+    geojsons: List[GeoJson] = [
+        GeoJson(**mock_raw_geojson_feature)
+        for mock_raw_geojson_feature in mock_raw_geojson_features
+    ]
+
+    for geojson in geojsons:
+        assert_valid_geojson(geojson)
+
+        geometry: Geometry = geojson.to_geometry()
+
+        assert geometry is not None
+        assert isinstance(
+            geometry,
+            (
+                Point,
+                MultiPoint,
+                LineString,
+                MultiLineString,
+                Polygon,
+                MultiPolygon,
+                GeometryCollection,
+            ),
+        )
+        assert geometry.__geo_interface__ is not None
+        assert isinstance(geometry.__geo_interface__, dict)
+
+
+def test_geojson_model_to_geometry_serializes_to_geometrycollection(
+    mock_raw_geojson_feature_collections: List[Dict[str, Any]],
+) -> None:
+    """Test that `GeoJson` serializes to geometry collection correctly."""
+    geojsons: List[GeoJson] = [
+        GeoJson(**mock_raw_geojson_feature_collection)
+        for mock_raw_geojson_feature_collection in mock_raw_geojson_feature_collections
+    ]
+
+    for geojson in geojsons:
+        assert_valid_geojson(geojson)
+
+        geometry: Geometry = geojson.to_geometry()
+
+        assert geometry is not None
+        assert isinstance(geometry, GeometryCollection)
+        assert geometry.__geo_interface__ is not None
+        assert isinstance(geometry.__geo_interface__, dict)
+
+
+@pytest.mark.parametrize(
+    "empty_geometry_source",
+    [
+        {"type": "FeatureCollection", "features": []},
+        {
+            "type": "FeatureCollection",
+            "features": [{"type": "Feature", "geometry": None, "properties": None}],
+        },
+        {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {"type": "GeometryCollection", "geometries": []},
+                    "properties": None,
+                }
+            ],
+        },
+    ],
+)
+def test_geojson_model_serializes_to_geometry_empty_geometries_raises_value_error(
+    empty_geometry_source: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` serializes to geometry raises a `ValueError` if contains no geometries."""
+    geojson: GeoJson = GeoJson(**empty_geometry_source)
+
+    with pytest.raises(ValueError):
+        geojson.to_geometry()
+
+
+@pytest.mark.parametrize(
+    "invalid_source",
+    [
+        None,  # Unsupported type
+        "null",  # None JSON-string
+        12345,  # Unsupported type
+        "not a path or json",  # Unsupported value
+        "path/to/invalid/spatial/file.shp",  # Does not point to a file
+        "path/to/invalid/spatial/file.json",  # Does not point to a file
+    ],
+)
+def test_geojson_model_from_file_or_geojson_invalid_source_raises_value_error(
+    invalid_source: Any,
+) -> None:
+    """Test that `GeoJson` from file or geojson raises a `ValueError` on invalid source."""
+    with pytest.raises(ValueError):
+        GeoJson.from_file_or_geojson(source=invalid_source)
+
+
+@pytest.mark.parametrize(
+    "invalid_geojson_source",
+    [
+        {},
+        "{}",
+        {"type": "invalid_type"},
+        '{"type": "invalid_type"}',
+        {"type": "Point"},
+        '{"type": "Point"}',
+        {"coordinates": []},
+        '{"coordinates": []}',
+        {"geometries": []},
+        '{"geometries": []}',
+        {"features": []},
+        '{"features": []}',
+        {"geometry": []},
+        '{"geometry": []}',
+        {"type": "FeatureCollection", "features": None},
+        '{"type": "FeatureCollection", "features": null}',
+        {"type": "Feature", "geometry": None},
+        '{"type": "Feature", "geometry": null}',
+        {"type": "GeometryCollection", "geometries": None},
+        '{"type": "GeometryCollection", "geometries": null}',
+        {"type": "Point", "coordinates": None},
+        '{"type": "Point", "coordinates": null}',
+    ],
+)
+def test_geojson_model_from_file_or_geojson_invalid_geojson_source_raises_validation_error(
+    invalid_geojson_source: Any,
+) -> None:
+    """Test that `GeoJson` from file or geojson raises a `ValidationError` on invalid geojson source."""
+    with pytest.raises(ValidationError):
+        GeoJson.from_file_or_geojson(source=invalid_geojson_source)
 
 
 @pytest.mark.parametrize(
     "filename",
     [
         "tests/fixtures/base/geojson/geojson_featurecollection.json",
+        Path("tests/fixtures/base/geojson/geojson_featurecollection.json"),
         "tests/fixtures/base/shapefiles/geojson_featurecollection.shp",
+        Path("tests/fixtures/base/shapefiles/geojson_featurecollection.shp"),
     ],
 )
-def test_geojson_model_create_from_file(filename: Optional[Union[str, Path]]) -> None:
-    """Test that `GeoJson` can be created from a file correctly."""
-    geojson: GeoJson = GeoJson.from_file_or_geojson(filename=filename)
+def test_geojson_model_from_file_or_geojson_create_from_valid_file_path_source(
+    filename: Union[str, Path],
+) -> None:
+    """Test that `GeoJson` can be created from a valid file `Path` source correctly."""
+    geojson: GeoJson = GeoJson.from_file_or_geojson(source=filename)
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
+    assert_valid_geojson(geojson)
 
 
-def test_geojson_model_create_from_geojson(
+def test_geojson_model_from_file_or_geojson_create_from_valid_geojson_dict_source(
     mock_raw_geojson_feature_collection: Dict[str, Any],
 ) -> None:
-    """Test that `GeoJson` can be created from a geojson correctly."""
+    """Test that `GeoJson` can be created from a valid geojson `dict` source correctly."""
     geojson: GeoJson = GeoJson.from_file_or_geojson(
-        geojson=mock_raw_geojson_feature_collection
+        source=mock_raw_geojson_feature_collection
     )
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
+    assert_valid_geojson(geojson)
 
 
-def test_geojson_model_create_from_geojson_string(
+def test_geojson_model_from_file_or_geojson_create_from_valid_geojson_string_source(
     mock_raw_geojson_feature_collection: Dict[str, Any],
 ) -> None:
-    """Test that `GeoJson` can be created from a geojson string correctly."""
+    """Test that `GeoJson` can be created from a valid geojson string source correctly."""
     geojson: GeoJson = GeoJson.from_file_or_geojson(
-        geojson=json.dumps(mock_raw_geojson_feature_collection)
+        source=json.dumps(mock_raw_geojson_feature_collection)
     )
 
-    assert isinstance(geojson, FeatureCollection)
-    assert geojson.type == "FeatureCollection"
-    assert geojson.features is not None
-    assert len(geojson.features) == 1
+    assert_valid_geojson(geojson)
+
+
+def test_geojson_model_from_file_or_geojson_create_from_valid_geojson_protocol_source(
+    mock_raw_geojson_feature_collection: Dict[str, Any],
+    mock_raw_geojson_polygon: Dict[str, Any],
+) -> None:
+    """Test that `GeoJson` can be created from a valid geojson protocol source correctly."""
+    sources = [
+        GeoJson(**mock_raw_geojson_feature_collection),  # GeoJson
+        gpd.GeoDataFrame.from_features(
+            {**mock_raw_geojson_feature_collection}
+        ),  # GeoDataFrame
+        shapely.geometry.shape({**mock_raw_geojson_polygon}),  # shapely geometry
+    ]
+
+    for source in sources:
+        geojson: GeoJson = GeoJson.from_file_or_geojson(source=source)
+
+        assert_valid_geojson(geojson)
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    [
+        None,  # Unsupported type
+        "null",  # None JSON-string
+        12345,  # Unsupported type
+        "not a path or json",  # Unsupported value
+        "path/to/invalid/spatial/file.shp",  # Does not point to a file
+        "path/to/invalid/spatial/file.json",  # Does not point to a file
+    ],
+)
+def test_geojson_model_parse_file_path_invalid_value_raises_validation_error(
+    invalid_value: Any,
+) -> None:
+    """Test that `GeoJson` parse file path raises a `ValidationError` on invalid file path."""
+    with pytest.raises(ValidationError):
+        GeoJson.parse_file_path(value=invalid_value, on_invalid=OnInvalid.RAISE)
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    [
+        None,  # Unsupported type
+        "null",  # None JSON-string
+        12345,  # Unsupported type
+        "not a path or json",  # Unsupported value
+        "path/to/invalid/spatial/file.shp",  # Does not point to a file
+        "path/to/invalid/spatial/file.json",  # Does not point to a file
+    ],
+)
+def test_geojson_model_parse_geojson_json_invalid_value_raises_validation_error(
+    invalid_value: Any,
+) -> None:
+    """Test that `GeoJson` parse geojson json-string raises a `ValidationError` on invalid JSON-string."""
+    with pytest.raises(ValidationError):
+        GeoJson.parse_geojson_json(value=invalid_value, on_invalid=OnInvalid.RAISE)
+
+
+def test_geojson_model_supports_geo_interface_protocol_isinstance_runtime_check() -> (
+    None
+):
+    """Test that `SupportsGeoJsonInterface` supports isinstance runtime check correctly."""
+
+    class SampleGeo:
+        """A sample model for testing `SupportsGeoJsonInterface` behavior."""
+
+        @property
+        def __geo_interface__(self) -> Dict[str, Any]:
+            return {"type": "Point", "coordinates": [0, 0]}
+
+    sample_geo: SampleGeo = SampleGeo()
+    assert isinstance(sample_geo, SupportsGeoJsonInterface)
+    assert sample_geo.__geo_interface__ is not None
+    assert isinstance(sample_geo.__geo_interface__, dict)
