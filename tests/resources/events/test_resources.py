@@ -1,10 +1,12 @@
 """Tests for `gfwapiclient.resources.events.resources`."""
 
-from typing import Any, Dict, Final, List, cast
+from pathlib import Path
+from typing import Any, Dict, Final, List, Union, cast
 
 import pytest
 import respx
 
+from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -59,6 +61,40 @@ async def test_event_resource_get_all_events_request_success(
     data: List[EventListItem] = cast(List[EventListItem], result.data())
     assert isinstance(result, EventListResult)
     assert isinstance(data[0], EventListItem)
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+async def test_event_resource_get_all_events_geojson_request_body_success(
+    mock_http_client: HTTPClient,
+    mock_raw_event_list_request_params: Dict[str, Any],
+    mock_raw_event_list_request_body: Dict[str, Any],
+    mock_raw_event_list_item: Dict[str, Any],
+    mock_geojson_source_instances: List[
+        Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+    ],
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test `EventResource` get all events succeeds with valid geojson request bodies."""
+    mock_responsex.post("/events").respond(
+        200, json={"entries": [mock_raw_event_list_item, {}]}
+    )
+    resource = EventResource(http_client=mock_http_client)
+
+    for geojson_source_instance in [*mock_geojson_source_instances, None]:
+        result: EventListResult = await resource.get_all_events(
+            **{
+                **{
+                    **mock_raw_event_list_request_body,
+                    "geometry": geojson_source_instance,  # geojson source
+                },
+                **mock_raw_event_list_request_params,
+            }
+        )
+
+        data: List[EventListItem] = cast(List[EventListItem], result.data())
+        assert isinstance(result, EventListResult)
+        assert isinstance(data[0], EventListItem)
 
 
 @pytest.mark.asyncio

@@ -4,11 +4,11 @@ from typing import Final, List, Optional
 
 from pydantic import Field
 
+from gfwapiclient.base.models import GeoJson
 from gfwapiclient.http.models import RequestBody
 from gfwapiclient.resources.bulk_downloads.base.models.request import (
     BulkReportDataset,
     BulkReportFormat,
-    BulkReportGeometry,
     BulkReportRegion,
 )
 
@@ -43,7 +43,7 @@ class BulkReportCreateBody(RequestBody):
             Dataset that will be used to create the bulk report.
             Defaults to `"public-fixed-infrastructure-data:v1.1"`.
 
-        geojson (Optional[BulkReportGeometry]):
+        geojson (Optional[GeoJson]):
             Custom GeoJSON geometry to filter the bulk report.
 
         format (Optional[BulkReportFormat]):
@@ -60,7 +60,7 @@ class BulkReportCreateBody(RequestBody):
     dataset: Optional[BulkReportDataset] = Field(
         BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_LATEST, alias="dataset"
     )
-    geojson: Optional[BulkReportGeometry] = Field(None, alias="geojson")
+    geojson: Optional[GeoJson] = Field(None, alias="geojson")
     format: Optional[BulkReportFormat] = Field(BulkReportFormat.JSON, alias="format")
     region: Optional[BulkReportRegion] = Field(None, alias="region")
     filters: Optional[List[str]] = Field(None, alias="filters")
