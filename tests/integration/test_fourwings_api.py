@@ -10,7 +10,8 @@ Global Fishing Watch API documentation:
 - `4Wings API Documentation <https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api>`_
 """
 
-from typing import List, cast
+from pathlib import Path
+from typing import List, Union, cast
 
 import pandas as pd
 import pytest
@@ -347,6 +348,49 @@ async def test_fourwings_create_report_ais_vessel_presence_daily_filtered_by_car
             "dataset": "public-eez-areas",
             "id": "5690",
         },
+    )
+
+    data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
+    assert isinstance(result, FourWingsReportResult)
+    assert len(data) >= 1, "Expected at least one FourWingsReportItem."
+    assert isinstance(data[0], FourWingsReportItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.parametrize(
+    "geojson",
+    [
+        "tests/fixtures/datasets/geometry/geometry.json",
+        Path("tests/fixtures/datasets/geometry/geometry.json"),
+        "tests/fixtures/datasets/geometry/geometry.shp",
+        Path("tests/fixtures/datasets/geometry/geometry.shp"),
+    ],
+)
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_fourwings_create_report_generate_fishing_effort_report_by_geojson_from_spatial_file(
+    geojson: Union[str, Path],
+    gfw_client: gfw.Client,
+) -> None:
+    """Test generating yearly fishing effort report by geometry from spatial file.
+
+    This test verifies that the `create_report` method correctly retrieves
+    yearly fishing effort data grouped by flag for a specified specified gejson from spatial file.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
+    """
+    result: FourWingsReportResult = await gfw_client.fourwings.create_report(
+        spatial_resolution="LOW",
+        temporal_resolution="YEARLY",
+        group_by="FLAG",
+        datasets=["public-global-fishing-effort:latest"],
+        start_date="2021-01-01",
+        end_date="2022-01-01",
+        geojson=geojson,
     )
 
     data: List[FourWingsReportItem] = cast(List[FourWingsReportItem], result.data())
