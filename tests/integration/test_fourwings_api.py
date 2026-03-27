@@ -364,22 +364,22 @@ async def test_fourwings_create_report_ais_vessel_presence_daily_filtered_by_car
 @pytest.mark.parametrize(
     "geojson",
     [
-        "tests/fixtures/datasets/geometry/geometry.json",
-        Path("tests/fixtures/datasets/geometry/geometry.json"),
-        "tests/fixtures/datasets/geometry/geometry.shp",
-        Path("tests/fixtures/datasets/geometry/geometry.shp"),
+        "tests/fixtures/fourwings/geojson/geojson.json",
+        Path("tests/fixtures/fourwings/geojson/geojson.json"),
+        "tests/fixtures/fourwings/geojson/geojson.shp",
+        Path("tests/fixtures/fourwings/geojson/geojson.shp"),
     ],
 )
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_fourwings_create_report_generate_fishing_effort_report_by_geojson_from_spatial_file(
+async def test_fourwings_create_report_by_geojson_from_spatial_file(
     geojson: Union[str, Path],
     gfw_client: gfw.Client,
 ) -> None:
-    """Test generating yearly fishing effort report by geometry from spatial file.
+    """Test generating report by geojson from spatial file.
 
     This test verifies that the `create_report` method correctly retrieves
-    yearly fishing effort data grouped by flag for a specified specified gejson from spatial file.
+    report for a specified specified geojson from spatial file.
     It checks the structure and content of the returned data, ensuring it's a
     valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
     """
