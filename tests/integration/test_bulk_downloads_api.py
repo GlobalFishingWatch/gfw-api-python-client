@@ -27,10 +27,10 @@ from gfwapiclient.resources.bulk_downloads.create.models.response import (
 @pytest.mark.parametrize(
     "geojson",
     [
-        "tests/fixtures/datasets/geometry/geometry.json",
-        Path("tests/fixtures/datasets/geometry/geometry.json"),
-        "tests/fixtures/datasets/geometry/geometry.shp",
-        Path("tests/fixtures/datasets/geometry/geometry.shp"),
+        "tests/fixtures/bulk_downloads/geojson/geojson.json",
+        Path("tests/fixtures/bulk_downloads/geojson/geojson.json"),
+        "tests/fixtures/bulk_downloads/geojson/geojson.shp",
+        Path("tests/fixtures/bulk_downloads/geojson/geojson.shp"),
     ],
 )
 @pytest.mark.integration
