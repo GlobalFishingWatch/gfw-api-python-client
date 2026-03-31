@@ -34,15 +34,15 @@ class SARFixedInfrastructureEndPoint(
         """Initializes a new `SARFixedInfrastructureEndPoint` API endpoint.
 
         Args:
-            z: (int):
+            z (int):
                 Zoom level (from 0 to 9 for SAR fixed infrastructure dataset).
                 Example: `1`.
 
-            x: (int):
+            x (int):
                 X index (lat) of the tile.
                 Example: `0`.
 
-            y: (int):
+            y (int):
                 Y index (lon) of the tile.
                 Example: `1`.
 

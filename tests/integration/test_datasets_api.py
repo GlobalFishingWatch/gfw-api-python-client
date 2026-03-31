@@ -9,7 +9,8 @@ For more details on the Datasets API, please refer to the official
 `Global Fishing Watch API documentation <https://globalfishingwatch.org/our-apis/documentation#datasets-api>`_.
 """
 
-from typing import Any, Dict, List, cast
+from pathlib import Path
+from typing import Any, Dict, List, Union, cast
 
 import pandas as pd
 import pytest
@@ -84,6 +85,45 @@ async def test_datasets_get_sar_fixed_infrastructure_mvt_by_geometry(
             ]
         ],
     }
+    result: SARFixedInfrastructureResult = (
+        await gfw_client.datasets.get_sar_fixed_infrastructure(geometry=geometry)
+    )
+    data: List[SARFixedInfrastructureItem] = cast(
+        List[SARFixedInfrastructureItem], result.data()
+    )
+    assert isinstance(result, SARFixedInfrastructureResult)
+    assert len(data) >= 1, "Expected at least one SAR fixed infrastructure item."
+    assert isinstance(data[0], SARFixedInfrastructureItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.parametrize(
+    "geometry",
+    [
+        "tests/fixtures/datasets/geometry/geometry.json",
+        Path("tests/fixtures/datasets/geometry/geometry.json"),
+        "tests/fixtures/datasets/geometry/geometry.shp",
+        Path("tests/fixtures/datasets/geometry/geometry.shp"),
+    ],
+)
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_datasets_get_sar_fixed_infrastructure_mvt_by_geometry_from_spatial_file(
+    geometry: Union[str, Path],
+    gfw_client: gfw.Client,
+) -> None:
+    """Test retrieving SAR fixed infrastructure data in MVT format by geometry from spatial file.
+
+    This test verifies that the `get_sar_fixed_infrastructure` method can
+    correctly retrieve Mapbox Vector Tile (MVT) data for a specified geometry from spatial file.
+    It checks the structure and content of the returned data, ensuring
+    it's a valid `SARFixedInfrastructureResult` and that the data can be converted to a
+    pandas DataFrame.
+    """
     result: SARFixedInfrastructureResult = (
         await gfw_client.datasets.get_sar_fixed_infrastructure(geometry=geometry)
     )

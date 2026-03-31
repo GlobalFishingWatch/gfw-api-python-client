@@ -1,11 +1,11 @@
 """Global Fishing Watch (GFW) API Python Client - Datasets API Resource."""
 
+from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
 import pydantic
 
-from geojson_pydantic.geometries import Geometry
-
+from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import RequestParamsValidationError
 from gfwapiclient.http.resources import BaseResource
 from gfwapiclient.resources.datasets.endpoints import SARFixedInfrastructureEndPoint
@@ -31,7 +31,9 @@ class DatasetResource(BaseResource):
         z: Optional[int] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
-        geometry: Optional[Union[Geometry, Dict[str, Any]]] = None,
+        geometry: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         **kwargs: Dict[str, Any],
     ) -> SARFixedInfrastructureResult:
         """Get SAR (Synthetic-aperture radar) fixed infrastructure data.
@@ -42,21 +44,28 @@ class DatasetResource(BaseResource):
         used.
 
         Args:
-            z: (Optional[int], default=None):
+            z (Optional[int], default=None):
                 Zoom level (from 0 to 9 for SAR fixed infrastructure dataset). Defaults to `None`.
                 Example: `1`.
 
-            x: (Optional[int], default=None):
+            x (Optional[int], default=None):
                 X index (lat) of the tile. Defaults to `None`.
                 Example: `0`.
 
-            y: (Optional[int], default=None):
+            y (Optional[int], default=None):
                 Y index (lon) of the tile. Defaults to `None`.
                 Example: `1`.
 
-            geometry (Optional[Union[Geometry, Dict[str, Any]]], default=None):
-                Geometry used to filter SAR fixed infrastructure. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geometry ((Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
+                Optional GeoJSON geometry to filter SAR fixed infrastructure. Either a
+                path to a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like
+                object (e.g., JSON string or dictionary) or `GeoJson` model instance.
+                Defaults to `None`.
+                If provided and `z`, `x`, `y` are not specified, the tile
+                containing the geometry's bounding box will be used to populate
+                `z`, `x`, and `y`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or
+                `/path/to/your/custom/region.shp`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
@@ -97,7 +106,9 @@ class DatasetResource(BaseResource):
         z: Optional[int] = None,
         x: Optional[int] = None,
         y: Optional[int] = None,
-        geometry: Optional[Union[Geometry, Dict[str, Any]]] = None,
+        geometry: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
     ) -> SARFixedInfrastructureParams:
         """Prepares and returns the request parameters for the get sar fixed infrastructure endpoint."""
         try:
