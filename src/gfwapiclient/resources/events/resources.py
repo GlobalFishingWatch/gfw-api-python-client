@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import pydantic
 
-from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
+from gfwapiclient.base.models import GeoJson, Geometry, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -446,7 +446,7 @@ class EventResource(BaseResource):
     ) -> EventListBody:
         """Prepares and returns the request body for the get all events endpoint."""
         try:
-            _geometry: Optional[GeoJson] = self._prepare_events_request_body_geometry(
+            _geometry: Optional[Geometry] = self._prepare_events_request_body_geometry(
                 geometry=geometry
             )
             _request_body: Dict[str, Any] = {
@@ -513,7 +513,7 @@ class EventResource(BaseResource):
     ) -> EventStatsBody:
         """Prepares and returns the request body for the get events statistics endpoint."""
         try:
-            _geometry: Optional[GeoJson] = self._prepare_events_request_body_geometry(
+            _geometry: Optional[Geometry] = self._prepare_events_request_body_geometry(
                 geometry=geometry
             )
             _request_body: Dict[str, Any] = {
@@ -548,9 +548,10 @@ class EventResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-    ) -> Optional[GeoJson]:
+    ) -> Optional[Geometry]:
         """Prepare and return events request body geometry."""
         if geometry is not None:
-            return GeoJson.from_file_or_geojson(source=geometry)
+            _geojson: GeoJson = GeoJson.from_file_or_geojson(source=geometry)
+            return _geojson.to_geometry()
 
         return None

@@ -4,6 +4,8 @@ from typing import Any, Dict
 
 from gfwapiclient.resources.events.stats.models.request import EventStatsBody
 
+from .....base.test_geojson_models import assert_valid_geometry
+
 
 def test_event_stats_request_body_serializes_all_fields(
     mock_raw_event_stats_request_body: Dict[str, Any],
@@ -21,6 +23,7 @@ def test_event_stats_request_body_serializes_all_fields(
     assert event_stats_request_body.confidences is not None
     assert event_stats_request_body.encounter_types is not None
     assert event_stats_request_body.geometry is not None
+    assert_valid_geometry(event_stats_request_body.geometry)
     assert event_stats_request_body.region is not None
     assert event_stats_request_body.vessel_types is not None
     assert event_stats_request_body.vessel_groups is not None
