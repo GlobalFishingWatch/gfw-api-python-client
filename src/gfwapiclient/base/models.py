@@ -34,7 +34,7 @@ from pydantic import BaseModel as PydanticBaseModel
 from pydantic.alias_generators import to_camel
 
 
-__all__ = ["BaseModel", "GeoJson", "OnInvalid", "Region", "RegionDataset"]
+__all__ = ["BaseModel", "GeoJson", "Geometry", "OnInvalid", "Region", "RegionDataset"]
 
 
 class BaseModel(PydanticBaseModel):

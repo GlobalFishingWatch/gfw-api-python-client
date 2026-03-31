@@ -5,10 +5,14 @@ from typing import Any, Dict, Final, Optional, Self, Union, cast
 
 import mercantile
 
-from geojson_pydantic.geometries import Geometry
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel, GeoJson, SupportsGeoJsonInterface
+from gfwapiclient.base.models import (
+    BaseModel,
+    GeoJson,
+    Geometry,
+    SupportsGeoJsonInterface,
+)
 
 
 SAR_FIXED_INFRASTRUCTURE_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE: Final[str] = (

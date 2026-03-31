@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import pydantic
 
-from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
+from gfwapiclient.base.models import GeoJson, Geometry, SupportsGeoJsonInterface
 from gfwapiclient.exceptions import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -473,7 +473,7 @@ class BulkDownloadResource(BaseResource):
             _dataset: Union[BulkReportDataset, str] = (
                 dataset or BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_LATEST
             )
-            _geojson: Optional[GeoJson] = (
+            _geojson: Optional[Geometry] = (
                 self._prepare_create_bulk_report_request_body_geojson(geojson=geojson)
             )
             _request_body: Dict[str, Any] = {
@@ -572,9 +572,10 @@ class BulkDownloadResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-    ) -> Optional[GeoJson]:
+    ) -> Optional[Geometry]:
         """Prepare and return create a bulk report request body geojson."""
         if geojson is not None:
-            return GeoJson.from_file_or_geojson(source=geojson)
+            _geojson: GeoJson = GeoJson.from_file_or_geojson(source=geojson)
+            return _geojson.to_geometry()
 
         return None

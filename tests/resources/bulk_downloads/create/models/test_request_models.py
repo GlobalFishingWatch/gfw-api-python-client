@@ -6,7 +6,7 @@ from gfwapiclient.resources.bulk_downloads.create.models.request import (
     BulkReportCreateBody,
 )
 
-from .....base.test_geojson_models import assert_valid_geojson
+from .....base.test_geojson_models import assert_valid_geometry
 
 
 def test_bulk_report_create_request_body_serializes_all_fields(
@@ -23,7 +23,7 @@ def test_bulk_report_create_request_body_serializes_all_fields(
     assert bulk_report_create_request_body.region is not None
     assert bulk_report_create_request_body.filters is not None
 
-    assert_valid_geojson(bulk_report_create_request_body.geojson)
+    assert_valid_geometry(bulk_report_create_request_body.geojson)
 
     expected_raw_bulk_report_create_request_body = {
         **mock_raw_bulk_report_create_request_body

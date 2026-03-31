@@ -50,6 +50,64 @@ def assert_valid_geojson(geojson: GeoJson) -> None:
     assert hasattr(geojson.features[0], "__geo_interface__")
 
 
+def assert_valid_geometry(geometry: Geometry) -> None:
+    """Assert that an object is a valid `Geometry`.
+
+    Its checks:
+        - Object is a `Geometry` instance
+        - Supports `__geo_interface__`
+        - Contains at least one `coordinates` or `geometries`
+
+    Args:
+        geometry (Geometry):
+            Object to validate.
+    """
+    assert isinstance(
+        geometry,
+        (
+            Point,
+            MultiPoint,
+            LineString,
+            MultiLineString,
+            Polygon,
+            MultiPolygon,
+            GeometryCollection,
+        ),
+    )
+    assert isinstance(geometry, SupportsGeoJsonInterface)
+    assert hasattr(geometry, "__geo_interface__")
+    assert hasattr(geometry, "type")
+    assert geometry.__geo_interface__ is not None
+    assert isinstance(geometry.__geo_interface__, dict)
+
+    if isinstance(
+        geometry,
+        (
+            Point,
+            MultiPoint,
+            LineString,
+            MultiLineString,
+            Polygon,
+            MultiPolygon,
+        ),
+    ):
+        assert geometry.type in [
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon",
+        ]
+        assert geometry.coordinates is not None
+        assert len(geometry.coordinates) >= 1
+
+    if isinstance(geometry, GeometryCollection):
+        assert geometry.type == "GeometryCollection"
+        assert geometry.geometries is not None
+        assert len(geometry.geometries) >= 1
+
+
 def test_geojson_model_serializes_feature_to_feature_collection(
     mock_raw_geojson_feature: Dict[str, Any],
 ) -> None:
@@ -252,21 +310,7 @@ def test_geojson_model_to_geometry_serializes_to_geometry(
 
         geometry: Geometry = geojson.to_geometry()
 
-        assert geometry is not None
-        assert isinstance(
-            geometry,
-            (
-                Point,
-                MultiPoint,
-                LineString,
-                MultiLineString,
-                Polygon,
-                MultiPolygon,
-                GeometryCollection,
-            ),
-        )
-        assert geometry.__geo_interface__ is not None
-        assert isinstance(geometry.__geo_interface__, dict)
+        assert_valid_geometry(geometry)
 
 
 def test_geojson_model_to_geometry_serializes_to_geometrycollection(
@@ -283,10 +327,7 @@ def test_geojson_model_to_geometry_serializes_to_geometrycollection(
 
         geometry: Geometry = geojson.to_geometry()
 
-        assert geometry is not None
-        assert isinstance(geometry, GeometryCollection)
-        assert geometry.__geo_interface__ is not None
-        assert isinstance(geometry.__geo_interface__, dict)
+        assert_valid_geometry(geometry)
 
 
 @pytest.mark.parametrize(
