@@ -1,10 +1,15 @@
 """Test configurations for `gfwapiclient.resources.datasets`."""
 
-from typing import Any, Callable, Dict, Final
+import re
+
+from typing import Any, Callable, Dict, Final, Pattern
 
 import pytest
 
 
+url: Final[Pattern[str]] = re.compile(
+    r"datasets/public-fixed-infrastructure-filtered:latest/context-layers/\d+/\d+/\d+"
+)
 z: Final[int] = 1
 x: Final[int] = 0
 y: Final[int] = 1

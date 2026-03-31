@@ -171,6 +171,14 @@ class VesselResource(BaseResource):
                 Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
                 Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
 
+                This include provides related `vessel ids` identified through
+                matching with vessel registry records. It represents Global Fishing Watch's
+                best estimate for linking AIS (self-reported) vessel positions to Vessel
+                Identity information derived from public registries.
+
+                See how the Vessel API is used in the Vessel Viewer
+                here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
             match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
                 This query param allows to filter by matchFields levels. Defaults to `None`.
                 Allowed values: `"SEVERAL_FIELDS"`, `"NO_MATCH"`, `"ALL"`.
@@ -246,6 +254,14 @@ class VesselResource(BaseResource):
                 This query param allows to add extra information to the response. Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
                 Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
                 Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+
+                This include provides related `vessel ids` identified through
+                matching with vessel registry records. It represents Global Fishing Watch's
+                best estimate for linking AIS (self-reported) vessel positions to Vessel
+                Identity information derived from public registries.
+
+                See how the Vessel API is used in the Vessel Viewer
+                here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
 
             match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
                 This query param allows to filter by matchFields levels. Defaults to `None`.

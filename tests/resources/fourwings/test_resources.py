@@ -1,10 +1,12 @@
 """Tests for `gfwapiclient.resources.fourwings.resources`."""
 
-from typing import Any, Callable, Dict, List, Optional, cast
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Union, cast
 
 import pytest
 import respx
 
+from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -124,6 +126,40 @@ async def test_fourwings_resource_create_report(
     data = cast(List[FourWingsReportItem], result.data())
     assert isinstance(result, FourWingsReportResult)
     assert isinstance(data[0], FourWingsReportItem)
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+async def test_fourwings_resource_create_report_geojson_request_body_success(
+    mock_http_client: HTTPClient,
+    mock_raw_fourwings_report_request_params: Dict[str, Any],
+    mock_raw_fourwings_report_request_body: Dict[str, Any],
+    mock_raw_fourwings_report_standard_response: Callable[[Optional[str]], None],
+    mock_geojson_source_instances: List[
+        Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+    ],
+) -> None:
+    """Test `FourWingsResource` create report succeeds with valid geojson request bodies."""
+    mock_raw_fourwings_report_standard_response(
+        FourWingsReportDataset.FISHING_EFFORT_LATEST
+    )
+
+    resource: FourWingsResource = FourWingsResource(http_client=mock_http_client)
+    for geojson_source_instance in [*mock_geojson_source_instances, None]:
+        result: FourWingsReportResult = await resource.create_report(
+            **{
+                **mock_raw_fourwings_report_request_params,
+                **{
+                    **mock_raw_fourwings_report_request_body,
+                    "geojson": geojson_source_instance,  # geojson source
+                },
+                **{"start_date": "2021-01-01", "end_date": "2021-01-15"},
+            }
+        )
+
+        data = cast(List[FourWingsReportItem], result.data())
+        assert isinstance(result, FourWingsReportResult)
+        assert isinstance(data[0], FourWingsReportItem)
 
 
 @pytest.mark.asyncio

@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import pydantic
 
+from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
 from gfwapiclient.exceptions import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -17,7 +18,6 @@ from gfwapiclient.resources.fourwings.report.models.request import (
     FOURWINGS_REPORT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE,
     FOURWINGS_REPORT_REQUEST_PARAM_VALIDATION_ERROR_MESSAGE,
     FOURWINGS_REPORT_REQUEST_PARAMS_VALIDATION_ERROR_MESSAGE,
-    FourWingsGeometry,
     FourWingsReportBody,
     FourWingsReportDataset,
     FourWingsReportFormat,
@@ -72,7 +72,9 @@ class FourWingsResource(BaseResource):
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
         distance_from_port_km: Optional[int] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -136,7 +138,7 @@ class FourWingsResource(BaseResource):
                 Applies only to fishing effort dataset.
                 Example: `3`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+            geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
                 Custom GeoJSON geometry to filter the report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
@@ -193,7 +195,9 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -257,7 +261,7 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+            geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
                 Custom GeoJSON geometry to filter the report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
@@ -314,7 +318,9 @@ class FourWingsResource(BaseResource):
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -377,7 +383,7 @@ class FourWingsResource(BaseResource):
                 Whether to spatially aggregate the report. Defaults to `None`.
                 Example: `True`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+            geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
                 Custom GeoJSON geometry to filter the report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
@@ -436,7 +442,9 @@ class FourWingsResource(BaseResource):
         end_date: Optional[Union[datetime.date, str]] = None,
         spatial_aggregation: Optional[bool] = None,
         distance_from_port_km: Optional[int] = None,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
         **kwargs: Dict[str, Any],
     ) -> FourWingsReportResult:
@@ -454,6 +462,11 @@ class FourWingsResource(BaseResource):
         - Supply chain visibility
         - Dark vessel detection
         - Remote area surveillance
+
+        For more details on the 4Wings Report API endpoint, please refer to the official
+        Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
 
         For more details on the 4Wings data caveats, please refer to the official
         Global Fishing Watch API documentation:
@@ -521,7 +534,7 @@ class FourWingsResource(BaseResource):
                 Applies only to fishing effort dataset.
                 Example: `3`.
 
-            geojson (Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]], default=None):
+            geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
                 Custom GeoJSON geometry to filter the report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
@@ -562,11 +575,8 @@ class FourWingsResource(BaseResource):
             )
         )
 
-        _geojson: Optional[FourWingsGeometry] = (
-            self._prepare_create_report_request_body_geojson(geojson=geojson)
-        )
         request_body: FourWingsReportBody = self._prepare_create_report_request_body(
-            geojson=_geojson,
+            geojson=geojson,
             region=region,
         )
 
@@ -581,13 +591,18 @@ class FourWingsResource(BaseResource):
     def _prepare_create_report_request_body(
         self,
         *,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
     ) -> FourWingsReportBody:
         """Prepare request body for the 4Wings report endpoint."""
         try:
+            _geojson: Optional[GeoJson] = (
+                self._prepare_create_report_request_body_geojson(geojson=geojson)
+            )
             _request_body: Dict[str, Any] = {
-                "geojson": geojson,
+                "geojson": _geojson,
                 "region": region,
             }
             request_body: FourWingsReportBody = FourWingsReportBody(**_request_body)
@@ -680,16 +695,12 @@ class FourWingsResource(BaseResource):
     def _prepare_create_report_request_body_geojson(
         self,
         *,
-        geojson: Optional[Union[FourWingsGeometry, Dict[str, Any], str, Path]] = None,
-    ) -> Optional[FourWingsGeometry]:
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
+    ) -> Optional[GeoJson]:
         """Prepare and return create report request body geojson."""
-        if isinstance(geojson, FourWingsGeometry):
-            return geojson
-
-        if isinstance(geojson, (str, Path)):
-            return FourWingsGeometry.from_file_or_geojson(filename=geojson)
-
-        if isinstance(geojson, dict):
-            FourWingsGeometry.from_file_or_geojson(geojson=geojson)
+        if geojson is not None:
+            return GeoJson.from_file_or_geojson(source=geojson)
 
         return None
