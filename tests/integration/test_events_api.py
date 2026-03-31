@@ -11,7 +11,8 @@ Global Fishing Watch API documentation:
 - `Events API Documentation <https://globalfishingwatch.org/our-apis/documentation#introduction-events-api>`_
 """
 
-from typing import List, cast
+from pathlib import Path
+from typing import List, Union, cast
 
 import pandas as pd
 import pytest
@@ -326,6 +327,92 @@ async def test_events_get_events_stats_get_port_visits_stats_senegal_eez(
         end_date="2019-01-31",
         timeseries_interval="YEAR",
         region={"dataset": "public-eez-areas", "id": "8371"},
+        confidences=["3", "4"],
+    )
+
+    data: EventStatsItem = cast(EventStatsItem, result.data())
+    assert isinstance(result, EventStatsResult)
+    assert isinstance(data, EventStatsItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data).keys())
+
+
+@pytest.mark.parametrize(
+    "geometry",
+    [
+        "tests/fixtures/events/geometry/geometry.json",
+        Path("tests/fixtures/events/geometry/geometry.json"),
+        "tests/fixtures/events/geometry/geometry.shp",
+        Path("tests/fixtures/events/geometry/geometry.shp"),
+    ],
+)
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_events_get_all_events_by_geometry_from_spatial_file(
+    geometry: Union[str, Path],
+    gfw_client: gfw.Client,
+) -> None:
+    """Test retrieving events by geometry from spatial file.
+
+    This test verifies that the `get_all_events` method correctly retrieves
+    events data for a specified geographic area (polygon) from spatial file.
+    It checks the structure and content of the returned data, ensuring
+    it's a valid `EventListResult` and that the data can be converted to a
+    pandas DataFrame.
+    """
+    result: EventListResult = await gfw_client.events.get_all_events(
+        datasets=["public-global-fishing-events:latest"],
+        start_date="2017-01-01",
+        end_date="2017-01-31",
+        flags=["CHN"],
+        geometry=geometry,
+        limit=1,
+    )
+
+    data: List[EventListItem] = cast(List[EventListItem], result.data())
+    assert isinstance(result, EventListResult)
+    assert len(data) >= 1, "Expected at least one event."
+    assert isinstance(data[0], EventListItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data[0]).keys())
+
+
+@pytest.mark.parametrize(
+    "geometry",
+    [
+        "tests/fixtures/events/geometry/geometry.json",
+        Path("tests/fixtures/events/geometry/geometry.json"),
+        "tests/fixtures/events/geometry/geometry.shp",
+        Path("tests/fixtures/events/geometry/geometry.shp"),
+    ],
+)
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_events_get_events_stats_by_geometry_from_spatial_file(
+    geometry: Union[str, Path],
+    gfw_client: gfw.Client,
+) -> None:
+    """Test retrieving events statistics by geometry from spatial file.
+
+    This test verifies that the `get_events_stats` method correctly retrieves
+    statistics for events within the specified geographic area (polygon)
+    from spatial file, based on specified filters, including time range, timeseries
+    interval, region, and confidence levels. It checks the structure and
+    content of the returned data, ensuring it's a valid `EventStatsResult` and
+    that the data can be converted to a pandas DataFrame.
+    """
+    result: EventStatsResult = await gfw_client.events.get_events_stats(
+        datasets=["public-global-port-visits-events:latest"],
+        start_date="2018-01-01",
+        end_date="2019-01-31",
+        timeseries_interval="YEAR",
+        geometry=geometry,
         confidences=["3", "4"],
     )
 

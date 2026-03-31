@@ -334,12 +334,12 @@ class FourWingsReportBody(RequestBody):
     See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
 
     Attributes:
-        geojson (Optional[FourWingsGeometry]):
+        geojson (Optional[GeoJson]):
             Custom GeoJSON geometry to filter the report.
 
         region (Optional[FourWingsReportRegion]):
             Predefined region information to filter the report.
     """
 
-    geojson: Optional[FourWingsGeometry] = Field(None, alias="geojson")
+    geojson: Optional[GeoJson] = Field(None, alias="geojson")
     region: Optional[FourWingsReportRegion] = Field(None, alias="region")

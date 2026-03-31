@@ -3,9 +3,7 @@
     "name": "sar-fixed-infrastructure-data-202409",
     "filepath": "sar_fixed_infrastructure_data_202409.json",
     "format": "JSON",
-    "filters": [
-        "label = 'oil'"
-    ],
+    "filters": ["label = 'oil'"],
     "geom": {
         "type": "dataset",
         "dataset": "public-eez-areas",

@@ -7,7 +7,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import GeoJson, Region
+from gfwapiclient.base.models import GeoJson, Geometry, Region
 from gfwapiclient.http.models.request import RequestBody
 
 
@@ -150,7 +150,7 @@ class EventBaseBody(RequestBody):
         flags (Optional[List[str]]):
             Flags (in ISO3 format) of the vessels involved in the events.
 
-        geometry (Optional[EventGeometry]):
+        geometry (Optional[Geometry]):
             Region where the events occur (GeoJSON).
 
         region (Optional[EventRegion]):
@@ -170,6 +170,6 @@ class EventBaseBody(RequestBody):
     duration: Optional[int] = Field(None)
     vessel_groups: Optional[List[str]] = Field(None)
     flags: Optional[List[str]] = Field(None)
-    geometry: Optional[EventGeometry] = Field(None)
+    geometry: Optional[Geometry] = Field(None)  # TODO: use GeoJson
     region: Optional[EventRegion] = Field(None)
     vessel_types: Optional[List[EventVesselType]] = Field(None)
