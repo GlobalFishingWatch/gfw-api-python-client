@@ -5,6 +5,8 @@ from typing import Any, Dict, cast
 import pytest
 import respx
 
+from pydantic.alias_generators import to_snake
+
 from gfwapiclient.exceptions.validation import RequestBodyValidationError
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.resources.insights.models.request import (
@@ -42,9 +44,47 @@ async def test_insight_resource_get_vessel_insights(
 
 
 @pytest.mark.asyncio
+@pytest.mark.respx
+async def test_insight_resource_get_vessel_insights_by_vessels_ids(
+    mock_http_client: HTTPClient,
+    mock_raw_vessel_insight_request_body: Dict[str, Any],
+    mock_raw_vessel_insight_item: Dict[str, Any],
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test `InsightResource` get vessel insights with list of vessels ids succeeds with valid response."""
+    mock_responsex.post("/insights/vessels").respond(
+        200, json=mock_raw_vessel_insight_item
+    )
+    resource = InsightResource(http_client=mock_http_client)
+    result = await resource.get_vessel_insights(
+        includes=mock_raw_vessel_insight_request_body["includes"],
+        start_date=mock_raw_vessel_insight_request_body["startDate"],
+        end_date=mock_raw_vessel_insight_request_body["endDate"],
+        vessels=[
+            v["vesselId"] for v in mock_raw_vessel_insight_request_body["vessels"]
+        ],
+    )
+    data = cast(VesselInsightItem, result.data())
+    assert isinstance(result, VesselInsightResult)
+    assert isinstance(data, VesselInsightItem)
+
+
+@pytest.mark.parametrize(
+    "invalid_vessel_insight_request_body",
+    [
+        {"includes": ["INVALID_INCLUDE"]},
+        {"start_date": "INVALID_START_DATE"},
+        {"end_date": "INVALID_END_DATE"},
+        {"vessels": [None]},
+        {"vessels": [{"vessel_id": None}]},
+        {"vessels": [{"vessel_id": None, "dataset_id": "INVALID_DATASET_ID"}]},
+    ],
+)
+@pytest.mark.asyncio
 async def test_insight_resource_get_vessel_insights_validation_error_raises(
     mock_http_client: HTTPClient,
     mock_raw_vessel_insight_request_body: Dict[str, Any],
+    invalid_vessel_insight_request_body: Dict[str, Any],
 ) -> None:
     """Test `InsightResource` get vessel insights raises `RequestBodyValidationError` with invalid parameters."""
     resource = InsightResource(http_client=mock_http_client)
@@ -53,9 +93,8 @@ async def test_insight_resource_get_vessel_insights_validation_error_raises(
         RequestBodyValidationError,
         match=VESSEL_INSIGHT_REQUEST_BODY_VALIDATION_ERROR_MESSAGE,
     ):
-        await resource.get_vessel_insights(
-            includes=["INVALID_INCLUDE"],
-            start_date=mock_raw_vessel_insight_request_body["startDate"],
-            end_date=mock_raw_vessel_insight_request_body["endDate"],
-            vessels=mock_raw_vessel_insight_request_body["vessels"],
-        )
+        raw_vessel_insight_request_body: Dict[str, Any] = {
+            **{to_snake(k): v for k, v in mock_raw_vessel_insight_request_body.items()},
+            **invalid_vessel_insight_request_body,
+        }
+        await resource.get_vessel_insights(**raw_vessel_insight_request_body)

@@ -25,10 +25,10 @@ from gfwapiclient.resources.insights.models.response import (
 async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test getting vessel insights related to fishing events.
+    """Test getting vessel insights related to apparent fishing events.
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel related to fishing activity within a given
+    insights for a specific vessel related to apparent fishing activity within a given
     date range. It checks the structure and content of the returned data,
     ensuring it's a valid `VesselInsightResult` and that the data can be
     converted to a pandas DataFrame.
@@ -38,10 +38,7 @@ async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
         start_date="2020-01-01",
         end_date="2025-03-03",
         vessels=[
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f",
-            }
+            "785101812-2127-e5d2-e8bf-7152c5259f5f",
         ],
     )
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
@@ -59,10 +56,10 @@ async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
 async def test_insights_get_vessel_insights_get_insights_for_ais_off_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test getting vessel insights related to AIS off events (gaps).
+    """Test getting vessel insights related to AIS off/disabling events (gaps).
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel related to AIS off events (gaps) within a
+    insights for a specific vessel related to AIS off/disabling events (gaps) within a
     given date range. It checks the structure and content of the returned data,
     ensuring it's a valid `VesselInsightResult` and that the data can be
     converted to a pandas DataFrame.
@@ -72,10 +69,7 @@ async def test_insights_get_vessel_insights_get_insights_for_ais_off_events(
         start_date="2020-01-01",
         end_date="2025-03-03",
         vessels=[
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "2339c52c3-3a84-1603-f968-d8890f23e1ed",
-            }
+            "2339c52c3-3a84-1603-f968-d8890f23e1ed",
         ],
     )
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
@@ -106,10 +100,7 @@ async def test_insights_get_vessel_insights_get_insights_for_ais_coverage_events
         start_date="2020-01-01",
         end_date="2025-03-03",
         vessels=[
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "2339c52c3-3a84-1603-f968-d8890f23e1ed",
-            }
+            "2339c52c3-3a84-1603-f968-d8890f23e1ed",
         ],
     )
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
@@ -141,10 +132,70 @@ async def test_insights_get_vessel_insights_get_insights_for_iuu_list(
         start_date="2020-01-01",
         end_date="2025-03-03",
         vessels=[
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
-            }
+            "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
+        ],
+    )
+    data: VesselInsightItem = cast(VesselInsightItem, result.data())
+    assert isinstance(result, VesselInsightResult)
+    assert isinstance(data, VesselInsightItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_insights_get_vessel_insights_get_insights_for_flag_changes(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting vessel insights related to flag changes.
+
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to its flag changes within a given date range.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `VesselInsightResult` and that the data can be converted to a
+    pandas DataFrame.
+    """
+    result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
+        includes=["VESSEL-IDENTITY-FLAG-CHANGES"],
+        start_date="2020-01-01",
+        end_date="2025-03-03",
+        vessels=[
+            "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
+        ],
+    )
+    data: VesselInsightItem = cast(VesselInsightItem, result.data())
+    assert isinstance(result, VesselInsightResult)
+    assert isinstance(data, VesselInsightItem)
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_insights_get_vessel_insights_get_insights_for_mou_list(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting vessel insights related to to being listed in the MOU list.
+
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to its flag state presence under the
+    Tokyo/Paris MOU black or grey lists within a given date range.
+    It checks the structure and content of the returned data, ensuring it's a
+    valid `VesselInsightResult` and that the data can be converted to a
+    pandas DataFrame.
+    """
+    result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
+        includes=["VESSEL-IDENTITY-MOU-LIST"],
+        start_date="2020-01-01",
+        end_date="2025-03-03",
+        vessels=[
+            "785101812-2127-e5d2-e8bf-7152c5259f5f",
         ],
     )
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
@@ -171,22 +222,20 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
-        includes=["FISHING", "GAP", "VESSEL-IDENTITY-IUU-VESSEL-LIST", "COVERAGE"],
+        includes=[
+            "FISHING",
+            "GAP",
+            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
+            "COVERAGE",
+            "VESSEL-IDENTITY-FLAG-CHANGES",
+            "VESSEL-IDENTITY-MOU-LIST",
+        ],
         start_date="2020-01-01",
         end_date="2025-03-03",
         vessels=[
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f",
-            },
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "2339c52c3-3a84-1603-f968-d8890f23e1ed",
-            },
-            {
-                "dataset_id": "public-global-vessel-identity:latest",
-                "vessel_id": "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
-            },
+            "785101812-2127-e5d2-e8bf-7152c5259f5f",
+            "2339c52c3-3a84-1603-f968-d8890f23e1ed",
+            "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
         ],
     )
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
