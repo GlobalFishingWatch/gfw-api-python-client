@@ -35,16 +35,16 @@ from gfwapiclient.resources.bulk_downloads.create.models.response import (
 )
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_bulk_downloads_create_bulk_report_by_geojson_from_spatial_file(
+async def test_bulk_downloads_create_sar_fixed_infrastructure_data_bulk_report_by_geojson_from_spatial_file(
     geojson: Union[str, Path],
     gfw_client: gfw.Client,
 ) -> None:
-    """Test create SAR fixed infrastructure bulk report by geojson from spatial file.
+    """Test create SAR (Sentinel-1 and Sentinel-2) fixed infrastructure bulk report by geojson from spatial file.
 
-    This test verifies that the `create_bulk_report` method can correctly
-    generate SAR fixed infrastructure bulk report for a specified geojson from spatial file.
-    It checks the structure and content of the returned data, ensuring
-    it's a valid `BulkReportCreateResult` and that the data can be converted to a
+    This test verifies that the `create_bulk_report` method can correctly generate
+    SAR (Sentinel-1 and Sentinel-2) fixed infrastructure bulk report for a specified
+    geojson from spatial file. It checks the structure and content of the returned data,
+    ensuring it's a valid `BulkReportCreateResult` and that the data can be converted to a
     pandas DataFrame.
     """
     timestamp = int(time.time() * 1000)
