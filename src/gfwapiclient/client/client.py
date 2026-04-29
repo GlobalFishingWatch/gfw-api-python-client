@@ -53,7 +53,7 @@ class Client:
             Access to the Events data API resources.
 
         insights (InsightResource):
-            Access to the vessel insights data resources.
+            Access to the Insights API resources.
 
         datasets (DatasetResource):
             Access to the datasets data resources.

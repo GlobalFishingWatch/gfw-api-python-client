@@ -23,6 +23,8 @@ workflow-guides/index
 
 development-guides/index
 apidocs/index
+Releases <https://github.com/GlobalFishingWatch/gfw-api-python-client/releases>
+PyPI <https://pypi.org/project/gfw-api-python-client/>
 GitHub <https://github.com/GlobalFishingWatch/gfw-api-python-client>
 ```
 

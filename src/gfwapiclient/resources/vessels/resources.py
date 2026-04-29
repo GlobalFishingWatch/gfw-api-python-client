@@ -48,6 +48,16 @@ class VesselResource(BaseResource):
     This resource provides methods to interact with the Vessels API,
     allowing retrieval of vessel information including search, list by IDs,
     and retrieval by ID.
+
+    For detailed information about the Vessels API, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+
+    For more details on the Vessels API data caveats, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
     """
 
     async def search_vessels(
@@ -63,6 +73,16 @@ class VesselResource(BaseResource):
         **kwargs: Dict[str, Any],
     ) -> VesselSearchResult:
         """Search vessels based on provided parameters.
+
+        For detailed information about the Vessels Search API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#search
+
+        For more details on the Vessels Search data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
 
         Args:
             since (Optional[str], default=None):
@@ -147,6 +167,16 @@ class VesselResource(BaseResource):
     ) -> VesselListResult:
         """Get a list of vessels by their IDs.
 
+        For detailed information about the Get Vessels by IDs API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+
+        For more details on the Get Vessels by IDs data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+
         Args:
             ids (List[str]):
                 List of vessel IDs to retrieve.
@@ -170,6 +200,14 @@ class VesselResource(BaseResource):
                 This query param allows to add extra information to the response. Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
                 Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
                 Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+
+                This include provides related `vessel ids` identified through
+                matching with vessel registry records. It represents Global Fishing Watch's
+                best estimate for linking AIS (self-reported) vessel positions to Vessel
+                Identity information derived from public registries.
+
+                See how the Vessel API is used in the Vessel Viewer
+                here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
 
             match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
                 This query param allows to filter by matchFields levels. Defaults to `None`.
@@ -224,6 +262,16 @@ class VesselResource(BaseResource):
     ) -> VesselDetailResult:
         """Get vessel details by ID.
 
+        For detailed information about the Get Vessel by ID API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#get-vessel-by-id
+
+        For more details on the Get Vessel by ID data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+
         Args:
             id (str):
                 The ID of the vessel to retrieve.
@@ -246,6 +294,14 @@ class VesselResource(BaseResource):
                 This query param allows to add extra information to the response. Defaults to `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
                 Allowed values: `"POTENTIAL_RELATED_SELF_REPORTED_INFO"`.
                 Example: `["POTENTIAL_RELATED_SELF_REPORTED_INFO"]`.
+
+                This include provides related `vessel ids` identified through
+                matching with vessel registry records. It represents Global Fishing Watch's
+                best estimate for linking AIS (self-reported) vessel positions to Vessel
+                Identity information derived from public registries.
+
+                See how the Vessel API is used in the Vessel Viewer
+                here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
 
             match_fields (Optional[Union[List[VesselMatchField], List[str]]], default=None):
                 This query param allows to filter by matchFields levels. Defaults to `None`.

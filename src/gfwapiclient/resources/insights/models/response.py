@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Insights API Response Models."""
+"""Global Fishing Watch (GFW) API Python Client - Get Vessels Insights API Response Models."""
 
 import datetime
 
@@ -220,6 +220,12 @@ class VesselIdentity(BaseModel):
 class VesselInsightItem(ResultItem):
     """Vessel insight item.
 
+    For more details on the Get Vessels Insights API endpoint supported
+    response bodies, please refer to the official Global Fishing Watch API
+    documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+
     Attributes:
         period (Optional[Period], default=None):
             The period of the insights.
@@ -251,7 +257,21 @@ class VesselInsightItem(ResultItem):
 
 
 class VesselInsightResult(Result[VesselInsightItem]):
-    """Result for Vessel Insights API endpoint."""
+    """Result for Vessel Insights API endpoint.
+
+    For more details on the Get Vessels Insights API endpoint supported
+    response bodies, please refer to the official Global Fishing Watch API
+    documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+
+    Attributes:
+        _result_item_class (Type[VesselInsightItem]):
+            The model used for individual result items.
+
+        _data (VesselInsightItem):
+            The vessel insight item returned in the response.
+    """
 
     _result_item_class: Type[VesselInsightItem]
     _data: VesselInsightItem
@@ -261,6 +281,6 @@ class VesselInsightResult(Result[VesselInsightItem]):
 
         Args:
             data (VesselInsightItem):
-                The vessel insight item data.
+                The vessel insight data.
         """
         super().__init__(data=data)
