@@ -57,7 +57,19 @@ class VesselInclude(str, Enum):
 
     Attributes:
         POTENTIAL_RELATED_SELF_REPORTED_INFO (str):
-            Include potential related self-reported information.
+            Include potential related self-reported vessel information.
+
+            This include provides related `vessel ids` identified through
+            matching with vessel registry records. It represents Global Fishing Watch's
+            best estimate for linking AIS (self-reported) vessel positions to Vessel
+            Identity information derived from public registries.
+
+            See how the Vessel API is used in the Vessel Viewer
+            here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
+            For more details on the Vessels API data caveats, please refer to the
+            official Global Fishing Watch API documentation
+            here: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
     """
 
     POTENTIAL_RELATED_SELF_REPORTED_INFO = "POTENTIAL_RELATED_SELF_REPORTED_INFO"
