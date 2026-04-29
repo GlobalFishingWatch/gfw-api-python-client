@@ -4,7 +4,7 @@
 
 This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Fishing detected in no-take MPAs](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas), [Fishing event detected outside known authorized areas](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas), [Coverage](https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage), [AIS off event (aka GAP)](https://globalfishingwatch.org/our-apis/documentation#insights-api-ais-off-event-aka-gap), and [RFMO IUU vessel list](https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list) Data Caveats — it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Apparent fishing detected in no-take MPAs](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas), [Apparent fishing event detected outside known authorized areas](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas), [Coverage](https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage), [AIS off event (aka GAP)](https://globalfishingwatch.org/our-apis/documentation#insights-api-ais-off-event-aka-gap), and [RFMO IUU vessel list](https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list) Data Caveats — it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
@@ -249,6 +249,8 @@ memory usage: 180.0+ bytes
 
 ## Getting Flag Changes Insights (`VESSEL-IDENTITY-FLAG-CHANGES`)
 
+> **Note:** In order to enable this insight for your API access token (`GFW_API_ACCESS_TOKEN`), please contact apis@globalfishingwatch.org. In your message, please specify the email address used to generate the [API tokens](https://globalfishingwatch.org/our-apis/tokens) (i.e., the email address associated with your [Global Fishing Watch account](https://globalfishingwatch.org/our-apis/tokens/signup)).
+
 ```python
 flag_changes_insights_result = await gfw_client.insights.get_vessel_insights(
     includes=["VESSEL-IDENTITY-FLAG-CHANGES"],
@@ -285,6 +287,8 @@ memory usage: 180.0+ bytes
 
 ## Getting Flag State Presence under Tokyo/Paris MOU black or grey Lists Insights (`VESSEL-IDENTITY-MOU-LIST`)
 
+> **Note:** In order to enable this insight for your API access token (`GFW_API_ACCESS_TOKEN`), please contact apis@globalfishingwatch.org. In your message, please specify the email address used to generate the [API tokens](https://globalfishingwatch.org/our-apis/tokens) (i.e., the email address associated with your [Global Fishing Watch account](https://globalfishingwatch.org/our-apis/tokens/signup)).
+
 ```python
 mou_insights_result = await gfw_client.insights.get_vessel_insights(
     includes=["VESSEL-IDENTITY-MOU-LIST"],
@@ -320,6 +324,8 @@ memory usage: 180.0+ bytes
 ```
 
 ## Getting Multiple Insights for Multiple Vessels
+
+> **Note:** In order to enable `VESSEL-IDENTITY-FLAG-CHANGES` and `VESSEL-IDENTITY-MOU-LIST` insights for your API access token (`GFW_API_ACCESS_TOKEN`), please contact apis@globalfishingwatch.org. In your message, please specify the email address used to generate the [API tokens](https://globalfishingwatch.org/our-apis/tokens) (i.e., the email address associated with your [Global Fishing Watch account](https://globalfishingwatch.org/our-apis/tokens/signup)).
 
 ```python
 all_insights_result = await gfw_client.insights.get_vessel_insights(

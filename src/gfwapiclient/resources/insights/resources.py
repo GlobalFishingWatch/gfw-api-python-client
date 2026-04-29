@@ -94,6 +94,14 @@ class InsightResource(BaseResource):
 
         `start_date` must be on or after `January 1, 2020`
 
+        **Note:**
+
+        In order to enable `"VESSEL-IDENTITY-FLAG-CHANGES"` and `"VESSEL-IDENTITY-MOU-LIST"`
+        insights for your API access token (`GFW_API_ACCESS_TOKEN`), please contact
+        apis@globalfishingwatch.org. In your message, please specify the email address
+        used to generate the [API tokens](https://globalfishingwatch.org/our-apis/tokens)
+        (i.e., the email address associated with your [Global Fishing Watch account](https://globalfishingwatch.org/our-apis/tokens/signup)).
+
         Args:
             includes (Union[List[VesselInsightInclude], List[str]], default=["FISHING"]):
                 List of insight types to include in the response.
