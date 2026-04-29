@@ -48,6 +48,16 @@ class VesselResource(BaseResource):
     This resource provides methods to interact with the Vessels API,
     allowing retrieval of vessel information including search, list by IDs,
     and retrieval by ID.
+
+    For detailed information about the Vessels API, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+
+    For more details on the Vessels API data caveats, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
     """
 
     async def search_vessels(
@@ -63,6 +73,16 @@ class VesselResource(BaseResource):
         **kwargs: Dict[str, Any],
     ) -> VesselSearchResult:
         """Search vessels based on provided parameters.
+
+        For detailed information about the Vessels Search API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#search
+
+        For more details on the Vessels Search data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
 
         Args:
             since (Optional[str], default=None):
@@ -146,6 +166,16 @@ class VesselResource(BaseResource):
         **kwargs: Dict[str, Any],
     ) -> VesselListResult:
         """Get a list of vessels by their IDs.
+
+        For detailed information about the Get Vessels by IDs API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+
+        For more details on the Get Vessels by IDs data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
 
         Args:
             ids (List[str]):
@@ -231,6 +261,16 @@ class VesselResource(BaseResource):
         **kwargs: Dict[str, Any],
     ) -> VesselDetailResult:
         """Get vessel details by ID.
+
+        For detailed information about the Get Vessel by ID API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#get-vessel-by-id
+
+        For more details on the Get Vessel by ID data caveats, please refer to the
+        official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
 
         Args:
             id (str):

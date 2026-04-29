@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Search API EndPoint.
+"""Global Fishing Watch (GFW) API Python Client - Vessels Search API endpoint.
 
 This module defines the endpoint for searching vessels.
 """
@@ -27,6 +27,11 @@ class VesselSearchEndPoint(
     """Search vessels API endpoint.
 
     This endpoint searches for vessels based on the provided search request parameters.
+
+    For more details on the Vessels Search API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#search
     """
 
     def __init__(

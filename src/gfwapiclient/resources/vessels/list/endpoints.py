@@ -28,6 +28,11 @@ class VesselListEndPoint(
 
     This endpoint retrieves a list of vessels based on the provided IDs and
     other request parameters.
+
+    For more details on the Get Vessels by IDs API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
     """
 
     def __init__(

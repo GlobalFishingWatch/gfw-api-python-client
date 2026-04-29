@@ -119,7 +119,7 @@ class BulkDownloadResource(BaseResource):
         long date range etc), generating the bulk report can take several minutes to
         several hours.
 
-        Attributes:
+        Args:
             name (str):
                 Human-readable name of the bulk report.
                 Example: `"sar-fixed-infrastructure-data-20240903"`.
