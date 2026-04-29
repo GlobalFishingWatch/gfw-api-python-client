@@ -7,6 +7,8 @@ from gfwapiclient.resources.fourwings.report.models.request import (
     FourWingsReportParams,
 )
 
+from ....base.test_geojson_models import assert_valid_geojson
+
 
 def test_fourwings_report_request_body_serializes_all_fields(
     mock_raw_fourwings_report_request_body: Dict[str, Any],
@@ -17,10 +19,17 @@ def test_fourwings_report_request_body_serializes_all_fields(
     )
     assert fourwings_report_request_body.geojson is not None
     assert fourwings_report_request_body.region is not None
-    assert (
+    assert_valid_geojson(fourwings_report_request_body.geojson)
+
+    fourwings_report_request_json_body: Dict[str, Any] = (
         fourwings_report_request_body.to_json_body()
-        == mock_raw_fourwings_report_request_body
     )
+
+    for attr_name in ["region"]:
+        assert (
+            fourwings_report_request_json_body[attr_name]
+            == mock_raw_fourwings_report_request_body[attr_name]
+        )
 
 
 def test_fourwings_report_request_params_serializes_all_fields(

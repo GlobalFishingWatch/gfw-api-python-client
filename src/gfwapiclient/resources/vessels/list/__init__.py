@@ -5,7 +5,13 @@ details of multiple vessels using their unique identifiers via the Get Vessels b
 It defines the `VesselListEndPoint` class, which handles the construction
 of API requests and the parsing of API responses for vessel lists.
 
-For detailed information about the Get Vessels by IDs API, please refer to the
-official `Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids>`_.
+For detailed information about the Get Vessels by IDs API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+
+For more details on the Get Vessels by IDs data caveats, please refer to the
+official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
 """

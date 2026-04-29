@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Vessels Insights API Request Models."""
+"""Global Fishing Watch (GFW) API Python Client - Get Vessels Insights API Request Models."""
 
 import datetime
 
@@ -9,6 +9,7 @@ from pydantic import Field
 
 from gfwapiclient.base.models import BaseModel
 from gfwapiclient.http.models import RequestBody
+from gfwapiclient.resources.vessels.base.models.request import VesselDataset
 
 
 __all__ = ["VesselInsightBody", "VesselInsightDatasetVessel", "VesselInsightInclude"]
@@ -26,23 +27,31 @@ class VesselInsightInclude(str, Enum):
     vessel insights request, specifying the types of insights to retrieve.
 
     Attributes:
+        COVERAGE (str):
+            Insights related to AIS coverage.
+
         FISHING (str):
             Insights related to fishing activity.
 
         GAP (str):
             Insights related to AIS gaps.
 
-        COVERAGE (str):
-            Insights related to AIS coverage.
+        VESSEL_IDENTITY_FLAG_CHANGES (str):
+            Insights related to vessels flag changes.
 
         VESSEL_IDENTITY_IUU_VESSEL_LIST (str):
             Insights related to vessels listed in IUU lists.
+
+        VESSEL_IDENTITY_MOU_LIST (str):
+            Insights related to vessels listed in MOU lists.
     """
 
+    COVERAGE = "COVERAGE"
     FISHING = "FISHING"
     GAP = "GAP"
-    COVERAGE = "COVERAGE"
+    VESSEL_IDENTITY_FLAG_CHANGES = "VESSEL-IDENTITY-FLAG-CHANGES"
     VESSEL_IDENTITY_IUU_VESSEL_LIST = "VESSEL-IDENTITY-IUU-VESSEL-LIST"
+    VESSEL_IDENTITY_MOU_LIST = "VESSEL-IDENTITY-MOU-LIST"
 
 
 class VesselInsightDatasetVessel(BaseModel):
@@ -52,21 +61,29 @@ class VesselInsightDatasetVessel(BaseModel):
     vessel insights request.
 
     Attributes:
-        dataset_id (str):
-           The dataset identifier. Default to `"public-global-vessel-identity:latest"`.
+        dataset_id (VesselDataset):
+           The dataset identifier. Default to `VesselDataset.VESSEL_IDENTITY_LATEST`.
 
-        vessel_id:
+        vessel_id (str):
             The vessel identifier.
     """
 
-    dataset_id: str = Field(...)
-    vessel_id: str = Field(...)
+    dataset_id: VesselDataset = Field(
+        VesselDataset.VESSEL_IDENTITY_LATEST, alias="datasetId"
+    )
+    vessel_id: str = Field(..., alias="vesselId")
 
 
 class VesselInsightBody(RequestBody):
     """Vessel insight request body.
 
-    This model represents the request body for retrieving vessel insights.
+    Represents includes, start_date, end_date, vessels etc. parameters
+    for retrieving vessel insights.
+
+    For more details on the Get Vessels Insights API endpoint supported request body,
+    please refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels-body
 
     Attributes:
         includes (List[VesselInsightInclude]):
@@ -78,11 +95,13 @@ class VesselInsightBody(RequestBody):
         end_date (datetime.date):
             End date of the request.
 
-        vessels List[VesselInsightIdBody]:
+        vessels (List[VesselInsightDatasetVessel]):
             List of Dataset and Vessel ID to use to get vessel insights.
     """
 
-    includes: List[VesselInsightInclude] = Field([VesselInsightInclude.FISHING])
-    start_date: datetime.date = Field(...)
-    end_date: datetime.date = Field(...)
-    vessels: List[VesselInsightDatasetVessel] = Field(...)
+    includes: List[VesselInsightInclude] = Field(
+        [VesselInsightInclude.FISHING], alias="includes"
+    )
+    start_date: datetime.date = Field(..., alias="startDate")
+    end_date: datetime.date = Field(..., alias="endDate")
+    vessels: List[VesselInsightDatasetVessel] = Field(..., alias="vessels")

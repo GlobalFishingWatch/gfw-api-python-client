@@ -1,9 +1,11 @@
 """Global Fishing Watch (GFW) API Python Client - Bulk Download API Resource."""
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
 import pydantic
 
+from gfwapiclient.base.models import GeoJson, Geometry, SupportsGeoJsonInterface
 from gfwapiclient.exceptions import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -13,7 +15,6 @@ from gfwapiclient.resources.bulk_downloads.base.models.request import (
     BulkReportDataset,
     BulkReportFileType,
     BulkReportFormat,
-    BulkReportGeometry,
     BulkReportRegion,
 )
 from gfwapiclient.resources.bulk_downloads.base.models.response import BulkReportStatus
@@ -92,7 +93,9 @@ class BulkDownloadResource(BaseResource):
         *,
         name: str,
         dataset: Optional[Union[BulkReportDataset, str]] = None,
-        geojson: Optional[Union[BulkReportGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         format: Optional[Union[BulkReportFormat, str]] = None,
         region: Optional[Union[BulkReportRegion, Dict[str, Any]]] = None,
         filters: Optional[List[str]] = None,
@@ -116,7 +119,7 @@ class BulkDownloadResource(BaseResource):
         long date range etc), generating the bulk report can take several minutes to
         several hours.
 
-        Attributes:
+        Args:
             name (str):
                 Human-readable name of the bulk report.
                 Example: `"sar-fixed-infrastructure-data-20240903"`.
@@ -127,9 +130,11 @@ class BulkDownloadResource(BaseResource):
                 Allowed values: `"public-fixed-infrastructure-data:latest"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
 
-            geojson (Optional[Union[BulkReportGeometry, Dict[str, Any]]], default=None):
-                Custom GeoJSON geometry to filter the bulk report. Defaults to `None`.
-                Example: `{"type": "Polygon", "coordinates": [...]}`.
+            geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
+                Custom GeoJSON geometry to filter the bulk report. Either a path to a
+                spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
+                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             format (Optional[Union[BulkReportFormat, str]], default="JSON"):
                 Bulk report result format. Defaults to `"JSON"`.
@@ -456,7 +461,9 @@ class BulkDownloadResource(BaseResource):
         *,
         name: str,
         dataset: Optional[Union[BulkReportDataset, str]] = None,
-        geojson: Optional[Union[BulkReportGeometry, Dict[str, Any]]] = None,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
         format: Optional[Union[BulkReportFormat, str]] = None,
         region: Optional[Union[BulkReportRegion, Dict[str, Any]]] = None,
         filters: Optional[List[str]] = None,
@@ -466,10 +473,13 @@ class BulkDownloadResource(BaseResource):
             _dataset: Union[BulkReportDataset, str] = (
                 dataset or BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_LATEST
             )
+            _geojson: Optional[Geometry] = (
+                self._prepare_create_bulk_report_request_body_geojson(geojson=geojson)
+            )
             _request_body: Dict[str, Any] = {
                 "name": name,  # TODO: generate based on dataset name and timestamp (YYYMMDDHHmmss) / uuidv4
                 "dataset": _dataset,
-                "geojson": geojson or None,
+                "geojson": _geojson,
                 "format": format or BulkReportFormat.JSON,
                 "region": region or None,
                 "filters": filters or None,
@@ -555,3 +565,17 @@ class BulkDownloadResource(BaseResource):
             ) from exc
 
         return request_params
+
+    def _prepare_create_bulk_report_request_body_geojson(
+        self,
+        *,
+        geojson: Optional[
+            Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+        ] = None,
+    ) -> Optional[Geometry]:
+        """Prepare and return create a bulk report request body geojson."""
+        if geojson is not None:
+            _geojson: GeoJson = GeoJson.from_file_or_geojson(source=geojson)
+            return _geojson.to_geometry()
+
+        return None

@@ -1,10 +1,12 @@
 """Tests for `gfwapiclient.resources.bulk_downloads.resources`."""
 
-from typing import Any, Dict, List, cast
+from pathlib import Path
+from typing import Any, Dict, List, Union, cast
 
 import pytest
 import respx
 
+from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -65,6 +67,34 @@ async def test_bulk_download_resource_create_bulk_report_request_success(
     data = cast(BulkReportCreateItem, result.data())
     assert isinstance(result, BulkReportCreateResult)
     assert isinstance(data, BulkReportCreateItem)
+
+
+@pytest.mark.asyncio
+@pytest.mark.respx
+async def test_bulk_download_resource_create_bulk_report_geojson_request_body_success(
+    mock_http_client: HTTPClient,
+    mock_raw_bulk_report_create_request_body: Dict[str, Any],
+    mock_raw_bulk_report_item: Dict[str, Any],
+    mock_geojson_source_instances: List[
+        Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
+    ],
+    mock_responsex: respx.MockRouter,
+) -> None:
+    """Test `BulkDownloadResource`create bulk report succeeds with valid geojson request bodies."""
+    mock_responsex.post("/bulk-reports").respond(201, json=mock_raw_bulk_report_item)
+    resource = BulkDownloadResource(http_client=mock_http_client)
+
+    for geojson_source_instance in [*mock_geojson_source_instances, None]:
+        result: BulkReportCreateResult = await resource.create_bulk_report(
+            **{
+                **mock_raw_bulk_report_create_request_body,
+                "geojson": geojson_source_instance,
+            },  # geojson source
+        )
+
+        data = cast(BulkReportCreateItem, result.data())
+        assert isinstance(result, BulkReportCreateResult)
+        assert isinstance(data, BulkReportCreateItem)
 
 
 @pytest.mark.asyncio

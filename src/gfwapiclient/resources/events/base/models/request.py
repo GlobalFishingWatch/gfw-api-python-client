@@ -3,11 +3,11 @@
 import datetime
 
 from enum import Enum
-from typing import Any, List, Optional
+from typing import List, Optional
 
 from pydantic import Field
 
-from gfwapiclient.base.models import BaseModel, Region
+from gfwapiclient.base.models import GeoJson, Geometry, Region
 from gfwapiclient.http.models.request import RequestBody
 
 
@@ -86,19 +86,18 @@ class EventDataset(str, Enum):
     PORT_VISITS_EVENTS_LATEST = "public-global-port-visits-events:latest"
 
 
-class EventGeometry(BaseModel):
+class EventGeometry(GeoJson):
     """GeoJSON-like region where the events occur.
 
-    Attributes:
-        type (str):
-            The GeoJSON geometry type (e.g., "Polygon").
+    Represents a GeoJSON-compatible area of interest used for filtering event data.
 
-        coordinates (Any):
-            The GeoJSON coordinates.
+    For more details on the Events API supported geojson/geometries, please
+    refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#events-post-body-parameters
     """
 
-    type: str = Field(...)
-    coordinates: Any = Field(...)
+    pass
 
 
 class EventRegion(Region):
@@ -151,7 +150,7 @@ class EventBaseBody(RequestBody):
         flags (Optional[List[str]]):
             Flags (in ISO3 format) of the vessels involved in the events.
 
-        geometry (Optional[EventGeometry]):
+        geometry (Optional[Geometry]):
             Region where the events occur (GeoJSON).
 
         region (Optional[EventRegion]):
@@ -171,6 +170,6 @@ class EventBaseBody(RequestBody):
     duration: Optional[int] = Field(None)
     vessel_groups: Optional[List[str]] = Field(None)
     flags: Optional[List[str]] = Field(None)
-    geometry: Optional[EventGeometry] = Field(None)
+    geometry: Optional[Geometry] = Field(None)  # TODO: use GeoJson
     region: Optional[EventRegion] = Field(None)
     vessel_types: Optional[List[EventVesselType]] = Field(None)

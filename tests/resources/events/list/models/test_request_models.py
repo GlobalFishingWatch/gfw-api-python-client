@@ -7,6 +7,8 @@ from gfwapiclient.resources.events.list.models.request import (
     EventListParams,
 )
 
+from .....base.test_geojson_models import assert_valid_geometry
+
 
 def test_event_list_request_params_serializes_all_fields(
     mock_raw_event_list_request_params: Dict[str, Any],
@@ -36,6 +38,7 @@ def test_event_list_request_body_serializes_all_fields(
     assert event_list_request_body.confidences is not None
     assert event_list_request_body.encounter_types is not None
     assert event_list_request_body.geometry is not None
+    assert_valid_geometry(event_list_request_body.geometry)
     assert event_list_request_body.region is not None
     assert event_list_request_body.vessel_types is not None
     assert event_list_request_body.vessel_groups is not None
