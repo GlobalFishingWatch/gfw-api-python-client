@@ -66,6 +66,10 @@ class VesselInclude(str, Enum):
 
             See how the Vessel API is used in the Vessel Viewer
             here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
+            For more details on the Vessels API data caveats, please refer to the
+            official Global Fishing Watch API documentation
+            here: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
     """
 
     POTENTIAL_RELATED_SELF_REPORTED_INFO = "POTENTIAL_RELATED_SELF_REPORTED_INFO"

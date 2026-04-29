@@ -23,6 +23,11 @@ class VesselDetailEndPoint(
 
     This endpoint retrieves vessel details by ID and
     other provided request parameters.
+
+    For more details on the Get Vessel by ID API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation#get-vessel-by-id
     """
 
     def __init__(
