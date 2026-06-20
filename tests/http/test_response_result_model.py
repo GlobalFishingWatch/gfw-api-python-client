@@ -2,7 +2,7 @@
 
 import datetime
 
-from typing import Any, Dict, Final, List, Optional, Type, cast
+from typing import Any, Dict, Final, Iterator, List, Optional, Type, cast
 
 import pandas as pd
 import pytest
@@ -446,3 +446,165 @@ def test_result_find_invalid_predicate_returns_none(
     found: Optional[SampleResultItem] = result.find(predicate=invalid_predicate)
 
     assert found is None
+
+
+def test_result_map_transforms_all_result_items(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` map transforms correctly all `ResultItem`."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> str:
+        return item.id
+
+    mapped_result: Iterator[str] = result.map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_map_transforms_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` map transforms correctly a single `ResultItem`."""
+    item = SampleResultItem(**mock_result_item)
+
+    result = SampleSingleResult(data=item)
+
+    def to_ids(item: SampleResultItem) -> str:
+        return item.id
+
+    mapped_result: Iterator[str] = result.map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 1
+    assert mapped_result_list[0] == item.id
+
+
+@pytest.mark.parametrize(
+    "invalid_mapper",
+    ["invalid", 123, object(), True, [], {}],
+)
+def test_result_map_raises_type_error_for_non_callable_mapper(
+    mock_result_item: Dict[str, Any],
+    invalid_mapper: Any,
+) -> None:
+    """Tests that `Result` raises a `TypeError` when `mapper` is not callable."""
+    data = [SampleResultItem(**mock_result_item)]
+    result = SampleListResult(data=data)
+
+    with pytest.raises(TypeError):
+        list(result.map(mapper=invalid_mapper))
+
+
+def test_result_supports_iteration(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support iteration by implementing `__iter__`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    assert list(result) == data
+
+    for item in result:
+        assert item is not None
+        assert isinstance(item, SampleResultItem)
+
+
+def test_result_supports_iteration_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support iteration with a single `ResultItem`."""
+    input = {**mock_result_item}
+    item = SampleResultItem(**input)
+    result = SampleSingleResult(data=item)
+
+    assert list(result) == [item]
+
+    for item in result:
+        assert item is not None
+        assert isinstance(item, SampleResultItem)
+
+
+def test_result_supports_len(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support len by implementing `__len__`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    assert len(result) == 2
+
+
+def test_result_supports_len_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support len with a single `ResultItem`."""
+    input = {**mock_result_item}
+    data = SampleResultItem(**input)
+    result = SampleSingleResult(data=data)
+
+    assert len(result) == 1
+
+
+def test_result_supports_extending(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support appending items by implementing `extend`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input)]
+    result = SampleListResult(data=data)
+
+    assert len(result) == 1
+
+    values = [SampleResultItem(**{**input, "confidence": 4})]
+    result.extend(values=values)
+
+    assert len(result) == 2
+
+
+def test_result_supports_extending_from_other_result(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support appending items from other `Result`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input)]
+    result = SampleListResult(data=data)
+
+    assert len(result) == 1
+
+    values = SampleListResult(data=[SampleResultItem(**{**input, "confidence": 4})])
+    result.extend(values=values)
+
+    assert len(result) == 2
+
+
+def test_result_does_not_support_extending_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` does not support appending items by implementing `extend`."""
+    input = {**mock_result_item}
+    item = SampleResultItem(**input)
+    result = SampleSingleResult(item)
+
+    assert len(result) == 1
+
+    values = [SampleResultItem(**{**input, "confidence": 4})]
+    result.extend(values=values)
+
+    assert len(result) == 1

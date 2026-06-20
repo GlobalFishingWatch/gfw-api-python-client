@@ -4,6 +4,7 @@ from typing import (
     Any,
     Callable,
     Generic,
+    Iterable,
     Iterator,
     List,
     Optional,
@@ -38,6 +39,7 @@ class ResultItem(BaseModel):
 
 
 _ResultItemT = TypeVar("_ResultItemT", bound=ResultItem)
+_ResultItemMappedT = TypeVar("_ResultItemMappedT")
 
 
 class Result(Generic[_ResultItemT]):
@@ -186,6 +188,39 @@ class Result(Generic[_ResultItemT]):
 
         return None
 
+    def map(
+        self,
+        *,
+        mapper: Callable[[_ResultItemT], _ResultItemMappedT],
+    ) -> Iterator[_ResultItemMappedT]:
+        """Transforms each API endpoint result data using a mapping function.
+
+        This method applies `mapper` to every `ResultItem` and returns an `Iterator`
+        yielding the transformed `_ResultItemMappedT`.
+
+        Args:
+            mapper (Callable[[_ResultItemT], _ResultItemMappedT]):
+                A callable that transform a `ResultItem` instance and
+                returns transformed `_ResultItemMappedT` instance.
+
+        Yields:
+            _ResultItemMappedT:
+                Individual transformed `_ResultItemMappedT` from API endpoint result data.
+
+        Returns:
+            Iterator[_ResultItemMappedT]:
+                An iterator over transformed API endpoint result data.
+
+        Raises:
+            TypeError:
+                If `mapper` is not callable.
+        """
+        if not callable(mapper):
+            raise TypeError("Expected `mapper` to be callable.")
+
+        for item in self._iter_data():
+            yield mapper(item)
+
     def _iter_data(self) -> Iterator[_ResultItemT]:
         """Iterate lazily over API endpoint result data without copying.
 
@@ -208,6 +243,41 @@ class Result(Generic[_ResultItemT]):
             yield from self._data
         else:
             yield self._data
+
+    def __iter__(self) -> Iterator[_ResultItemT]:
+        """Returns an iterator over API endpoint result data.
+
+        Yields:
+            _ResultItemT:
+                Individual `ResultItem` contained in API endpoint result data.
+
+        Returns:
+            Iterator[_ResultItemT]:
+                An iterator over API endpoint result data.
+        """
+        yield from self._iter_data()
+
+    def __len__(self) -> int:
+        """Returns total number of items in API endpoint result data.
+
+        Returns:
+            int:
+                The total number of items in API endpoint result data.
+        """
+        return len(list(self._iter_data()))
+
+    def extend(
+        self,
+        values: Iterable[_ResultItemT],
+    ) -> None:
+        """Extends API endpoint result data by appending items from the iterable.
+
+        Args:
+            values (Iterable[_ResultItemT]):
+                Iterable of `ResultItem` to append to API endpoint result data.
+        """
+        if isinstance(self._data, list):
+            self._data.extend(values)
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])
