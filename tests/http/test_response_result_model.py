@@ -64,6 +64,7 @@ bounding_box: Final[List[float]] = [
 confidence: Final[int] = 3
 confidences: Final[List[int]] = [3, 4]
 intentional_disabling: Final[bool] = True
+other_id: Final[str] = "3ca9b73aee21fbf278a636709e0f8f03"
 
 
 @pytest.fixture
@@ -562,49 +563,52 @@ def test_result_supports_len_with_single_result_item(
     assert len(result) == 1
 
 
-def test_result_supports_extending(
+def test_result_add_supports_adding_other_result(
     mock_result_item: Dict[str, Any],
 ) -> None:
-    """Tests that `Result` support appending items by implementing `extend`."""
-    input = {**mock_result_item}
-    data = [SampleResultItem(**input)]
-    result = SampleListResult(data=data)
+    """Tests that `Result` __add__ support adding items from other `Result`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
+    other = SampleListResult(
+        data=[SampleResultItem(**{**mock_result_item, "id": other_id})]
+    )
 
+    combined = result + other
+
+    assert isinstance(combined, SampleListResult)
+    assert len(combined) == 2
     assert len(result) == 1
-
-    values = [SampleResultItem(**{**input, "confidence": 4})]
-    result.extend(values=values)
-
-    assert len(result) == 2
+    assert len(other) == 1
 
 
-def test_result_supports_extending_from_other_result(
+def test_result_add_supports_adding_other_iterable(
     mock_result_item: Dict[str, Any],
 ) -> None:
-    """Tests that `Result` support appending items from other `Result`."""
-    input = {**mock_result_item}
-    data = [SampleResultItem(**input)]
-    result = SampleListResult(data=data)
+    """Tests that `Result` __add__ support adding items from other `Iterable`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
+    other = [SampleResultItem(**{**mock_result_item, "id": other_id})]
 
+    combined = result + other
+
+    assert isinstance(combined, SampleListResult)
+    assert len(combined) == 2
     assert len(result) == 1
-
-    values = SampleListResult(data=[SampleResultItem(**{**input, "confidence": 4})])
-    result.extend(values=values)
-
-    assert len(result) == 2
+    assert len(other) == 1
 
 
-def test_result_does_not_support_extending_with_single_result_item(
-    mock_result_item: Dict[str, Any],
+@pytest.mark.parametrize(
+    "invalid_other",
+    [
+        None,
+        123,
+        object(),
+    ],
+)
+def test_result_add_raises_type_error_when_other_is_not_iterable(
+    mock_result_item: dict[str, Any],
+    invalid_other: Any,
 ) -> None:
-    """Tests that `Result` does not support appending items by implementing `extend`."""
-    input = {**mock_result_item}
-    item = SampleResultItem(**input)
-    result = SampleSingleResult(item)
+    """Tests that `Result` __add__ raises a `TypeError` when `other` is not `Iterable`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
 
-    assert len(result) == 1
-
-    values = [SampleResultItem(**{**input, "confidence": 4})]
-    result.extend(values=values)
-
-    assert len(result) == 1
+    with pytest.raises(TypeError):
+        result + invalid_other

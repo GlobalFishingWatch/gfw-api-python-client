@@ -266,18 +266,29 @@ class Result(Generic[_ResultItemT]):
         """
         return len(list(self._iter_data()))
 
-    def extend(
-        self,
-        values: Iterable[_ResultItemT],
-    ) -> None:
-        """Extends API endpoint result data by appending items from the iterable.
+    def __add__(self, other: Iterable[_ResultItemT]) -> "Result[_ResultItemT]":
+        """Concatenates API endpoint result data with items from another iterable.
+
+        This method returns a new `Result` instance containing combined
+        `ResultItem` objects.
 
         Args:
-            values (Iterable[_ResultItemT]):
+            other (Iterable[_ResultItemT]):
                 Iterable of `ResultItem` to append to API endpoint result data.
+
+        Returns:
+            Result[_ResultItemT]:
+                A new `Result` instance containing the combined `ResultItem` objects.
+
+        Raises:
+            TypeError:
+                If `other` is not iterable.
         """
-        if isinstance(self._data, list):
-            self._data.extend(values)
+        if not isinstance(other, Iterable):
+            raise TypeError("Expected `other` to be iterable.")
+
+        combined_items: List[_ResultItemT] = [*self._iter_data(), *other]
+        return self.__class__(data=combined_items)
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])
