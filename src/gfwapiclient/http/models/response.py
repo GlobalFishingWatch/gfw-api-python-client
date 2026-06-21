@@ -264,16 +264,19 @@ class Result(Generic[_ResultItemT]):
             int:
                 The total number of items in API endpoint result data.
         """
-        return len(list(self._iter_data()))
+        if isinstance(self._data, list):
+            return len(self._data)
 
-    def __add__(self, other: Iterable[_ResultItemT]) -> "Result[_ResultItemT]":
+        return 1
+
+    def __add__(self, other: object) -> "Result[_ResultItemT]":
         """Concatenates API endpoint result data with items from another iterable.
 
         This method returns a new `Result` instance containing combined
         `ResultItem` objects.
 
         Args:
-            other (Iterable[_ResultItemT]):
+            other (object):
                 Iterable of `ResultItem` to append to API endpoint result data.
 
         Returns:
@@ -284,11 +287,11 @@ class Result(Generic[_ResultItemT]):
             TypeError:
                 If `other` is not iterable.
         """
-        if not isinstance(other, Iterable):
-            raise TypeError("Expected `other` to be iterable.")
+        if isinstance(other, Iterable):
+            combined_items: List[_ResultItemT] = [*self._iter_data(), *other]
+            return self.__class__(data=combined_items)
 
-        combined_items: List[_ResultItemT] = [*self._iter_data(), *other]
-        return self.__class__(data=combined_items)
+        return NotImplemented
 
 
 _ResultT = TypeVar("_ResultT", bound=Result[Any])
