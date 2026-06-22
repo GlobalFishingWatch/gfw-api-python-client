@@ -6,15 +6,15 @@ common data structures for vessel-related information.
 
 import datetime
 
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional, Type, TypeVar, Union
 
 from pydantic import Field
 
 from gfwapiclient.base.models import BaseModel
-from gfwapiclient.http.models import ResultItem
+from gfwapiclient.http.models import Result, ResultItem
 
 
-__all__ = ["VesselItem"]
+__all__ = ["VesselItem", "VesselResult"]
 
 
 class ExtraField(BaseModel):
@@ -350,3 +350,94 @@ class VesselItem(ResultItem):
     self_reported_info: Optional[List[SelfReportedInfo]] = Field(
         None, alias="selfReportedInfo"
     )
+
+    def _iter_matched_self_reported_info(self) -> Iterator[SelfReportedInfo]:
+        """Yields matched AIS self-reported vessel information.
+
+        **Note:**  A vessel is considered matched when it includes both `registry_info`
+        and `self_reported_info` (AIS), as this indicates a successful match between
+        registry data and AIS information.
+
+        See how the Vessel API is used in the Vessel Viewer
+        here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
+        Yields:
+            SelfReportedInfo:
+                Valid matched AIS self-reported vessel information.
+        """
+        if (
+            self.registry_info_total_records
+            and self.registry_info_total_records >= 1
+            and self.self_reported_info
+        ):
+            yield from self.self_reported_info
+
+    def _iter_matched_vessel_ids(self) -> Iterator[str]:
+        """Yields matched AIS self-reported vessel identifiers (IDs).
+
+        **Note:**  A vessel is considered matched when it includes both `registry_info`
+        and `self_reported_info` (AIS), as this indicates a successful match between
+        registry data and AIS information.
+
+        See how the Vessel API is used in the Vessel Viewer
+        here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
+        Yields:
+            str:
+                Valid matched AIS self-reported vessel identifier (ID).
+        """
+        for self_reported_info in self._iter_matched_self_reported_info():
+            if self_reported_info.id and self_reported_info.id.strip():
+                yield self_reported_info.id.strip()
+
+
+_VesselItemT = TypeVar("_VesselItemT", bound=VesselItem)
+
+
+class VesselResult(Result[_VesselItemT]):
+    """Result for the Vessels API endpoints.
+
+    This class extends :class:`Result` to provide a specialized result container
+    for the Vessels API endpoints.
+    """
+
+    _result_item_class: Type[_VesselItemT]
+    _data: Union[List[_VesselItemT], _VesselItemT]
+
+    def __init__(self, *, data: Union[List[_VesselItemT], _VesselItemT]) -> None:
+        """Initializes a new `VesselResult`.
+
+        Args:
+            data (Union[List[_VesselItemT], _VesselItemT]):
+                The response data from the Vessels API endpoint, which can
+                be either a single `ResultItem` or a list of `ResultItem` instances.
+        """
+        super().__init__(data=data)
+
+    @property
+    def vessel_ids(self) -> List[str]:
+        """Returns matched AIS self-reported vessel identifiers (IDs).
+
+        **Note:**  A vessel is considered matched when it includes both `registry_info`
+        and `self_reported_info` (AIS), as this indicates a successful match between
+        registry data and AIS information.
+
+        See how the Vessel API is used in the Vessel Viewer
+        here: https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf
+
+        Returns:
+            List[str]:
+                Valid list of matched AIS self-reported vessel identifier (ID).
+        """
+
+        def iter_vessel_ids(item: _VesselItemT) -> Iterator[str]:
+            yield from item._iter_matched_vessel_ids()
+
+        # USE: flat_map
+        mapped_vessel_ids: Iterator[Iterator[str]] = self.map(mapper=iter_vessel_ids)
+        matched_vessel_ids: List[str] = []
+        for _vessel_ids in mapped_vessel_ids:
+            for _vessel_id in _vessel_ids:
+                matched_vessel_ids.append(_vessel_id.strip())
+
+        return matched_vessel_ids
