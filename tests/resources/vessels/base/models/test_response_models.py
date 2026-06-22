@@ -37,7 +37,7 @@ def test_vessel_item_iter_matched_self_reported_infos_does_not_yields_when_regis
     mock_raw_vessel_list_item: Dict[str, Any],
     update: Dict[str, Any],
 ) -> None:
-    """Test that `VesselItem`  iter matched self reported infos does not yields when registry or self reported info missing."""
+    """Test that `VesselItem` iter matched self reported infos does not yields when registry or self reported info missing."""
     mocked_raw_vessel_list_item: Dict[str, Any] = {**mock_raw_vessel_list_item}
     for k, v in update.items():
         mocked_raw_vessel_list_item[k] = v
@@ -75,11 +75,11 @@ def test_vessel_result_vessel_ids_returns_correctly(
         {"selfReportedInfo": [{"id": " "}]},
     ],
 )
-def test_vessel_item_vessel_ids_returns_empty_list_when_registry_or_self_report_info_missing(
+def test_vessel_result_vessel_ids_returns_empty_list_when_registry_or_self_report_info_missing(
     mock_raw_vessel_list_item: Dict[str, Any],
     update: Dict[str, Any],
 ) -> None:
-    """Test that `VesselItem` vessel ids returns empty list when registry or self reported info missing."""
+    """Test that `VesselResult` vessel ids returns empty list when registry or self reported info missing."""
     mocked_raw_vessel_list_item: Dict[str, Any] = {**mock_raw_vessel_list_item}
     for k, v in update.items():
         mocked_raw_vessel_list_item[k] = v
@@ -112,11 +112,11 @@ def test_vessel_result_transmission_dates_from_returns_correctly(
         {"selfReportedInfo": [{"transmissionDateFrom": None}]},
     ],
 )
-def test_vessel_item_vessel_transmission_dates_from_returns_empty_list_when_registry_or_self_report_info_missing(
+def test_vessel_result_vessel_transmission_dates_from_returns_empty_list_when_registry_or_self_report_info_missing(
     mock_raw_vessel_list_item: Dict[str, Any],
     update: Dict[str, Any],
 ) -> None:
-    """Test that `VesselItem` transmission dates from returns empty list when registry or self reported info missing."""
+    """Test that `VesselResult` transmission dates from returns empty list when registry or self reported info missing."""
     mocked_raw_vessel_list_item: Dict[str, Any] = {**mock_raw_vessel_list_item}
     for k, v in update.items():
         mocked_raw_vessel_list_item[k] = v
@@ -149,11 +149,11 @@ def test_vessel_result_transmission_dates_to_returns_correctly(
         {"selfReportedInfo": [{"transmissionDateTo": None}]},
     ],
 )
-def test_vessel_item_vessel_transmission_dates_to_returns_empty_list_when_registry_or_self_report_info_missing(
+def test_vessel_result_vessel_transmission_dates_to_returns_empty_list_when_registry_or_self_report_info_missing(
     mock_raw_vessel_list_item: Dict[str, Any],
     update: Dict[str, Any],
 ) -> None:
-    """Test that `VesselItem` transmission dates to returns empty list when registry or self reported info missing."""
+    """Test that `VesselResult` transmission dates to returns empty list when registry or self reported info missing."""
     mocked_raw_vessel_list_item: Dict[str, Any] = {**mock_raw_vessel_list_item}
     for k, v in update.items():
         mocked_raw_vessel_list_item[k] = v
