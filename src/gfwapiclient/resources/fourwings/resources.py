@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import pydantic
 
-from gfwapiclient.base.models import GeoJson, SupportsGeoJsonInterface
+from gfwapiclient.base.models import GeoJson, Region, SupportsGeoJsonInterface
 from gfwapiclient.exceptions import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -75,8 +75,8 @@ class FourWingsResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
-        **kwargs: Dict[str, Any],
+        region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
+        **kwargs: Any,
     ) -> FourWingsReportResult:
         """Create 4Wings AIS apparent fishing effort report for a specified region.
 
@@ -144,7 +144,7 @@ class FourWingsResource(BaseResource):
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -198,8 +198,8 @@ class FourWingsResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
-        **kwargs: Dict[str, Any],
+        region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
+        **kwargs: Any,
     ) -> FourWingsReportResult:
         """Create 4Wings AIS vessel presence report for a specified region.
 
@@ -267,7 +267,7 @@ class FourWingsResource(BaseResource):
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -321,8 +321,8 @@ class FourWingsResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
-        **kwargs: Dict[str, Any],
+        region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
+        **kwargs: Any,
     ) -> FourWingsReportResult:
         """Create 4Wings SAR vessel detections report for a specified region.
 
@@ -389,7 +389,7 @@ class FourWingsResource(BaseResource):
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -445,8 +445,8 @@ class FourWingsResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
-        **kwargs: Dict[str, Any],
+        region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
+        **kwargs: Any,
     ) -> FourWingsReportResult:
         """Create 4Wings report for a specified region.
 
@@ -540,7 +540,7 @@ class FourWingsResource(BaseResource):
                 (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[FourWingsReportRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]], default=None):
                 Predefined region information to filter the report. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -594,7 +594,7 @@ class FourWingsResource(BaseResource):
         geojson: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[FourWingsReportRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
     ) -> FourWingsReportBody:
         """Prepare request body for the 4Wings report endpoint."""
         try:
@@ -603,7 +603,7 @@ class FourWingsResource(BaseResource):
             )
             _request_body: Dict[str, Any] = {
                 "geojson": _geojson,
-                "region": region,
+                "region": region.model_dump() if isinstance(region, Region) else region,
             }
             request_body: FourWingsReportBody = FourWingsReportBody(**_request_body)
         except pydantic.ValidationError as exc:

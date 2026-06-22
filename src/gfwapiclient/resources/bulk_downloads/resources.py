@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import pydantic
 
-from gfwapiclient.base.models import GeoJson, Geometry, SupportsGeoJsonInterface
+from gfwapiclient.base.models import GeoJson, Geometry, Region, SupportsGeoJsonInterface
 from gfwapiclient.exceptions import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -97,9 +97,9 @@ class BulkDownloadResource(BaseResource):
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
         format: Optional[Union[BulkReportFormat, str]] = None,
-        region: Optional[Union[BulkReportRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[BulkReportRegion, Region, Dict[str, Any]]] = None,
         filters: Optional[List[str]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> BulkReportCreateResult:
         """Create a bulk report based on specified filters and spatial parameters.
 
@@ -141,7 +141,7 @@ class BulkDownloadResource(BaseResource):
                 Allowed values: `"JSON"`, `"CSV"`.
                 Example: `"JSON"`.
 
-            region (Optional[Union[BulkReportRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[BulkReportRegion, Region, Dict[str, Any]]], default=None):
                 Predefined region information to filter the bulk report.
                 Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": 8466}`.
@@ -242,7 +242,7 @@ class BulkDownloadResource(BaseResource):
         offset: Optional[int] = None,
         sort: Optional[str] = None,
         status: Optional[Union[BulkReportStatus, str]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> BulkReportListResult:
         """Get all bulk reports created by user or application.
 
@@ -314,7 +314,7 @@ class BulkDownloadResource(BaseResource):
         *,
         id: str,
         file: Optional[Union[BulkReportFileType, str]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> BulkReportFileResult:
         """Get signed URL to download file of the previously created bulk report.
 
@@ -377,7 +377,7 @@ class BulkDownloadResource(BaseResource):
         offset: Optional[int] = None,
         sort: Optional[str] = None,
         includes: Optional[List[str]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> BulkFixedInfrastructureDataQueryResult:
         """Get bulk fixed infrastructure data report in JSON Format.
 
@@ -465,7 +465,7 @@ class BulkDownloadResource(BaseResource):
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
         format: Optional[Union[BulkReportFormat, str]] = None,
-        region: Optional[Union[BulkReportRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[BulkReportRegion, Region, Dict[str, Any]]] = None,
         filters: Optional[List[str]] = None,
     ) -> BulkReportCreateBody:
         """Prepare and return create a bulk report request body."""
@@ -481,7 +481,7 @@ class BulkDownloadResource(BaseResource):
                 "dataset": _dataset,
                 "geojson": _geojson,
                 "format": format or BulkReportFormat.JSON,
-                "region": region or None,
+                "region": region.model_dump() if isinstance(region, Region) else region,
                 "filters": filters or None,
             }
             request_body: BulkReportCreateBody = BulkReportCreateBody(**_request_body)

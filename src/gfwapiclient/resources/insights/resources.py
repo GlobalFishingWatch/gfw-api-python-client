@@ -55,7 +55,7 @@ class InsightResource(BaseResource):
         vessels: Union[
             List[VesselInsightDatasetVessel], List[Dict[str, Any]], List[str]
         ],
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> VesselInsightResult:
         """Get insights for one or several vessels.
 
@@ -163,7 +163,7 @@ class InsightResource(BaseResource):
         vessels: Union[
             List[VesselInsightDatasetVessel], List[Dict[str, Any]], List[str]
         ],
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> VesselInsightBody:
         """Prepare and returns get vessel insights request body."""
         try:
