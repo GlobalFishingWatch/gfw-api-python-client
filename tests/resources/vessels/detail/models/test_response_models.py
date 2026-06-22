@@ -24,18 +24,6 @@ def test_vessel_detail_item_deserializes_all_fields(
     assert vessel_detail_item.dataset is not None
 
 
-# def test_vessel_detail_item_vessel_ids_yields_correctly(
-#     mock_raw_vessel_detail_item: Dict[str, Any],
-# ) -> None:
-#     """Test that `VesselDetailItem` yields vessel ids correctly."""
-#     vessel_detail_item: VesselDetailItem = VesselDetailItem(
-#         **mock_raw_vessel_detail_item
-#     )
-#     assert vessel_detail_item.vessel_ids is not None
-#     assert isinstance(vessel_detail_item.vessel_ids, Iterator)
-#     assert len(list(vessel_detail_item.vessel_ids)) >= 1
-
-
 def test_vessel_detail_result_deserializes_all_fields(
     mock_raw_vessel_detail_item: Dict[str, Any],
 ) -> None:
@@ -54,3 +42,25 @@ def test_vessel_detail_result_vessel_ids_returns_correctly(
     assert result.vessel_ids is not None
     assert isinstance(result.vessel_ids, list)
     assert len(result.vessel_ids) >= 1
+
+
+def test_vessel_detail_result_transmission_dates_from_returns_correctly(
+    mock_raw_vessel_list_item: Dict[str, Any],
+) -> None:
+    """Test that `VesselDetailResult` transmission dates from returns list of transmission start dates correctly."""
+    data: VesselDetailItem = VesselDetailItem(**mock_raw_vessel_list_item)
+    result = VesselDetailResult(data=data)
+    assert result.transmission_dates_from is not None
+    assert isinstance(result.transmission_dates_from, list)
+    assert len(result.transmission_dates_from) >= 1
+
+
+def test_vessel_detail_result_transmission_dates_to_returns_correctly(
+    mock_raw_vessel_list_item: Dict[str, Any],
+) -> None:
+    """Test that `VesselDetailResult` transmission dates to returns list of transmission end dates correctly."""
+    data: VesselDetailItem = VesselDetailItem(**mock_raw_vessel_list_item)
+    result = VesselDetailResult(data=data)
+    assert result.transmission_dates_to is not None
+    assert isinstance(result.transmission_dates_to, list)
+    assert len(result.transmission_dates_to) >= 1
