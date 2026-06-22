@@ -2,8 +2,7 @@
 
 from typing import List, Type
 
-from gfwapiclient.http.models import Result
-from gfwapiclient.resources.events.base.models.response import EventItem
+from gfwapiclient.resources.events.base.models.response import EventItem, EventResult
 
 
 __all__ = ["EventListItem", "EventListResult"]
@@ -15,7 +14,7 @@ class EventListItem(EventItem):
     pass
 
 
-class EventListResult(Result[EventListItem]):
+class EventListResult(EventResult[EventListItem]):
     """Result containing a list of event items."""
 
     _result_item_class: Type[EventListItem]
