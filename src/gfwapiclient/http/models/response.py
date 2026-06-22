@@ -12,10 +12,13 @@ from typing import (
     Type,
     TypeVar,
     Union,
+    cast,
 )
 
 import geopandas as gpd
 import pandas as pd
+
+from pydantic import BaseModel as PydanticBaseModel
 
 from gfwapiclient.base.models import BaseModel
 
@@ -200,16 +203,12 @@ class Result(Generic[_ResultItemT]):
 
         Args:
             mapper (Callable[[_ResultItemT], _ResultItemMappedT]):
-                A callable that transform a `ResultItem` instance and
+                A callable that transforms a `ResultItem` instance and
                 returns transformed `_ResultItemMappedT` instance.
 
         Yields:
             _ResultItemMappedT:
                 Individual transformed `_ResultItemMappedT` from API endpoint result data.
-
-        Returns:
-            Iterator[_ResultItemMappedT]:
-                An iterator over transformed API endpoint result data.
 
         Raises:
             TypeError:
@@ -220,6 +219,75 @@ class Result(Generic[_ResultItemT]):
 
         for item in self._iter_data():
             yield mapper(item)
+
+    def flat_map(
+        self,
+        *,
+        mapper: Callable[
+            [_ResultItemT], Union[_ResultItemMappedT, Iterable[_ResultItemMappedT]]
+        ],
+    ) -> Iterator[_ResultItemMappedT]:
+        """Transforms and flattens API endpoint result data using a mapping function.
+
+        This method applies `mapper` to every `ResultItem`, recursively flattens
+        iterable values returned by the `mapper`, and yielding the transformed `_ResultItemMappedT`.
+
+        Unlike :meth:`map`, which yields the mapper output directly, `flat_map`
+        expands nested collections into a single iterator of values.
+
+        Iterable values are flattened when they represent collections, including:
+
+        - `list`
+        - `tuple`
+        - `set`
+        - generators
+        - iterators
+        - other non-atomic iterable objects
+
+        Atomic values are yielded unchanged. The following objects are treated as
+        scalar values and are not expanded:
+
+        - `str`
+        - `bytes`
+        - `dict`
+        - `None`
+        - :class:`PydanticBaseModel` instances
+        - :class:`BaseModel` instances
+        - :class:`ResultItem` instances
+
+        Args:
+            mapper (Callable[[_ResultItemT], Union[_ResultItemMappedT, Iterable[_ResultItemMappedT]]]):
+                A callable that transforms a `ResultItem` instance and
+                returns either transformed single or iterable of
+                `_ResultItemMappedT` instance.
+
+        Yields:
+            _ResultItemMappedT:
+                Individual transformed-flattened `_ResultItemMappedT` from API endpoint
+                result data produced by the mapper.
+
+        Raises:
+            TypeError:
+                If `mapper` is not callable.
+        """
+        if not callable(mapper):
+            raise TypeError("Expected `mapper` to be callable.")
+
+        def _yield_values(
+            value: object,
+        ) -> Iterator[_ResultItemMappedT]:
+            """Recursively yields flattened values from nested iterables."""
+            if isinstance(value, Iterable) and not isinstance(
+                value,
+                (str, bytes, dict, ResultItem, BaseModel, PydanticBaseModel),
+            ):
+                for nested_value in value:
+                    yield from _yield_values(nested_value)
+            else:
+                yield cast(_ResultItemMappedT, value)
+
+        for item in self._iter_data():
+            yield from _yield_values(mapper(item))
 
     def _iter_data(self) -> Iterator[_ResultItemT]:
         """Iterate lazily over API endpoint result data without copying.
@@ -234,10 +302,6 @@ class Result(Generic[_ResultItemT]):
         Yields:
             _ResultItemT:
                 Individual `ResultItem` contained in API endpoint result data.
-
-        Returns:
-            Iterator[_ResultItemT]:
-                An iterator over API endpoint result data.
         """
         if isinstance(self._data, list):
             yield from self._data
@@ -250,10 +314,6 @@ class Result(Generic[_ResultItemT]):
         Yields:
             _ResultItemT:
                 Individual `ResultItem` contained in API endpoint result data.
-
-        Returns:
-            Iterator[_ResultItemT]:
-                An iterator over API endpoint result data.
         """
         yield from self._iter_data()
 

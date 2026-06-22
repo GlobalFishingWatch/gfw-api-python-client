@@ -503,12 +503,132 @@ def test_result_map_raises_type_error_for_non_callable_mapper(
     mock_result_item: Dict[str, Any],
     invalid_mapper: Any,
 ) -> None:
-    """Tests that `Result` raises a `TypeError` when `mapper` is not callable."""
+    """Tests that `Result` map raises a `TypeError` when `mapper` is not callable."""
     data = [SampleResultItem(**mock_result_item)]
     result = SampleListResult(data=data)
 
     with pytest.raises(TypeError):
         list(result.map(mapper=invalid_mapper))
+
+
+def test_result_flat_map_transforms_and_flattens_list_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and flattens list values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> List[str]:
+        return [item.id]
+
+    mapped_result: Iterator[str] = result.flat_map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_flat_map_transforms_and_flattens_generator_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and flattens generator values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> Iterator[str]:
+        yield item.id
+
+    mapped_result: Iterator[str] = result.flat_map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_flat_map_transforms_and_not_flattens_dict_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and not flattens dict values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_dict(item: SampleResultItem) -> Iterator[Dict[str, Any]]:
+        yield {"id": item.id}
+
+    mapped_result: Iterator[Dict[str, Any]] = result.flat_map(mapper=to_dict)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[Dict[str, Any]] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert isinstance(mapped_result_list[0], dict)
+    assert mapped_result_list[0] == {"id": data[0].id}
+    assert isinstance(mapped_result_list[1], dict)
+    assert mapped_result_list[1] == {"id": data[1].id}
+
+
+def test_result_flat_map_transforms_and_not_flattens_pydantic_models(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and not flattens pydantic models correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_model(item: SampleResultItem) -> Iterator[SampleResultItem]:
+        yield item
+
+    mapped_result: Iterator[SampleResultItem] = result.flat_map(mapper=to_model)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[SampleResultItem] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert isinstance(mapped_result_list[0], SampleResultItem)
+    assert mapped_result_list[0] == data[0]
+    assert isinstance(mapped_result_list[1], SampleResultItem)
+    assert mapped_result_list[1] == data[1]
+
+
+@pytest.mark.parametrize(
+    "invalid_mapper",
+    ["invalid", 123, object(), True, [], {}],
+)
+def test_result_flat_map_raises_type_error_for_non_callable_mapper(
+    mock_result_item: Dict[str, Any],
+    invalid_mapper: Any,
+) -> None:
+    """Tests that `Result` flat map raises a `TypeError` when `mapper` is not callable."""
+    data = [SampleResultItem(**mock_result_item)]
+    result = SampleListResult(data=data)
+
+    with pytest.raises(TypeError):
+        list(result.flat_map(mapper=invalid_mapper))
 
 
 def test_result_supports_iteration(
