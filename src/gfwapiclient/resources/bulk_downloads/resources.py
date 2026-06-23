@@ -242,6 +242,7 @@ class BulkDownloadResource(BaseResource):
         offset: Optional[int] = None,
         sort: Optional[str] = None,
         status: Optional[Union[BulkReportStatus, str]] = None,
+        dataset: Optional[str] = None,
         **kwargs: Any,
     ) -> BulkReportListResult:
         """Get all bulk reports created by user or application.
@@ -278,6 +279,13 @@ class BulkDownloadResource(BaseResource):
                 Defaults to `None`.
                 Allowed values: `"pending"`, `"processing"`, `"done"`, `"failed"`.
                 Example: `"done"`.
+
+            dataset (Optional[str], default=None):
+                Dataset used to generate the bulk report.
+                Defaults to `None`.
+                Allowed values: `"public-fixed-infrastructure-data:latest"`,
+                `"public-fixed-infrastructure-data:v1.1"`.
+                Example: `"public-fixed-infrastructure-data:latest"`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.

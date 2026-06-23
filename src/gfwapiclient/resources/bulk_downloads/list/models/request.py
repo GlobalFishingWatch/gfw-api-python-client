@@ -42,9 +42,15 @@ class BulkReportListParams(RequestParams):
 
         status (Optional[BulkReportStatus]):
             Current status of the bulk report generation process (e.g., `"done"` etc.).
+
+        dataset (Optional[str]):
+            The dataset used to generate the bulk report (e.g.,
+            `"public-fixed-infrastructure-data:latest"`,
+            `"public-fixed-infrastructure-data:v1.1"` etc.).
     """
 
     limit: Optional[int] = Field(99999, ge=0, alias="limit")
     offset: Optional[int] = Field(0, ge=0, alias="offset")
     sort: Optional[str] = Field("-createdAt", alias="sort")
     status: Optional[BulkReportStatus] = Field(None, alias="status")
+    dataset: Optional[str] = Field(None, alias="dataset")

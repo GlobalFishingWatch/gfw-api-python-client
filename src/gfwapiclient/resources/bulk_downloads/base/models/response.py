@@ -95,6 +95,10 @@ class BulkReportItem(ResultItem):
             Unique identifier (ID) of the bulk report (e.g.,
             `"adbb9b62-5c08-4142-82e0-b2b575f3e058"`).
 
+        dataset (Optional[str]):
+            The dataset used to generate the bulk report (e.g.,
+            `"public-fixed-infrastructure-data:v1.1"`.).
+
         name (Optional[str]):
             Human-readable name of the bulk report (e.g.,
             `"sar-fixed-infrastructure-data-202409"`).
@@ -137,6 +141,7 @@ class BulkReportItem(ResultItem):
     """
 
     id: Optional[str] = Field(None, alias="id")
+    dataset: Optional[str] = Field(None, alias="dataset")
     name: Optional[str] = Field(None, alias="name")
     file_path: Optional[str] = Field(None, alias="filepath")
     format: Optional[BulkReportFormat] = Field(None, alias="format")
