@@ -76,12 +76,7 @@ vessel_search_result = await gfw_client.vessels.search_vessels(
     query="412331038",
 )
 
-vessel_search_ids = [
-    self_reported_info.id
-    for vessel_search_item in vessel_search_result.data()
-    if vessel_search_item.registry_info_total_records >= 1
-    for self_reported_info in vessel_search_item.self_reported_info
-]
+vessel_search_ids = vessel_search_result.vessel_ids
 
 print(vessel_search_ids)
 ```
@@ -89,10 +84,12 @@ print(vessel_search_ids)
 **Output:**
 
 ```
-['755a48dd4-4bee-4bcf-7b5f-9baea058fc7b', '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
+['da2b09b31-127e-27e0-fe5f-d6d87e96de6a',
+ '755a48dd4-4bee-4bcf-7b5f-9baea058fc7b',
+ '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-**Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information.
+**Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf).
 
 ### Getting Details of Vessels Filtered by Vessel Searched IDs
 
@@ -101,15 +98,7 @@ vessels_result = await gfw_client.vessels.get_vessels_by_ids(
     ids=vessel_search_ids,
 )
 
-vessel_self_reported_infos = [
-    self_reported_info
-    for vessel_item in vessels_result.data()
-    for self_reported_info in vessel_item.self_reported_info
-]
-
-vessel_ids = [
-    self_reported_info.id for self_reported_info in vessel_self_reported_infos
-]
+vessel_ids = vessels_result.vessel_ids
 
 print(vessel_ids)
 ```
@@ -117,42 +106,26 @@ print(vessel_ids)
 **Output:**
 
 ```
-['755a48dd4-4bee-4bcf-7b5f-9baea058fc7b', '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
+['da2b09b31-127e-27e0-fe5f-d6d87e96de6a',
+ '755a48dd4-4bee-4bcf-7b5f-9baea058fc7b',
+ '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
 ### Getting Insights Related to Fishing Events for the Vessel Searched
 
-**Important:** `start_date` must be on or after `January 1, 2020`
+**Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
 
 ```python
-start_datetime = min(
-    [
-        self_reported_info.transmission_date_from
-        for self_reported_info in vessel_self_reported_infos
-    ]
-)
-start_date = start_datetime.date()
+start_date = start_date = min(vessels_result.transmission_dates_from)
 start_date = max(start_date, datetime.date.fromisoformat("2020-01-01"))
 
-
-end_datetime = max(
-    [
-        self_reported_info.transmission_date_to
-        for self_reported_info in vessel_self_reported_infos
-    ]
-)
-end_date = end_datetime.date()
-
-dataset_id = "public-global-vessel-identity:latest"
-dataset_ids_vessel_ids = [
-    {"dataset_id": dataset_id, "vessel_id": vessel_id} for vessel_id in vessel_ids
-]
+end_date = max(vessels_result.transmission_dates_to)
 
 insights_result = await gfw_client.insights.get_vessel_insights(
     includes=["FISHING"],
     start_date=start_date,
     end_date=end_date,
-    vessels=dataset_ids_vessel_ids,
+    vessels=vessel_ids,
 )
 
 insights_df = insights_result.df()
@@ -163,7 +136,7 @@ print(insights_df.info())
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
 Data columns (total 6 columns):
  #   Column                       Non-Null Count  Dtype
@@ -187,7 +160,10 @@ print(dict(insights_data.apparent_fishing.period_selected_counters))
 **Output:**
 
 ```
-{'events': 398, 'events_gap_off': None, 'events_in_rfmo_without_known_authorization': 144, 'events_in_no_take_mpas': 0}
+{'events': 263,
+ 'events_gap_off': None,
+ 'events_in_rfmo_without_known_authorization': 163,
+ 'events_in_no_take_mpas': 0}
 ```
 
 ### Getting Fishing Events for the Vessels Searched
@@ -208,27 +184,35 @@ print(events_df.info())
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 398 entries, 0 to 397
+
+
+
+
+
+
+
+events_df.info()
+<class 'pandas.DataFrame'>
+RangeIndex: 263 entries, 0 to 262
 Data columns (total 14 columns):
  #   Column        Non-Null Count  Dtype
 ---  ------        --------------  -----
- 0   start         398 non-null    datetime64[ns, UTC]
- 1   end           398 non-null    datetime64[ns, UTC]
- 2   id            398 non-null    object
- 3   type          398 non-null    object
- 4   position      398 non-null    object
- 5   regions       398 non-null    object
- 6   bounding_box  398 non-null    object
- 7   distances     398 non-null    object
- 8   vessel        398 non-null    object
+ 0   start         263 non-null    datetime64[us, UTC]
+ 1   end           263 non-null    datetime64[us, UTC]
+ 2   id            263 non-null    str
+ 3   type          263 non-null    str
+ 4   position      263 non-null    object
+ 5   regions       263 non-null    object
+ 6   bounding_box  263 non-null    object
+ 7   distances     263 non-null    object
+ 8   vessel        263 non-null    object
  9   encounter     0 non-null      object
- 10  fishing       398 non-null    object
+ 10  fishing       263 non-null    object
  11  gap           0 non-null      object
  12  loitering     0 non-null      object
  13  port_visit    0 non-null      object
-dtypes: datetime64[ns, UTC](2), object(12)
-memory usage: 43.7+ KB
+dtypes: datetime64[us, UTC](2), object(10), str(2)
+memory usage: 28.9+ KB
 ```
 
 ## Next Steps
