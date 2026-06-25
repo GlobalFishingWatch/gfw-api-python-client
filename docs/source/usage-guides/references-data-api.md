@@ -101,7 +101,7 @@ print((eez_roi.id, eez_roi.dataset, eez_roi.label, eez_roi.iso3))
 ('8371', 'public-eez-areas', 'Senegalese Exclusive Economic Zone', 'SEN')
 ```
 
-**Note:** Pass `eez_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `eez_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Retrieving Marine Protected Areas (MPAs)
 
@@ -165,7 +165,7 @@ print((mpa_roi.id, mpa_roi.dataset, mpa_roi.label))
 ('555745302', 'public-mpa-all', 'Dorsal de Nasca - Reserva Nacional')
 ```
 
-**Note:** Pass `mpa_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `mpa_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Retrieving Regional Fisheries Management Organizations (RFMOs)
 
@@ -228,7 +228,7 @@ print((rfmo_roi.id, rfmo_roi.dataset, rfmo_roi.label))
 ('WCPFC', 'public-rfmo', 'WCPFC')
 ```
 
-**Note:** Pass `rfmo_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `rfmo_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Next Steps
 

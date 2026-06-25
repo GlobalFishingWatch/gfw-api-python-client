@@ -241,7 +241,7 @@ dtypes: datetime64[ns, UTC](2), object(12)
 memory usage: 244.0+ bytes
 ```
 
-## ## Getting Event Statistics Worldwide (`get_events_stats`)
+## Getting Event Statistics Worldwide (`get_events_stats`)
 
 The `get_events_stats()` method allows you to retrieve statistics on event occurrences based on specified criteria and a time series interval.
 

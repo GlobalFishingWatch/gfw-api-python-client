@@ -40,7 +40,7 @@ The `gfw_client.fourwings` object provides methods to generate reports, retrieve
 
 Generates **AIS (Automatic Identification System) apparent fishing effort** reports to visualize fishing activity. Please [learn more about apparent fishing effort here](https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort).
 
-**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
@@ -136,7 +136,7 @@ Generates **AIS (Automatic Identification System) vessel presence** reports to v
 
 > **Disclaimer:** AIS vessel presence is one of the largest datasets available. To prevent timeouts and ensure optimal performance, keep requests manageable: prefer simple, small regions and shorter time ranges (e.g., a few days).
 
-**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
@@ -232,7 +232,7 @@ Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identi
 
 > **Important:** **AIS vessel presence** shows where vessels **reported their positions** via the **Automatic Identification System (AIS)**. **SAR vessel detection** shows where **Synthetic Aperture Radar (SAR) satellites detected** vessels on the ocean surface, even if they **weren't transmitting AIS**.
 
-**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
@@ -328,7 +328,7 @@ Generates a report for any [supported datasets](https://globalfishingwatch.org/o
 
 > **Note:** AIS vessel presence (i.e., `"public-global-sar-presence:latest"` dataset) does **not** support `"GEARTYPE"` or `"FLAGANDGEARTYPE"` as `group_by` criteria.
 
-**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
