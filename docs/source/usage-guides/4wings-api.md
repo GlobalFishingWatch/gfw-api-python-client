@@ -17,6 +17,8 @@ To interact with the 4Wings endpoints, you first need to instantiate the `gfw.Cl
 ```python
 import os
 
+import geopandas as gpd
+
 import gfwapiclient as gfw
 
 
@@ -38,6 +40,21 @@ The `gfw_client.fourwings` object provides methods to generate reports, retrieve
 
 Generates **AIS (Automatic Identification System) apparent fishing effort** reports to visualize fishing activity. Please [learn more about apparent fishing effort here](https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort).
 
+**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+
+```python
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
+rus_eez_roi = eez_rois_result.data()[0]
+
+print((rus_eez_roi.id, rus_eez_roi.dataset, rus_eez_roi.label, rus_eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('5690', 'public-eez-areas', 'Russian Exclusive Economic Zone', 'RUS')
+```
+
 ```python
 fishing_effort_report_result = await gfw_client.fourwings.create_fishing_effort_report(
     spatial_resolution="LOW",
@@ -45,10 +62,7 @@ fishing_effort_report_result = await gfw_client.fourwings.create_fishing_effort_
     group_by="FLAG",
     start_date="2022-01-01",
     end_date="2022-05-01",
-    region={
-        "dataset": "public-eez-areas",
-        "id": "5690",
-    },
+    region=rus_eez_roi,
 )
 ```
 
@@ -122,6 +136,21 @@ Generates **AIS (Automatic Identification System) vessel presence** reports to v
 
 > **Disclaimer:** AIS vessel presence is one of the largest datasets available. To prevent timeouts and ensure optimal performance, keep requests manageable: prefer simple, small regions and shorter time ranges (e.g., a few days).
 
+**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+
+```python
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
+rus_eez_roi = eez_rois_result.data()[0]
+
+print((rus_eez_roi.id, rus_eez_roi.dataset, rus_eez_roi.label, rus_eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('5690', 'public-eez-areas', 'Russian Exclusive Economic Zone', 'RUS')
+```
+
 ```python
 ais_presence_report_result = await gfw_client.fourwings.create_ais_presence_report(
     spatial_resolution="LOW",
@@ -129,10 +158,7 @@ ais_presence_report_result = await gfw_client.fourwings.create_ais_presence_repo
     group_by="FLAG",
     start_date="2022-01-01",
     end_date="2022-05-01",
-    region={
-        "dataset": "public-eez-areas",
-        "id": "5690",
-    },
+    region=rus_eez_roi,
 )
 ```
 
@@ -206,6 +232,21 @@ Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identi
 
 > **Important:** **AIS vessel presence** shows where vessels **reported their positions** via the **Automatic Identification System (AIS)**. **SAR vessel detection** shows where **Synthetic Aperture Radar (SAR) satellites detected** vessels on the ocean surface, even if they **weren't transmitting AIS**.
 
+**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+
+```python
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
+rus_eez_roi = eez_rois_result.data()[0]
+
+print((rus_eez_roi.id, rus_eez_roi.dataset, rus_eez_roi.label, rus_eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('5690', 'public-eez-areas', 'Russian Exclusive Economic Zone', 'RUS')
+```
+
 ```python
 sar_presence_report_result = await gfw_client.fourwings.create_sar_presence_report(
     spatial_resolution="LOW",
@@ -213,10 +254,7 @@ sar_presence_report_result = await gfw_client.fourwings.create_sar_presence_repo
     group_by="GEARTYPE",
     start_date="2022-01-01",
     end_date="2022-05-01",
-    region={
-        "dataset": "public-eez-areas",
-        "id": "5690",
-    },
+    region=rus_eez_roi,
 )
 ```
 
@@ -284,14 +322,29 @@ dtypes: float64(2), int64(2), object(16)
 memory usage: 624.3+ KB
 ```
 
-## Creating a Report (`create_report`)
+## Creating a Generic Report from Predefined Region (`create_report`)
 
 Generates a report for any [supported datasets](https://globalfishingwatch.org/our-apis/documentation#supported-datasets), using fully customizable parameters. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat).
 
 > **Note:** AIS vessel presence (i.e., `"public-global-sar-presence:latest"` dataset) does **not** support `"GEARTYPE"` or `"FLAGANDGEARTYPE"` as `group_by` criteria.
 
+**Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+
 ```python
-report_result = await gfw_client.fourwings.create_report(
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="RUS")
+rus_eez_roi = eez_rois_result.data()[0]
+
+print((rus_eez_roi.id, rus_eez_roi.dataset, rus_eez_roi.label, rus_eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('5690', 'public-eez-areas', 'Russian Exclusive Economic Zone', 'RUS')
+```
+
+```python
+predefined_report_result = await gfw_client.fourwings.create_report(
     spatial_resolution="LOW",
     temporal_resolution="MONTHLY",
     group_by="FLAG",
@@ -302,29 +355,25 @@ report_result = await gfw_client.fourwings.create_report(
     ],
     start_date="2022-01-01",
     end_date="2022-05-01",
-    region={
-        "dataset": "public-eez-areas",
-        "id": "5690",
-    },
+    region=rus_eez_roi,
 )
 ```
 
 ### Access the report data as Pydantic models
 
 ```python
-report_data = report_result.data()
+predefined_report_data = predefined_report_result.data()
 
-report_item = report_data[-1]
+predefined_report_item = predefined_report_data[-1]
 
 print((
-    report_item.date,
-    report_item.flag,
-    report_item.hours,
-    report_item.vessel_ids,
-    report_item.lat,
-    report_item.lon,
+    predefined_report_item.date,
+    predefined_report_item.flag,
+    predefined_report_item.hours,
+    predefined_report_item.vessel_ids,
+    predefined_report_item.lat,
+    predefined_report_item.lon,
 ))
-print(report_item.model_dump())
 ```
 
 **Output:**
@@ -336,23 +385,22 @@ print(report_item.model_dump())
 ### Access the report data as a DataFrame
 
 ```python
-report_df = report_result.df()
+predefined_report_df = predefined_report_result.df()
 
-print(report_df.info())
-print(report_df[["date", "flag", "hours", "lat", "lon"]].head())
+print(predefined_report_df.info())
 ```
 
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 RangeIndex: 310599 entries, 0 to 310598
 Data columns (total 20 columns):
  #   Column                   Non-Null Count   Dtype
 ---  ------                   --------------   -----
- 0   date                     310599 non-null  object
+ 0   date                     310599 non-null  str
  1   detections               3995 non-null    float64
- 2   flag                     310599 non-null  object
+ 2   flag                     310599 non-null  str
  3   gear_type                0 non-null       object
  4   hours                    306604 non-null  float64
  5   vessel_ids               310599 non-null  int64
@@ -366,12 +414,105 @@ Data columns (total 20 columns):
  13  mmsi                     0 non-null       object
  14  call_sign                0 non-null       object
  15  dataset                  0 non-null       object
- 16  report_dataset           310599 non-null  object
+ 16  report_dataset           310599 non-null  str
  17  ship_name                0 non-null       object
  18  lat                      310599 non-null  float64
  19  lon                      310599 non-null  float64
-dtypes: float64(4), int64(1), object(15)
+dtypes: float64(4), int64(1), object(12), str(3)
 memory usage: 47.4+ MB
+```
+
+## Creating a Generic Report from Custom Region (`create_report`)
+
+Generates a report for any [supported datasets](https://globalfishingwatch.org/our-apis/documentation#supported-datasets), using fully customizable parameters. [Please check the data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat).
+
+> **Note:** AIS vessel presence (i.e., `"public-global-sar-presence:latest"` dataset) does **not** support `"GEARTYPE"` or `"FLAGANDGEARTYPE"` as `group_by` criteria.
+
+> **Note:** Custom region can either a path to a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`, an object implementing `__geo_interface__` etc.) or `GeoJson` model instance. Spatial files are loaded using [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html) and supported formats depend on a properly configured [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
+
+```python
+filename = "https://raw.githubusercontent.com/GlobalFishingWatch/gfw-api-python-client/refs/heads/develop/tests/fixtures/fourwings/geojson/geojson.shp"
+
+custom_roi_gdf = gpd.read_file(filename)
+```
+
+```python
+custom_report_result = await gfw_client.fourwings.create_report(
+    spatial_resolution="LOW",
+    temporal_resolution="MONTHLY",
+    group_by="FLAG",
+    datasets=[
+        "public-global-fishing-effort:latest",
+        "public-global-sar-presence:latest",
+        "public-global-presence:latest",
+    ],
+    start_date="2022-01-01",
+    end_date="2022-05-01",
+    geojson=custom_roi_gdf,
+)
+```
+
+### Access the report data as Pydantic models
+
+```python
+custom_report_data = custom_report_result.data()
+
+custom_report_item = custom_report_data[-1]
+
+print((
+    custom_report_item.date,
+    custom_report_item.flag,
+    custom_report_item.hours,
+    custom_report_item.vessel_ids,
+    custom_report_item.lat,
+    custom_report_item.lon,
+))
+```
+
+**Output:**
+
+```
+('2022-01', 'NOR', 1.0, 1, -25.9, -76.3)
+```
+
+### Access the report data as a DataFrame
+
+```python
+custom_report_df = custom_report_result.df()
+
+print(custom_report_df.info())
+```
+
+**Output:**
+
+```
+<class 'pandas.DataFrame'>
+RangeIndex: 6740 entries, 0 to 6739
+Data columns (total 20 columns):
+ #   Column                   Non-Null Count  Dtype
+---  ------                   --------------  -----
+ 0   date                     6740 non-null   str
+ 1   detections               0 non-null      object
+ 2   flag                     6740 non-null   str
+ 3   gear_type                0 non-null      object
+ 4   hours                    6740 non-null   float64
+ 5   vessel_ids               6740 non-null   int64
+ 6   vessel_id                0 non-null      object
+ 7   vessel_type              0 non-null      object
+ 8   entry_timestamp          0 non-null      object
+ 9   exit_timestamp           0 non-null      object
+ 10  first_transmission_date  0 non-null      object
+ 11  last_transmission_date   0 non-null      object
+ 12  imo                      0 non-null      object
+ 13  mmsi                     0 non-null      object
+ 14  call_sign                0 non-null      object
+ 15  dataset                  0 non-null      object
+ 16  report_dataset           6740 non-null   str
+ 17  ship_name                0 non-null      object
+ 18  lat                      6740 non-null   float64
+ 19  lon                      6740 non-null   float64
+dtypes: float64(3), int64(1), object(13), str(3)
+memory usage: 1.0+ MB
 ```
 
 ## Reference Data

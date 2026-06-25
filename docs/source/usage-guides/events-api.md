@@ -17,6 +17,8 @@ To interact with the Events endpoints, you first need to instantiate the `gfw.Cl
 ```python
 import os
 
+import geopandas as gpd
+
 import gfwapiclient as gfw
 
 
