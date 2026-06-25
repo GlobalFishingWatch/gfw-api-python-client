@@ -89,7 +89,7 @@ print(vessel_search_ids)
  '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-**Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf).
+> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf).
 
 ### Getting Details of Vessels Filtered by Vessel Searched IDs
 
@@ -113,7 +113,7 @@ print(vessel_ids)
 
 ### Getting Insights Related to Fishing Events for the Vessel Searched
 
-**Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
+> **Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
 
 ```python
 start_date = start_date = min(vessels_result.transmission_dates_from)
@@ -184,14 +184,6 @@ print(events_df.info())
 **Output:**
 
 ```
-
-
-
-
-
-
-
-events_df.info()
 <class 'pandas.DataFrame'>
 RangeIndex: 263 entries, 0 to 262
 Data columns (total 14 columns):
