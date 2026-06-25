@@ -14,11 +14,11 @@ jobs:
     steps:
     - name: Checkout codes
       id: checkout-codes
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v7.0.0
 
     - name: Setup python
       id: setup-python
-      uses: actions/setup-python@v5.4.0
+      uses: actions/setup-python@v6.3.0
       with:
         python-version: 3.12.8
         architecture: x64

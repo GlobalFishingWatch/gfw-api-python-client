@@ -20,11 +20,11 @@ jobs:
     steps:
     - name: Checkout codes
       id: checkout-codes
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v7.0.0
 
     - name: Setup python
       id: setup-python
-      uses: actions/setup-python@v5.4.0
+      uses: actions/setup-python@v6.3.0
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
@@ -43,7 +43,7 @@ jobs:
 
     - name: Upload coverage reports to Codecov
       id: upload-coverage-reports-to-codecov
-      uses: codecov/codecov-action@v5.3.1
+      uses: codecov/codecov-action@v7.0.0
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
