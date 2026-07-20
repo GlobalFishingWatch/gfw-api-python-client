@@ -49,7 +49,7 @@ The Global Fishing Watch Python package currently works with the following APIs:
 ## Requirements
 
 - [Python >= 3.11](https://www.python.org/downloads/)
-- [pip >= 25](https://pip.pypa.io/en/stable/installation/), or [conda >= 26](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended
+- [pip >= 25](https://pip.pypa.io/en/stable/installation/), or [Conda >= 26](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended
 - [venv - Python's built-in virtual environment tool](https://docs.python.org/3/library/venv.html)
 - [API access token from the Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens)
 
@@ -57,7 +57,7 @@ The Global Fishing Watch Python package currently works with the following APIs:
 
 The latest release of `gfw-api-python-client` is available from both the
 [Python Package Index (PyPI)](https://pypi.org/project/gfw-api-python-client/)
-and [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client).
+and [Conda](https://anaconda.org/conda-forge/gfw-api-python-client).
 
 Install the latest release from [PyPI](https://pypi.org/project/gfw-api-python-client/):
 
@@ -65,7 +65,7 @@ Install the latest release from [PyPI](https://pypi.org/project/gfw-api-python-c
 pip install gfw-api-python-client
 ```
 
-Install the latest release from [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client):
+Install the latest release from [Conda](https://anaconda.org/conda-forge/gfw-api-python-client):
 
 ```bash
 conda install -c conda-forge gfw-api-python-client

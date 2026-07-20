@@ -7,7 +7,7 @@ This guide provides detailed instructions for installing the [gfw-api-python-cli
 Before you begin, ensure you have the following installed on your system:
 
 - **Python** >= 3.11 ([Download Python](https://www.python.org/downloads/))
-- **pip** >= 25 ([Upgrade pip](https://pip.pypa.io/en/stable/installation/)), or **conda** >= 26 ([Installing conda](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended)
+- **pip** >= 25 ([Upgrade pip](https://pip.pypa.io/en/stable/installation/)), or **Conda** >= 26 ([Installing Conda](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended)
 - **Virtual Environment Tool** ([venv](https://docs.python.org/3/library/venv.html))
 
 ## Creating and Activating a Virtual Environment
@@ -56,9 +56,9 @@ Your terminal prompt should now be prefixed with `(.venv)`, indicating that the 
 
 Your terminal prompt should now be prefixed with `(.venv)`, indicating that the virtual environment is active.
 
-### Using conda
+### Using Conda
 
-If you use conda ([Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended), create and activate a dedicated environment before installing the package:
+If you use [Conda](https://conda.io/en/latest/) ([Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended), create and activate a dedicated environment before installing the package:
 
 ```bash
 conda create -n gfw python=3.11
@@ -84,9 +84,9 @@ pip install gfw-api-python-client
 
 `pip` will automatically download and install the `gfw-api-python-client` and its required dependencies.
 
-### Installing from conda (`conda-forge`)
+### Installing from Conda (`conda-forge`)
 
-This method installs the stable, pre-packaged version of the `gfw-api-python-client` from the [conda](https://anaconda.org/conda-forge/gfw-api-python-client).
+This method installs the stable, pre-packaged version of the `gfw-api-python-client` from the [Conda](https://anaconda.org/conda-forge/gfw-api-python-client) package manager.
 
 ```bash
 conda install -c conda-forge gfw-api-python-client
@@ -123,9 +123,9 @@ To upgrade an existing installation to the latest version available on PyPI:
 python -m pip install --upgrade gfw-api-python-client
 ```
 
-### Updating a conda (`conda-forge`) Installation
+### Updating a Conda (`conda-forge`) Installation
 
-To upgrade an existing installation to the latest version available on conda:
+To upgrade an existing installation to the latest version available on Conda:
 
 ```bash
 conda update -c conda-forge gfw-api-python-client
