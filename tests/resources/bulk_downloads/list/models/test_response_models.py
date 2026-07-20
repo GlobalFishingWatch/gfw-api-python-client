@@ -16,6 +16,7 @@ def test_bulk_report_list_item_deserializes_all_fields(
         **mock_raw_bulk_report_item
     )
     assert bulk_report_list_item.id is not None
+    assert bulk_report_list_item.dataset is not None
     assert bulk_report_list_item.name is not None
     assert bulk_report_list_item.file_path is not None
     assert bulk_report_list_item.format is not None

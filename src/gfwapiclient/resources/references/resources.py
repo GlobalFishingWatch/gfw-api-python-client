@@ -77,7 +77,7 @@ class ReferenceResource(BaseResource):
             Union[str, Pattern[str], List[str], List[Pattern[str]]]
         ] = None,
         predicate: Optional[Callable[[EEZRegionItem], bool]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> EEZRegionResult:
         """Get available Exclusive Economic Zone (EEZ) regions data.
 
@@ -178,7 +178,7 @@ class ReferenceResource(BaseResource):
         id: Optional[Union[str, Pattern[str], List[str], List[Pattern[str]]]] = None,
         label: Optional[Union[str, Pattern[str], List[str], List[Pattern[str]]]] = None,
         predicate: Optional[Callable[[MPARegionItem], bool]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> MPARegionResult:
         """Get available Marine Protected Area (MPA) regions data.
 
@@ -246,7 +246,7 @@ class ReferenceResource(BaseResource):
         id: Optional[Union[str, Pattern[str], List[str], List[Pattern[str]]]] = None,
         label: Optional[Union[str, Pattern[str], List[str], List[Pattern[str]]]] = None,
         predicate: Optional[Callable[[RFMORegionItem], bool]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> RFMORegionResult:
         """Get available Regional Fisheries Management Organization (RFMO) regions data.
 

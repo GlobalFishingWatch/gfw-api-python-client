@@ -254,6 +254,7 @@ bump_message = "chore(release): bump to v$new_version"
 
 [tool.codespell]
 skip = ".git,env*,venv*,build*,tmp*"
+ignore-words-list = "FRO"
 
 [tool.pydistcheck]
 inspect = false

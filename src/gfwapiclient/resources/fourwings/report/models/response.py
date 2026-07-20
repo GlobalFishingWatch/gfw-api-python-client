@@ -2,7 +2,7 @@
 
 import datetime
 
-from typing import Any, List, Optional, Type
+from typing import Any, Iterator, List, Optional, Type
 
 from pydantic import Field, field_validator
 
@@ -164,3 +164,78 @@ class FourWingsReportResult(Result[FourWingsReportItem]):
                 The list of report items.
         """
         super().__init__(data=data)
+
+    @property
+    def vessel_ids(self) -> List[str]:
+        """Returns AIS vessel identifiers (IDs).
+
+        Returns:
+            List[str]:
+                Valid list of AIS vessel identifier (ID).
+        """
+
+        def extract_vessel_ids(item: FourWingsReportItem) -> Iterator[Optional[str]]:
+            yield item.vessel_id
+
+        mapped_vessel_ids: Iterator[Optional[str]] = self.flat_map(
+            mapper=extract_vessel_ids
+        )
+        matched_vessel_ids: List[str] = list(
+            {_vessel_id.strip() for _vessel_id in mapped_vessel_ids if _vessel_id}
+        )
+
+        return matched_vessel_ids
+
+    @property
+    def first_transmission_dates(self) -> List[datetime.date]:
+        """Returns AIS transmission start dates.
+
+        Returns:
+            List[str]:
+                Valid list of AIS first transmission date.
+        """
+
+        def extract_first_transmission_date(
+            item: FourWingsReportItem,
+        ) -> Iterator[Optional[datetime.datetime]]:
+            yield item.first_transmission_date
+
+        mapped_first_transmission_dates: Iterator[Optional[datetime.datetime]] = (
+            self.flat_map(mapper=extract_first_transmission_date)
+        )
+        ais_first_transmission_dates: List[datetime.date] = list(
+            {
+                _first_transmission_date.date()
+                for _first_transmission_date in mapped_first_transmission_dates
+                if _first_transmission_date
+            }
+        )
+
+        return ais_first_transmission_dates
+
+    @property
+    def last_transmission_dates(self) -> List[datetime.date]:
+        """Returns AIS transmission end dates.
+
+        Returns:
+            List[str]:
+                Valid list of AIS last transmission date.
+        """
+
+        def extract_last_transmission_date(
+            item: FourWingsReportItem,
+        ) -> Iterator[Optional[datetime.datetime]]:
+            yield item.last_transmission_date
+
+        mapped_last_transmission_dates: Iterator[Optional[datetime.datetime]] = (
+            self.flat_map(mapper=extract_last_transmission_date)
+        )
+        ais_last_transmission_dates: List[datetime.date] = list(
+            {
+                _last_transmission_date.date()
+                for _last_transmission_date in mapped_last_transmission_dates
+                if _last_transmission_date
+            }
+        )
+
+        return ais_last_transmission_dates

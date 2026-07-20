@@ -5,8 +5,7 @@ This module defines response models for the Vessels API's get vessels by IDs end
 
 from typing import List, Type
 
-from gfwapiclient.http.models import Result
-from gfwapiclient.resources.vessels.base.models.response import VesselItem
+from gfwapiclient.resources.vessels.base.models.response import VesselItem, VesselResult
 
 
 __all__ = ["VesselListItem", "VesselListResult"]
@@ -22,10 +21,10 @@ class VesselListItem(VesselItem):
     pass
 
 
-class VesselListResult(Result[VesselListItem]):
+class VesselListResult(VesselResult[VesselListItem]):
     """Result for the get vessels by IDs API endpoint.
 
-    This class extends :class:`Result` to provide a specialized result container
+    This class extends :class:`VesselResult` to provide a specialized result container
     for the vessel list endpoint.
     """
 

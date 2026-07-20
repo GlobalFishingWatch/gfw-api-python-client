@@ -2,7 +2,7 @@
 
 import datetime
 
-from typing import Any, Dict, Final, List, Optional, Type, cast
+from typing import Any, Dict, Final, Iterable, Iterator, List, Optional, Type, cast
 
 import pandas as pd
 import pytest
@@ -64,6 +64,7 @@ bounding_box: Final[List[float]] = [
 confidence: Final[int] = 3
 confidences: Final[List[int]] = [3, 4]
 intentional_disabling: Final[bool] = True
+other_id: Final[str] = "3ca9b73aee21fbf278a636709e0f8f03"
 
 
 @pytest.fixture
@@ -446,3 +447,313 @@ def test_result_find_invalid_predicate_returns_none(
     found: Optional[SampleResultItem] = result.find(predicate=invalid_predicate)
 
     assert found is None
+
+
+def test_result_map_transforms_all_result_items(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` map transforms correctly all `ResultItem`."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> str:
+        return item.id
+
+    mapped_result: Iterator[str] = result.map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_map_transforms_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` map transforms correctly a single `ResultItem`."""
+    item = SampleResultItem(**mock_result_item)
+
+    result = SampleSingleResult(data=item)
+
+    def to_ids(item: SampleResultItem) -> str:
+        return item.id
+
+    mapped_result: Iterator[str] = result.map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 1
+    assert mapped_result_list[0] == item.id
+
+
+@pytest.mark.parametrize(
+    "invalid_mapper",
+    ["invalid", 123, object(), True, [], {}],
+)
+def test_result_map_raises_type_error_for_non_callable_mapper(
+    mock_result_item: Dict[str, Any],
+    invalid_mapper: Any,
+) -> None:
+    """Tests that `Result` map raises a `TypeError` when `mapper` is not callable."""
+    data = [SampleResultItem(**mock_result_item)]
+    result = SampleListResult(data=data)
+
+    with pytest.raises(TypeError):
+        list(result.map(mapper=invalid_mapper))
+
+
+def test_result_flat_map_transforms_and_flattens_list_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and flattens list values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> List[str]:
+        return [item.id]
+
+    mapped_result: Iterator[str] = result.flat_map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_flat_map_transforms_and_flattens_generator_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and flattens generator values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_ids(item: SampleResultItem) -> Iterator[str]:
+        yield item.id
+
+    mapped_result: Iterator[str] = result.flat_map(mapper=to_ids)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[str] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert mapped_result_list[0] == data[0].id
+    assert mapped_result_list[1] == data[1].id
+
+
+def test_result_flat_map_transforms_and_not_flattens_dict_values(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and not flattens dict values correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_dict(item: SampleResultItem) -> Iterator[Dict[str, Any]]:
+        yield {"id": item.id}
+
+    mapped_result: Iterator[Dict[str, Any]] = result.flat_map(mapper=to_dict)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[Dict[str, Any]] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert isinstance(mapped_result_list[0], dict)
+    assert mapped_result_list[0] == {"id": data[0].id}
+    assert isinstance(mapped_result_list[1], dict)
+    assert mapped_result_list[1] == {"id": data[1].id}
+
+
+def test_result_flat_map_transforms_and_not_flattens_pydantic_models(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` flat map transforms and not flattens pydantic models correctly."""
+    data = [
+        SampleResultItem(**mock_result_item),
+        SampleResultItem(**{**mock_result_item, "id": mock_result_item["id"] * 2}),
+    ]
+
+    result = SampleListResult(data=data)
+
+    def to_model(item: SampleResultItem) -> Iterator[SampleResultItem]:
+        yield item
+
+    mapped_result: Iterator[SampleResultItem] = result.flat_map(mapper=to_model)
+
+    assert mapped_result is not None
+    assert isinstance(mapped_result, Iterator)
+
+    mapped_result_list: List[SampleResultItem] = list(mapped_result)
+    assert len(mapped_result_list) == 2
+    assert isinstance(mapped_result_list[0], SampleResultItem)
+    assert mapped_result_list[0] == data[0]
+    assert isinstance(mapped_result_list[1], SampleResultItem)
+    assert mapped_result_list[1] == data[1]
+
+
+@pytest.mark.parametrize(
+    "invalid_mapper",
+    ["invalid", 123, object(), True, [], {}],
+)
+def test_result_flat_map_raises_type_error_for_non_callable_mapper(
+    mock_result_item: Dict[str, Any],
+    invalid_mapper: Any,
+) -> None:
+    """Tests that `Result` flat map raises a `TypeError` when `mapper` is not callable."""
+    data = [SampleResultItem(**mock_result_item)]
+    result = SampleListResult(data=data)
+
+    with pytest.raises(TypeError):
+        list(result.flat_map(mapper=invalid_mapper))
+
+
+def test_result_supports_iteration(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support iteration by implementing `__iter__`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    assert list(result) == data
+
+    for item in result:
+        assert item is not None
+        assert isinstance(item, SampleResultItem)
+
+
+def test_result_supports_iteration_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support iteration with a single `ResultItem`."""
+    input = {**mock_result_item}
+    item = SampleResultItem(**input)
+    result = SampleSingleResult(data=item)
+
+    assert list(result) == [item]
+
+    for item in result:
+        assert item is not None
+        assert isinstance(item, SampleResultItem)
+
+
+def test_result_supports_len(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support len by implementing `__len__`."""
+    input = {**mock_result_item}
+    data = [SampleResultItem(**input), SampleResultItem(**{**input, "confidence": 4})]
+    result = SampleListResult(data=data)
+
+    assert len(result) == 2
+
+
+def test_result_supports_len_with_single_result_item(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` support len with a single `ResultItem`."""
+    input = {**mock_result_item}
+    data = SampleResultItem(**input)
+    result = SampleSingleResult(data=data)
+
+    assert len(result) == 1
+
+
+def test_result_add_supports_adding_other_result(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` __add__ support adding items from other `Result`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
+    other = SampleListResult(
+        data=[SampleResultItem(**{**mock_result_item, "id": other_id})]
+    )
+
+    combined = result + other
+
+    assert isinstance(combined, SampleListResult)
+    assert len(combined) == 2
+    assert len(result) == 1
+    assert len(other) == 1
+
+
+def test_result_add_supports_adding_other_iterable(
+    mock_result_item: Dict[str, Any],
+) -> None:
+    """Tests that `Result` __add__ support adding items from other `Iterable`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
+    other = [SampleResultItem(**{**mock_result_item, "id": other_id})]
+
+    combined = result + other
+
+    assert isinstance(combined, SampleListResult)
+    assert len(combined) == 2
+    assert len(result) == 1
+    assert len(other) == 1
+
+
+@pytest.mark.parametrize(
+    "invalid_other",
+    [
+        None,
+        123,
+        object(),
+    ],
+)
+def test_result_add_raises_type_error_when_other_is_not_iterable(
+    mock_result_item: dict[str, Any],
+    invalid_other: Any,
+) -> None:
+    """Tests that `Result` __add__ raises a `TypeError` when `other` is not `Iterable`."""
+    result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
+
+    with pytest.raises(TypeError):
+        result + invalid_other
+
+
+@pytest.mark.parametrize(
+    "invalid_other",
+    [
+        ["invalid"],
+        [123],
+        [object()],
+        [True],
+        [{}],
+        [()],
+        [None],
+    ],
+)
+def test_result_add_raises_type_error_when_other_iterable_contains_invalid_items(
+    mock_result_item: Dict[str, Any],
+    invalid_other: Iterable[Any],
+) -> None:
+    """Tests that `Result` __add__ raises a `TypeError` when `other` iterable contains invalid items."""
+    result = SampleListResult(
+        data=[SampleResultItem(**mock_result_item)],
+    )
+
+    with pytest.raises(TypeError, match="ResultItem"):
+        result + invalid_other

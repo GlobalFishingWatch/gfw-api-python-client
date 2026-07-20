@@ -34,7 +34,7 @@ class DatasetResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> SARFixedInfrastructureResult:
         """Get SAR (Synthetic-aperture radar) fixed infrastructure data.
 
