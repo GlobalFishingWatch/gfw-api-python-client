@@ -32,10 +32,20 @@ $env:GFW_API_ACCESS_TOKEN = "<PASTE_YOUR_GFW_API_ACCESS_TOKEN_HERE>"
 
 ## Installation
 
-The `gfw-api-python-client` can be easily installed using pip:
+The latest release of `gfw-api-python-client` is available from both the
+[Python Package Index (PyPI)](https://pypi.org/project/gfw-api-python-client/)
+and [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client).
+
+Install the latest release from [PyPI](https://pypi.org/project/gfw-api-python-client/):
 
 ```bash
 pip install gfw-api-python-client
+```
+
+Install the latest release from [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client):
+
+```bash
+conda install -c conda-forge gfw-api-python-client
 ```
 
 For more detailed installation instructions, including setting up a virtual environment, please see the dedicated [Installation](installation) section.

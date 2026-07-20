@@ -5,6 +5,7 @@
 [![ci](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml/badge.svg)](https://github.com/GlobalFishingWatch/gfw-api-python-client/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client/branch/develop/graph/badge.svg?token=w4R4VZB5RY)](https://codecov.io/gh/GlobalFishingWatch/gfw-api-python-client)
 [![pypi - version](https://img.shields.io/pypi/v/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
+[![conda - version](https://anaconda.org/conda-forge/gfw-api-python-client/badges/version.svg)](https://anaconda.org/conda-forge/gfw-api-python-client)
 [![pypi - python versions](https://img.shields.io/pypi/pyversions/gfw-api-python-client)](https://pypi.org/project/gfw-api-python-client/)
 [![license](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/main/LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15617432.svg)](https://doi.org/10.5281/zenodo.15617432)
@@ -48,16 +49,26 @@ The Global Fishing Watch Python package currently works with the following APIs:
 ## Requirements
 
 - [Python >= 3.11](https://www.python.org/downloads/)
-- [pip >= 25](https://pip.pypa.io/en/stable/installation/)
+- [pip >= 25](https://pip.pypa.io/en/stable/installation/), or [conda >= 26](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended
 - [venv - Python's built-in virtual environment tool](https://docs.python.org/3/library/venv.html)
 - [API access token from the Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens)
 
 ## Installation
 
-You can install `gfw-api-python-client` using `pip`:
+The latest release of `gfw-api-python-client` is available from both the
+[Python Package Index (PyPI)](https://pypi.org/project/gfw-api-python-client/)
+and [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client).
+
+Install the latest release from [PyPI](https://pypi.org/project/gfw-api-python-client/):
 
 ```bash
 pip install gfw-api-python-client
+```
+
+Install the latest release from [conda-forge](https://anaconda.org/conda-forge/gfw-api-python-client):
+
+```bash
+conda install -c conda-forge gfw-api-python-client
 ```
 
 For detailed instructions—including how to set up a virtual environment—refer to the [Installation Guide](https://globalfishingwatch.github.io/gfw-api-python-client/installation.html) in the documentation.

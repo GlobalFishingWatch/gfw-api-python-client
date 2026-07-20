@@ -7,14 +7,20 @@ This guide provides detailed instructions for installing the [gfw-api-python-cli
 Before you begin, ensure you have the following installed on your system:
 
 - **Python** >= 3.11 ([Download Python](https://www.python.org/downloads/))
-- **pip** >= 25 ([Upgrade pip](https://pip.pypa.io/en/stable/installation/))
+- **pip** >= 25 ([Upgrade pip](https://pip.pypa.io/en/stable/installation/)), or **conda** >= 26 ([Installing conda](https://docs.conda.io/projects/conda/en/latest/index.html) - [Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended)
 - **Virtual Environment Tool** ([venv](https://docs.python.org/3/library/venv.html))
 
 ## Creating and Activating a Virtual Environment
 
 Using a virtual environment helps avoid conflicts with other Python projects and ensures that the dependencies for the `gfw-api-python-client` are managed separately.
 
-### On macOS and Linux
+### Using `venv` (pip users)
+
+The built-in
+[`venv`](https://docs.python.org/3/library/venv.html)
+module is the recommended option when installing the package with `pip`.
+
+#### On macOS and Linux
 
 - Open your terminal and navigate to the directory where you want to create your project.
 
@@ -32,7 +38,7 @@ Using a virtual environment helps avoid conflicts with other Python projects and
 
 Your terminal prompt should now be prefixed with `(.venv)`, indicating that the virtual environment is active.
 
-### On Windows
+#### On Windows
 
 - Open Command Prompt or PowerShell and navigate to the directory where you want to create your project.
 
@@ -50,6 +56,20 @@ Your terminal prompt should now be prefixed with `(.venv)`, indicating that the 
 
 Your terminal prompt should now be prefixed with `(.venv)`, indicating that the virtual environment is active.
 
+### Using conda
+
+If you use conda ([Miniforge](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html#term-Miniforge) distribution is recommended), create and activate a dedicated environment before installing the package:
+
+```bash
+conda create -n gfw python=3.11
+conda activate gfw
+
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+```
+
+Your terminal prompt should now be prefixed with `(gfw)`, indicating that the virtual environment is active.
+
 ## Installation Methods
 
 Choose one of the following methods to install the `gfw-api-python-client`.
@@ -63,6 +83,16 @@ pip install gfw-api-python-client
 ```
 
 `pip` will automatically download and install the `gfw-api-python-client` and its required dependencies.
+
+### Installing from conda (`conda-forge`)
+
+This method installs the stable, pre-packaged version of the `gfw-api-python-client` from the [conda](https://anaconda.org/conda-forge/gfw-api-python-client).
+
+```bash
+conda install -c conda-forge gfw-api-python-client
+```
+
+`conda` will automatically download and install the `gfw-api-python-client` and its required dependencies.
 
 ### Installing from Source
 
@@ -91,6 +121,14 @@ To upgrade an existing installation to the latest version available on PyPI:
 
 ```bash
 python -m pip install --upgrade gfw-api-python-client
+```
+
+### Updating a conda (`conda-forge`) Installation
+
+To upgrade an existing installation to the latest version available on conda:
+
+```bash
+conda update -c conda-forge gfw-api-python-client
 ```
 
 ### Updating an Installation from Source
