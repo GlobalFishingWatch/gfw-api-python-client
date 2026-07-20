@@ -32,6 +32,8 @@ gfw_client = gfw.Client(
 
 The `gfw_client.references` object provides methods to retrieve different types of geographic regions. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
+**Note:** Use `gfw_client.references` methods to obtain the **Region of Interest (ROI)**, i.e., `region`, which can then be passed directly to the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
 ## Retrieving Exclusive Economic Zones (EEZs)
@@ -47,15 +49,13 @@ eez_regions_result = await gfw_client.references.get_eez_regions()
 ```python
 eez_regions_data = eez_regions_result.data()
 eez_region = eez_regions_data[-1]
-print((eez_region.id, eez_region.dataset))
-print(eez_region.model_dump())
+print((eez_region.id, eez_region.dataset, eez_region.label, eez_region.iso3))
 ```
 
 **Output:**
 
 ```
-(48999, 'public-eez-areas')
-{'id': 48999, 'label': 'Overlapping claim Peñón de Vélez de la Gomera: Spain / Morocco', 'iso3': None, 'dataset': 'public-eez-areas'}
+('8489', 'public-eez-areas', 'Antartic 200NM zone beyond the coastline', 'ATA')
 ```
 
 ### Access the EEZ regions as a DataFrame
@@ -63,24 +63,45 @@ print(eez_region.model_dump())
 ```python
 eez_regions_df = eez_regions_result.df()
 print(eez_regions_df.info())
-print(eez_regions_df[["id", "dataset"]].head())
 ```
 
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 285 entries, 0 to 284
-Data columns (total 4 columns):
- #   Column      Non-Null Count  Dtype
----  ------      --------------  -----
- 0   id          285 non-null    int64
- 1   label       285 non-null    object
- 2   iso3        234 non-null    object
- 3   dataset     285 non-null    object
-dtypes: int64(1), object(3)
-memory usage: 17.9+ KB
+<class 'pandas.DataFrame'>
+RangeIndex: 286 entries, 0 to 285
+Data columns (total 8 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   dataset      286 non-null    str
+ 1   id           286 non-null    str
+ 2   label        286 non-null    str
+ 3   iso3         235 non-null    str
+ 4   iso_sov_1    285 non-null    str
+ 5   iso_sov_2    56 non-null     str
+ 6   iso_sov_3    6 non-null      str
+ 7   territory_1  285 non-null    str
+dtypes: str(8)
+memory usage: 18.0 KB
 ```
+
+### Filter the list of EEZ regions to Obtain the Region of Interest (ROI)
+
+```python
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="SEN")
+
+eez_roi = eez_rois_result.data()[0]
+
+print((eez_roi.id, eez_roi.dataset, eez_roi.label, eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('8371', 'public-eez-areas', 'Senegalese Exclusive Economic Zone', 'SEN')
+```
+
+> **Note:** Pass `eez_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Retrieving Marine Protected Areas (MPAs)
 
@@ -95,15 +116,15 @@ mpa_regions_result = await gfw_client.references.get_mpa_regions()
 ```python
 mpa_regions_data = mpa_regions_result.data()
 mpa_region = mpa_regions_data[-1]
-print((mpa_region.id, mpa_region.dataset))
-print(mpa_region.model_dump())
+print((mpa_region.id, mpa_region.dataset, mpa_region.label))
 ```
 
 **Output:**
 
 ```
-('555799979', 'public-mpa-all')
-{'id': '555799979', 'label': 'NAF Marine Protected Area - Marine Protected Area', 'name': None, 'dataset': 'public-mpa-all'}
+('555882474',
+ 'public-mpa-all',
+ 'Humedal Tubul Raqui - Santuario de la Naturaleza')
 ```
 
 ### Access the MPA regions as a DataFrame
@@ -111,24 +132,40 @@ print(mpa_region.model_dump())
 ```python
 mpa_regions_df = mpa_regions_result.df()
 print(mpa_regions_df.info())
-print(mpa_regions_df[["id", "dataset"]].head())
 ```
 
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 16591 entries, 0 to 16590
-Data columns (total 4 columns):
+<class 'pandas.DataFrame'>
+RangeIndex: 17172 entries, 0 to 17171
+Data columns (total 3 columns):
  #   Column   Non-Null Count  Dtype
 ---  ------   --------------  -----
- 0   id       16591 non-null  object
- 1   label    16591 non-null  object
- 2   name     0 non-null      object
- 3   dataset  16591 non-null  object
-dtypes: object(4)
-memory usage: 518.6+ KB
+ 0   dataset  17172 non-null  str
+ 1   id       17172 non-null  str
+ 2   label    17172 non-null  str
+dtypes: str(3)
+memory usage: 402.6 KB
 ```
+
+### Filter the list of MPA regions to Obtain the Region of Interest (ROI)
+
+```python
+mpa_rois_result = await gfw_client.references.get_mpa_regions(id="555745302")
+
+mpa_roi = mpa_rois_result.data()[0]
+
+print((mpa_roi.id, mpa_roi.dataset, mpa_roi.label))
+```
+
+**Output:**
+
+```
+('555745302', 'public-mpa-all', 'Dorsal de Nasca - Reserva Nacional')
+```
+
+> **Note:** Pass `mpa_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Retrieving Regional Fisheries Management Organizations (RFMOs)
 
@@ -143,16 +180,13 @@ rfmo_regions_result = await gfw_client.references.get_rfmo_regions()
 ```python
 rfmo_regions_data = rfmo_regions_result.data()
 rfmo_region = rfmo_regions_data[-1]
-print((rfmo_region.id, rfmo_region.dataset))
-print(rfmo_region.model_dump())
+print((rfmo_region.id, rfmo_region.dataset, rfmo_region.label))
 ```
 
 **Output:**
 
 ```
-('BOBP-IGO', 'public-rfmo')
-{'id': 'WCPFC', 'label': 'WCPFC', 'rfb': None, 'dataset': 'public-rfmo'}
-{'id': 'BOBP-IGO', 'label': 'BOBP-IGO', 'rfb': None, 'dataset': 'public-rfmo', 'ID': 'BOBP-IGO'}
+('BOBP-IGO', 'public-rfmo', 'BOBP-IGO')
 ```
 
 ### Access the RFMO regions as a DataFrame
@@ -160,25 +194,41 @@ print(rfmo_region.model_dump())
 ```python
 rfmo_regions_df = rfmo_regions_result.df()
 print(rfmo_regions_df.info())
-print(rfmo_regions_df[["id", "dataset"]].head())
 ```
 
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 RangeIndex: 42 entries, 0 to 41
-Data columns (total 5 columns):
+Data columns (total 4 columns):
  #   Column   Non-Null Count  Dtype
 ---  ------   --------------  -----
- 0   id       42 non-null     object
- 1   label    42 non-null     object
- 2   rfb      0 non-null      object
- 3   dataset  42 non-null     object
- 4   ID       42 non-null     object
-dtypes: object(5)
-memory usage: 1.8+ KB
+ 0   dataset  42 non-null     str
+ 1   id       42 non-null     str
+ 2   label    42 non-null     str
+ 3   id_      42 non-null     str
+dtypes: str(4)
+memory usage: 1.4 KB
 ```
+
+### Filter the list of RFMO regions to Obtain the Region of Interest (ROI)
+
+```python
+rfmo_rois_result = await gfw_client.references.get_rfmo_regions(id="WCPFC")
+
+rfmo_roi = rfmo_rois_result.data()[0]
+
+print((rfmo_roi.id, rfmo_roi.dataset, rfmo_roi.label))
+```
+
+**Output:**
+
+```
+('WCPFC', 'public-rfmo', 'WCPFC')
+```
+
+> **Note:** Pass `rfmo_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ## Next Steps
 

@@ -2,5 +2,6 @@
     "limit": 99999,
     "offset": 0,
     "sort": "-createdAt",
-    "status": "done"
+    "status": "done",
+    "dataset": "public-fixed-infrastructure-data:latest"
 }
