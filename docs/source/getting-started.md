@@ -116,7 +116,7 @@ print(vessel_ids)
 > **Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
 
 ```python
-start_date = start_date = min(vessels_result.transmission_dates_from)
+start_date = min(vessels_result.transmission_dates_from)
 start_date = max(start_date, datetime.date.fromisoformat("2020-01-01"))
 
 end_date = max(vessels_result.transmission_dates_to)

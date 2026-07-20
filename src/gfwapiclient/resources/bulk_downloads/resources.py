@@ -131,7 +131,7 @@ class BulkDownloadResource(BaseResource):
                 Example: `"public-fixed-infrastructure-data:latest"`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
-                Custom valid GeoJSON geometry to filter the events. Either a path to a
+                Custom valid GeoJSON geometry to filter the bulk report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
                 (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`,
                 an object implementing `__geo_interface__` etc.) or `GeoJson` model instance.
