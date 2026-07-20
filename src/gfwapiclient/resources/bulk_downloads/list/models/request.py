@@ -1,10 +1,11 @@
 """Global Fishing Watch (GFW) API Python Client - Get All Bulk Reports Request Models."""
 
-from typing import Final, Optional
+from typing import Final, Optional, Union
 
 from pydantic import Field
 
 from gfwapiclient.http.models import RequestParams
+from gfwapiclient.resources.bulk_downloads.base.models.request import BulkReportDataset
 from gfwapiclient.resources.bulk_downloads.base.models.response import BulkReportStatus
 
 
@@ -44,7 +45,7 @@ class BulkReportListParams(RequestParams):
             Current status of the bulk report generation process (e.g., `"done"` etc.).
 
         dataset (Optional[str]):
-            The dataset used to generate the bulk report (e.g.,
+            The dataset used to create the bulk report (e.g.,
             `"public-fixed-infrastructure-data:latest"`,
             `"public-fixed-infrastructure-data:v1.1"` etc.).
     """
@@ -53,4 +54,4 @@ class BulkReportListParams(RequestParams):
     offset: Optional[int] = Field(0, ge=0, alias="offset")
     sort: Optional[str] = Field("-createdAt", alias="sort")
     status: Optional[BulkReportStatus] = Field(None, alias="status")
-    dataset: Optional[str] = Field(None, alias="dataset")
+    dataset: Optional[Union[BulkReportDataset, str]] = Field(None, alias="dataset")

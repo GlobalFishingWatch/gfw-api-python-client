@@ -246,7 +246,7 @@ class BulkDownloadResource(BaseResource):
         offset: Optional[int] = None,
         sort: Optional[str] = None,
         status: Optional[Union[BulkReportStatus, str]] = None,
-        dataset: Optional[str] = None,
+        dataset: Optional[Union[BulkReportDataset, str]] = None,
         **kwargs: Any,
     ) -> BulkReportListResult:
         """Get all bulk reports created by user or application.
@@ -284,11 +284,10 @@ class BulkDownloadResource(BaseResource):
                 Allowed values: `"pending"`, `"processing"`, `"done"`, `"failed"`.
                 Example: `"done"`.
 
-            dataset (Optional[str], default=None):
-                Dataset used to generate the bulk report.
+            dataset (Optional[Union[BulkReportDataset, str]], default=None):
+                Dataset used to create the bulk report.
                 Defaults to `None`.
-                Allowed values: `"public-fixed-infrastructure-data:latest"`,
-                `"public-fixed-infrastructure-data:v1.1"`.
+                Allowed values: `"public-fixed-infrastructure-data:latest"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
 
             **kwargs (Dict[str, Any]):
@@ -311,6 +310,7 @@ class BulkDownloadResource(BaseResource):
             offset=offset,
             sort=sort,
             status=status,
+            dataset=dataset,
         )
 
         endpoint: BulkReportListEndPoint = BulkReportListEndPoint(
@@ -512,6 +512,7 @@ class BulkDownloadResource(BaseResource):
         offset: Optional[int] = None,
         sort: Optional[str] = None,
         status: Optional[Union[BulkReportStatus, str]] = None,
+        dataset: Optional[Union[BulkReportDataset, str]] = None,
     ) -> BulkReportListParams:
         """Prepare and return get all bulk report request parameters."""
         try:
@@ -520,6 +521,7 @@ class BulkDownloadResource(BaseResource):
                 "offset": offset or 0,
                 "sort": sort or "-createdAt",
                 "status": status or None,
+                "dataset": dataset or None,
             }
             request_params: BulkReportListParams = BulkReportListParams(
                 **_request_params
