@@ -29,3 +29,36 @@ def test_vessel_list_result_deserializes_all_fields(
     data: List[VesselListItem] = [VesselListItem(**mock_raw_vessel_list_item)]
     result = VesselListResult(data=data)
     assert cast(List[VesselListItem], result.data()) == data
+
+
+def test_vessel_list_result_vessel_ids_returns_correctly(
+    mock_raw_vessel_list_item: Dict[str, Any],
+) -> None:
+    """Test that `VesselListResult` returns list of vessel ids correctly."""
+    data: List[VesselListItem] = [VesselListItem(**mock_raw_vessel_list_item)]
+    result = VesselListResult(data=data)
+    assert result.vessel_ids is not None
+    assert isinstance(result.vessel_ids, list)
+    assert len(result.vessel_ids) >= 1
+
+
+def test_vessel_list_result_transmission_dates_from_returns_correctly(
+    mock_raw_vessel_list_item: Dict[str, Any],
+) -> None:
+    """Test that `VesselListResult` transmission dates from returns list of transmission start dates correctly."""
+    data: List[VesselListItem] = [VesselListItem(**mock_raw_vessel_list_item)]
+    result = VesselListResult(data=data)
+    assert result.transmission_dates_from is not None
+    assert isinstance(result.transmission_dates_from, list)
+    assert len(result.transmission_dates_from) >= 1
+
+
+def test_vessel_list_result_transmission_dates_to_returns_correctly(
+    mock_raw_vessel_list_item: Dict[str, Any],
+) -> None:
+    """Test that `VesselListResult` transmission dates to returns list of transmission end dates correctly."""
+    data: List[VesselListItem] = [VesselListItem(**mock_raw_vessel_list_item)]
+    result = VesselListResult(data=data)
+    assert result.transmission_dates_to is not None
+    assert isinstance(result.transmission_dates_to, list)
+    assert len(result.transmission_dates_to) >= 1

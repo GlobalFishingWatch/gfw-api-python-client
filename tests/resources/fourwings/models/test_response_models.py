@@ -46,3 +46,42 @@ def test_fourwings_report_result_deserializes_all_fields(
     ]
     result = FourWingsReportResult(data=data)
     assert cast(List[FourWingsReportItem], result.data()) == data
+
+
+def test_fourwings_report_result_vessel_ids_returns_correctly(
+    mock_raw_fourwings_report_item: Dict[str, Any],
+) -> None:
+    """Test that `FourWingsReportResult` returns list of vessel ids correctly."""
+    data: List[FourWingsReportItem] = [
+        FourWingsReportItem(**mock_raw_fourwings_report_item)
+    ]
+    result = FourWingsReportResult(data=data)
+    assert result.vessel_ids is not None
+    assert isinstance(result.vessel_ids, list)
+    assert len(result.vessel_ids) >= 1
+
+
+def test_fourwings_report_result_first_transmission_dates_returns_correctly(
+    mock_raw_fourwings_report_item: Dict[str, Any],
+) -> None:
+    """Test that `FourWingsReportResult` first transmission dates returns list of first transmission dates correctly."""
+    data: List[FourWingsReportItem] = [
+        FourWingsReportItem(**mock_raw_fourwings_report_item)
+    ]
+    result = FourWingsReportResult(data=data)
+    assert result.first_transmission_dates is not None
+    assert isinstance(result.first_transmission_dates, list)
+    assert len(result.first_transmission_dates) >= 1
+
+
+def test_fourwings_report_result_last_transmission_dates_returns_correctly(
+    mock_raw_fourwings_report_item: Dict[str, Any],
+) -> None:
+    """Test that `FourWingsReportResult` last transmission dates to returns list of last transmission dates correctly."""
+    data: List[FourWingsReportItem] = [
+        FourWingsReportItem(**mock_raw_fourwings_report_item)
+    ]
+    result = FourWingsReportResult(data=data)
+    assert result.last_transmission_dates is not None
+    assert isinstance(result.last_transmission_dates, list)
+    assert len(result.last_transmission_dates) >= 1

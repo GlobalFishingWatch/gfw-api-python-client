@@ -70,7 +70,7 @@ class VesselResource(BaseResource):
         where: Optional[str] = None,
         match_fields: Optional[Union[List[VesselMatchField], List[str]]] = None,
         includes: Optional[Union[List[VesselSearchInclude], List[str]]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> VesselSearchResult:
         """Search vessels based on provided parameters.
 
@@ -163,7 +163,7 @@ class VesselResource(BaseResource):
         includes: Optional[List[VesselInclude]] = None,
         match_fields: Optional[List[VesselMatchField]] = None,
         vessel_groups: Optional[List[str]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> VesselListResult:
         """Get a list of vessels by their IDs.
 
@@ -258,7 +258,7 @@ class VesselResource(BaseResource):
         registries_info_data: Optional[Union[VesselRegistryInfoData, str]] = None,
         includes: Optional[Union[List[VesselInclude], List[str]]] = None,
         match_fields: Optional[Union[List[VesselMatchField], List[str]]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> VesselDetailResult:
         """Get vessel details by ID.
 

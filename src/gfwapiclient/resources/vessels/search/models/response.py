@@ -5,8 +5,7 @@ This module defines response models for the Vessels API's search vessels endpoin
 
 from typing import List, Type
 
-from gfwapiclient.http.models import Result
-from gfwapiclient.resources.vessels.base.models.response import VesselItem
+from gfwapiclient.resources.vessels.base.models.response import VesselItem, VesselResult
 
 
 __all__ = ["VesselSearchItem", "VesselSearchResult"]
@@ -22,10 +21,10 @@ class VesselSearchItem(VesselItem):
     pass
 
 
-class VesselSearchResult(Result[VesselSearchItem]):
+class VesselSearchResult(VesselResult[VesselSearchItem]):
     """Result for the vessels search API endpoint.
 
-    This class extends :class:`Result` to provide a specialized result container
+    This class extends :class:`VesselResult` to provide a specialized result container
     for the vessel search endpoint.
     """
 

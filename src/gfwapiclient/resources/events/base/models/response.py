@@ -2,15 +2,15 @@
 
 import datetime
 
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional, Type, TypeVar, Union
 
 from pydantic import Field, field_validator
 
 from gfwapiclient.base.models import BaseModel
-from gfwapiclient.http.models import ResultItem
+from gfwapiclient.http.models import Result, ResultItem
 
 
-__all__ = ["EventItem"]
+__all__ = ["EventItem", "EventResult"]
 
 
 class EventPosition(BaseModel):
@@ -448,3 +448,95 @@ class EventItem(ResultItem):
         if isinstance(value, str) and value.strip() == "":
             return None
         return value
+
+
+_EventItemT = TypeVar("_EventItemT", bound=EventItem)
+
+
+class EventResult(Result[_EventItemT]):
+    """Result for the Events API endpoints.
+
+    This class extends :class:`Result` to provide a specialized result container
+    for the Events API endpoints.
+    """
+
+    _result_item_class: Type[_EventItemT]
+    _data: Union[List[_EventItemT], _EventItemT]
+
+    def __init__(self, *, data: Union[List[_EventItemT], _EventItemT]) -> None:
+        """Initializes a new `EventResult`.
+
+        Args:
+            data (Union[List[_EventItemT], _EventItemT]):
+                The response data from the Events API endpoint, which can
+                be either a single `ResultItem` or a list of `ResultItem` instances.
+        """
+        super().__init__(data=data)
+
+    @property
+    def vessel_ids(self) -> List[str]:
+        """Returns AIS vessel identifiers (IDs).
+
+        Returns:
+            List[str]:
+                Valid list of AIS vessel identifier (ID).
+        """
+
+        def extract_vessel_ids(item: _EventItemT) -> Iterator[Optional[str]]:
+            if item.vessel:
+                yield item.vessel.id
+
+        mapped_vessel_ids: Iterator[Optional[str]] = self.flat_map(
+            mapper=extract_vessel_ids
+        )
+        matched_vessel_ids: List[str] = list(
+            {_vessel_id.strip() for _vessel_id in mapped_vessel_ids if _vessel_id}
+        )
+
+        return matched_vessel_ids
+
+    @property
+    def start_dates(self) -> List[datetime.date]:
+        """Returns events start dates.
+
+        Returns:
+            List[str]:
+                Valid list of events start date.
+        """
+
+        def extract_start_date(
+            item: _EventItemT,
+        ) -> Iterator[Optional[datetime.datetime]]:
+            yield item.start
+
+        mapped_start_dates: Iterator[Optional[datetime.datetime]] = self.flat_map(
+            mapper=extract_start_date
+        )
+        matched_start_dates: List[datetime.date] = list(
+            {_start_date.date() for _start_date in mapped_start_dates if _start_date}
+        )
+
+        return matched_start_dates
+
+    @property
+    def end_dates(self) -> List[datetime.date]:
+        """Returns events end dates.
+
+        Returns:
+            List[str]:
+                Valid list of events end date.
+        """
+
+        def extract_end_date(
+            item: _EventItemT,
+        ) -> Iterator[Optional[datetime.datetime]]:
+            yield item.end
+
+        mapped_end_date: Iterator[Optional[datetime.datetime]] = self.flat_map(
+            mapper=extract_end_date
+        )
+        matched_end_date: List[datetime.date] = list(
+            {_end_date.date() for _end_date in mapped_end_date if _end_date}
+        )
+
+        return matched_end_date

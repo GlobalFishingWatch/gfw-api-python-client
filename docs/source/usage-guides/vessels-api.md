@@ -32,6 +32,8 @@ gfw_client = gfw.Client(
 
 The `gfw_client.vessels` object provides methods to search for and retrieve vessel information. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
+> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf). Use the `vessel_ids` property of the `result` object returned by `gfw_client.vessels` methods as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
 ## Searching for Vessels (`search_vessels`)
@@ -40,10 +42,26 @@ The `search_vessels()` method allows you to find vessels based on a query and va
 
 ```python
 vessel_search_result = await gfw_client.vessels.search_vessels(
-    where="ssvid='775998121' AND shipname='DON TITO'",
+    where="ssvid='412331038' AND imo='8775637'",
     includes=["MATCH_CRITERIA", "OWNERSHIP"],
 )
 ```
+
+### Get List of Matched Vessel IDs
+
+```python
+print(vessel_search_result.vessel_ids)
+```
+
+**Output:**
+
+```
+['da2b09b31-127e-27e0-fe5f-d6d87e96de6a',
+ '755a48dd4-4bee-4bcf-7b5f-9baea058fc7b',
+ '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
+```
+
+> **Note:** Use the `vessel_search_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ### Access the list of vessel as Pydantic models
 
@@ -95,12 +113,28 @@ The `get_vessels_by_ids()` method retrieves information for a list of vessels gi
 ```python
 vessels_result = await gfw_client.vessels.get_vessels_by_ids(
     ids=[
-        "8c7304226-6c71-edbe-0b63-c246734b3c01",
-        "6583c51e3-3626-5638-866a-f47c3bc7ef7c",
-        "71e7da672-2451-17da-b239-857831602eca",
-    ],
+        "da2b09b31-127e-27e0-fe5f-d6d87e96de6a",
+        "755a48dd4-4bee-4bcf-7b5f-9baea058fc7b",
+        "3dad49b0b-b2e0-9347-0c4c-e39fea560f9f",
+    ]
 )
 ```
+
+### Get List of Matched Vessel IDs
+
+```python
+print(vessels_result.vessel_ids)
+```
+
+**Output:**
+
+```
+['da2b09b31-127e-27e0-fe5f-d6d87e96de6a',
+ '755a48dd4-4bee-4bcf-7b5f-9baea058fc7b',
+ '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
+```
+
+> **Note:** Use the `vessels_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ### Access the list of vessel as Pydantic models
 
@@ -150,9 +184,25 @@ The `get_vessel_by_id()` method retrieves detailed information for a specific ve
 
 ```python
 vessel_result = await gfw_client.vessels.get_vessel_by_id(
-    id="c54923e64-46f3-9338-9dcb-ff09724077a3",
+    id="da2b09b31-127e-27e0-fe5f-d6d87e96de6a",
 )
 ```
+
+### Get List of Matched Vessel IDs
+
+```python
+print()
+```
+
+**Output:**
+
+```
+['da2b09b31-127e-27e0-fe5f-d6d87e96de6a',
+ '755a48dd4-4bee-4bcf-7b5f-9baea058fc7b',
+ '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
+```
+
+> **Note:** Use the `vessel_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
 
 ### Access the vessel as Pydantic model
 
