@@ -15,8 +15,10 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 To interact with the Bulk Download endpoints, you first need to instantiate the `gfw.Client` and then access the `bulk_downloads` resource:
 
 ```python
-import time
 import os
+import time
+
+import geopandas as gpd
 
 import gfwapiclient as gfw
 
@@ -43,80 +45,199 @@ These methods return a `result` object, which offers convenient ways to access t
 
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
-## Create a Bulk Report (`create_bulk_report`)
+## Create a Bulk Report from Predefined Region (`create_bulk_report`)
 
 The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+
+```python
+eez_rois_result = await gfw_client.references.get_eez_regions(iso3="ARG")
+arg_eez_roi = eez_rois_result.data()[0]
+
+print((arg_eez_roi.id, arg_eez_roi.dataset, arg_eez_roi.label, arg_eez_roi.iso3))
+```
+
+**Output:**
+
+```
+('8466', 'public-eez-areas', 'Argentinian Exclusive Economic Zone', 'ARG')
+```
 
 ```python
 timestamp = int(time.time() * 1000)
 dataset = "public-fixed-infrastructure-data:latest"
-region_dataset = "public-eez-areas"
-region_id = "8466"  # Argentinian Exclusive Economic Zone
-name = f"{dataset.split(':')[0]}_{region_dataset}__{region_id}_{timestamp}"
+name = f"{dataset.split(':')[0]}-python-package-example-{timestamp}-predefined_region"
 
-create_bulk_report_result = await gfw_client.bulk_downloads.create_bulk_report(
-    name=name,
-    dataset=dataset,
-    region={
-        "dataset": region_dataset,
-        "id": region_id,
-    },
-    filters=["label = 'oil'", "label_confidence = 'high'"],
+print(name)
+```
+
+**Output:**
+
+```
+'public-fixed-infrastructure-data-python-package-example-1782384022398-predefined_region'
+```
+
+```python
+create_predefined_bulk_report_result = (
+    await gfw_client.bulk_downloads.create_bulk_report(
+        name=name,
+        dataset=dataset,
+        region=arg_eez_roi,
+        filters=[
+            "label = 'oil'",
+            "label_confidence = 'high'",
+            "structure_start_date between '2020-01-01' and '2025-01-01'",
+        ],
+    )
 )
 ```
 
 ### Access Create a Bulk Report Result as Pydantic models
 
 ```python
-create_bulk_report_data = create_bulk_report_result.data()
+create_predefined_bulk_report_data = create_predefined_bulk_report_result.data()
 print((
-    create_bulk_report_data.id,
-    create_bulk_report_data.name,
-    create_bulk_report_data.status,
-    create_bulk_report_data.created_at,
+    create_predefined_bulk_report_data.id,
+    create_predefined_bulk_report_data.name,
+    create_predefined_bulk_report_data.status,
+    create_predefined_bulk_report_data.created_at,
 ))
 ```
 
 **Output:**
 
 ```
-('c5e32895-4374-41d2-8b2e-ac414ed6757f',
- 'public-fixed-infrastructure-data_public-eez-areas__8466_1768085547174',
+('ea21f550-780b-4fa6-aa8e-158f85289492',
+ 'public-fixed-infrastructure-data-python-package-example-1782384022398-predefined_region',
  'pending',
- datetime.datetime(2026, 1, 10, 22, 52, 30, 9000, tzinfo=TzInfo(0)))
+ datetime.datetime(2026, 6, 25, 10, 40, 25, 113000, tzinfo=TzInfo(0)))
 ```
 
 ### Access Create a Bulk Report Result as a DataFrame
 
 ```python
-create_bulk_report_df = create_bulk_report_result.df()
+create_predefined_bulk_report_df = create_predefined_bulk_report_result.df()
 
-print(create_bulk_report_df.info())
-print(create_bulk_report_df.head())
+print(create_predefined_bulk_report_df.info())
 ```
 
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 12 columns):
+Data columns (total 13 columns):
  #   Column      Non-Null Count  Dtype
 ---  ------      --------------  -----
- 0   id          1 non-null      object
- 1   name        1 non-null      object
- 2   file_path   1 non-null      object
- 3   format      1 non-null      object
- 4   filters     1 non-null      object
- 5   geom        1 non-null      object
- 6   status      1 non-null      object
- 7   owner_id    1 non-null      int64
- 8   owner_type  1 non-null      object
- 9   created_at  1 non-null      datetime64[ns, UTC]
- 10  updated_at  1 non-null      datetime64[ns, UTC]
- 11  file_size   0 non-null      object
-dtypes: datetime64[ns, UTC](2), int64(1), object(9)
-memory usage: 228.0+ bytes
+ 0   id          1 non-null      str
+ 1   dataset     1 non-null      str
+ 2   name        1 non-null      str
+ 3   file_path   1 non-null      str
+ 4   format      1 non-null      str
+ 5   filters     1 non-null      object
+ 6   geom        1 non-null      object
+ 7   status      1 non-null      str
+ 8   owner_id    1 non-null      int64
+ 9   owner_type  1 non-null      str
+ 10  created_at  1 non-null      datetime64[us, UTC]
+ 11  updated_at  1 non-null      datetime64[us, UTC]
+ 12  file_size   0 non-null      object
+dtypes: datetime64[us, UTC](2), int64(1), object(3), str(7)
+memory usage: 236.0+ bytes
+```
+
+## Create a Bulk Report from Custom Region (`create_bulk_report`)
+
+The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+
+> **Note:** Custom region can either a path to a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`, an object implementing `__geo_interface__` etc.) or `GeoJson` model instance. Spatial files are loaded using [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html) and supported formats depend on a properly configured [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
+
+```python
+filename = "https://raw.githubusercontent.com/GlobalFishingWatch/gfw-api-python-client/refs/heads/develop/tests/fixtures/bulk_downloads/geojson/geojson.shp"
+
+custom_roi_gdf = gpd.read_file(filename)
+```
+
+```python
+timestamp = int(time.time() * 1000)
+dataset = "public-fixed-infrastructure-data:latest"
+name = f"{dataset.split(':')[0]}-python-package-example-{timestamp}-custom_region"
+
+print(name)
+```
+
+**Output:**
+
+```
+'public-fixed-infrastructure-data-python-package-example-1782384029540-custom_region'
+```
+
+```python
+create_custom_bulk_report_result = await gfw_client.bulk_downloads.create_bulk_report(
+    name=name,
+    dataset=dataset,
+    geojson=custom_roi_gdf,
+    filters=[
+        "label = 'oil'",
+        "label_confidence = 'high'",
+        "structure_start_date between '2020-01-01' and '2025-01-01'"
+    ],
+)
+```
+
+### Access Create a Bulk Report Result as Pydantic models
+
+```python
+create_custom_bulk_report_data = create_custom_bulk_report_result.data()
+print((
+    create_custom_bulk_report_data.id,
+    create_custom_bulk_report_data.name,
+    create_custom_bulk_report_data.status,
+    create_custom_bulk_report_data.created_at,
+))
+```
+
+**Output:**
+
+```
+('f0a39c14-1756-4f75-9150-0ada6b29eadf',
+ 'public-fixed-infrastructure-data-python-package-example-1782384029540-custom_region',
+ 'pending',
+ datetime.datetime(2026, 6, 25, 10, 40, 30, 740000, tzinfo=TzInfo(0)))
+```
+
+### Access Create a Bulk Report Result as a DataFrame
+
+```python
+create_custom_bulk_report_df = create_custom_bulk_report_result.df()
+
+print(create_custom_bulk_report_df.info())
+```
+
+**Output:**
+
+```
+<class 'pandas.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   id          1 non-null      str
+ 1   dataset     1 non-null      str
+ 2   name        1 non-null      str
+ 3   file_path   1 non-null      str
+ 4   format      1 non-null      str
+ 5   filters     1 non-null      object
+ 6   geom        1 non-null      object
+ 7   status      1 non-null      str
+ 8   owner_id    1 non-null      int64
+ 9   owner_type  1 non-null      str
+ 10  created_at  1 non-null      datetime64[us, UTC]
+ 11  updated_at  1 non-null      datetime64[us, UTC]
+ 12  file_size   0 non-null      object
+dtypes: datetime64[us, UTC](2), int64(1), object(3), str(7)
+memory usage: 236.0+ bytes
 ```
 
 ## Get Bulk Report by ID (`get_bulk_report_by_id`)
@@ -127,7 +248,7 @@ The `get_bulk_report_by_id()` method allows you retrieves metadata and status of
 
 ```python
 bulk_report_result = await gfw_client.bulk_downloads.get_bulk_report_by_id(
-    id=create_bulk_report_data.id
+    id=create_predefined_bulk_report_data.id
 )
 ```
 
@@ -137,20 +258,20 @@ bulk_report_result = await gfw_client.bulk_downloads.get_bulk_report_by_id(
 bulk_report_data = bulk_report_result.data()
 
 print((
-    create_bulk_report_data.id,
-    create_bulk_report_data.name,
-    create_bulk_report_data.status,
-    create_bulk_report_data.created_at,
+    bulk_report_data.id,
+    bulk_report_data.name,
+    bulk_report_data.status,
+    bulk_report_data.created_at,
 ))
 ```
 
 **Output:**
 
 ```
-('c5e32895-4374-41d2-8b2e-ac414ed6757f',
- 'public-fixed-infrastructure-data_public-eez-areas__8466_1768085547174',
- 'pending',
- datetime.datetime(2026, 1, 10, 22, 52, 30, 9000, tzinfo=TzInfo(0)))
+('ea21f550-780b-4fa6-aa8e-158f85289492',
+ 'public-fixed-infrastructure-data-python-package-example-1782384022398-predefined_region',
+ 'done',
+ datetime.datetime(2026, 6, 25, 10, 40, 25, 113000, tzinfo=TzInfo(0)))
 ```
 
 ### Access Get Bulk Report by ID Result as a DataFrame
@@ -193,6 +314,7 @@ The `get_all_bulk_reports()` method allows you retrieves a list of **metadata an
 ```python
 bulk_reports_result = await gfw_client.bulk_downloads.get_all_bulk_reports(
     status="done",
+    dataset=dataset,
 )
 ```
 
@@ -307,7 +429,8 @@ The `query_bulk_fixed_infrastructure_data_report()` method allows you retrieves 
 ```python
 bulk_fixed_infrastructure_data_report_result = (
     await gfw_client.bulk_downloads.query_bulk_fixed_infrastructure_data_report(
-        id=bulk_reports_data[0].id
+        id=bulk_reports_data[0].id,
+        sort="-structure_start_date",
     )
 )
 ```

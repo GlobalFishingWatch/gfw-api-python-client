@@ -131,9 +131,15 @@ class BulkDownloadResource(BaseResource):
                 Example: `"public-fixed-infrastructure-data:latest"`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
-                Custom GeoJSON geometry to filter the bulk report. Either a path to a
+                Custom valid GeoJSON geometry to filter the bulk report. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
-                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`,
+                an object implementing `__geo_interface__` etc.) or `GeoJson` model instance.
+                Spatial files are loaded using
+                [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html)
+                and supported formats depend on a properly configured
+                [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
+                Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
             format (Optional[Union[BulkReportFormat, str]], default="JSON"):
