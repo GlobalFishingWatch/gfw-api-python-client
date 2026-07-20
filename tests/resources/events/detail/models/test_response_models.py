@@ -35,3 +35,36 @@ def test_event_detail_result_deserializes_all_fields(
     data: EventDetailItem = EventDetailItem(**mock_raw_event_detail_item)
     result = EventDetailResult(data=data)
     assert cast(EventDetailItem, result.data()) == data
+
+
+def test_event_detail_result_vessel_ids_returns_correctly(
+    mock_raw_event_list_item: Dict[str, Any],
+) -> None:
+    """Test that `EventDetailResult` returns list of vessel ids correctly."""
+    data: EventDetailItem = EventDetailItem(**mock_raw_event_list_item)
+    result = EventDetailResult(data=data)
+    assert result.vessel_ids is not None
+    assert isinstance(result.vessel_ids, list)
+    assert len(result.vessel_ids) >= 1
+
+
+def test_event_detail_result_start_dates_returns_correctly(
+    mock_raw_event_list_item: Dict[str, Any],
+) -> None:
+    """Test that `EventDetailResult` start dates returns list of start dates correctly."""
+    data: EventDetailItem = EventDetailItem(**mock_raw_event_list_item)
+    result = EventDetailResult(data=data)
+    assert result.start_dates is not None
+    assert isinstance(result.start_dates, list)
+    assert len(result.start_dates) >= 1
+
+
+def test_event_detail_result_end_dates_returns_correctly(
+    mock_raw_event_list_item: Dict[str, Any],
+) -> None:
+    """Test that `EventDetailResult` end dates to returns list of end dates correctly."""
+    data: EventDetailItem = EventDetailItem(**mock_raw_event_list_item)
+    result = EventDetailResult(data=data)
+    assert result.end_dates is not None
+    assert isinstance(result.end_dates, list)
+    assert len(result.end_dates) == 0

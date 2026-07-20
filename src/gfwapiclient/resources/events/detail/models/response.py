@@ -2,8 +2,7 @@
 
 from typing import Type
 
-from gfwapiclient.http.models import Result
-from gfwapiclient.resources.events.base.models.response import EventItem
+from gfwapiclient.resources.events.base.models.response import EventItem, EventResult
 
 
 __all__ = ["EventDetailItem", "EventDetailResult"]
@@ -15,7 +14,7 @@ class EventDetailItem(EventItem):
     pass
 
 
-class EventDetailResult(Result[EventDetailItem]):
+class EventDetailResult(EventResult[EventDetailItem]):
     """Result containing the details of a single event."""
 
     _result_item_class: Type[EventDetailItem]

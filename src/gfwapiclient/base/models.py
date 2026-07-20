@@ -347,7 +347,7 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
         cls,
         *,
         source: Union[str, Path, Dict[str, Any], SupportsGeoJsonInterface],
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> Self:
         """Create a `GeoJson` instance from a spatial data source.
 

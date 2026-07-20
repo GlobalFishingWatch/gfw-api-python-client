@@ -69,6 +69,7 @@ def test_bulk_report_item_deserializes_all_fields(
     """Test that `BulkReportItem` deserializes all fields correctly."""
     bulk_report_item: BulkReportItem = BulkReportItem(**mock_raw_bulk_report_item)
     assert bulk_report_item.id is not None
+    assert bulk_report_item.dataset is not None
     assert bulk_report_item.name is not None
     assert bulk_report_item.file_path is not None
     assert bulk_report_item.format is not None
@@ -86,6 +87,7 @@ def test_bulk_report_item_deserializes_optional_fields_to_none() -> None:
     """Test that `BulkReportItem` sets missing optional fields to `None`."""
     bulk_report_item: BulkReportItem = BulkReportItem()  # type: ignore[call-arg]
     assert bulk_report_item.id is None
+    assert bulk_report_item.dataset is None
     assert bulk_report_item.name is None
     assert bulk_report_item.file_path is None
     assert bulk_report_item.format is None
