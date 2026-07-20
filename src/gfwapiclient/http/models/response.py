@@ -333,7 +333,8 @@ class Result(Generic[_ResultItemT]):
         """Concatenates API endpoint result data with items from another iterable.
 
         This method returns a new `Result` instance containing combined
-        `ResultItem` objects.
+        `ResultItem` objects. Every item yielded by `other` must be an
+        instance of `ResultItem` (or a subclass).
 
         Args:
             other (object):
@@ -346,9 +347,20 @@ class Result(Generic[_ResultItemT]):
         Raises:
             TypeError:
                 If `other` is not iterable.
+
+            TypeError:
+                If any element yielded by `other` is not a `ResultItem` instance.
         """
         if isinstance(other, Iterable):
-            combined_items: List[_ResultItemT] = [*self._iter_data(), *other]
+            other_items: List[_ResultItemT] = []
+            for other_item in other:
+                if not isinstance(other_item, ResultItem):
+                    raise TypeError(
+                        "Expected `other` to contain only `ResultItem` instances."
+                    )
+                other_items.append(cast(_ResultItemT, other_item))
+
+            combined_items: List[_ResultItemT] = [*self._iter_data(), *other_items]
             return self.__class__(data=combined_items)
 
         return NotImplemented

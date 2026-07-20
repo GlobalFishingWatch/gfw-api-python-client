@@ -2,7 +2,7 @@
 
 import datetime
 
-from typing import Any, Dict, Final, Iterator, List, Optional, Type, cast
+from typing import Any, Dict, Final, Iterable, Iterator, List, Optional, Type, cast
 
 import pandas as pd
 import pytest
@@ -731,4 +731,29 @@ def test_result_add_raises_type_error_when_other_is_not_iterable(
     result = SampleListResult(data=[SampleResultItem(**mock_result_item)])
 
     with pytest.raises(TypeError):
+        result + invalid_other
+
+
+@pytest.mark.parametrize(
+    "invalid_other",
+    [
+        ["invalid"],
+        [123],
+        [object()],
+        [True],
+        [{}],
+        [()],
+        [None],
+    ],
+)
+def test_result_add_raises_type_error_when_other_iterable_contains_invalid_items(
+    mock_result_item: Dict[str, Any],
+    invalid_other: Iterable[Any],
+) -> None:
+    """Tests that `Result` __add__ raises a `TypeError` when `other` iterable contains invalid items."""
+    result = SampleListResult(
+        data=[SampleResultItem(**mock_result_item)],
+    )
+
+    with pytest.raises(TypeError, match="ResultItem"):
         result + invalid_other
