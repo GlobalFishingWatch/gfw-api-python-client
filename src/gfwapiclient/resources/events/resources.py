@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import pydantic
 
-from gfwapiclient.base.models import GeoJson, Geometry, SupportsGeoJsonInterface
+from gfwapiclient.base.models import GeoJson, Geometry, Region, SupportsGeoJsonInterface
 from gfwapiclient.exceptions.validation import (
     RequestBodyValidationError,
     RequestParamsValidationError,
@@ -72,11 +72,11 @@ class EventResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[EventRegion, Region, Dict[str, Any]]] = None,
         limit: Optional[int] = None,
         offset: Optional[int] = None,
         sort: Optional[str] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> EventListResult:
         """Get All Events.
 
@@ -141,12 +141,18 @@ class EventResource(BaseResource):
                 Example: `["USA", "CAN"]`.
 
             geometry (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
-                Custom GeoJSON geometry to filter the events. Either a path to a
+                Custom valid GeoJSON geometry to filter the events. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
-                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`,
+                an object implementing `__geo_interface__` etc.) or `GeoJson` model instance.
+                Spatial files are loaded using
+                [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html)
+                and supported formats depend on a properly configured
+                [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
+                Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[EventRegion, Region, Dict[str, Any]]], default=None):
                 Region to filter events. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -215,7 +221,7 @@ class EventResource(BaseResource):
         *,
         id: str,
         dataset: Union[EventDataset, str],
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> EventDetailResult:
         """Get one by Event ID.
 
@@ -278,9 +284,9 @@ class EventResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[EventRegion, Region, Dict[str, Any]]] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
-        **kwargs: Dict[str, Any],
+        **kwargs: Any,
     ) -> EventStatsResult:
         """Get events statistics worldwide or for a specific region.
 
@@ -348,12 +354,18 @@ class EventResource(BaseResource):
                 Example: `["USA", "CAN"]`.
 
             geometry (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
-                Custom GeoJSON geometry to filter the events statistics. Either a path to a
+                Custom valid GeoJSON geometry to filter the events. Either a path to a
                 spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object
-                (e.g., JSON string or dictionary) or `GeoJson` model instance. Defaults to `None`.
+                (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`,
+                an object implementing `__geo_interface__` etc.) or `GeoJson` model instance.
+                Spatial files are loaded using
+                [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html)
+                and supported formats depend on a properly configured
+                [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
+                Defaults to `None`.
                 Example: `{"type": "Polygon", "coordinates": [...]}`, or `/path/to/your/custom/region.shp`.
 
-            region (Optional[Union[EventRegion, Dict[str, Any]]], default=None):
+            region (Optional[Union[EventRegion, Region, Dict[str, Any]]], default=None):
                 Region to filter statistics. Defaults to `None`.
                 Example: `{"dataset": "public-eez-areas", "id": "5690"}`.
 
@@ -442,7 +454,7 @@ class EventResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[EventRegion, Region, Dict[str, Any]]] = None,
     ) -> EventListBody:
         """Prepares and returns the request body for the get all events endpoint."""
         try:
@@ -462,7 +474,7 @@ class EventResource(BaseResource):
                 "vessel_groups": vessel_groups,
                 "flags": flags,
                 "geometry": _geometry,
-                "region": region,
+                "region": region.model_dump() if isinstance(region, Region) else region,
             }
             request_body: EventListBody = EventListBody(**_request_body)
         except pydantic.ValidationError as exc:
@@ -508,7 +520,7 @@ class EventResource(BaseResource):
         geometry: Optional[
             Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]
         ] = None,
-        region: Optional[Union[EventRegion, Dict[str, Any]]] = None,
+        region: Optional[Union[EventRegion, Region, Dict[str, Any]]] = None,
         includes: Optional[Union[List[EventStatsInclude], List[str]]] = None,
     ) -> EventStatsBody:
         """Prepares and returns the request body for the get events statistics endpoint."""
@@ -530,7 +542,7 @@ class EventResource(BaseResource):
                 "vessel_groups": vessel_groups,
                 "flags": flags,
                 "geometry": _geometry,
-                "region": region,
+                "region": region.model_dump() if isinstance(region, Region) else region,
                 "includes": includes,
             }
             request_body: EventStatsBody = EventStatsBody(**_request_body)

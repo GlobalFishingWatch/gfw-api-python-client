@@ -40,7 +40,7 @@ The `gfw_client.insights` object provides methods for retrieving insights data f
 
 The `get_vessel_insights()` method allows you to retrieve aggregated insights for a specific vessel within a given time range.
 
-**Important:** `start_date` must be on or after `January 1, 2020`
+**Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
 
 ```python
 insights_result = await gfw_client.insights.get_vessel_insights(

@@ -18,4 +18,5 @@ def test_bulk_report_list_request_params_serializes_all_fields(
     assert bulk_report_list_request_params.offset is not None
     assert bulk_report_list_request_params.sort is not None
     assert bulk_report_list_request_params.status is not None
+    assert bulk_report_list_request_params.dataset is not None
     assert bulk_report_list_request_params.to_query_params() is not None
