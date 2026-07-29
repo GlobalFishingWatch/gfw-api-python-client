@@ -70,7 +70,6 @@ __all__ = [
     "RequestParamsValidationError",
     "RequestTimeoutError",
     "ResultItemValidationError",
-    "ResultItemValidationError",
     "ResultValidationError",
     "ServiceUnavailableError",
     "UnprocessableEntityError",
