@@ -30,20 +30,24 @@ class InsightResource(BaseResource):
     For detailed information about the Insights API, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights
 
     For more details on the Insights data caveats, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-detected-in-no-take-mpas
 
-    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-event-detected-outside-known-authorized-areas
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-coverage
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---ais-off-event-aka-gap
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---longline-set-events
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---rfmo-iuu-vessel-list
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#what-does-it-mean-that-an-api-dataset-is-in-prototype-stage
     """
 
     async def get_vessel_insights(
@@ -71,6 +75,7 @@ class InsightResource(BaseResource):
         - If the vessel is present on an RFMO IUU vessel list (`"VESSEL-IDENTITY-IUU-VESSEL-LIST"`)
         - The vessel's flag changes (`"VESSEL-IDENTITY-FLAG-CHANGES"`)
         - The vessel's flag state presence under the Tokyo/Paris MOU black or grey lists (`"VESSEL-IDENTITY-MOU-LIST"`)
+        - Longline Set events (`"LONGLINE-SETS"`)
 
         For detailed information about the Get Vessels Insights API endpoint, please
         refer to the official Global Fishing Watch API documentation:
@@ -90,6 +95,8 @@ class InsightResource(BaseResource):
 
         See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
 
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---longline-set-events
+
         **Important:**
 
         `start_date` must be on or after `January 1, 2020`
@@ -105,8 +112,8 @@ class InsightResource(BaseResource):
         Args:
             includes (Union[List[VesselInsightInclude], List[str]], default=["FISHING"]):
                 List of insight types to include in the response.
-                Allowed values are `"COVERAGE"`, `"FISHING"`, `"GAP"`, `"VESSEL-IDENTITY-FLAG-CHANGES"`,
-                `"VESSEL-IDENTITY-IUU-VESSEL-LIST"`, `"VESSEL-IDENTITY-MOU-LIST"`.
+                Allowed values are `"COVERAGE"`, `"FISHING"`, `"GAP"`, `"LONGLINE-SETS"`,
+                `"VESSEL-IDENTITY-FLAG-CHANGES"`, `"VESSEL-IDENTITY-IUU-VESSEL-LIST"`, `"VESSEL-IDENTITY-MOU-LIST"`.
                 Example: `["FISHING", "GAP"]`.
 
             start_date (Union[datetime.date, str], default=None):
