@@ -217,6 +217,65 @@ class VesselIdentity(BaseModel):
     mou_list: Optional[Optional[Dict[str, MouList]]] = Field(None, alias="mouList")
 
 
+class LongLineSetIndicator(BaseModel):
+    """Longline set indicator.
+
+    Represents the count and event IDs for a particular longline set
+    indicator.
+
+    Attributes:
+        count (Optional[int], default=None):
+            The number of longline set events represented by the indicator.
+
+        entries (Optional[List[str]], default=None):
+            The list of longline set event IDs represented by the indicator.
+    """
+
+    count: Optional[int] = Field(None, alias="count")
+    entries: Optional[List[str]] = Field(None, alias="entries")
+
+
+class ApparentLongLineSetEvents(BaseModel):
+    """Apparent longline set events insights.
+
+    Represents apparent longline set events and their day/night indicators.
+
+    Attributes:
+        datasets (Optional[List[str]], default=None):
+            The datasets used for apparent longline set events insights.
+
+        count (Optional[int], default=None):
+            The total number of apparent longline set events.
+
+        entirely_day (Optional[LongLineSetIndicator], default=None):
+            Longline set events classified as entirely during the day.
+
+        mostly_day (Optional[LongLineSetIndicator], default=None):
+            Longline set events classified as mostly during the day.
+
+        day_and_night (Optional[LongLineSetIndicator], default=None):
+            Longline set events classified as occurring during both day and night.
+
+        mostly_night (Optional[LongLineSetIndicator], default=None):
+            Longline set events classified as mostly during the night.
+
+        entirely_night (Optional[LongLineSetIndicator], default=None):
+            Longline set events classified as entirely during the night.
+
+        unclassified (Optional[LongLineSetIndicator], default=None):
+            Longline set events without a day/night classification.
+    """
+
+    datasets: Optional[List[str]] = Field(None, alias="datasets")
+    count: Optional[int] = Field(None, alias="count")
+    entirely_day: Optional[LongLineSetIndicator] = Field(None, alias="entirelyDay")
+    mostly_day: Optional[LongLineSetIndicator] = Field(None, alias="mostlyDay")
+    day_and_night: Optional[LongLineSetIndicator] = Field(None, alias="dayAndNight")
+    mostly_night: Optional[LongLineSetIndicator] = Field(None, alias="mostlyNight")
+    entirely_night: Optional[LongLineSetIndicator] = Field(None, alias="entirelyNight")
+    unclassified: Optional[LongLineSetIndicator] = Field(None, alias="unclassified")
+
+
 class VesselInsightItem(ResultItem):
     """Vessel insight item.
 
@@ -224,7 +283,7 @@ class VesselInsightItem(ResultItem):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights/insights-vessels
 
     Attributes:
         period (Optional[Period], default=None):
@@ -244,6 +303,9 @@ class VesselInsightItem(ResultItem):
 
         vessel_identity (Optional[VesselIdentity], default=None):
             The FLAG CHANGES, IUU, and MOU insights.
+
+        apparent_longline_set_events (Optional[ApparentLonglineSetEvents], default=None):
+            The apparent longline set events insights.
     """
 
     period: Optional[Period] = Field(None, alias="period")
@@ -254,6 +316,9 @@ class VesselInsightItem(ResultItem):
     coverage: Optional[Coverage] = Field(None, alias="coverage")
     apparent_fishing: Optional[ApparentFishing] = Field(None, alias="apparentFishing")
     vessel_identity: Optional[VesselIdentity] = Field(None, alias="vesselIdentity")
+    apparent_longline_set_events: Optional[ApparentLongLineSetEvents] = Field(
+        None, alias="apparentLongLineSetEvents"
+    )
 
 
 class VesselInsightResult(Result[VesselInsightItem]):
@@ -263,7 +328,7 @@ class VesselInsightResult(Result[VesselInsightItem]):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights/insights-vessels
 
     Attributes:
         _result_item_class (Type[VesselInsightItem]):

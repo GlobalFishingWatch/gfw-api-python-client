@@ -36,6 +36,9 @@ class VesselInsightInclude(str, Enum):
         GAP (str):
             Insights related to AIS gaps.
 
+        LONGLINE_SETS (str):
+            Insights related to longline set events.
+
         VESSEL_IDENTITY_FLAG_CHANGES (str):
             Insights related to vessels flag changes.
 
@@ -49,6 +52,7 @@ class VesselInsightInclude(str, Enum):
     COVERAGE = "COVERAGE"
     FISHING = "FISHING"
     GAP = "GAP"
+    LONGLINE_SETS = "LONGLINE-SETS"
     VESSEL_IDENTITY_FLAG_CHANGES = "VESSEL-IDENTITY-FLAG-CHANGES"
     VESSEL_IDENTITY_IUU_VESSEL_LIST = "VESSEL-IDENTITY-IUU-VESSEL-LIST"
     VESSEL_IDENTITY_MOU_LIST = "VESSEL-IDENTITY-MOU-LIST"
@@ -83,7 +87,7 @@ class VesselInsightBody(RequestBody):
     For more details on the Get Vessels Insights API endpoint supported request body,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-by-vessels-body
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights/insights-vessels#request-body
 
     Attributes:
         includes (List[VesselInsightInclude]):
