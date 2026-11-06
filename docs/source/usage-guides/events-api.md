@@ -52,7 +52,7 @@ print((chn_eez_roi.id, chn_eez_roi.dataset, chn_eez_roi.label, chn_eez_roi.iso3)
 
 ```
 ('8486', 'public-eez-areas', 'Chinese Exclusive Economic Zone', 'CHN')
-``
+```
 
 ```python
 events_result = await gfw_client.events.get_all_events(
