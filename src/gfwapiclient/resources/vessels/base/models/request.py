@@ -23,14 +23,42 @@ __all__ = [
 
 
 class VesselDataset(str, Enum):
-    """Enumeration of available vessel datasets.
+    """Vessel API (identity) dataset.
+
+    For more details about the Vessel API supported datasets, dataset versioning,
+    and data caveats, refer to the official Global Fishing Watch API documentation.
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
+
+    **Important:**
+
+    We recommend using the `latest` dataset alias to ensure access
+    to the latest data improvements. When requesting a dataset using
+    the `latest` alias, the API returns the resolved, specific dataset
+    version in the `x-datasets` response header. This allows callers
+    to identify the exact dataset version used to generate the response.
+
+    For reproducibility, callers may alternatively request a specific
+    dataset version using its corresponding version tag.
 
     Attributes:
         VESSEL_IDENTITY_LATEST (str):
             The latest version of the public global vessel identity dataset.
+
+        VESSEL_IDENTITY_V5_0 (str):
+            Version 5.0 of the public global vessel identity dataset.
+
+        VESSEL_IDENTITY_V4_0 (str):
+            Version 4.0 of the public global vessel identity dataset.
     """
 
     VESSEL_IDENTITY_LATEST = "public-global-vessel-identity:latest"
+    VESSEL_IDENTITY_V5_0 = "public-global-vessel-identity:v5.0"
+    VESSEL_IDENTITY_V4_0 = "public-global-vessel-identity:v4.0"
 
 
 class VesselRegistryInfoData(str, Enum):
