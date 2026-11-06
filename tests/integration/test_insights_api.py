@@ -118,14 +118,6 @@ async def test_insights_get_vessel_insights_get_insights_for_ais_coverage_events
 async def test_insights_get_vessel_insights_get_insights_for_longline_set_events(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test getting vessel insights related to related to AIS coverage events.
-
-    This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel related to AIS coverage events within a
-    given date range. It checks the structure and content of the returned data,
-    ensuring it's a valid `VesselInsightResult` and that the data can be
-    converted to a pandas DataFrame.
-    """
     """Test getting vessel insights related to apparent longline set events.
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
