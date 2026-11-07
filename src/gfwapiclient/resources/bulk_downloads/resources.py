@@ -127,8 +127,10 @@ class BulkDownloadResource(BaseResource):
             dataset (Optional[Union[BulkReportDataset, str]], default="public-fixed-infrastructure-data:latest"):
                 Dataset that will be used to create the bulk report.
                 Defaults to `"public-fixed-infrastructure-data:latest"`.
-                Allowed values: `"public-fixed-infrastructure-data:latest"`.
+                Allowed values: `"public-fixed-infrastructure-data:latest"`, `"public-fixed-infrastructure-data:v1.1"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
                 Custom valid GeoJSON geometry to filter the bulk report. Either a path to a
@@ -287,8 +289,10 @@ class BulkDownloadResource(BaseResource):
             dataset (Optional[Union[BulkReportDataset, str]], default=None):
                 Dataset used to create the bulk report.
                 Defaults to `None`.
-                Allowed values: `"public-fixed-infrastructure-data:latest"`.
+                Allowed values: `"public-fixed-infrastructure-data:latest"`, `"public-fixed-infrastructure-data:v1.1"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
