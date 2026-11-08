@@ -12,6 +12,14 @@ from gfwapiclient.resources.vessels.base.models.request import VesselDataset
             VesselDataset.VESSEL_IDENTITY_LATEST,
             "public-global-vessel-identity:latest",
         ),
+        (
+            VesselDataset.VESSEL_IDENTITY_V5_0,
+            "public-global-vessel-identity:v5.0",
+        ),
+        (
+            VesselDataset.VESSEL_IDENTITY_V4_0,
+            "public-global-vessel-identity:v4.0",
+        ),
     ],
 )
 def test_vessel_dataset_enum_correct_values(dataset: VesselDataset, value: str) -> None:
@@ -22,7 +30,10 @@ def test_vessel_dataset_enum_correct_values(dataset: VesselDataset, value: str) 
 
 @pytest.mark.parametrize(
     "invalid_value",
-    ["INVALID_DATASET", ""],
+    [
+        "INVALID_DATASET",
+        "",
+    ],
 )
 def test_vessel_dataset_enum_invalid_value_raises_value_error(
     invalid_value: str,

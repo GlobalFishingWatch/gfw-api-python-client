@@ -26,9 +26,9 @@ class VesselDataset(str, Enum):
     """Vessel API (identity) dataset.
 
     For more details about the Vessel API supported datasets, dataset versioning,
-    and data caveats, refer to the official Global Fishing Watch API documentation.
+    and data caveats, refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
 
     See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 
@@ -48,12 +48,15 @@ class VesselDataset(str, Enum):
     Attributes:
         VESSEL_IDENTITY_LATEST (str):
             The latest version of the public global vessel identity dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 
         VESSEL_IDENTITY_V5_0 (str):
             Version 5.0 of the public global vessel identity dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 
         VESSEL_IDENTITY_V4_0 (str):
             Version 4.0 of the public global vessel identity dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
     """
 
     VESSEL_IDENTITY_LATEST = "public-global-vessel-identity:latest"
