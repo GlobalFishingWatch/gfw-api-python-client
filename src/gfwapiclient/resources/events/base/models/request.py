@@ -77,13 +77,111 @@ class EventVesselType(str, Enum):
 
 
 class EventDataset(str, Enum):
-    """Dataset containing the events."""
+    """Events API dataset.
+
+    For more details about the Events API supported datasets, dataset versioning,
+    and data caveats, refer to the official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#how-are-the-events-estimated
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
+
+    **Important:**
+
+    We recommend using the `latest` dataset alias to ensure access
+    to the latest data improvements. When requesting a dataset using
+    the `latest` alias, the API returns the resolved, specific dataset
+    version in the `x-datasets` response header. This allows callers
+    to identify the exact dataset version used to generate the response.
+
+    For reproducibility, callers may alternatively request a specific
+    dataset version using its corresponding version tag.
+
+    Attributes:
+        ENCOUNTERS_EVENTS_LATEST (str):
+            The latest version of the public global encounters events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#encounter-event
+
+        ENCOUNTERS_EVENTS_V5_0 (str):
+            Version 5.0 of the public global encounters events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#encounter-event
+
+        ENCOUNTERS_EVENTS_V4_0 (str):
+            Version 4.0 of the public global encounters events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#encounter-event
+
+        GAPS_EVENTS_LATEST (str):
+            The latest version of the public global gaps events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-off-event-aka-gap
+
+        GAPS_EVENTS_V5_0 (str):
+            Version 5.0 of the public global gaps events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-off-event-aka-gap
+
+        GAPS_EVENTS_V4_0 (str):
+            Version 4.0 of the public global gaps events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-off-event-aka-gap
+
+        FISHING_EVENTS_LATEST (str):
+            The latest version of the public global fishing events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-events
+
+        FISHING_EVENTS_V5_0 (str):
+            Version 5.0 of the public global fishing events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-events
+
+        FISHING_EVENTS_V4_0 (str):
+            Version 4.0 of the public global fishing events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-events
+
+        LOITERING_EVENTS_LATEST (str):
+            The latest version of the public global loitering events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#loitering-event
+
+        LOITERING_EVENTS_V5_0 (str):
+            Version 5.0 of the public global loitering events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#loitering-event
+
+        LOITERING_EVENTS_V4_0 (str):
+            Version 4.0 of the public global loitering events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#loitering-event
+
+        PORT_VISITS_EVENTS_LATEST (str):
+            The latest version of the public global port visits events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#port-visit-events
+
+        PORT_VISITS_EVENTS_V5_0 (str):
+            Version 5.0 of the public global port visits events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#port-visit-events
+
+        PORT_VISITS_EVENTS_V4_0 (str):
+            Version 4.0 of the public global port visits events dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#port-visit-events
+    """
 
     ENCOUNTERS_EVENTS_LATEST = "public-global-encounters-events:latest"
-    FISHING_EVENTS_LATEST = "public-global-fishing-events:latest"
+    ENCOUNTERS_EVENTS_V5_0 = "public-global-encounters-events:v5.0"
+    ENCOUNTERS_EVENTS_V4_0 = "public-global-encounters-events:v4.0"
+
     GAPS_EVENTS_LATEST = "public-global-gaps-events:latest"
+    GAPS_EVENTS_V5_0 = "public-global-gaps-events:v5.0"
+    GAPS_EVENTS_V4_0 = "public-global-gaps-events:v4.0"
+
+    FISHING_EVENTS_LATEST = "public-global-fishing-events:latest"
+    FISHING_EVENTS_V5_0 = "public-global-fishing-events:v5.0"
+    FISHING_EVENTS_V4_0 = "public-global-fishing-events:v4.0"
+
     LOITERING_EVENTS_LATEST = "public-global-loitering-events:latest"
+    LOITERING_EVENTS_V5_0 = "public-global-loitering-events:v5.0"
+    LOITERING_EVENTS_V4_0 = "public-global-loitering-events:v4.0"
+
     PORT_VISITS_EVENTS_LATEST = "public-global-port-visits-events:latest"
+    PORT_VISITS_EVENTS_V5_0 = "public-global-port-visits-events:v5.0"
+    PORT_VISITS_EVENTS_V4_0 = "public-global-port-visits-events:v4.0"
 
 
 class EventGeometry(GeoJson):

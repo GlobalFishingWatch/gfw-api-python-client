@@ -85,10 +85,20 @@ class EventResource(BaseResource):
         Args:
             datasets (Union[List[EventDataset], List[str]]):
                 Datasets to search for events.
-                Allowed values: `["public-global-encounters-events:latest", "public-global-fishing-events:latest",
-                "public-global-gaps-events:latest", "public-global-loitering-events:latest",
-                "public-global-port-visits-events:latest"]`.
+                Allowed latest values: `"public-global-encounters-events:latest"`, `"public-global-fishing-events:latest"`,
+                `"public-global-gaps-events:latest"`, `"public-global-loitering-events:latest"`,
+                `"public-global-port-visits-events:latest"`.
                 Example: `["public-global-fishing-events:latest", "public-global-encounters-events:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
+
+                Allowed specific version (alias) values:
+                - Encounters events: `"public-global-encounters-events:v5.0"`, `"public-global-encounters-events:v4.0"`.
+                - Fishing events: `"public-global-fishing-events:v5.0"`, `"public-global-fishing-events:v4.0"`.
+                - Gaps events: `"public-global-gaps-events:v5.0"`, `"public-global-gaps-events:v4.0"`.
+                - Loitering events: `"public-global-loitering-events:v5.0"`, `"public-global-loitering-events:v4.0"`.
+                - Port visits events: `"public-global-port-visits-events:v5.0"`, `"public-global-port-visits-events:v4.0"`.
 
             vessels (Optional[List[str]], default=None):
                 List of vessel IDs to filter events. Defaults to `None`.
@@ -234,10 +244,20 @@ class EventResource(BaseResource):
 
             dataset (Union[EventDataset, str]):
                 The dataset to search for the event in.
-                Allowed values: `["public-global-encounters-events:latest", "public-global-fishing-events:latest",
-                "public-global-gaps-events:latest", "public-global-loitering-events:latest",
-                "public-global-port-visits-events:latest"]`.
+                Allowed latest values: `"public-global-encounters-events:latest"`, `"public-global-fishing-events:latest"`,
+                `"public-global-gaps-events:latest"`, `"public-global-loitering-events:latest"`,
+                `"public-global-port-visits-events:latest"`.
                 Example: `"public-global-fishing-events:latest"`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
+
+                Allowed specific version (alias) values:
+                - Encounters events: `"public-global-encounters-events:v5.0"`, `"public-global-encounters-events:v4.0"`.
+                - Fishing events: `"public-global-fishing-events:v5.0"`, `"public-global-fishing-events:v4.0"`.
+                - Gaps events: `"public-global-gaps-events:v5.0"`, `"public-global-gaps-events:v4.0"`.
+                - Loitering events: `"public-global-loitering-events:v5.0"`, `"public-global-loitering-events:v4.0"`.
+                - Port visits events: `"public-global-port-visits-events:v5.0"`, `"public-global-port-visits-events:v4.0"`.
 
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
@@ -293,10 +313,20 @@ class EventResource(BaseResource):
         Args:
             datasets (Union[List[EventDataset], List[str]]):
                 Datasets to search for statistics.
-                Allowed values: `["public-global-encounters-events:latest", "public-global-fishing-events:latest",
-                "public-global-gaps-events:latest", "public-global-loitering-events:latest",
-                "public-global-port-visits-events:latest"]`.
+                Allowed latest values: `"public-global-encounters-events:latest"`, `"public-global-fishing-events:latest"`,
+                `"public-global-gaps-events:latest"`, `"public-global-loitering-events:latest"`,
+                `"public-global-port-visits-events:latest"`.
                 Example: `["public-global-fishing-events:latest", "public-global-encounters-events:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
+
+                Allowed specific version (alias) values:
+                - Encounters events: `"public-global-encounters-events:v5.0"`, `"public-global-encounters-events:v4.0"`.
+                - Fishing events: `"public-global-fishing-events:v5.0"`, `"public-global-fishing-events:v4.0"`.
+                - Gaps events: `"public-global-gaps-events:v5.0"`, `"public-global-gaps-events:v4.0"`.
+                - Loitering events: `"public-global-loitering-events:v5.0"`, `"public-global-loitering-events:v4.0"`.
+                - Port visits events: `"public-global-port-visits-events:v5.0"`, `"public-global-port-visits-events:v4.0"`.
 
             timeseries_interval (Union[EventStatsTimeSeriesInterval, str]):
                 Time series granularity for statistics.

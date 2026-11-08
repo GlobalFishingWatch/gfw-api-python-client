@@ -18,12 +18,22 @@ import pytest
 
 import gfwapiclient as gfw
 
+from gfwapiclient.resources.bulk_downloads.base.models.request import (
+    BulkReportDataset,
+)
 from gfwapiclient.resources.bulk_downloads.create.models.response import (
     BulkReportCreateItem,
     BulkReportCreateResult,
 )
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_LATEST,
+        BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_V1_1,
+    ],
+)
 @pytest.mark.parametrize(
     "geojson",
     [
@@ -36,8 +46,9 @@ from gfwapiclient.resources.bulk_downloads.create.models.response import (
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_bulk_downloads_create_sar_fixed_infrastructure_data_bulk_report_by_geojson_from_spatial_file(
-    geojson: Union[str, Path],
     gfw_client: gfw.Client,
+    dataset: Union[str, BulkReportDataset],
+    geojson: Union[str, Path],
 ) -> None:
     """Test create SAR (Sentinel-1 and Sentinel-2) fixed infrastructure bulk report by geojson from spatial file.
 
@@ -50,7 +61,7 @@ async def test_bulk_downloads_create_sar_fixed_infrastructure_data_bulk_report_b
     timestamp = int(time.time() * 1000)
     result: BulkReportCreateResult = await gfw_client.bulk_downloads.create_bulk_report(
         name=f"sar-vessel-detection-python-package-example-{timestamp}-custom-geojson",
-        dataset="public-fixed-infrastructure-data:latest",
+        dataset=dataset,
         geojson=geojson,
         format="JSON",
         filters=[

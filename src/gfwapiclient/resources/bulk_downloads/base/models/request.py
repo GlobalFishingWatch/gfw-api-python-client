@@ -19,24 +19,42 @@ __all__ = [
 
 
 class BulkReportDataset(str, Enum):
-    """Bulk report dataset.
+    """Bulk download (report) API dataset.
 
-    For more details on the Bulk Download API supported datasets, please refer
-    to the official Global Fishing Watch API documentation:
+    For more details about the Bulk Download API supported datasets, dataset versioning,
+    and data caveats, refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download#supported-bulk-download-api-datasets
 
-    See: https://globalfishingwatch.org/our-apis/documentation#supported-bulk-download-api-datasets
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
 
-    See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
+
+    **Important:**
+
+    We recommend using the `latest` dataset alias to ensure access
+    to the latest data improvements. When requesting a dataset using
+    the `latest` alias, the API returns the resolved, specific dataset
+    version in the `x-datasets` response header. This allows callers
+    to identify the exact dataset version used to generate the response.
+
+    For reproducibility, callers may alternatively request a specific
+    dataset version using its corresponding version tag.
 
     Attributes:
         FIXED_INFRASTRUCTURE_DATA_LATEST (str):
-            Latest public fixed infrastructure data dataset.
-            See data caveats: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+            The latest version of the public fixed infrastructure data dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
+
+        FIXED_INFRASTRUCTURE_DATA_V1_1 (str):
+            Version 1.1 of the public fixed infrastructure data dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
     """
 
     FIXED_INFRASTRUCTURE_DATA_LATEST = "public-fixed-infrastructure-data:latest"
+    FIXED_INFRASTRUCTURE_DATA_V1_1 = "public-fixed-infrastructure-data:v1.1"
 
 
 class BulkReportFormat(str, Enum):

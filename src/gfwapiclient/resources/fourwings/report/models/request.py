@@ -180,30 +180,77 @@ class FourWingsReportBufferUnit(str, Enum):
 class FourWingsReportDataset(str, Enum):
     """4Wings report dataset.
 
-    For more details on the 4Wings API supported datasets, please refer to
-    the official Global Fishing Watch API documentation:
+    For more details about the 4Wings API supported datasets, dataset versioning,
+    and data caveats, refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#supported-datasets
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#supported-datasets
 
-    See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
+
+    **Important:**
+
+    We recommend using the `latest` dataset alias to ensure access
+    to the latest data improvements. When requesting a dataset using
+    the `latest` alias, the API returns the resolved, specific dataset
+    version in the `x-datasets` response header. This allows callers
+    to identify the exact dataset version used to generate the response.
+
+    For reproducibility, callers may alternatively request a specific
+    dataset version using its corresponding version tag.
 
     Attributes:
         FISHING_EFFORT_LATEST (str):
-            Latest global fishing effort dataset.
-            See data caveats: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+            The latest version of the public global fishing effort dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-        SAR_PRESENCE_LATEST (str):
-            Latest global SAR presence dataset.
-            See data caveats: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+        FISHING_EFFORT_V5_0 (str):
+            Version 5.0 of the public global fishing effort dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
+
+        FISHING_EFFORT_V4_0 (str):
+            Version 4.0 of the public global fishing effort dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         PRESENCE_LATEST (str):
-            Latest global vessel presence dataset.
-            See data caveats: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+            The latest version of the public global vessel presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
+
+        PRESENCE_V5_0 (str):
+            Version 5.0 of the public global vessel presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
+
+        PRESENCE_V4_0 (str):
+            Version 4.0 of the public global vessel presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
+
+        SAR_PRESENCE_LATEST (str):
+            The latest version of the public global SAR presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
+
+        SAR_PRESENCE_V5_0 (str):
+            Version 5.0 of the public global SAR presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
+
+        SAR_PRESENCE_V4_0 (str):
+            Version 4.0 of the public global SAR presence dataset.
+            See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
     """
 
     FISHING_EFFORT_LATEST = "public-global-fishing-effort:latest"
-    SAR_PRESENCE_LATEST = "public-global-sar-presence:latest"
+    FISHING_EFFORT_V5_0 = "public-global-fishing-effort:v5.0"
+    FISHING_EFFORT_V4_0 = "public-global-fishing-effort:v4.0"
+
     PRESENCE_LATEST = "public-global-presence:latest"
+    PRESENCE_V5_0 = "public-global-presence:v5.0"
+    PRESENCE_V4_0 = "public-global-presence:v4.0"
+
+    SAR_PRESENCE_LATEST = "public-global-sar-presence:latest"
+    SAR_PRESENCE_V5_0 = "public-global-sar-presence:v5.0"
+    SAR_PRESENCE_V4_0 = "public-global-sar-presence:v4.0"
 
 
 class FourWingsGeometry(GeoJson):

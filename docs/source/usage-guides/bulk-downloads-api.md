@@ -6,6 +6,17 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 
 > **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat), [SAR (Synthetic-Aperture Radar) Data Caveats](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
+<blockquote>
+
+**Important – Supported datasets and versions**
+
+- **Recommended (default):** `public-fixed-infrastructure-data:latest`
+- **Specific version:** `public-fixed-infrastructure-data:v1.1`
+
+If no `dataset` is specified on `dataset` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+
+</blockquote>
+
 ## Prerequisites
 
 - Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).
