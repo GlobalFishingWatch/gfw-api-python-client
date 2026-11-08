@@ -129,6 +129,7 @@ class BulkDownloadResource(BaseResource):
                 Defaults to `"public-fixed-infrastructure-data:latest"`.
                 Allowed values: `"public-fixed-infrastructure-data:latest"`, `"public-fixed-infrastructure-data:v1.1"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
+
                 **Important:** We recommend using the `latest` dataset alias to ensure access
                 to the latest data improvements.
 
@@ -291,6 +292,7 @@ class BulkDownloadResource(BaseResource):
                 Defaults to `None`.
                 Allowed values: `"public-fixed-infrastructure-data:latest"`, `"public-fixed-infrastructure-data:v1.1"`.
                 Example: `"public-fixed-infrastructure-data:latest"`.
+
                 **Important:** We recommend using the `latest` dataset alias to ensure access
                 to the latest data improvements.
 

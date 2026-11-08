@@ -100,6 +100,7 @@ class VesselResource(BaseResource):
                 Allowed values: `"public-global-vessel-identity:latest"`,
                 `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `["public-global-vessel-identity:latest"]`.
+
                 **Important:** We recommend using the `latest` dataset alias to ensure access
                 to the latest data improvements.
 
@@ -191,6 +192,7 @@ class VesselResource(BaseResource):
                 Allowed values: `"public-global-vessel-identity:latest"`,
                 `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `["public-global-vessel-identity:latest"]`.
+
                 **Important:** We recommend using the `latest` dataset alias to ensure access
                 to the latest data improvements.
 
@@ -288,6 +290,7 @@ class VesselResource(BaseResource):
                 Allowed values: `"public-global-vessel-identity:latest"`,
                 `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `"public-global-vessel-identity:latest"`.
+
                 **Important:** We recommend using the `latest` dataset alias to ensure access
                 to the latest data improvements.
 
