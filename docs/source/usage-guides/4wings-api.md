@@ -6,6 +6,29 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 
 > **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [AIS Apparent Fishing Effort Data Caveats](https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort), [AIS Vessel Presence Data Caveats](https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats), [SAR Vessel Detections Data Caveats](https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
+<blockquote>
+
+**Important – Supported datasets, versions, and shortcut methods**
+
+- **Fishing effort:**
+    - **Recommended (default):** `public-global-fishing-effort:latest`
+    - **Specific versions:** `public-global-fishing-effort:v5.0`, `public-global-fishing-effort:v4.0`
+    - **Shortcut method:** `create_fishing_effort_report()` – creates a fishing effort report using `public-global-fishing-effort:latest` by default.
+
+- **AIS vessel presence:**
+    - **Recommended (default):** `public-global-presence:latest`
+    - **Specific versions:** `public-global-presence:v5.0`, `public-global-presence:v4.0`
+    - **Shortcut method:** `create_ais_presence_report()` – creates an AIS vessel presence report using `public-global-presence:latest` by default.
+
+- **SAR vessel presence:**
+    - **Recommended (default):** `public-global-sar-presence:latest`
+    - **Specific versions:** `public-global-sar-presence:v5.0`, `public-global-sar-presence:v4.0`
+    - **Shortcut method:** `create_sar_presence_report()` – creates a SAR vessel presence report using `public-global-sar-presence:latest` by default.
+
+If no `datasets` are specified on `datasets` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+
+</blockquote>
+
 ## Prerequisites
 
 - Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).
