@@ -44,6 +44,16 @@ def test_vessel_insight_item_derializes_all_fields(
     assert vessel_insight_item.vessel_identity.iuu_vessel_list is not None
     assert vessel_insight_item.vessel_identity.mou_list is not None
 
+    assert vessel_insight_item.apparent_longline_set_events is not None
+    assert vessel_insight_item.apparent_longline_set_events.datasets is not None
+    assert vessel_insight_item.apparent_longline_set_events.count is not None
+    assert vessel_insight_item.apparent_longline_set_events.entirely_day is not None
+    assert vessel_insight_item.apparent_longline_set_events.mostly_day is not None
+    assert vessel_insight_item.apparent_longline_set_events.day_and_night is not None
+    assert vessel_insight_item.apparent_longline_set_events.mostly_night is not None
+    assert vessel_insight_item.apparent_longline_set_events.entirely_night is not None
+    assert vessel_insight_item.apparent_longline_set_events.unclassified is not None
+
 
 def test_vessel_insight_result_deserializes_all_fields(
     mock_raw_vessel_insight_item: Dict[str, Any],

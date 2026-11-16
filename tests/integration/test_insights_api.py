@@ -3,8 +3,10 @@
 These tests verify the functionality of the `InsightResource` within the `gfwapiclient` library,
 ensuring that vessel insights data can be retrieved correctly for various insight types.
 
-For more details on the Insights API, please refer to the official
-`Global Fishing Watch Insights API Documentation <https://globalfishingwatch.org/our-apis/documentation#insights-api>`_.
+For detailed information about the Insights API, please refer to the official
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights
 """
 
 from typing import cast
@@ -44,6 +46,7 @@ async def test_insights_get_vessel_insights_get_insights_for_fishing_events(
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.apparent_fishing is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -75,6 +78,7 @@ async def test_insights_get_vessel_insights_get_insights_for_ais_off_events(
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.gap is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -106,6 +110,39 @@ async def test_insights_get_vessel_insights_get_insights_for_ais_coverage_events
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.coverage is not None
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data).keys())
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_insights_get_vessel_insights_get_insights_for_longline_set_events(
+    gfw_client: gfw.Client,
+) -> None:
+    """Test getting vessel insights related to apparent longline set events.
+
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for a specific vessel related to apparent longline set events within
+    a given date range. It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
+    """
+    result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
+        includes=["LONGLINE-SETS"],
+        start_date="2020-01-01",
+        end_date="2025-03-03",
+        vessels=[
+            "2339c52c3-3a84-1603-f968-d8890f23e1ed",
+        ],
+    )
+    data: VesselInsightItem = cast(VesselInsightItem, result.data())
+    assert isinstance(result, VesselInsightResult)
+    assert isinstance(data, VesselInsightItem)
+    assert data.apparent_longline_set_events is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -138,6 +175,8 @@ async def test_insights_get_vessel_insights_get_insights_for_iuu_list(
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.iuu_vessel_list is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -169,6 +208,8 @@ async def test_insights_get_vessel_insights_get_insights_for_flag_changes(
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.flag_changes is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -201,6 +242,8 @@ async def test_insights_get_vessel_insights_get_insights_for_mou_list(
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.mou_list is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
@@ -225,6 +268,7 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
         includes=[
             "FISHING",
             "GAP",
+            "LONGLINE-SETS",
             "VESSEL-IDENTITY-IUU-VESSEL-LIST",
             "COVERAGE",
             "VESSEL-IDENTITY-FLAG-CHANGES",
@@ -241,6 +285,14 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.apparent_fishing is not None
+    assert data.gap is not None
+    assert data.coverage is not None
+    assert data.apparent_longline_set_events is not None
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.iuu_vessel_list is not None
+    assert data.vessel_identity.flag_changes is not None
+    assert data.vessel_identity.mou_list is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)

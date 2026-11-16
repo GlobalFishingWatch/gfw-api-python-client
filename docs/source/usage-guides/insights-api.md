@@ -2,9 +2,9 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access aggregated insights about vessel activities. Currently, the [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) focuses on providing summaries related to specific vessels over a defined time range. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/insights-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Apparent fishing detected in no-take MPAs](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-detected-in-no-take-mpas), [Apparent fishing event detected outside known authorized areas](https://globalfishingwatch.org/our-apis/documentation#insights-api-fishing-event-detected-outside-known-authorized-areas), [Coverage](https://globalfishingwatch.org/our-apis/documentation#insights-api-coverage), [AIS off event (aka GAP)](https://globalfishingwatch.org/our-apis/documentation#insights-api-ais-off-event-aka-gap), and [RFMO IUU vessel list](https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list) Data Caveats — it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Apparent fishing detected in no-take MPAs](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-detected-in-no-take-mpas), [Apparent fishing event detected outside known authorized areas](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-event-detected-outside-known-authorized-areas), [Coverage](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-coverage), [AIS off event (aka GAP)](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---ais-off-event-aka-gap), [Longline Set events](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---longline-set-events), and [RFMO IUU vessel list](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---rfmo-iuu-vessel-list) Data Caveats — it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ The `gfw_client.insights` object provides methods for retrieving insights data f
 
 The `get_vessel_insights()` method allows you to retrieve aggregated insights for a specific vessel within a given time range.
 
-**Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
+**Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) are available from `January 1, 2020` onwards.
 
 ```python
 insights_result = await gfw_client.insights.get_vessel_insights(
@@ -70,7 +70,7 @@ print(insights.model_dump())
 **Output:**
 
 ```
-(datetime.date(2020, 1, 1), datetime.date(2025, 3, 3), 2829)
+(datetime.date(2020, 1, 1), datetime.date(2025, 3, 3), 858)
 ```
 
 ### Access the insights data as a DataFrame
@@ -84,19 +84,20 @@ print(insights_df.head())
 **Output:**
 
 ```
-<class 'pandas.core.frame.DataFrame'>
+<class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             1 non-null      object
- 5   vessel_identity              0 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              1 non-null      object
+ 5   vessel_identity               0 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting Apparent Fishing-related Insights (`FISHING`)
@@ -124,17 +125,18 @@ print(fishing_insights_df)
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             1 non-null      object
- 5   vessel_identity              0 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              1 non-null      object
+ 5   vessel_identity               0 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting AIS off/disabling Insights (`GAP`)
@@ -162,17 +164,18 @@ print(gap_insights_df)
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          1 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             0 non-null      object
- 5   vessel_identity              0 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           1 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               0 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting AIS Coverage Metrics Insights (`COVERAGE`)
@@ -198,17 +201,55 @@ print(coverage_insights_df)
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     1 non-null      object
- 4   apparent_fishing             0 non-null      object
- 5   vessel_identity              0 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      1 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               0 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
+```
+
+## Getting Longline Set Events Insights (`LONGLINE-SETS`)
+
+```python
+longline_sets_insights_result = await gfw_client.insights.get_vessel_insights(
+    includes=["LONGLINE-SETS"],
+    start_date="2020-01-01",
+    end_date="2025-03-03",
+    vessels=[
+        "2339c52c3-3a84-1603-f968-d8890f23e1ed",
+    ],
+)
+```
+
+```python
+longline_sets_insights_df = longline_sets_insights_result.df()
+print(longline_sets_insights_df)
+```
+
+**Output:**
+
+```
+<class 'pandas.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               0 non-null      object
+ 6   apparent_longline_set_events  1 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting Being Listed in IUU (Illegal,Unreported, and Unregulated) Insights (`VESSEL-IDENTITY-IUU-VESSEL-LIST`)
@@ -234,17 +275,18 @@ print(iuu_insights_df)
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             0 non-null      object
- 5   vessel_identity              1 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               1 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting Flag Changes Insights (`VESSEL-IDENTITY-FLAG-CHANGES`)
@@ -272,17 +314,18 @@ print(flag_changes_insights_df.info())
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             0 non-null      object
- 5   vessel_identity              1 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               1 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting Flag State Presence under Tokyo/Paris MOU black or grey Lists Insights (`VESSEL-IDENTITY-MOU-LIST`)
@@ -310,17 +353,18 @@ print(mou_insights_df.info())
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          0 non-null      object
- 3   coverage                     0 non-null      object
- 4   apparent_fishing             0 non-null      object
- 5   vessel_identity              1 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           0 non-null      object
+ 3   coverage                      0 non-null      object
+ 4   apparent_fishing              0 non-null      object
+ 5   vessel_identity               1 non-null      object
+ 6   apparent_longline_set_events  0 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Getting Multiple Insights for Multiple Vessels
@@ -332,6 +376,7 @@ all_insights_result = await gfw_client.insights.get_vessel_insights(
     includes=[
         "FISHING",
         "GAP",
+        "LONGLINE-SETS",
         "VESSEL-IDENTITY-IUU-VESSEL-LIST",
         "COVERAGE",
         "VESSEL-IDENTITY-FLAG-CHANGES",
@@ -357,17 +402,18 @@ print(all_insights_df.info())
 ```
 <class 'pandas.DataFrame'>
 RangeIndex: 1 entries, 0 to 0
-Data columns (total 6 columns):
- #   Column                       Non-Null Count  Dtype
----  ------                       --------------  -----
- 0   period                       1 non-null      object
- 1   vessel_ids_without_identity  0 non-null      object
- 2   gap                          1 non-null      object
- 3   coverage                     1 non-null      object
- 4   apparent_fishing             1 non-null      object
- 5   vessel_identity              1 non-null      object
-dtypes: object(6)
-memory usage: 180.0+ bytes
+Data columns (total 7 columns):
+ #   Column                        Non-Null Count  Dtype
+---  ------                        --------------  -----
+ 0   period                        1 non-null      object
+ 1   vessel_ids_without_identity   0 non-null      object
+ 2   gap                           1 non-null      object
+ 3   coverage                      1 non-null      object
+ 4   apparent_fishing              1 non-null      object
+ 5   vessel_identity               1 non-null      object
+ 6   apparent_longline_set_events  1 non-null      object
+dtypes: object(7)
+memory usage: 188.0+ bytes
 ```
 
 ## Next Steps
