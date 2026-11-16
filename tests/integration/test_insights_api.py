@@ -267,12 +267,12 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=[
+            "COVERAGE",
             "FISHING",
             "GAP",
             "LONGLINE-SETS",
-            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
-            "COVERAGE",
             "VESSEL-IDENTITY-FLAG-CHANGES",
+            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
             "VESSEL-IDENTITY-MOU-LIST",
         ],
         start_date="2020-01-01",
@@ -348,6 +348,15 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     data: VesselInsightItem = cast(VesselInsightItem, result.data())
     assert isinstance(result, VesselInsightResult)
     assert isinstance(data, VesselInsightItem)
+    assert data.apparent_fishing is not None
+    assert data.gap is not None
+    assert data.coverage is not None
+    if dataset_id is not VesselDataset.VESSEL_IDENTITY_V4_0:
+        assert data.apparent_longline_set_events is not None
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.iuu_vessel_list is not None
+    assert data.vessel_identity.flag_changes is not None
+    assert data.vessel_identity.mou_list is not None
 
     df: pd.DataFrame = cast(pd.DataFrame, result.df())
     assert isinstance(df, pd.DataFrame)
