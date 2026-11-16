@@ -304,7 +304,7 @@ class VesselInsightItem(ResultItem):
         vessel_identity (Optional[VesselIdentity], default=None):
             The FLAG CHANGES, IUU, and MOU insights.
 
-        apparent_longline_set_events (Optional[ApparentLonglineSetEvents], default=None):
+        apparent_longline_set_events (Optional[ApparentLongLineSetEvents], default=None):
             The apparent longline set events insights.
     """
 
