@@ -2,9 +2,9 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/bulk-downloads-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access the [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), which is designed to support workflows that require bulk access to data, including integration with platforms and tools used by data engineers and researchers. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/bulk-downloads-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access the [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download), which is designed to support workflows that require bulk access to data, including integration with platforms and tools used by data engineers and researchers. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/bulk-downloads-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat), [SAR (Synthetic-Aperture Radar) Data Caveats](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats), [SAR (Synthetic-Aperture Radar) Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 <blockquote>
 
@@ -13,7 +13,7 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 - **Recommended (default):** `public-fixed-infrastructure-data:latest`
 - **Specific version:** `public-fixed-infrastructure-data:v1.1`
 
-If no `dataset` is specified on `dataset` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+If no `dataset` is specified on `dataset` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on supported GFW datasets and versioning.
 
 </blockquote>
 
@@ -58,9 +58,9 @@ These methods return a `result` object, which offers convenient ways to access t
 
 ## Create a Bulk Report from Predefined Region (`create_bulk_report`)
 
-The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
-> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="ARG")
@@ -160,7 +160,7 @@ memory usage: 236.0+ bytes
 
 ## Create a Bulk Report from Custom Region (`create_bulk_report`)
 
-The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 > **Note:** Custom region can either a path to a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`, an object implementing `__geo_interface__` etc.) or `GeoJson` model instance. Spatial files are loaded using [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html) and supported formats depend on a properly configured [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
 
@@ -253,7 +253,7 @@ memory usage: 236.0+ bytes
 
 ## Get Bulk Report by ID (`get_bulk_report_by_id`)
 
-The `get_bulk_report_by_id()` method allows you retrieves metadata and status of the previously created bulk report based on the provided bulk report ID. The `id` parameter is mandatory. Please [learn more about get bulk report by id report here](https://globalfishingwatch.org/our-apis/documentation#get-bulk-report-by-id) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `get_bulk_report_by_id()` method allows you retrieves metadata and status of the previously created bulk report based on the provided bulk report ID. The `id` parameter is mandatory. Please [learn more about get bulk report by id report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-id) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 > **Important:** We recommend to use this method to poll the status of previously created bulk report, if it takes **several minutes or hours** to generate until it status is `done` or `failed`.
 
@@ -320,7 +320,7 @@ memory usage: 228.0+ bytes
 
 ## Get All Bulk Reports Created by User or Application (`get_all_bulk_reports`)
 
-The `get_all_bulk_reports()` method allows you retrieves a list of **metadata and status** of the previously created bulk reports based on specified pagination, sorting, and filtering criteria. Please [learn more about get all bulk reports created by user or application here](https://globalfishingwatch.org/our-apis/documentation#get-all-bulk-reports-by-user) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `get_all_bulk_reports()` method allows you retrieves a list of **metadata and status** of the previously created bulk reports based on specified pagination, sorting, and filtering criteria. Please [learn more about get all bulk reports created by user or application here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 ```python
 bulk_reports_result = await gfw_client.bulk_downloads.get_all_bulk_reports(
@@ -387,7 +387,7 @@ memory usage: 804.0+ bytes
 
 ## Get Bulk Report File Download URL (`get_bulk_report_file_download_url`)
 
-The `get_bulk_report_file_download_url()` method allows you retrieves **signed URL** that points to a **downloadable file** hosted on Global Fishing Watch's cloud infrastructure to **download file(s)** (i.e., `"DATA"`, `"README"`, or `"GEOM"`) of the previously created bulk report. The `id` parameter is mandatory. Please [learn more about get bulk report file download url here](https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-url-file) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `get_bulk_report_file_download_url()` method allows you retrieves **signed URL** that points to a **downloadable file** hosted on Global Fishing Watch's cloud infrastructure to **download file(s)** (i.e., `"DATA"`, `"README"`, or `"GEOM"`) of the previously created bulk report. The `id` parameter is mandatory. Please [learn more about get bulk report file download url here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 ```python
 bulk_report_file_download_url_result = (
@@ -435,7 +435,7 @@ memory usage: 140.0+ bytes
 
 ## Query Bulk Fixed Infrastructure Data Report (`query_bulk_fixed_infrastructure_data_report`)
 
-The `query_bulk_fixed_infrastructure_data_report()` method allows you retrieves **data records** of a previously created **fixed infrastructure data** (i.e., `public-fixed-infrastructure-data:latest` dataset) bulk report data in JSON format based on specified pagination, sorting, and including criteria. The `id` parameter is mandatory. Please [learn more about query bulk fixed infrastructure data report in JSON format here](https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation#data-caveat) and [here](https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats).
+The `query_bulk_fixed_infrastructure_data_report()` method allows you retrieves **data records** of a previously created **fixed infrastructure data** (i.e., `public-fixed-infrastructure-data:latest` dataset) bulk report data in JSON format based on specified pagination, sorting, and including criteria. The `id` parameter is mandatory. Please [learn more about query bulk fixed infrastructure data report in JSON format here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 ```python
 bulk_fixed_infrastructure_data_report_result = (

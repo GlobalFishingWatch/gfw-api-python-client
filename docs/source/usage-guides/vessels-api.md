@@ -2,9 +2,9 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about vessels. The [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) allows you to search for vessels, retrieve lists of vessels by their IDs, and get detailed information for a specific vessel, drawing from various datasets like identity, authorizations, and ownership. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about vessels. The [Vessels API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels) allows you to search for vessels, retrieve lists of vessels by their IDs, and get detailed information for a specific vessel, drawing from various datasets like identity, authorizations, and ownership. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/vessels-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Vessel Data Caveats](https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Vessel Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 <blockquote>
 
@@ -13,7 +13,7 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 - **Recommended (default):** `public-global-vessel-identity:latest`
 - **Specific versions:** `public-global-vessel-identity:v5.0`, `public-global-vessel-identity:v4.0`
 
-If no `datasets` are specified on `datasets` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+If no `datasets` are specified on `datasets` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on supported GFW datasets and versioning.
 
 </blockquote>
 
@@ -43,7 +43,7 @@ gfw_client = gfw.Client(
 
 The `gfw_client.vessels` object provides methods to search for and retrieve vessel information. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
-> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf). Use the `vessel_ids` property of the `result` object returned by `gfw_client.vessels` methods as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf). Use the `vessel_ids` property of the `result` object returned by `gfw_client.vessels` methods as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
@@ -72,7 +72,7 @@ print(vessel_search_result.vessel_ids)
  '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-> **Note:** Use the `vessel_search_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Use the `vessel_search_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ### Access the list of vessel as Pydantic models
 
@@ -145,7 +145,7 @@ print(vessels_result.vessel_ids)
  '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-> **Note:** Use the `vessels_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Use the `vessels_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ### Access the list of vessel as Pydantic models
 
@@ -213,7 +213,7 @@ print()
  '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-> **Note:** Use the `vessel_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api) and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Use the `vessel_result.vessel_ids` as a shortcut to obtain the `matched vessel IDs`, which can then be passed directly to the [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ### Access the vessel as Pydantic model
 

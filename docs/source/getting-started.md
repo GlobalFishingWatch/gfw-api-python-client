@@ -4,7 +4,7 @@
 
 This guide introduces you to the basics of using the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client). For detailed and alternative installation instructions, please refer to the [Installation](installation) section. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/getting-started.ipynb) version for this guide.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 ## Authorization
 
@@ -99,7 +99,7 @@ print(vessel_search_ids)
  '3dad49b0b-b2e0-9347-0c4c-e39fea560f9f']
 ```
 
-> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf).
+> **Note:** It is recommended to prioritize vessels that include both `registry_info` and `self_reported_info` (AIS), as this indicates a successful match between registry data and AIS information. See how the [Vessels API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels) is used in the [Vessel Viewer](https://globalfishingwatch.org/map/) [here](https://globalfishingwatch.org/our-apis/assets/2024_Vessel_Viewer_and_APIs_behind_It.pdf).
 
 ### Getting Details of Vessels Filtered by Vessel Searched IDs
 
@@ -123,7 +123,7 @@ print(vessel_ids)
 
 ### Getting Insights Related to Fishing Events for the Vessel Searched
 
-> **Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation#insights-api) are available from `January 1, 2020` onwards.
+> **Important:** `start_date` must be on or after `January 1, 2020`. [Insights](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights) are available from `January 1, 2020` onwards.
 
 ```python
 start_date = min(vessels_result.transmission_dates_from)
