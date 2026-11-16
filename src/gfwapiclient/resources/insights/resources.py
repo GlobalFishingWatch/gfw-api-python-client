@@ -131,6 +131,9 @@ class InsightResource(BaseResource):
                 Example: `[{"vessel_id": "785101812-2127-e5d2-e8bf-7152c5259f5f", "dataset_id": "public-global-vessel-identity:latest"}]`
                 or `["785101812-2127-e5d2-e8bf-7152c5259f5f"]`.
 
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
+
             **kwargs (Dict[str, Any]):
                 Additional keyword arguments.
 

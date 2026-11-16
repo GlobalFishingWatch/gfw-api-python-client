@@ -24,6 +24,10 @@ from ...conftest import geometry, region_dataset, region_id
             BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_LATEST,
             "public-fixed-infrastructure-data:latest",
         ),
+        (
+            BulkReportDataset.FIXED_INFRASTRUCTURE_DATA_V1_1,
+            "public-fixed-infrastructure-data:v1.1",
+        ),
     ],
 )
 def test_bulk_report_dataset_enum_correct_values(
@@ -36,7 +40,10 @@ def test_bulk_report_dataset_enum_correct_values(
 
 @pytest.mark.parametrize(
     "invalid_value",
-    ["INVALID_DATASET", ""],
+    [
+        "INVALID_DATASET",
+        "",
+    ],
 )
 def test_bulk_report_dataset_enum_invalid_value_raises_value_error(
     invalid_value: str,

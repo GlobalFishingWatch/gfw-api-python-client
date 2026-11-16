@@ -67,6 +67,8 @@ class VesselInsightDatasetVessel(BaseModel):
     Attributes:
         dataset_id (VesselDataset):
            The dataset identifier. Default to `VesselDataset.VESSEL_IDENTITY_LATEST`.
+           **Important:** We recommend using the `latest` dataset alias to ensure access
+           to the latest data improvements.
 
         vessel_id (str):
             The vessel identifier.

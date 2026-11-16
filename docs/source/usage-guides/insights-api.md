@@ -6,6 +6,17 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 
 > **Note:** See the [Apparent fishing detected in no-take MPAs](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-detected-in-no-take-mpas), [Apparent fishing event detected outside known authorized areas](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-fishing-event-detected-outside-known-authorized-areas), [Coverage](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api-coverage), [AIS off event (aka GAP)](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---ais-off-event-aka-gap), [Longline Set events](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---longline-set-events), and [RFMO IUU vessel list](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---rfmo-iuu-vessel-list) Data Caveats — it is critical to avoid misinterpreting the insights. You can find the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
 
+<blockquote>
+
+**Important – Supported datasets and versions**
+
+- **Recommended (default):** `public-global-vessel-identity:latest`
+- **Specific versions:** `public-global-vessel-identity:v5.0`, `public-global-vessel-identity:v4.0`
+
+If no `dataset_id` specified on `vessels` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+
+</blockquote>
+
 ## Prerequisites
 
 - Before using the `gfw-api-python-client`, ensure it is installed (see the [Getting Started](../getting-started) guide) and that you have obtained an API access token from the [Global Fishing Watch API portal](https://globalfishingwatch.org/our-apis/tokens).

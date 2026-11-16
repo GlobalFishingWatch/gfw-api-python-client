@@ -7,13 +7,14 @@ For more details on the Vessels API, please refer to the official
 `Global Fishing Watch Vessels API Documentation <https://globalfishingwatch.org/our-apis/documentation#vessels-api>`_.
 """
 
-from typing import List, cast
+from typing import List, Union, cast
 
 import pandas as pd
 import pytest
 
 import gfwapiclient as gfw
 
+from gfwapiclient.resources.vessels.base.models.request import VesselDataset
 from gfwapiclient.resources.vessels.detail.models.response import (
     VesselDetailItem,
     VesselDetailResult,
@@ -28,9 +29,19 @@ from gfwapiclient.resources.vessels.search.models.response import (
 )
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        VesselDataset.VESSEL_IDENTITY_LATEST,
+        VesselDataset.VESSEL_IDENTITY_V5_0,
+        VesselDataset.VESSEL_IDENTITY_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_vessels_basic_search(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_basic_search(
+    gfw_client: gfw.Client, dataset: Union[str, VesselDataset]
+) -> None:
     """Test basic vessel search by keyword (MMSI).
 
     This test verifies that the `search_vessels` method can find vessels
@@ -40,7 +51,7 @@ async def test_vessels_search_vessels_basic_search(gfw_client: gfw.Client) -> No
     """
     result: VesselSearchResult = await gfw_client.vessels.search_vessels(
         query="368045130",
-        datasets=["public-global-vessel-identity:latest"],
+        datasets=[dataset],
         includes=["MATCH_CRITERIA", "OWNERSHIP", "AUTHORIZATIONS"],
     )
     data: List[VesselSearchItem] = cast(List[VesselSearchItem], result.data())
@@ -54,9 +65,19 @@ async def test_vessels_search_vessels_basic_search(gfw_client: gfw.Client) -> No
     assert list(df.columns) == list(dict(data[0]).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        VesselDataset.VESSEL_IDENTITY_LATEST,
+        VesselDataset.VESSEL_IDENTITY_V5_0,
+        VesselDataset.VESSEL_IDENTITY_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_vessels_search_vessels_advanced_search(gfw_client: gfw.Client) -> None:
+async def test_vessels_search_vessels_advanced_search(
+    gfw_client: gfw.Client, dataset: Union[str, VesselDataset]
+) -> None:
     """Test advanced vessel search by keyword (MMSI and shipname).
 
     This test verifies that the `search_vessels` method can perform advanced
@@ -67,7 +88,7 @@ async def test_vessels_search_vessels_advanced_search(gfw_client: gfw.Client) ->
     """
     result: VesselSearchResult = await gfw_client.vessels.search_vessels(
         where="ssvid='775998121' AND shipname='DON TITO'",
-        datasets=["public-global-vessel-identity:latest"],
+        datasets=[dataset],
         includes=["MATCH_CRITERIA", "OWNERSHIP"],
     )
     data: List[VesselSearchItem] = cast(List[VesselSearchItem], result.data())

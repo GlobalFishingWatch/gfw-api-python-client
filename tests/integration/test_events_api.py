@@ -19,6 +19,9 @@ import pytest
 
 import gfwapiclient as gfw
 
+from gfwapiclient.resources.events.base.models.request import (
+    EventDataset,
+)
 from gfwapiclient.resources.events.detail.models.response import (
     EventDetailItem,
     EventDetailResult,
@@ -33,9 +36,19 @@ from gfwapiclient.resources.events.stats.models.response import (
 )
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.FISHING_EVENTS_LATEST,
+        EventDataset.FISHING_EVENTS_V5_0,
+        EventDataset.FISHING_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_fishing_events(gfw_client: gfw.Client) -> None:
+async def test_events_get_all_events_get_fishing_events(
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
+) -> None:
     """Test retrieving fishing events with geometry and flags filters.
 
     This test verifies that the `get_all_events` method correctly retrieves
@@ -45,7 +58,7 @@ async def test_events_get_all_events_get_fishing_events(gfw_client: gfw.Client) 
     pandas DataFrame.
     """
     result: EventListResult = await gfw_client.events.get_all_events(
-        datasets=["public-global-fishing-events:latest"],
+        datasets=[dataset],
         start_date="2017-01-01",
         end_date="2017-01-31",
         flags=["CHN"],
@@ -75,10 +88,18 @@ async def test_events_get_all_events_get_fishing_events(gfw_client: gfw.Client) 
     assert list(df.columns) == list(dict(data[0]).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.ENCOUNTERS_EVENTS_LATEST,
+        EventDataset.ENCOUNTERS_EVENTS_V5_0,
+        EventDataset.ENCOUNTERS_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_events_get_all_events_get_encounter_events(
-    gfw_client: gfw.Client,
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
 ) -> None:
     """Test retrieving encounter events with geometry, vessels, and flags filters.
 
@@ -89,7 +110,7 @@ async def test_events_get_all_events_get_encounter_events(
     pandas DataFrame.
     """
     result: EventListResult = await gfw_client.events.get_all_events(
-        datasets=["public-global-encounters-events:latest"],
+        datasets=[dataset],
         start_date="2017-01-01",
         end_date="2017-01-31",
         vessels=["55d38c0ee-e0d7-cb32-ac9c-8b3680d213b3"],
@@ -121,10 +142,18 @@ async def test_events_get_all_events_get_encounter_events(
     assert list(df.columns) == list(dict(data[0]).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.LOITERING_EVENTS_LATEST,
+        EventDataset.LOITERING_EVENTS_V5_0,
+        EventDataset.LOITERING_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_events_get_all_events_get_loitering_events(
-    gfw_client: gfw.Client,
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
 ) -> None:
     """Test retrieving loitering events with geometry, vessels, and flags filters.
 
@@ -135,7 +164,7 @@ async def test_events_get_all_events_get_loitering_events(
     pandas DataFrame.
     """
     result: EventListResult = await gfw_client.events.get_all_events(
-        datasets=["public-global-loitering-events:latest"],
+        datasets=[dataset],
         start_date="2017-01-01",
         end_date="2017-01-31",
         vessels=["4850da803-3fd9-59ca-3683-8daa7b16d444"],
@@ -167,9 +196,19 @@ async def test_events_get_all_events_get_loitering_events(
     assert list(df.columns) == list(dict(data[0]).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.PORT_VISITS_EVENTS_LATEST,
+        EventDataset.PORT_VISITS_EVENTS_V5_0,
+        EventDataset.PORT_VISITS_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_events_get_all_events_get_port_visits(gfw_client: gfw.Client) -> None:
+async def test_events_get_all_events_get_port_visits(
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
+) -> None:
     """Test retrieving port visit events with geometry, vessels, and flags filters.
 
     This test verifies that the `get_all_events` method correctly retrieves
@@ -179,7 +218,7 @@ async def test_events_get_all_events_get_port_visits(gfw_client: gfw.Client) -> 
     pandas DataFrame.
     """
     result: EventListResult = await gfw_client.events.get_all_events(
-        datasets=["public-global-port-visits-events:latest"],
+        datasets=[dataset],
         start_date="2017-01-01",
         end_date="2017-01-31",
         vessels=["e0248aed9-99b4-bae7-6b87-ff0a3c464676"],
@@ -273,10 +312,18 @@ async def test_events_get_event_by_id_get_port_visit(gfw_client: gfw.Client) -> 
     assert list(df.columns) == list(dict(data).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.ENCOUNTERS_EVENTS_LATEST,
+        EventDataset.ENCOUNTERS_EVENTS_V5_0,
+        EventDataset.ENCOUNTERS_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_events_get_events_stats_get_encounters_stats(
-    gfw_client: gfw.Client,
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
 ) -> None:
     """Test retrieving encounters statistics.
 
@@ -287,7 +334,7 @@ async def test_events_get_events_stats_get_encounters_stats(
     `EventStatsResult` and that the data can be converted to a pandas DataFrame.
     """
     result: EventStatsResult = await gfw_client.events.get_events_stats(
-        datasets=["public-global-encounters-events:latest"],
+        datasets=[dataset],
         encounter_types=["CARRIER-FISHING", "FISHING-CARRIER"],
         vessel_types=["CARRIER"],
         start_date="2018-01-01",
@@ -307,10 +354,18 @@ async def test_events_get_events_stats_get_encounters_stats(
     assert list(df.columns) == list(dict(data).keys())
 
 
+@pytest.mark.parametrize(
+    "dataset",
+    [
+        EventDataset.PORT_VISITS_EVENTS_LATEST,
+        EventDataset.PORT_VISITS_EVENTS_V5_0,
+        EventDataset.PORT_VISITS_EVENTS_V4_0,
+    ],
+)
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_events_get_events_stats_get_port_visits_stats_senegal_eez(
-    gfw_client: gfw.Client,
+    gfw_client: gfw.Client, dataset: Union[str, EventDataset]
 ) -> None:
     """Test retrieving port visits statistics in Senegal EEZ.
 
@@ -322,7 +377,7 @@ async def test_events_get_events_stats_get_port_visits_stats_senegal_eez(
     that the data can be converted to a pandas DataFrame.
     """
     result: EventStatsResult = await gfw_client.events.get_events_stats(
-        datasets=["public-global-port-visits-events:latest"],
+        datasets=[dataset],
         start_date="2018-01-01",
         end_date="2019-01-31",
         timeseries_interval="YEAR",

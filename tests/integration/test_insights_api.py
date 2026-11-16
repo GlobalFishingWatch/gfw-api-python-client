@@ -9,7 +9,7 @@ Global Fishing Watch API documentation:
 See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights
 """
 
-from typing import cast
+from typing import Union, cast
 
 import pandas as pd
 import pytest
@@ -20,6 +20,7 @@ from gfwapiclient.resources.insights.models.response import (
     VesselInsightItem,
     VesselInsightResult,
 )
+from gfwapiclient.resources.vessels.base.models.request import VesselDataset
 
 
 @pytest.mark.integration
@@ -259,19 +260,19 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     """Test getting vessel insights for multiple insight types.
 
     This test verifies that the `get_vessel_insights` method correctly retrieves
-    insights for a specific vessel for multiple insight types within a
-    given date range. It checks the structure and content of the returned data,
+    insights for multiple vessels, insight types and within a given date range.
+    It checks the structure and content of the returned data,
     ensuring it's a valid `VesselInsightResult` and that the data can be
     converted to a pandas DataFrame.
     """
     result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
         includes=[
+            "COVERAGE",
             "FISHING",
             "GAP",
             "LONGLINE-SETS",
-            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
-            "COVERAGE",
             "VESSEL-IDENTITY-FLAG-CHANGES",
+            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
             "VESSEL-IDENTITY-MOU-LIST",
         ],
         start_date="2020-01-01",
@@ -289,6 +290,69 @@ async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_ty
     assert data.gap is not None
     assert data.coverage is not None
     assert data.apparent_longline_set_events is not None
+    assert data.vessel_identity is not None
+    assert data.vessel_identity.iuu_vessel_list is not None
+    assert data.vessel_identity.flag_changes is not None
+    assert data.vessel_identity.mou_list is not None
+
+    df: pd.DataFrame = cast(pd.DataFrame, result.df())
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) >= 1, "Expected at least one row in the DataFrame."
+    assert list(df.columns) == list(dict(data).keys())
+
+
+@pytest.mark.parametrize(
+    "dataset_id",
+    [
+        VesselDataset.VESSEL_IDENTITY_LATEST,
+        VesselDataset.VESSEL_IDENTITY_V5_0,
+        VesselDataset.VESSEL_IDENTITY_V4_0,
+    ],
+)
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_insights_get_vessel_insights_get_insights_for_multiple_insight_types_and_datasets(
+    gfw_client: gfw.Client,
+    dataset_id: Union[str, VesselDataset],
+) -> None:
+    """Test getting multiple vessel insight types across dataset versions.
+
+    This test verifies that the `get_vessel_insights` method correctly retrieves
+    insights for multiple vessels, insight types, and using different
+    vessel identity dataset versions within a given date range.
+    It checks the structure and content of the returned data,
+    ensuring it's a valid `VesselInsightResult` and that the data can be
+    converted to a pandas DataFrame.
+    """
+    result: VesselInsightResult = await gfw_client.insights.get_vessel_insights(
+        includes=[
+            "COVERAGE",
+            "FISHING",
+            "GAP",
+            "LONGLINE-SETS",
+            "VESSEL-IDENTITY-FLAG-CHANGES",
+            "VESSEL-IDENTITY-IUU-VESSEL-LIST",
+            "VESSEL-IDENTITY-MOU-LIST",
+        ],
+        start_date="2020-01-01",
+        end_date="2025-03-03",
+        vessels=[
+            {"vessel_id": vessel_id, "dataset_id": dataset_id}
+            for vessel_id in [
+                "785101812-2127-e5d2-e8bf-7152c5259f5f",
+                "2339c52c3-3a84-1603-f968-d8890f23e1ed",
+                "2d26aa452-2d4f-4cae-2ec4-377f85e88dcb",
+            ]
+        ],
+    )
+    data: VesselInsightItem = cast(VesselInsightItem, result.data())
+    assert isinstance(result, VesselInsightResult)
+    assert isinstance(data, VesselInsightItem)
+    assert data.apparent_fishing is not None
+    assert data.gap is not None
+    assert data.coverage is not None
+    if dataset_id is not VesselDataset.VESSEL_IDENTITY_V4_0:
+        assert data.apparent_longline_set_events is not None
     assert data.vessel_identity is not None
     assert data.vessel_identity.iuu_vessel_list is not None
     assert data.vessel_identity.flag_changes is not None

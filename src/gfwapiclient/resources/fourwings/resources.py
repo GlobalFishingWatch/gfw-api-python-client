@@ -67,6 +67,7 @@ class FourWingsResource(BaseResource):
         temporal_resolution: Optional[
             Union[FourWingsReportTemporalResolution, str]
         ] = None,
+        datasets: Optional[Union[List[FourWingsReportDataset], List[str]]] = None,
         filters: Optional[List[str]] = None,
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
@@ -112,6 +113,15 @@ class FourWingsResource(BaseResource):
                 Temporal resolution of the report. Defaults to `"HOURLY"`
                 Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
                 Example: `"HOURLY"`.
+
+            datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-fishing-effort:latest"]):
+                Datasets that will be used to create the report. Defaults to `["public-global-fishing-effort:latest"]`.
+                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-fishing-efforte:v5.0"`,
+                `"public-global-fishing-effort:v4.0"`.
+                Example: `["public-global-fishing-effort:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             filters (Optional[List[str]], default=None):
                 Filters to apply to the report. Defaults to `None`.
@@ -175,7 +185,7 @@ class FourWingsResource(BaseResource):
             spatial_resolution=spatial_resolution,
             group_by=group_by,
             temporal_resolution=temporal_resolution,
-            datasets=[FourWingsReportDataset.FISHING_EFFORT_LATEST],
+            datasets=datasets or [FourWingsReportDataset.FISHING_EFFORT_LATEST],
             filters=filters,
             start_date=start_date,
             end_date=end_date,
@@ -197,6 +207,7 @@ class FourWingsResource(BaseResource):
         temporal_resolution: Optional[
             Union[FourWingsReportTemporalResolution, str]
         ] = None,
+        datasets: Optional[Union[List[FourWingsReportDataset], List[str]]] = None,
         filters: Optional[List[str]] = None,
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
@@ -247,6 +258,15 @@ class FourWingsResource(BaseResource):
                 Temporal resolution of the report. Defaults to `"HOURLY"`
                 Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
                 Example: `"HOURLY"`.
+
+            datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-presence:latest"]):
+                Datasets that will be used to create the report. Defaults to `["public-global-presence:latest"]`.
+                Allowed values: `"public-global-presence:latest"`, `"public-global-presence:v5.0"`,
+                `"public-global-presence:v4.0"`.
+                Example: `["public-global-presence:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             filters (Optional[List[str]], default=None):
                 Filters to apply to the report. Defaults to `None`.
@@ -304,7 +324,7 @@ class FourWingsResource(BaseResource):
             spatial_resolution=spatial_resolution,
             group_by=group_by,
             temporal_resolution=temporal_resolution,
-            datasets=[FourWingsReportDataset.PRESENCE_LATEST],
+            datasets=datasets or [FourWingsReportDataset.PRESENCE_LATEST],
             filters=filters,
             start_date=start_date,
             end_date=end_date,
@@ -326,6 +346,7 @@ class FourWingsResource(BaseResource):
         temporal_resolution: Optional[
             Union[FourWingsReportTemporalResolution, str]
         ] = None,
+        datasets: Optional[Union[List[FourWingsReportDataset], List[str]]] = None,
         filters: Optional[List[str]] = None,
         start_date: Optional[Union[datetime.date, str]] = None,
         end_date: Optional[Union[datetime.date, str]] = None,
@@ -374,6 +395,15 @@ class FourWingsResource(BaseResource):
                 Temporal resolution of the report. Defaults to `"HOURLY"`
                 Allowed values: `"HOURLY"`, `"DAILY"`, `"MONTHLY"`, `"YEARLY"`, `"ENTIRE"`.
                 Example: `"HOURLY"`.
+
+            datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-sar-presence:latest"]):
+                Datasets that will be used to create the report. Defaults to `["public-global-sar-presence:latest"]`.
+                Allowed values: `"public-global-sar-presence:latest"`, `"public-global-sar-presence:v5.0"`,
+                `"public-global-sar-presence:v4.0"`.
+                Example: `["public-global-sar-presence:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             filters (Optional[List[str]], default=None):
                 Filters to apply to the report. Defaults to `None`.
@@ -432,7 +462,7 @@ class FourWingsResource(BaseResource):
             spatial_resolution=spatial_resolution,
             group_by=group_by,
             temporal_resolution=temporal_resolution,
-            datasets=[FourWingsReportDataset.SAR_PRESENCE_LATEST],
+            datasets=datasets or [FourWingsReportDataset.SAR_PRESENCE_LATEST],
             filters=filters,
             start_date=start_date,
             end_date=end_date,
@@ -524,9 +554,17 @@ class FourWingsResource(BaseResource):
 
             datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-fishing-effort:latest"]):
                 Datasets that will be used to create the report. Defaults to `["public-global-fishing-effort:latest"]`.
-                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-sar-presence:latest"`,
-                `"public-global-presence:latest"`.
+                Allowed latest values: `"public-global-fishing-effort:latest"`, `"public-global-presence:latest"`,
+                `"public-global-sar-presence:latest"`.
                 Example: `["public-global-fishing-effort:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
+
+                Allowed specific version (alias) values:
+                - Fishing effort reports: `"public-global-fishing-effort:v5.0"`, `"public-global-fishing-effort:v4.0"`.
+                - Vessel presence reports: `"public-global-presence:v5.0"`, `"public-global-presence:v4.0"`.
+                - SAR presence reports: `"public-global-sar-presence:v5.0"`, `"public-global-sar-presence:v4.0"`.
 
             filters (Optional[List[str]], default=None):
                 Filters to apply to the report. Defaults to `None`.

@@ -97,8 +97,12 @@ class VesselResource(BaseResource):
             datasets (Optional[Union[List[VesselDataset], List[str]]], default=["public-global-vessel-identity:latest"]):
                 Specify the datasets that will be used to search the vessel.
                 Defaults to `["public-global-vessel-identity:latest"]`.
-                Allowed values: `"public-global-vessel-identity:latest"`.
+                Allowed values: `"public-global-vessel-identity:latest"`,
+                `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `["public-global-vessel-identity:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             query (Optional[str], default=None):
                 Free form query that allows you to search a vessel by sending some identifier,
@@ -185,8 +189,12 @@ class VesselResource(BaseResource):
             datasets (Optional[Union[List[VesselDataset], List[str]]], default=["public-global-vessel-identity:latest"]):
                 Specify the datasets that will be used to search the vessel.
                 Defaults to `["public-global-vessel-identity:latest"]`.
-                Allowed values: `"public-global-vessel-identity:latest"`.
+                Allowed values: `"public-global-vessel-identity:latest"`,
+                `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `["public-global-vessel-identity:latest"]`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default="ALL"):
                 The response doesn't include all registry info data by default.
@@ -279,8 +287,12 @@ class VesselResource(BaseResource):
 
             dataset (Optional[Union[VesselDataset, str]], default="public-global-vessel-identity:latest"):
                 Specify the dataset that will be used to search the vessel. Defaults to `"public-global-vessel-identity:latest"`.
-                Allowed values: `"public-global-vessel-identity:latest"`.
+                Allowed values: `"public-global-vessel-identity:latest"`,
+                `"public-global-vessel-identity:v5.0"`, `"public-global-vessel-identity:v4.0"`.
                 Example: `"public-global-vessel-identity:latest"`.
+
+                **Important:** We recommend using the `latest` dataset alias to ensure access
+                to the latest data improvements.
 
             registries_info_data (Optional[Union[VesselRegistryInfoData, str]], default="ALL"):
                 The response doesn't include all registry info data by default.
