@@ -26,7 +26,9 @@ class EEZRegionEndPoint(
     For more details on the EEZ regions API endpoint, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
     """
 
     def __init__(
@@ -59,7 +61,9 @@ class MPARegionEndPoint(
     For more details on the MPA regions API endpoint, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
     """
 
     def __init__(
@@ -92,7 +96,9 @@ class RFMORegionEndPoint(
     For more details on the RFMO regions API endpoint, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
     """
 
     def __init__(
