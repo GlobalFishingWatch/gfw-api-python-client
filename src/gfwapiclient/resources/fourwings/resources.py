@@ -45,16 +45,16 @@ class FourWingsResource(BaseResource):
     For detailed information about the 4Wings API, refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
 
     For more details on the 4Wings data caveats, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
     """
 
     async def create_fishing_effort_report(
@@ -94,9 +94,9 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings AIS apparent fishing effort and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-apparent-fishing-activity
 
-        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
@@ -233,9 +233,9 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings AIS vessel presence and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-vessel-presence
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
 
         **Disclaimer:**
 
@@ -369,9 +369,9 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings SAR vessel detections and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#sar-vessel-detections
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
         **Important:**
 
@@ -514,16 +514,16 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings Report API endpoint, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
         For more details on the 4Wings data caveats, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
 
         **Disclaimer:**
 

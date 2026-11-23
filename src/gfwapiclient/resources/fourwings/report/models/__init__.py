@@ -8,7 +8,7 @@ and responses, ensuring type safety and data validation.
 For detailed information about the 4Wings Report API, refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 """
 
 from gfwapiclient.resources.fourwings.report.models.request import (

@@ -36,20 +36,20 @@ class FourWingsReportEndPoint(
     For more details on the 4Wings Report API, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
 
     For more details on the 4Wings data caveats, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
     """
 
     def __init__(
