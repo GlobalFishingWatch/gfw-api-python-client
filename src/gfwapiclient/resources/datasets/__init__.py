@@ -4,9 +4,12 @@ This module provides the `DatasetResource` class for interacting with the GFW
 Datasets API. It offers functionalities to access various datasets,
 including SAR fixed infrastructure data.
 
-For detailed information, see the official documentation:
+For detailed information about the Datasets API, please refer to the official
+Global Fishing Watch API documentation:
 
-`Datasets API Documentation <https://globalfishingwatch.org/our-apis/documentation#datasets-api>`_
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/fixed-infra-context-layer
 """
 
 from gfwapiclient.resources.datasets.resources import DatasetResource
