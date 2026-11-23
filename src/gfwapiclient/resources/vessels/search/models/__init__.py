@@ -10,7 +10,8 @@ The Vessels Search API allows users to search for vessels using keywords,
 filters, and other parameters. This module provides the data structures
 necessary for constructing search queries and parsing search results.
 
-For detailed information about the Vessels Search API, please refer to the
-official `Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#search>`_.
+For detailed information about the Vessels Search API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/search
 """

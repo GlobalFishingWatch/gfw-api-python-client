@@ -100,7 +100,7 @@ class VesselInclude(str, Enum):
 
             For more details on the Vessels API data caveats, please refer to the
             official Global Fishing Watch API documentation
-            here: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+            here: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
     """
 
     POTENTIAL_RELATED_SELF_REPORTED_INFO = "POTENTIAL_RELATED_SELF_REPORTED_INFO"

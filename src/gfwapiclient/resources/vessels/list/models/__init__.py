@@ -4,8 +4,8 @@ This module defines Pydantic models for the Get Vessels by IDs API resources.
 These models are used to represent request parameters and response data
 when retrieving details of multiple vessels using their unique identifiers.
 
-For detailed information about the Vessels API, including the Get Vessels by IDs
-endpoint, please refer to the official
-`Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids>`_.
+For detailed information about the Get Vessels by IDs API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-vessels
 """

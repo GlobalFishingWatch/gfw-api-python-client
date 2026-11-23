@@ -8,8 +8,8 @@ The Get Vessel by ID API allows users to retrieve comprehensive information
 about a specific vessel using its unique identifier. This module provides
 the data structures necessary for interacting with the API's endpoints.
 
-For detailed information about the Vessels API, including the Get Vessel by ID
-endpoint, please refer to the official
-`Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#get-vessel-by-id>`_."
+For detailed information about the Get Vessel by ID API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-one-vessel
 """

@@ -5,6 +5,7 @@ These models provide common structures for request parameters and response data,
 facilitating consistent data handling and validation.
 
 For detailed information about the Vessels API, please refer to the official
-`Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#vessels-api>`_.
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 """
