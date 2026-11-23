@@ -25,9 +25,9 @@ class BulkReportStatus(str, Enum):
     For more details on the Bulk Download API supported report statuses, please refer
     to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#bulk-report---response-fields
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-reports-get-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users#bulk-reports-get---response-fields
 
     Attributes:
         PENDING (str):
@@ -55,9 +55,9 @@ class BulkReportGeography(BaseModel):
     For more details on the Bulk Download API supported geographies, please refer to
     the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#bulk-report---response-fields
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-reports-get-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users#bulk-reports-get---response-fields
 
     Attributes:
         type (Optional[str]):
@@ -86,9 +86,9 @@ class BulkReportItem(ResultItem):
     For more details on the Bulk Download API supported response bodies, please refer
     to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#bulk-report---response-fields
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-reports-get-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users#bulk-reports-get---response-fields
 
     Attributes:
         id (Optional[str]):

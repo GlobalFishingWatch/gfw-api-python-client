@@ -24,7 +24,7 @@ class BulkReportQueryParams(RequestParams):
     For more details on the Query Bulk Report API endpoint supported request parameters,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
 
     Attributes:
         limit (Optional[int]):

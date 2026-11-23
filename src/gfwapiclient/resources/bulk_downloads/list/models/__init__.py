@@ -8,10 +8,10 @@ multiple previously created bulk report
 For detailed information about the Get All Bulk Reports API endpoint, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#get-all-bulk-reports-by-user
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users
 
 For more details on the Get All Bulk Reports data caveats, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 """

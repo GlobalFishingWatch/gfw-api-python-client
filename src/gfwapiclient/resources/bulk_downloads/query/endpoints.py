@@ -40,7 +40,7 @@ class BulkReportQueryEndPoint(
     For more details on the Query Bulk Report API endpoint, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
     """
 
     def __init__(
@@ -138,7 +138,7 @@ class BulkFixedInfrastructureDataQueryEndPoint(
     For more details on the Query Bulk Report API endpoint, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
     """
 
     def __init__(

@@ -7,10 +7,10 @@ when retrieving detailed metadata and status of previously created bulk report.
 For detailed information about the Get Bulk Report by ID API endpoint, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#get-bulk-report-by-id
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-id
 
 For more details on the Get Bulk Report by ID data caveats, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 """
