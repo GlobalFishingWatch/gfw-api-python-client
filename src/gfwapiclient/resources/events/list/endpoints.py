@@ -27,6 +27,11 @@ class EventListEndPoint(
 
     This endpoint allows you to retrieve a list of events based on specified
     request parameters and body.
+
+    For more details on the Get All Events API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-all-events
     """
 
     def __init__(

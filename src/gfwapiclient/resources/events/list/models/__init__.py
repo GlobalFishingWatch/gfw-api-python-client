@@ -5,7 +5,8 @@ when interacting with the Global Fishing Watch "Get All Events" API endpoint.
 It includes models for representing the request parameters, request body,
 and the list of event items returned by the API.
 
-For more details on the "Get All Events" API, please refer to the official
-`Global Fishing Watch Get All Events API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint>`_.
+For detailed information about the Get All Events API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-all-events
 """
