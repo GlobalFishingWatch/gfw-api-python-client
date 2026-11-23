@@ -5,10 +5,10 @@ correctly retrieve and process data related to maritime events like fishing,
 encounters, and port visits. They cover various filtering scenarios based on
 curl command examples, including geometry, region, and statistical queries.
 
-For more details on the Events API, please refer to the official
+For detailed information about the Events API, refer to the official
 Global Fishing Watch API documentation:
 
-- `Events API Documentation <https://globalfishingwatch.org/our-apis/documentation#introduction-events-api>`_
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events
 """
 
 from pathlib import Path

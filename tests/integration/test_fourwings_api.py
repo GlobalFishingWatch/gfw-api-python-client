@@ -4,10 +4,10 @@ These tests verify the functionality of the 4Wings API endpoints, ensuring they
 correctly retrieve and process data related to fishing effort and other metrics.
 They cover scenarios involving custom polygons and existing regions.
 
-For more details on the 4Wings API, please refer to the official
+For detailed information about the 4Wings API, refer to the official
 Global Fishing Watch API documentation:
 
-- `4Wings API Documentation <https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api>`_
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
 """
 
 from pathlib import Path

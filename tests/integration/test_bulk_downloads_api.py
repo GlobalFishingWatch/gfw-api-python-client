@@ -4,8 +4,10 @@ These tests verify the functionality of the `BulkDownloadResource` within the
 `gfwapiclient` library, ensuring that bulk reports can be created, retrieved,
 queried and downloaded correctly.
 
-For more details on the Bulk Download API, please refer to the official
-`Global Fishing Watch API documentation <https://globalfishingwatch.org/our-apis/documentation#bulk-download-api>`_.
+For detailed information about the Bulk Download API, please refer to the official
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download
 """
 
 import time
