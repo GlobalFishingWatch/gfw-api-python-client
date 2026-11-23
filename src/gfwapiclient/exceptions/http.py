@@ -60,7 +60,8 @@ class APIError(GFWAPIClientError):
 
     See Also:
         GFW API documentation on error codes:
-        <https://globalfishingwatch.org/our-apis/documentation#errors-codes>
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/errors
     """
 
     request: httpx.Request

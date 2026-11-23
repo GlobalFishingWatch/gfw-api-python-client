@@ -7,13 +7,13 @@ and resources, providing a unified interface for accessing GFW's data.
 For more details on the GFW API and available data, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#introduction
+See: https://globalfishingwatch.org/our-apis/documentation/
 
-See: https://globalfishingwatch.org/our-apis/documentation#data-available
+See: https://globalfishingwatch.org/global-fishing-watch-data-availability/
 
-See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
 
-See: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
 """
 
 from gfwapiclient.client.client import Client

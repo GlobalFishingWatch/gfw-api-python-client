@@ -34,13 +34,13 @@ class Client:
     For more details on the GFW API and available data, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#introduction
+    See: https://globalfishingwatch.org/our-apis/documentation/
 
-    See: https://globalfishingwatch.org/our-apis/documentation#data-available
+    See: https://globalfishingwatch.org/global-fishing-watch-data-availability/
 
-    See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
 
-    See: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
 
     Attributes:
         fourwings (FourWingsResource):
@@ -162,7 +162,7 @@ class Client:
         For more details on the 4Wings API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
 
         Returns:
             FourWingsResource:
@@ -182,7 +182,7 @@ class Client:
         For more details on the Vessels API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 
         Returns:
             VesselResource:
@@ -202,7 +202,7 @@ class Client:
         For more details on the Events API, refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#events-api
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events
 
         Returns:
             EventResource:
@@ -222,7 +222,7 @@ class Client:
         For more details on the Insights API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#insights-api
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights
 
         Returns:
             InsightResource:
@@ -242,7 +242,9 @@ class Client:
         For more details on the Datasets API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#datasets-api>
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/fixed-infra-context-layer
 
         Returns:
             DatasetResource:
@@ -262,7 +264,7 @@ class Client:
         For more details on the Bulk Download API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#bulk-download-api
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download
 
         Returns:
             BulkDownloadResource:
@@ -285,7 +287,9 @@ class Client:
         For more details on the Regions API, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#regions
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
         Returns:
             ReferenceResource:
