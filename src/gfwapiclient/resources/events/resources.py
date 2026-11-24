@@ -53,6 +53,26 @@ class EventResource(BaseResource):
 
     This resource provides methods for retrieving event data, including lists of
     events, individual events by ID, and event statistics.
+
+    For detailed information about the Events API, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events
+
+    For more details on the Events data caveats, please refer to the official
+    Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#how-are-the-events-estimated
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#encounter-event
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#loitering-event
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#port-visit-events
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-events
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-off-event-aka-gap
     """
 
     async def get_all_events(
@@ -81,6 +101,11 @@ class EventResource(BaseResource):
         """Get All Events.
 
         Retrieves a list of events based on specified criteria.
+
+        For detailed information about the Get All Events API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-all-events
 
         Args:
             datasets (Union[List[EventDataset], List[str]]):
@@ -237,6 +262,11 @@ class EventResource(BaseResource):
 
         Retrieves a single event by its ID.
 
+        For detailed information about the Get One Event By ID API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-one-event
+
         Args:
             id (str):
                 The ID of the event to retrieve.
@@ -309,6 +339,11 @@ class EventResource(BaseResource):
         **kwargs: Any,
     ) -> EventStatsResult:
         """Get events statistics worldwide or for a specific region.
+
+        For detailed information about the Get Events Statistics API endpoint, please
+        refer to the official Global Fishing Watch API documentation:
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/stats
 
         Args:
             datasets (Union[List[EventDataset], List[str]]):

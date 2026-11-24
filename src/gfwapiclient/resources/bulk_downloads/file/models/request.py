@@ -26,7 +26,7 @@ class BulkReportFileParams(RequestParams):
     request parameters, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-url-parameters-for-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file#parameters-query
 
     Attributes:
         file (Optional[BulkReportFileType]):

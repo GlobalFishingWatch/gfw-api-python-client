@@ -8,10 +8,10 @@ and response data when obtaining signed URL to download file(s) (i.e., `"DATA"`,
 For detailed information about the Download bulk Report (URL File) API endpoint,
 please refer to the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-url-file
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file
 
 For more details on the Download bulk Report (URL File) data caveats, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 """

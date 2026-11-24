@@ -80,12 +80,12 @@ class BulkDownloadResource(BaseResource):
     For detailed information about the Bulk Download API, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-download-api
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download
 
     For more details on the Bulk Download API data caveats, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
     """
 
     async def create_bulk_report(
@@ -106,12 +106,12 @@ class BulkDownloadResource(BaseResource):
         For detailed information about the Create a Bulk Report API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report
 
         For more details on the Create a Bulk Report data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 
         **Disclaimer:**
 
@@ -206,12 +206,12 @@ class BulkDownloadResource(BaseResource):
         For more details on the Get Bulk Report by ID API endpoint, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#get-bulk-report-by-id
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-id
 
         For more details on the Get Bulk Report by ID data caveats, please refer
         to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 
         **Important:**
 
@@ -260,12 +260,12 @@ class BulkDownloadResource(BaseResource):
         For detailed information about the Get All Bulk Reports API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#get-all-bulk-reports-by-user
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users
 
         For more details on the Get All Bulk Reports data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 
         Args:
             limit (Optional[int], default=99999):
@@ -343,12 +343,12 @@ class BulkDownloadResource(BaseResource):
         For more details on the Download bulk Report (URL File) API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-url-file
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file
 
         For more details on the Download bulk Report (URL File) data caveats, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 
         Args:
             id (str):
@@ -406,12 +406,12 @@ class BulkDownloadResource(BaseResource):
         For detailed information about the Query Bulk Report API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
 
         For more details on the Query Bulk Report data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 
         Args:
             id (str):

@@ -5,8 +5,12 @@ These tests verify the functionality of the `DatasetResource` within the
 correctly. Currently, they focus on retrieving SAR fixed infrastructure data
 in MVT format.
 
-For more details on the Datasets API, please refer to the official
-`Global Fishing Watch API documentation <https://globalfishingwatch.org/our-apis/documentation#datasets-api>`_.
+For detailed information about the Datasets API, please refer to the official
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/fixed-infra-context-layer
 """
 
 from pathlib import Path

@@ -27,9 +27,9 @@ class BulkFixedInfrastructureDataQueryItem(BulkReportQueryItem):
     For more details on the Query Bulk Report API endpoint supported response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report#get-data-in-json-format---response-fields
 
     Attributes:
         detection_id (Optional[str]):
@@ -110,7 +110,7 @@ class BulkFixedInfrastructureDataQueryResult(
     For more details on the Query Bulk Report API endpoint supported response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
 
     Attributes:
         _result_item_class (Type[BulkFixedInfrastructureDataQueryItem]):

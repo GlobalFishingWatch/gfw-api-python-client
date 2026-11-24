@@ -45,16 +45,16 @@ class FourWingsResource(BaseResource):
     For detailed information about the 4Wings API, refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
 
     For more details on the 4Wings data caveats, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-    See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-    See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
     """
 
     async def create_fishing_effort_report(
@@ -79,9 +79,9 @@ class FourWingsResource(BaseResource):
         region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
         **kwargs: Any,
     ) -> FourWingsReportResult:
-        """Create 4Wings AIS apparent fishing effort report for a specified region.
+        """Create 4Wings AIS apparent fishing activity report for a specified region.
 
-        Generates AIS (Automatic Identification System) apparent fishing effort report
+        Generates AIS (Automatic Identification System) apparent fishing activity report
         from the 4Wings API based on the provided parameters to visualize apparent
         fishing activity based on AIS data.
 
@@ -91,12 +91,12 @@ class FourWingsResource(BaseResource):
         - Fleet management
         - Supply chain visibility
 
-        For more details on the 4Wings AIS apparent fishing effort and its data caveats,
+        For more details on the 4Wings AIS apparent fishing activity and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-apparent-fishing-activity
 
-        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         Args:
             spatial_resolution (Optional[Union[FourWingsReportSpatialResolution, str]], default="HIGH"):
@@ -116,7 +116,7 @@ class FourWingsResource(BaseResource):
 
             datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-fishing-effort:latest"]):
                 Datasets that will be used to create the report. Defaults to `["public-global-fishing-effort:latest"]`.
-                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-fishing-efforte:v5.0"`,
+                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-fishing-effort:v5.0"`,
                 `"public-global-fishing-effort:v4.0"`.
                 Example: `["public-global-fishing-effort:latest"]`.
 
@@ -145,7 +145,7 @@ class FourWingsResource(BaseResource):
             distance_from_port_km (Optional[int], default=None):
                 Minimum distance from ports and anchorages. Defaults to `None`.
                 Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
-                Applies only to fishing effort dataset.
+                Applies only to fishing activity dataset.
                 Example: `3`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
@@ -220,7 +220,7 @@ class FourWingsResource(BaseResource):
     ) -> FourWingsReportResult:
         """Create 4Wings AIS vessel presence report for a specified region.
 
-        Generates AIS (Automatic Identification System) apparent fishing effort report
+        Generates AIS (Automatic Identification System) apparent fishing activity report
         from the 4Wings API based on the provided parameters to visualize any vessel
         type presence and movement patterns based on AIS data.
 
@@ -233,9 +233,9 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings AIS vessel presence and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-vessel-presence
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
 
         **Disclaimer:**
 
@@ -369,9 +369,9 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings SAR vessel detections and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#sar-vessel-detections
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
         **Important:**
 
@@ -514,16 +514,16 @@ class FourWingsResource(BaseResource):
         For more details on the 4Wings Report API endpoint, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
         For more details on the 4Wings data caveats, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-        See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-        See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
 
         **Disclaimer:**
 
@@ -562,7 +562,7 @@ class FourWingsResource(BaseResource):
                 to the latest data improvements.
 
                 Allowed specific version (alias) values:
-                - Fishing effort reports: `"public-global-fishing-effort:v5.0"`, `"public-global-fishing-effort:v4.0"`.
+                - Fishing activity reports: `"public-global-fishing-effort:v5.0"`, `"public-global-fishing-effort:v4.0"`.
                 - Vessel presence reports: `"public-global-presence:v5.0"`, `"public-global-presence:v4.0"`.
                 - SAR presence reports: `"public-global-sar-presence:v5.0"`, `"public-global-sar-presence:v4.0"`.
 
@@ -587,7 +587,7 @@ class FourWingsResource(BaseResource):
             distance_from_port_km (Optional[int], default=None):
                 Minimum distance from ports and anchorages. Defaults to `None`.
                 Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
-                Applies only to fishing effort dataset.
+                Applies only to fishing activity dataset.
                 Example: `3`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):

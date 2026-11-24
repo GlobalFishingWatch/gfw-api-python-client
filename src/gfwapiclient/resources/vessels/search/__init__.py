@@ -12,10 +12,10 @@ for interacting with the API's endpoint.
 For detailed information about the Vessels Search API endpoint, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#search
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/search
 
 For more details on the Vessels Search data caveats, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 """

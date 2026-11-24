@@ -5,7 +5,8 @@ when interacting with the Global Fishing Watch "Get one by Event ID" API endpoin
 It includes models for representing the request parameters and the detailed
 event information returned by the API.
 
-For more details on the "Get one by Event ID" API, please refer to the official
-`Global Fishing Watch Get one by Event ID API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#get-one-by-event-id>`_.
+For detailed information about the Get One Event By ID API endpoint, please refer to
+the official Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-one-event
 """

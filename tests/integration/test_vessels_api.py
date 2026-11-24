@@ -3,8 +3,10 @@
 These tests verify the functionality of the `VesselResource` within the `gfwapiclient` library,
 ensuring that vessel data can be searched and retrieved correctly.
 
-For more details on the Vessels API, please refer to the official
-`Global Fishing Watch Vessels API Documentation <https://globalfishingwatch.org/our-apis/documentation#vessels-api>`_.
+For detailed information about the Vessels API, please refer to the official
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 """
 
 from typing import List, Union, cast

@@ -2,9 +2,9 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access reference data, specifically geographic regions. The [Reference Data API](https://globalfishingwatch.org/our-apis/documentation#regions) offers access to static datasets, currently focusing on Exclusive Economic Zones (EEZs), Marine Protected Areas (MPAs), and Regional Fisheries Management Organizations (RFMOs). Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access reference data, specifically geographic regions. The [Reference Data API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions) offers access to static datasets, currently focusing on Exclusive Economic Zones (EEZs), Marine Protected Areas (MPAs), and Regional Fisheries Management Organizations (RFMOs). Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/references-data-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Reference Data Caveats](https://globalfishingwatch.org/our-apis/documentation#reference-data), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Reference Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ gfw_client = gfw.Client(
 
 The `gfw_client.references` object provides methods to retrieve different types of geographic regions. Each of these methods returns a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
-**Note:** Use `gfw_client.references` methods to obtain the **Region of Interest (ROI)**, i.e., `region`, which can then be passed directly to the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+**Note:** Use `gfw_client.references` methods to obtain the **Region of Interest (ROI)**, i.e., `region`, which can then be passed directly to the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download), [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights), and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
@@ -101,7 +101,7 @@ print((eez_roi.id, eez_roi.dataset, eez_roi.label, eez_roi.iso3))
 ('8371', 'public-eez-areas', 'Senegalese Exclusive Economic Zone', 'SEN')
 ```
 
-> **Note:** Pass `eez_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `eez_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download), [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights), and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ## Retrieving Marine Protected Areas (MPAs)
 
@@ -165,7 +165,7 @@ print((mpa_roi.id, mpa_roi.dataset, mpa_roi.label))
 ('555745302', 'public-mpa-all', 'Dorsal de Nasca - Reserva Nacional')
 ```
 
-> **Note:** Pass `mpa_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `mpa_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download), [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights), and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ## Retrieving Regional Fisheries Management Organizations (RFMOs)
 
@@ -228,7 +228,7 @@ print((rfmo_roi.id, rfmo_roi.dataset, rfmo_roi.label))
 ('WCPFC', 'public-rfmo', 'WCPFC')
 ```
 
-> **Note:** Pass `rfmo_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api), [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api), and [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) methods.
+> **Note:** Pass `rfmo_roi` directly to `region` parameter of the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download), [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights), and [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) methods.
 
 ## Next Steps
 

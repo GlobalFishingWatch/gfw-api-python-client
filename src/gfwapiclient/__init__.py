@@ -3,14 +3,12 @@
 This package provides a Python client for interacting with the Global Fishing Watch
 (GFW) API version 3.
 
-See: https://globalfishingwatch.org/our-apis/documentation#version-3-api
-
-See: https://globalfishingwatch.org/our-apis/documentation#in-api-version-3
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3
 
 It enables access to publicly available API resources, and facilitating the retrieval
 of the following APIs data:
 
-- **Map Visualization (4Wings API)**: Access AIS apparent fishing effort,
+- **Map Visualization (4Wings API)**: Access AIS apparent fishing activity,
 AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.
 
 - **Vessels API**: Search and retrieve vessel identity based on AIS self-reported data,
@@ -39,16 +37,16 @@ some **noisy** that are not filtered out.
 For more details on the data, API licenses, and rate limits, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#introduction
+See: https://globalfishingwatch.org/our-apis/documentation/
 
 For more details on the datasets, data caveats and terms of use, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#api-dataset
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset
 
-See: https://globalfishingwatch.org/our-apis/documentation#data-caveat
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats
 
-See: https://globalfishingwatch.org/our-apis/documentation#terms-of-use
+See: https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use
 """
 
 from gfwapiclient.__version__ import __version__

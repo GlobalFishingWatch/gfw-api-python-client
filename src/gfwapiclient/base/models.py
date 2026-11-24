@@ -82,7 +82,9 @@ class RegionDataset(str, Enum):
     For more details on the Regions API supported datasets, please refer
     to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     Attributes:
         PUBLIC_EEZ_AREAS (str):
@@ -114,35 +116,37 @@ class Region(BaseModel):
     Global Fishing Watch API endpoints when:
 
     - Create a report of a specified region.
-    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
     - Get All Events:
-    See: https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-all-events
 
     - Create a Bulk Report.
-    See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+    See https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report
 
     For more details on the predefined region (or area) of interest, please refer
     to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     For more details on the predefined region (or area) of interest data caveats,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definition
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#exclusive-economic-zone-boundaries-definition
 
-    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#marine-protected-area-boundaries-definition
 
-    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eez-mpa-or-rfmo
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eezmpa-or-rfmo
 
-    See: https://globalfishingwatch.org/our-apis/documentation#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---rfmo-iuu-vessel-list
 
-    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definitions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#exclusive-economic-zone-boundaries-definitions
 
-    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition-2
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#marine-protected-area-boundaries-definition-1
 
     Attributes:
         dataset (Optional[RegionDataset]):
@@ -226,13 +230,13 @@ class GeoJson(FeatureCollection[Feature[Geometry, Union[Dict[str, Any], BaseMode
     in other Global Fishing Watch API endpoints when:
 
     - Create a report of a specified region.
-    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
     - Get All Events:
-    See: https://globalfishingwatch.org/our-apis/documentation#get-all-events-post-endpoint
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-all-events
 
     - Create a Bulk Report.
-    See https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+    See https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report
 
     For more details on `GeoJSON` and `__geo_interface__`, please refer
     to the official documentations:

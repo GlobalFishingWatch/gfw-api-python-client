@@ -22,29 +22,29 @@
 Python package for accessing data from Global Fishing Watch (GFW) APIs.
 
 > **Important:**
-> The `gfw-api-python-client` version 1 directly corresponds to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation#version-3-api). As of April 30th, 2024, API version 3 is the standard. For the most recent API updates, refer to our [API release notes](https://globalfishingwatch.org/our-apis/documentation#api-release-notes).
+> The `gfw-api-python-client` version 1 directly corresponds to Global Fishing Watch API [version 3](https://globalfishingwatch.org/our-apis/documentation/docs/v3). As of April 30th, 2024, API version 3 is the standard. For the most recent API updates, refer to our [API release notes](https://globalfishingwatch.org/our-apis/documentation/docs/release-notes).
 
 ## Introduction
 
-The `gfw-api-python-client` simplifies access to Global Fishing Watch (GFW) data through [our APIs](https://globalfishingwatch.org/our-apis/documentation#introduction]). It offers straightforward functions for retrieving GFW data. For R users, we also provide the gfwr package; learn more [here](https://globalfishingwatch.github.io/gfwr/)
+The `gfw-api-python-client` simplifies access to Global Fishing Watch (GFW) data through [our APIs](https://globalfishingwatch.org/our-apis/documentation/]). It offers straightforward functions for retrieving GFW data. For R users, we also provide the gfwr package; learn more [here](https://globalfishingwatch.github.io/gfwr/)
 
 The Global Fishing Watch Python package currently works with the following APIs:
 
-- [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api): Access AIS apparent fishing effort, AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.
+- [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings): Access AIS apparent fishing effort, AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.
 
-- [Vessels API](https://globalfishingwatch.org/our-apis/documentation#vessels-api): Search and retrieve vessel identity based on AIS self-reported data, combined with authorization and registry data from regional and national registries.
+- [Vessels API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels): Search and retrieve vessel identity based on AIS self-reported data, combined with authorization and registry data from regional and national registries.
 
-- [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api): Retrieve vessel activity events such as encounters, loitering, port visits, fishing events, and AIS off (aka GAPs).
+- [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events): Retrieve vessel activity events such as encounters, loitering, port visits, fishing events, and AIS off (aka GAPs).
 
-- [Insights API](https://globalfishingwatch.org/our-apis/documentation#insights-api): Access vessel insights that combine AIS activity, vessel identity, and public authorizations. Designed to support risk-based decision-making, operational planning, and due diligence—particularly for assessing risks of IUU (Illegal, Unreported, or Unregulated) fishing.
+- [Insights API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/insights): Access vessel insights that combine AIS activity, vessel identity, and public authorizations. Designed to support risk-based decision-making, operational planning, and due diligence—particularly for assessing risks of IUU (Illegal, Unreported, or Unregulated) fishing.
 
-- [Datasets API](https://globalfishingwatch.org/our-apis/documentation#datasets-api): Retrieve fixed offshore infrastructure detections (e.g., oil platforms, wind farms) from Sentinel-1 and Sentinel-2 satellite imagery, from 2017 up to 3 months ago, classified using deep learning.
+- [Datasets API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/fixed-infra-context-layer): Retrieve fixed offshore infrastructure detections (e.g., oil platforms, wind farms) from Sentinel-1 and Sentinel-2 satellite imagery, from 2017 up to 3 months ago, classified using deep learning.
 
-- [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation#bulk-download-api): Efficiently access and download large-scale datasets to integrate with big data platforms and tools used by data engineers and researchers. Unlike our other APIs ([Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api), [Datasets API](https://globalfishingwatch.org/our-apis/documentation#datasets-api) etc.), these datasets may include some **noisy** that are not filtered out.
+- [Bulk Download API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download): Efficiently access and download large-scale datasets to integrate with big data platforms and tools used by data engineers and researchers. Unlike our other APIs ([Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), [Datasets API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/fixed-infra-context-layer) etc.), these datasets may include some **noisy** that are not filtered out.
 
-- [References API](https://globalfishingwatch.org/our-apis/documentation#regions): Access metadata for EEZs, MPAs, and RFMOs to use in [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) and [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api) requests and analyses.
+- [References API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions): Access metadata for EEZs, MPAs, and RFMOs to use in [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) and [Map Visualization (4Wings API)](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings) requests and analyses.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation#data-caveat), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 ## Requirements
 

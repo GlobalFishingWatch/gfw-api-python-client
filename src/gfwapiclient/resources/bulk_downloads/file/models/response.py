@@ -20,7 +20,7 @@ class BulkReportFileItem(ResultItem):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file#download-bulk-report--response
 
     Attributes:
         url (Optional[str]):
@@ -37,7 +37,7 @@ class BulkReportFileResult(Result[BulkReportFileItem]):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file#download-bulk-report--response
 
     Attributes:
         _result_item_class (Type[BulkReportFileItem]):

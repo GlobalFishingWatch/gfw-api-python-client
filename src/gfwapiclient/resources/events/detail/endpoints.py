@@ -20,6 +20,11 @@ class EventDetailEndPoint(
 
     This endpoint allows you to retrieve detailed information about a specific
     event using its unique ID.
+
+    For more details on the Get One Event By ID API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/get-one-event
     """
 
     def __init__(

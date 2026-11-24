@@ -12,12 +12,12 @@ region geometry (in GeoJSON format) files.
 For detailed information about the Bulk Download API, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#bulk-download-api
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download
 
 For more details on the Bulk Download data caveats, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 """
 
 from gfwapiclient.resources.bulk_downloads.resources import BulkDownloadResource

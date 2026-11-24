@@ -52,12 +52,12 @@ class VesselResource(BaseResource):
     For detailed information about the Vessels API, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 
     For more details on the Vessels API data caveats, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
     """
 
     async def search_vessels(
@@ -77,12 +77,12 @@ class VesselResource(BaseResource):
         For detailed information about the Vessels Search API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#search
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/search
 
         For more details on the Vessels Search data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 
         Args:
             since (Optional[str], default=None):
@@ -174,12 +174,12 @@ class VesselResource(BaseResource):
         For detailed information about the Get Vessels by IDs API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-vessels
 
         For more details on the Get Vessels by IDs data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 
         Args:
             ids (List[str]):
@@ -273,12 +273,12 @@ class VesselResource(BaseResource):
         For detailed information about the Get Vessel by ID API endpoint, please
         refer to the official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#get-vessel-by-id
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-one-vessel
 
         For more details on the Get Vessel by ID data caveats, please refer to the
         official Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 
         Args:
             id (str):

@@ -7,16 +7,16 @@ AIS vessel presence and SAR vessel detections.
 For detailed information about the 4Wings API, refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#map-visualization-4wings-api
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings
 
 For more details on the 4Wings data caveats, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#apparent-fishing-effort
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats
 
-See: https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats
 """
 
 from gfwapiclient.resources.fourwings.resources import FourWingsResource

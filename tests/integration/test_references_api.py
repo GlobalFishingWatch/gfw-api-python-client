@@ -3,8 +3,12 @@
 These tests verify the functionality of the `ReferenceResource` within the `gfwapiclient` library,
 ensuring that reference data (EEZ, MPA, RFMO regions) can be retrieved correctly.
 
-For more details on the Regions API, please refer to the official
-`Global Fishing Watch Regions API Documentation <https://globalfishingwatch.org/our-apis/documentation#regions>`_.
+For detailed information about the Regions API, please refer to the official
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 """
 
 from typing import List, cast

@@ -4,6 +4,7 @@ This module provides base classes used across the Vessels API endpoints
 to ensure consistent behavior.
 
 For detailed information about the Vessels API, please refer to the official
-`Global Fishing Watch Vessels API Documentation
-<https://globalfishingwatch.org/our-apis/documentation#vessels-api>`_.
+Global Fishing Watch API documentation:
+
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 """

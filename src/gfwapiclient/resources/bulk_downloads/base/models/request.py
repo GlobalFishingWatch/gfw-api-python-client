@@ -63,7 +63,7 @@ class BulkReportFormat(str, Enum):
     For more details on the Bulk Download API supported result formats, please refer
     to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#request-body
 
     Attributes:
         CSV (str):
@@ -86,7 +86,7 @@ class BulkReportGeometry(GeoJson):
     For more details on the Bulk Download API supported geojson/geometries, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#request-body
     """
 
     pass
@@ -100,9 +100,11 @@ class BulkReportRegion(Region):
     For more details on the Bulk Download API supported regions, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#request-body
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
     """
 
     pass
@@ -114,7 +116,7 @@ class BulkReportFileType(str, Enum):
     For more details on the Bulk Download API supported file types, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#download-bulk-report-url-parameters-for-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/download-file#parameters-query
 
     Attributes:
         DATA (str):

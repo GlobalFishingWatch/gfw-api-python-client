@@ -23,7 +23,7 @@ class FourWingsReportItem(ResultItem):
     For more details on the 4Wings API supported report response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#create-a-report-of-a-specified-region
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report
 
     Attributes:
         date (Optional[str]):

@@ -31,7 +31,7 @@ class VesselSearchEndPoint(
     For more details on the Vessels Search API endpoint, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#search
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/search
     """
 
     def __init__(

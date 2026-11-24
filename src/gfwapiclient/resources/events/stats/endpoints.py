@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Events Statistics API Endpoints."""
+"""Global Fishing Watch (GFW) API Python Client - Get Events Statistics API Endpoints."""
 
 from gfwapiclient.http.client import HTTPClient
 from gfwapiclient.http.endpoints import PostEndPoint
@@ -20,6 +20,11 @@ class EventStatsEndPoint(
 
     This endpoint allows you to retrieve statistical information about events
     based on specified request body parameters.
+
+    For more details on the Get Events Statistics API endpoint, please refer to the
+    official Global Fishing Watch API documentation:
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/events/stats
     """
 
     def __init__(

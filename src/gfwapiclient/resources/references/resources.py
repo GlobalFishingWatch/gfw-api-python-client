@@ -36,26 +36,28 @@ class ReferenceResource(BaseResource):
     For detailed information about the Reference Data API, please refer to the official
     Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#reference-data
+    See: globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     For more details on the Reference Data API data caveats, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definition
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#exclusive-economic-zone-boundaries-definition
 
-    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#marine-protected-area-boundaries-definition
 
-    See: https://globalfishingwatch.org/our-apis/documentation#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eez-mpa-or-rfmo
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#what-does-it-mean-if-an-event-is-within-a-specific-geographic-area-such-as-an-eezmpa-or-rfmo
 
-    See: https://globalfishingwatch.org/our-apis/documentation#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#how-does-gfw-calculate-that-an-event-has-a-publicly-listed-authorization
 
-    See: https://globalfishingwatch.org/our-apis/documentation#insights-api-rfmo-iuu-vessel-list
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#insights-api---rfmo-iuu-vessel-list
 
-    See: https://globalfishingwatch.org/our-apis/documentation#exclusive-economic-zone-boundaries-definitions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#exclusive-economic-zone-boundaries-definitions
 
-    See: https://globalfishingwatch.org/our-apis/documentation#marine-protected-area-boundaries-definition-2
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#marine-protected-area-boundaries-definition-1
     """
 
     async def get_eez_regions(
@@ -86,7 +88,9 @@ class ReferenceResource(BaseResource):
         For detailed information about the EEZ regions API endpoint, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#regions
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
         For more details on the EEZ regions data caveats, please refer to the official
         Global Fishing Watch API documentation:
@@ -187,7 +191,9 @@ class ReferenceResource(BaseResource):
         For detailed information about the MPA regions API endpoint, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#regions
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
         For more details on the MPA regions data caveats, please refer to the official
         Global Fishing Watch API documentation:
@@ -255,7 +261,9 @@ class ReferenceResource(BaseResource):
         For detailed information about the RFMO regions API endpoint, please refer to the official
         Global Fishing Watch API documentation:
 
-        See: https://globalfishingwatch.org/our-apis/documentation#regions
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+        See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
         For more details on the RFMO regions data caveats, please refer to the official
         Global Fishing Watch API documentation:

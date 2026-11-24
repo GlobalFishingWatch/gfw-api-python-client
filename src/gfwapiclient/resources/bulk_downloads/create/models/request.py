@@ -29,9 +29,9 @@ class BulkReportCreateBody(RequestBody):
     For more details on the Create a Bulk Report API endpoint supported request body,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#request-body
 
-    See: https://globalfishingwatch.org/our-apis/documentation#create-a-bulk-report
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report
 
     Attributes:
         name (Optional[str]):

@@ -32,7 +32,7 @@ class VesselListEndPoint(
     For more details on the Get Vessels by IDs API endpoint, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-vessels
     """
 
     def __init__(

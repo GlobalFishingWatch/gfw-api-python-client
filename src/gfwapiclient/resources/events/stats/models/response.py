@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Events Statistics API Response Models."""
+"""Global Fishing Watch (GFW) API Python Client - Get Events Statistics API Response Models."""
 
 import datetime
 

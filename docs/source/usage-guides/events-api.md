@@ -2,9 +2,9 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about various activities of a vessel, including fishing activity, encounters, port visits, loitering, and gaps in AIS reporting. The [Events API](https://globalfishingwatch.org/our-apis/documentation#events-api) allows you to retrieve lists of events, get details for a specific event, and obtain statistics on event occurrences. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access information about various activities of a vessel, including fishing activity, encounters, port visits, loitering, and gaps in AIS reporting. The [Events API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/events) allows you to retrieve lists of events, get details for a specific event, and obtain statistics on event occurrences. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/events-api.ipynb) version of this guide with more usage examples.
 
-> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation#api-dataset), [Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation#how-are-the-events-estimated), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on GFW data, API licenses, and rate limits.
+> **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#how-are-the-events-estimated), [Encounter Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#encounter-event), [Loitering Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#loitering-event), [Port Visit Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#port-visit-events), [Apparent Fishing Events Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-events), [AIS Off Events (aka GAP) Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-off-event-aka-gap), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
 <blockquote>
 
@@ -18,7 +18,7 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
     - `public-global-port-visits-events:latest`
 - **Specific versions:** Each dataset also supports `v5.0` and `v4.0`.
 
-If no `datasets` are specified on `datasets` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation#introduction) for details on supported GFW datasets and versioning.
+If no `datasets` are specified on `datasets` parameter, the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) uses the `latest` alias by default. We recommend using `latest` to automatically access the most recent data improvements. Specific versions support reproducibility but may be deprecated and eventually retired. See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset) page in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on supported GFW datasets and versioning.
 
 </blockquote>
 
@@ -56,7 +56,7 @@ The `gfw_client.events` object provides methods to retrieve event data and stati
 
 The `get_all_events()` method allows you to retrieve a list of events based on specified criteria. The `datasets` parameter is mandatory.
 
-> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="CHN")
@@ -317,7 +317,7 @@ memory usage: 172.0+ bytes
 
 ## Getting Event Statistics from Predefined Region (`get_events_stats`)
 
-> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
+> **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
 ```python
 eez_rois_result = await gfw_client.references.get_eez_regions(iso3="SEN")

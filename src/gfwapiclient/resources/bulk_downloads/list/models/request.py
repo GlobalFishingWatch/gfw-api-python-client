@@ -27,7 +27,7 @@ class BulkReportListParams(RequestParams):
     request parameters, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-all-bulk-reports-by-user
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users
 
     Attributes:
         limit (Optional[int]):

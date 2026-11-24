@@ -8,10 +8,10 @@ of API requests and the parsing of API responses for vessel lists.
 For detailed information about the Get Vessels by IDs API endpoint, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#get-list-of-vessels-filtered-by-ids
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels/get-vessels
 
 For more details on the Get Vessels by IDs data caveats, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 """

@@ -1,4 +1,4 @@
-"""Global Fishing Watch (GFW) API Python Client - Events Statistics API Request Models."""
+"""Global Fishing Watch (GFW) API Python Client - Get Events Statistics API Request Models."""
 
 from enum import Enum
 from typing import Final, List, Optional

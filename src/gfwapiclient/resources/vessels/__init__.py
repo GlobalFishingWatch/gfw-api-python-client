@@ -8,12 +8,12 @@ details by ID or IDs, and provides a convenient way to access vessel data.
 For detailed information about the Vessels API, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#vessels-api
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/vessels
 
 For more details on the Vessels data caveats, please refer to the official
 Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#vessel-api-vessel-identity-information
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#vessel-api---vessel-identity-information
 """
 
 from gfwapiclient.resources.vessels.resources import VesselResource

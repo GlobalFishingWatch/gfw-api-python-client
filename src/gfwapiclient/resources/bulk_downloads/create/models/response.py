@@ -18,9 +18,9 @@ class BulkReportCreateItem(BulkReportItem):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#bulk-report---response-fields
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-reports-get-http-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users#bulk-reports-get---response-fields
     """
 
     pass
@@ -33,7 +33,7 @@ class BulkReportCreateResult(Result[BulkReportCreateItem]):
     response bodies, please refer to the official Global Fishing Watch API
     documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#bulk-report-response
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report#bulk-report---response-fields
 
     Attributes:
         _result_item_class (Type[BulkReportFileItem]):

@@ -69,7 +69,9 @@ class EEZRegionResult(Result[EEZRegionItem]):
     For more details on the EEZ regions API endpoint supported response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     Attributes:
         _result_item_class (Type[EEZRegionItem]):
@@ -122,7 +124,9 @@ class MPARegionResult(Result[MPARegionItem]):
     For more details on the MPA regions API endpoint supported response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     Attributes:
         _result_item_class (Type[MPARegionItem]):
@@ -179,7 +183,9 @@ class RFMORegionResult(Result[RFMORegionItem]):
     For more details on the RFMO regions API endpoint supported response bodies,
     please refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     Attributes:
         _result_item_class (Type[RFMORegionItem]):

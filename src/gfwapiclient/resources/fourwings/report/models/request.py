@@ -31,7 +31,7 @@ class FourWingsReportFormat(str, Enum):
     For more details on the 4Wings API supported report result formats, please refer to
     the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
     Attributes:
         JSON (str):
@@ -47,7 +47,7 @@ class FourWingsReportSpatialResolution(str, Enum):
     For more details on the 4Wings API supported report spatial resolutions, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
     Attributes:
         LOW (str):
@@ -67,7 +67,7 @@ class FourWingsReportGroupBy(str, Enum):
     For more details on the 4Wings API supported report grouped by criteria, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
     Attributes:
         VESSEL_ID (str):
@@ -99,7 +99,7 @@ class FourWingsReportTemporalResolution(str, Enum):
     For more details on the 4Wings API supported report temporal resolutions, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
     Attributes:
         HOURLY (str):
@@ -131,7 +131,7 @@ class FourWingsReportBufferOperation(str, Enum):
     For more details on the 4Wings API supported report buffer operations, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
 
     Attributes:
         DIFFERENCE (str):
@@ -151,7 +151,7 @@ class FourWingsReportBufferUnit(str, Enum):
     For more details on the 4Wings API supported report buffer value units, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
 
     Attributes:
         MILES (str):
@@ -204,15 +204,15 @@ class FourWingsReportDataset(str, Enum):
 
     Attributes:
         FISHING_EFFORT_LATEST (str):
-            The latest version of the public global fishing effort dataset.
+            The latest version of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         FISHING_EFFORT_V5_0 (str):
-            Version 5.0 of the public global fishing effort dataset.
+            Version 5.0 of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         FISHING_EFFORT_V4_0 (str):
-            Version 4.0 of the public global fishing effort dataset.
+            Version 4.0 of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         PRESENCE_LATEST (str):
@@ -261,7 +261,7 @@ class FourWingsGeometry(GeoJson):
     For more details on the 4Wings API supported report geojson/geometries, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
     """
 
     pass
@@ -275,9 +275,11 @@ class FourWingsReportRegion(Region):
     For more details on the 4Wings API supported report regions, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
 
-    See: https://globalfishingwatch.org/our-apis/documentation#regions
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions
+
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/datasets/regions
 
     Attributes:
         dataset (Optional[RegionDataset]):
@@ -312,7 +314,7 @@ class FourWingsReportParams(RequestParams):
     For more details on the 4Wings API supported report request parameters, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-url-parameters-for-both-post-and-get-requests
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#parameters-query
 
     Attributes:
         spatial_resolution (Optional[FourWingsReportSpatialResolution]):
@@ -343,7 +345,7 @@ class FourWingsReportParams(RequestParams):
         distance_from_port_km (Optional[int]):
             Minimum distance from ports and anchorages.
             ENUM values: 0, 1, 2, 3, 4, 5 (kilometers).
-            Applies only to fishing effort dataset.
+            Applies only to fishing activity dataset.
             Defaults to `3` kilometers to reduce overestimation near ports.
     """
 
@@ -378,7 +380,7 @@ class FourWingsReportBody(RequestBody):
     For more details on the 4Wings API supported report request body, please
     refer to the official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#report-body-only-for-post-request
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings/report#request-body
 
     Attributes:
         geojson (Optional[GeoJson]):

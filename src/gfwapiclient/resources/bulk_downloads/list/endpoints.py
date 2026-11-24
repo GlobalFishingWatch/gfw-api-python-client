@@ -33,7 +33,7 @@ class BulkReportListEndPoint(
     For more details on the Get All Bulk Reports API endpoint, please refer to the
     official Global Fishing Watch API documentation:
 
-    See: https://globalfishingwatch.org/our-apis/documentation#get-all-bulk-reports-by-user
+    See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-users
     """
 
     def __init__(

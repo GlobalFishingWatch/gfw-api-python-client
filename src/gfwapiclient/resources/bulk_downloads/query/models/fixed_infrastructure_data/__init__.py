@@ -8,10 +8,10 @@ fixed infrastructure data (i.e `public-fixed-infrastructure-data:latest` dataset
 For detailed information about the Query Bulk Report - API endpoint, please refer to
 the official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#get-data-in-json-format
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/query-bulk-report
 
 For more details on the Query Bulk Report - data caveats, please refer to the
 official Global Fishing Watch API documentation:
 
-See: https://globalfishingwatch.org/our-apis/documentation#sar-fixed-infrastructure-data-caveats
+See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats
 """
