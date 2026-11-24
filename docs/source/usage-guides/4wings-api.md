@@ -155,7 +155,7 @@ memory usage: 4.9+ MB
 
 ## Creating an AIS Presence Report (`create_ais_presence_report`)
 
-Generates **AIS (Automatic Identification System) vessel presence** reports to visualize movement patterns of any vessel type. Please [learn more about AIS vessel presence here](https://globalfishingwatch.org/our-apis/documentation#ais-vessel-presence) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats).
+Generates **AIS (Automatic Identification System) vessel presence** reports to visualize movement patterns of any vessel type. Please [learn more about AIS vessel presence here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-vessel-presence) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats).
 
 > **Disclaimer:** AIS vessel presence is one of the largest datasets available. To prevent timeouts and ensure optimal performance, keep requests manageable: prefer simple, small regions and shorter time ranges (e.g., a few days).
 
@@ -251,7 +251,7 @@ memory usage: 41.9+ MB
 
 ## Creating a SAR Vessel Detections Report (`create_sar_presence_report`)
 
-Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identify vessels detected via radar, including non-broadcasting (possible `"dark"`) vessels. Please [learn more about SAR vessel detections here](https://globalfishingwatch.org/our-apis/documentation#sar-vessel-detections) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats).
+Generates **SAR (Synthetic-Aperture Radar) vessel detections** reports to identify vessels detected via radar, including non-broadcasting (possible `"dark"`) vessels. Please [learn more about SAR vessel detections here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#sar-vessel-detections) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats).
 
 > **Important:** **AIS vessel presence** shows where vessels **reported their positions** via the **Automatic Identification System (AIS)**. **SAR vessel detection** shows where **Synthetic Aperture Radar (SAR) satellites detected** vessels on the ocean surface, even if they **weren't transmitting AIS**.
 

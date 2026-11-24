@@ -58,7 +58,7 @@ These methods return a `result` object, which offers convenient ways to access t
 
 ## Create a Bulk Report from Predefined Region (`create_bulk_report`)
 
-The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
+The `create_bulk_report()` method allows you **create** a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 > **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 
@@ -160,7 +160,7 @@ memory usage: 236.0+ bytes
 
 ## Create a Bulk Report from Custom Region (`create_bulk_report`)
 
-The `create_bulk_report()` method allows you create a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
+The `create_bulk_report()` method allows you **create** a bulk report based on specified filters and spatial parameters. The `name` parameter is mandatory. Please [learn more about create a bulk report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/create-bulk-report) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 > **Note:** Custom region can either a path to a spatial file (e.g., GeoJSON, Shapefile, etc.), GeoJSON-like object (e.g., JSON string, dictionary, `geopandas.GeoDataFrame`, `shapely`, an object implementing `__geo_interface__` etc.) or `GeoJson` model instance. Spatial files are loaded using [geopandas.read_file](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html) and supported formats depend on a properly configured [geopandas/GDAL installation](https://geopandas.org/en/stable/getting_started/install.html#installing-with-pip).
 
@@ -253,7 +253,7 @@ memory usage: 236.0+ bytes
 
 ## Get Bulk Report by ID (`get_bulk_report_by_id`)
 
-The `get_bulk_report_by_id()` method allows you retrieves metadata and status of the previously created bulk report based on the provided bulk report ID. The `id` parameter is mandatory. Please [learn more about get bulk report by id report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-id) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
+The `get_bulk_report_by_id()` method allows you retrieves **metadata and status** of the previously created bulk report based on the provided bulk report ID. The `id` parameter is mandatory. Please [learn more about get bulk report by id report here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/bulk-download/get-bulk-report-id) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats) and [here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-fixed-infrastructure-data-caveats).
 
 > **Important:** We recommend to use this method to poll the status of previously created bulk report, if it takes **several minutes or hours** to generate until it status is `done` or `failed`.
 
