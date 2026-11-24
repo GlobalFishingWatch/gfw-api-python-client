@@ -2,7 +2,7 @@
 
 <a href="https://colab.research.google.com/github/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), which is designed for generating reports and statistics on activities within specified regions. This API is particularly useful for creating data visualizations related to fishing effort and other vessel activities. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb) version of this guide with more usage examples.
+This guide provides detailed instructions on how to use the [gfw-api-python-client](https://github.com/GlobalFishingWatch/gfw-api-python-client) to access the [4Wings API](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings), which is designed for generating reports and statistics on activities within specified regions. This API is particularly useful for creating data visualizations related to fishing activity and other vessel activities. Here is a [Jupyter Notebook](https://github.com/GlobalFishingWatch/gfw-api-python-client/blob/develop/notebooks/usage-guides/4wings-api.ipynb) version of this guide with more usage examples.
 
 > **Note:** See the [Datasets](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/key-concepts#api-dataset), [AIS Apparent Fishing Effort Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity), [AIS Vessel Presence Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#ais-vessel-presence-caveats), [SAR Vessel Detections Data Caveats](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#sar-vessel-detections-data-caveats), and [Terms of Use](https://globalfishingwatch.org/our-apis/documentation/docs/license-rate-limits#terms-of-use) pages in the [GFW API documentation](https://globalfishingwatch.org/our-apis/documentation/) for details on GFW data, API licenses, and rate limits.
 
@@ -10,10 +10,10 @@ This guide provides detailed instructions on how to use the [gfw-api-python-clie
 
 **Important – Supported datasets, versions, and shortcut methods**
 
-- **Fishing effort:**
+- **Fishing activity:**
     - **Recommended (default):** `public-global-fishing-effort:latest`
     - **Specific versions:** `public-global-fishing-effort:v5.0`, `public-global-fishing-effort:v4.0`
-    - **Shortcut method:** `create_fishing_effort_report()` – creates a fishing effort report using `public-global-fishing-effort:latest` by default.
+    - **Shortcut method:** `create_fishing_effort_report()` – creates a fishing activity report using `public-global-fishing-effort:latest` by default.
 
 - **AIS vessel presence:**
     - **Recommended (default):** `public-global-presence:latest`
@@ -55,13 +55,13 @@ gfw_client = gfw.Client(
 )
 ```
 
-The `gfw_client.fourwings` object provides methods to generate reports, retrieve the last generated report, and get global fishing effort statistics. These methods return a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
+The `gfw_client.fourwings` object provides methods to generate reports, retrieve the last generated report, and get global fishing activity statistics. These methods return a `result` object, which offers convenient ways to access the data as Pydantic models using `.data()` or as pandas DataFrames using `.df()`.
 
 > **Tip:** Use [IPython](https://ipython.readthedocs.io/en/stable/) or Python 3.11+ with `python -m asyncio` to run `gfw-api-python-client` code interactively, as these environments support executing `async` / `await` expressions directly in the console.
 
 ## Creating a Fishing Effort Report (`create_fishing_effort_report`)
 
-Generates **AIS (Automatic Identification System) apparent fishing effort** reports to visualize fishing activity. Please [learn more about apparent fishing effort here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-apparent-fishing-activity) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity).
+Generates **AIS (Automatic Identification System) apparent fishing activity** reports to visualize fishing activity. Please [learn more about apparent fishing activity here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-apparent-fishing-activity) and [check its data caveats here](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity).
 
 > **Note:** See how to use the [Reference Data API - Usage Guides](https://globalfishingwatch.github.io/gfw-api-python-client/usage-guides/references-data-api.html) to obtain and filter predefined [**Regions of Interest (ROIs)**](https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/reference-data#regions), such as Exclusive Economic Zones (**EEZs**), Marine Protected Areas (**MPAs**), and Regional Fisheries Management Organizations (**RFMOs**).
 

@@ -1,7 +1,7 @@
 """Integration tests for the `gfwapiclient` 4Wings API.
 
 These tests verify the functionality of the 4Wings API endpoints, ensuring they
-correctly retrieve and process data related to fishing effort and other metrics.
+correctly retrieve and process data related to fishing activity and other metrics.
 They cover scenarios involving custom polygons and existing regions.
 
 For detailed information about the 4Wings API, refer to the official
@@ -40,10 +40,10 @@ from gfwapiclient.resources.fourwings.report.models.response import (
 async def test_fourwings_create_report_generate_fishing_effort_report_yearly_grouped_by_flag_custom_polygon(
     gfw_client: gfw.Client, dataset: Union[str, FourWingsReportDataset]
 ) -> None:
-    """Test generating yearly fishing effort report by year and custom polygon.
+    """Test generating yearly fishing activity report by year and custom polygon.
 
     This test verifies that the `create_report` method correctly retrieves
-    yearly fishing effort data grouped by flag for a specified custom polygon.
+    yearly fishing activity data grouped by flag for a specified custom polygon.
     It checks the structure and content of the returned data, ensuring it's a
     valid `FourWingsReportResult` and that the data can be converted to a pandas DataFrame.
     """
@@ -114,10 +114,10 @@ async def test_fourwings_create_report_generate_fishing_effort_report_yearly_gro
 async def test_fourwings_create_report_generate_fishing_effort_report_monthly_grouped_by_gear_type_russian_eez(
     gfw_client: gfw.Client,
 ) -> None:
-    """Test generating monthly fishing effort report grouped by gear type in Russian EEZ.
+    """Test generating monthly fishing activity report grouped by gear type in Russian EEZ.
 
     This test verifies that the `create_report` method correctly retrieves
-    monthly fishing effort data grouped by gear type within the Exclusive Economic Zone
+    monthly fishing activity data grouped by gear type within the Exclusive Economic Zone
     (EEZ) of Russia. It checks the structure and content of the returned data,
     ensuring it's a valid `FourWingsReportResult` and that the data can be
     converted to a pandas DataFrame.

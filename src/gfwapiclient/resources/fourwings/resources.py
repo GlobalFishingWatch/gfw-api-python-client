@@ -79,9 +79,9 @@ class FourWingsResource(BaseResource):
         region: Optional[Union[FourWingsReportRegion, Region, Dict[str, Any]]] = None,
         **kwargs: Any,
     ) -> FourWingsReportResult:
-        """Create 4Wings AIS apparent fishing effort report for a specified region.
+        """Create 4Wings AIS apparent fishing activity report for a specified region.
 
-        Generates AIS (Automatic Identification System) apparent fishing effort report
+        Generates AIS (Automatic Identification System) apparent fishing activity report
         from the 4Wings API based on the provided parameters to visualize apparent
         fishing activity based on AIS data.
 
@@ -91,7 +91,7 @@ class FourWingsResource(BaseResource):
         - Fleet management
         - Supply chain visibility
 
-        For more details on the 4Wings AIS apparent fishing effort and its data caveats,
+        For more details on the 4Wings AIS apparent fishing activity and its data caveats,
         please refer to the official Global Fishing Watch API documentation:
 
         See: https://globalfishingwatch.org/our-apis/documentation/docs/v3/4wings#ais-apparent-fishing-activity
@@ -116,7 +116,7 @@ class FourWingsResource(BaseResource):
 
             datasets (Optional[Union[List[FourWingsReportDataset], List[str]]], default=["public-global-fishing-effort:latest"]):
                 Datasets that will be used to create the report. Defaults to `["public-global-fishing-effort:latest"]`.
-                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-fishing-efforte:v5.0"`,
+                Allowed values: `"public-global-fishing-effort:latest"`, `"public-global-fishing-effort:v5.0"`,
                 `"public-global-fishing-effort:v4.0"`.
                 Example: `["public-global-fishing-effort:latest"]`.
 
@@ -145,7 +145,7 @@ class FourWingsResource(BaseResource):
             distance_from_port_km (Optional[int], default=None):
                 Minimum distance from ports and anchorages. Defaults to `None`.
                 Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
-                Applies only to fishing effort dataset.
+                Applies only to fishing activity dataset.
                 Example: `3`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):
@@ -220,7 +220,7 @@ class FourWingsResource(BaseResource):
     ) -> FourWingsReportResult:
         """Create 4Wings AIS vessel presence report for a specified region.
 
-        Generates AIS (Automatic Identification System) apparent fishing effort report
+        Generates AIS (Automatic Identification System) apparent fishing activity report
         from the 4Wings API based on the provided parameters to visualize any vessel
         type presence and movement patterns based on AIS data.
 
@@ -562,7 +562,7 @@ class FourWingsResource(BaseResource):
                 to the latest data improvements.
 
                 Allowed specific version (alias) values:
-                - Fishing effort reports: `"public-global-fishing-effort:v5.0"`, `"public-global-fishing-effort:v4.0"`.
+                - Fishing activity reports: `"public-global-fishing-effort:v5.0"`, `"public-global-fishing-effort:v4.0"`.
                 - Vessel presence reports: `"public-global-presence:v5.0"`, `"public-global-presence:v4.0"`.
                 - SAR presence reports: `"public-global-sar-presence:v5.0"`, `"public-global-sar-presence:v4.0"`.
 
@@ -587,7 +587,7 @@ class FourWingsResource(BaseResource):
             distance_from_port_km (Optional[int], default=None):
                 Minimum distance from ports and anchorages. Defaults to `None`.
                 Allowed values: `0`, `1`, `2`, `3`, `4`, `5` (kilometers).
-                Applies only to fishing effort dataset.
+                Applies only to fishing activity dataset.
                 Example: `3`.
 
             geojson (Optional[Union[GeoJson, str, Path, Dict[str, Any], SupportsGeoJsonInterface]], default=None):

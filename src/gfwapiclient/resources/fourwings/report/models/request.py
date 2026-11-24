@@ -204,15 +204,15 @@ class FourWingsReportDataset(str, Enum):
 
     Attributes:
         FISHING_EFFORT_LATEST (str):
-            The latest version of the public global fishing effort dataset.
+            The latest version of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         FISHING_EFFORT_V5_0 (str):
-            Version 5.0 of the public global fishing effort dataset.
+            Version 5.0 of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         FISHING_EFFORT_V4_0 (str):
-            Version 4.0 of the public global fishing effort dataset.
+            Version 4.0 of the public global fishing activity dataset.
             See data caveats: https://globalfishingwatch.org/our-apis/documentation/docs/v3/general-api-doc/data-caveats#apparent-fishing-activity
 
         PRESENCE_LATEST (str):
@@ -345,7 +345,7 @@ class FourWingsReportParams(RequestParams):
         distance_from_port_km (Optional[int]):
             Minimum distance from ports and anchorages.
             ENUM values: 0, 1, 2, 3, 4, 5 (kilometers).
-            Applies only to fishing effort dataset.
+            Applies only to fishing activity dataset.
             Defaults to `3` kilometers to reduce overestimation near ports.
     """
 

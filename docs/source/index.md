@@ -55,8 +55,8 @@ To learn about how to use `gfw-api-python-client`, check out the following resou
     - [Bulk Download API](usage-guides/bulk-downloads-api)
     - [References Data API](usage-guides/references-data-api)
 - [Workflow Guides](workflow-guides/index)
-    - [Analyze apparent fishing effort in Senegalese EEZ](workflow-guides/workflow-01-analyze-apparent-fishing-effort-senegalese-eez)
-    - [Analyze apparent fishing effort in Argentinian EEZ](workflow-guides/workflow-02-analyze-apparent-fishing-effort-argentinian-eez)
+    - [Analyze apparent fishing activity in Senegalese EEZ](workflow-guides/workflow-01-analyze-apparent-fishing-effort-senegalese-eez)
+    - [Analyze apparent fishing activity in Argentinian EEZ](workflow-guides/workflow-02-analyze-apparent-fishing-effort-argentinian-eez)
     - [Analyze a fleet in Ghanaian EEZ](workflow-guides/workflow-03-analyze-fleet-in-ghanaian-eez)
 
 If you find bugs, need help, or want to contribute, check out the following resources:

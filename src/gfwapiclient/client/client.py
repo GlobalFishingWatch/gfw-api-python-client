@@ -157,7 +157,7 @@ class Client:
         """4Wings data API resource.
 
         Provides access to the 4Wings API resources, which allow users to retrieve
-        reports on AIS apparent fishing effort, AIS vessel presence and SAR vessel detections.
+        reports on AIS apparent fishing activity, AIS vessel presence and SAR vessel detections.
 
         For more details on the 4Wings API, please refer to the official
         Global Fishing Watch API documentation:

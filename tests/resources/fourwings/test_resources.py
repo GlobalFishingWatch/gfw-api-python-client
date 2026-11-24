@@ -31,7 +31,7 @@ async def test_fourwings_resource_create_fishing_effort_report(
     mock_raw_fourwings_report_standard_request_params: Dict[str, Any],
     mock_raw_fourwings_report_standard_response: Callable[[Optional[str]], None],
 ) -> None:
-    """Test `FourWingsResource` create AIS apparent fishing effort report succeeds with valid response."""
+    """Test `FourWingsResource` create AIS apparent fishing activity report succeeds with valid response."""
     mock_raw_fourwings_report_standard_response(
         FourWingsReportDataset.FISHING_EFFORT_LATEST
     )

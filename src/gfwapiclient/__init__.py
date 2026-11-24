@@ -8,7 +8,7 @@ See: https://globalfishingwatch.org/our-apis/documentation/docs/v3
 It enables access to publicly available API resources, and facilitating the retrieval
 of the following APIs data:
 
-- **Map Visualization (4Wings API)**: Access AIS apparent fishing effort,
+- **Map Visualization (4Wings API)**: Access AIS apparent fishing activity,
 AIS vessel presence, and SAR vessel detections between 2017 to ~5 days ago.
 
 - **Vessels API**: Search and retrieve vessel identity based on AIS self-reported data,
